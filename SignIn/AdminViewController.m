@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Momoko Saunders. All rights reserved.
 //
 
-#import "SecondViewController.h"
+#import "BFFAdminViewController.h"
 
-@interface SecondViewController ()
+@interface BFFAdminViewController ()
 
 @end
 
-@implementation SecondViewController
+@implementation BFFAdminViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
