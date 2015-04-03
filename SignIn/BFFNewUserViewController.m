@@ -57,6 +57,7 @@
 - (IBAction)volunteering:(id)sender
 {
     [self _createShopUse];
+    // my thought is that we set volunteer to something too late.
     self.shopUse.volunteer = YES;
     [self showWaiver];
 }

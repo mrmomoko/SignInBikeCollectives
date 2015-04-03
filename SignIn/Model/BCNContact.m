@@ -28,6 +28,33 @@
     return self;
 }
 
+-(void)setMembershipType:(BCNMembershipType)membershipType
+{
+    NSDate *expirationDate;
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    switch (membershipType) {
+        case 0:
+            expirationDate = [cal dateByAddingUnit:NSCalendarUnitMonth value:1 toDate:[NSDate date] options:0];
+            break;
+        case 1:
+            expirationDate = [cal dateByAddingUnit:NSCalendarUnitMonth value:6 toDate:[NSDate date] options:0];
+            break;
+        case 2:
+            expirationDate = [cal dateByAddingUnit:NSCalendarUnitMonth value:12 toDate:[NSDate date] options:0];
+            break;
+        case 3:
+            expirationDate = [cal dateByAddingUnit:NSCalendarUnitMonth value:1000 toDate:[NSDate date] options:0];
+            break;
+        case 4:
+            expirationDate = [NSDate dateWithTimeIntervalSince1970:0];
+            break;
+        default:
+            break;
+    }
+    self.membershipExpiration = expirationDate;
+    _membershipType = membershipType;
+}
+
 -(NSString *)description
 {
     NSString *lastNameInitial;

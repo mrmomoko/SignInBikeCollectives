@@ -1,16 +1,4 @@
 //
-//  BCNContactLog.m
-//  Bike Collective Sign In
-//
-//  Created by Momoko on 4/29/14.
-//  Copyright (c) 2014 Bike Farm. All rights reserved.
-//
-
-//
-//  BCNContactLog.m
-//  Bike Collective Sign In
-//
-//  Created by Momoko on 4/17/14.
 //  Copyright (c) 2014 Bike Farm. All rights reserved.
 //
 
@@ -67,18 +55,21 @@
     [james setLastName:@"Moore"];
     [james setPin:@"1234"];
     [james setVolunteer:YES];
+    james.membershipExpiration = [NSDate dateWithTimeIntervalSinceNow:-10000];
     [[self privateContacts] addObject:james];
     BCNContact *jamesF = [[BCNContact alloc] init];
     [jamesF setFirstName:@"James"];
     [jamesF setLastName:@"Folsom"];
     [jamesF setPin:@"8732"];
     [jamesF setVolunteer:YES];
+    jamesF.membershipExpiration = [NSDate dateWithTimeIntervalSinceNow:1000000];
     [[self privateContacts] addObject:jamesF];
     BCNContact *momoko = [[BCNContact alloc] init];
     [momoko setFirstName:@"momoko"];
     [momoko setLastName:@"Saunders"];
     [momoko setPin:@"5678"];
     [momoko setVolunteer:YES];
+    momoko.membershipExpiration = [NSDate dateWithTimeIntervalSinceNow:1000000];
     [[self privateContacts] addObject:momoko];
 
     return self;

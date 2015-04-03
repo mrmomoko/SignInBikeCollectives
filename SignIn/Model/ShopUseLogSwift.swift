@@ -8,11 +8,15 @@ import Foundation
 public class ShopUseLogSwift: NSObject {
 
     public var shopUseLogMaster : BCNShopUseLog
-    public var shopUseLog = [BCNShopUse]()
+    public var shopUseLog : [BCNShopUse]
+    public var contactLog : [BCNContact]
+//    public var filterType : Filters
+//    public var filterType = Filters.currentShopUse
     
     public override init() {
         shopUseLogMaster = BCNShopUseLog.sharedStore()
-        shopUseLog = shopUseLogMaster.shopUseLog as [BCNShopUse]
+        shopUseLog = shopUseLogMaster.shopUseLog as [ BCNShopUse ]
+        contactLog = BCNContactLog.sharedStore().contactLog as [BCNContact]
     }
     public func createShopUse() -> BCNShopUse {
         // not sure why we need the () after createShopUse
@@ -53,8 +57,40 @@ public class ShopUseLogSwift: NSObject {
 
     }
     
-    public func currentUsers() -> [BCNShopUse] {
-        // who is using the shop?
+    public enum Filters: String {
+        case currentMembers = "Current Members", currentShopUse = "Current Shop Use", currentVolunteers = "Current Volunteers", recentlyExpiredMembers = "Recently Expired Members", allShopUses = "All Shop Uses", allMembers = "All Members", allContacts = "All Contacts", allVolunteers = "All Volunteers", recentShopUseNotAlreadyLoggedIn = "Recent Shop Use Not Already Logged In"
+    }
+
+    public func filterShopLog(incomingFilter: Filters) -> [BCNContact] {
+        // why is shopUselog empty?
+        
+        let toBeFilteredShopUseLog = shopUseLogMaster.shopUseLog as [ BCNShopUse ]
+        let toBeFilteredContactLog = contactLog
+        var filteredShopUseLog = [BCNShopUse]()
+        var filteredContactLog = [BCNContact]()
+        
+        switch incomingFilter {
+        case .currentMembers:
+            filteredContactLog = currentMembers(toBeFilteredContactLog)
+            filteredContactLog = sortContactsByName(filteredContactLog)
+        case .currentShopUse:
+            filteredShopUseLog = currentUsers(toBeFilteredShopUseLog)
+        case .currentVolunteers:
+            filteredShopUseLog = currentUsers(toBeFilteredShopUseLog)
+            filteredContactLog = pullOutVolunteers(filteredShopUseLog)
+            filteredContactLog = removeDuplicateContacts(filteredContactLog)
+        case .allVolunteers:
+            filteredContactLog = pullOutVolunteers(toBeFilteredShopUseLog)
+            filteredContactLog = removeDuplicateContacts(filteredContactLog)
+        default:
+            break
+        }
+        if filteredContactLog.isEmpty {
+            filteredContactLog = pullOutContacts(filteredShopUseLog)
+        }
+        return filteredContactLog
+    }
+    func shopUsesInLast3Months([BCNShopUse]) -> [BCNShopUse] {
         var currentShopUse = [BCNShopUse]()
         for shopUse in shopUseLog {
             let now = NSDate().timeIntervalSince1970
@@ -64,44 +100,129 @@ public class ShopUseLogSwift: NSObject {
         }
         return currentShopUse
     }
-    
-    public func mostRecentUsersWhoAreNotCurrentlyInTheShop() -> [BCNShopUse] {
-        var mostRecentUsers = shopUseLog
-        // show me contacts who have logged in in the last month and are not currently in the shop
-        
-        return mostRecentUsers
-    }
-    
-    public func contactsOfCurrentUsers() -> [BCNContact] {
-        //create an array with the most recent non-duplicateNamed shopUses
-        var currentUsersArray = currentUsers()
-        var contacts = [BCNContact]()
-        for shopUse in currentUsersArray {
-            contacts.append(shopUse.contact)
-        }
-        var listOfContactsWithOutDuplication = [BCNContact]()
-        for contact in contacts {
-            for singleInstancesOfContacts in listOfContactsWithOutDuplication {
-                if contact != singleInstancesOfContacts {
-                    listOfContactsWithOutDuplication.append(contact)
-                }
+    func currentUsers(shopUseArray: [BCNShopUse]) -> [BCNShopUse] {
+        var currentShopUse = [BCNShopUse]()
+        for shopUse in shopUseArray {
+            if shopUse.signOut.timeIntervalSinceNow >= 0 {
+                currentShopUse.append(shopUse)
             }
         }
-
+        return currentShopUse
+    }
+    func currentMembers(contactArray: [BCNContact]) -> [BCNContact] {
+        var currentMembers = [BCNContact]()
+        for contact in contactArray {
+            if contact.membershipExpiration.timeIntervalSinceNow >= 0 {
+                currentMembers.append(contact)
+            }
+        }
+        return currentMembers
+    }
+    func sortContactsByName(contactsArray: [BCNContact]) -> [BCNContact] {
+        var contacts = contactsArray
+        contacts.sort({$0.description < $1.description})
+        return contacts
+    }
+    func pullOutContacts(shopUseArray: [BCNShopUse]) -> [BCNContact] {
+        var contacts = [BCNContact]()
+        for shopUse in shopUseArray {
+            if shopUse.contact.firstName != nil || shopUse.contact.lastName != nil || shopUse.contact.emailAddress != nil {
+                contacts.append(shopUse.contact)
+            }
+        }
+        return contacts
+    }
+    func pullOutVolunteers(shopUseArray: [BCNShopUse]) -> [BCNContact] {
+        var contacts = [BCNContact]()
+        for shopUse in shopUseArray {
+            if shopUse.contact.volunteer == true {
+                contacts.append(shopUse.contact)
+            }
+        }
+        return contacts
+    }
+    
+    func removeDuplicateContacts(contactsArray: [BCNContact]) -> [BCNContact] {
+        var listOfContactsWithOutDuplication = [BCNContact]()
+        var contactToCompare = BCNContact?()
+        for contact in contactsArray {
+            if contactToCompare == nil {
+                listOfContactsWithOutDuplication.append(contact)
+                contactToCompare = contact
+            }
+            if contact != contactToCompare {
+                listOfContactsWithOutDuplication.append(contact)
+            }
+            contactToCompare = contact
+        }
+        
         return listOfContactsWithOutDuplication
     }
-    public func currentShopUsesWithOutDuplication() -> [BCNShopUse] {
-        var currentUsersArray = currentUsers()
-        var copyArray = currentUsers()
-        var finalArray = currentUsers()
-
-        for shopUse in currentUsersArray {
-            for copyShopUse in copyArray {
-                if shopUse.contact == copyShopUse.contact &&  shopUse.timeStamp != copyShopUse.timeStamp {
-//                    finalArray.removeAtIndex(find(copyArray, copyShopUse)!)
-                }
-            }
-        }
-        return finalArray
-    }
+    
+//    public func sortByLastToLogIn() -> [BCNContact] {
+//        var mostRecentUsers = [BCNShopUse]()
+//        var contactsOfMostRecentUsers = [BCNContact]()
+//        var contactToCompare = BCNContact?()
+//        for shopUse in currentUsers() {
+//            if contactToCompare == nil {
+//                mostRecentUsers.append(shopUse)
+//                contactToCompare = shopUse.contact
+//            }
+//            if shopUse.contact != contactToCompare {
+//                mostRecentUsers.append(shopUse)
+//            }
+//            contactToCompare = shopUse.contact
+//        }
+//        for shopUse in mostRecentUsers {
+//            if shopUse.contact.firstName != nil || shopUse.contact.lastName != nil {
+//                contactsOfMostRecentUsers.append(shopUse.contact)
+//            }
+//        }
+//        return contactsOfMostRecentUsers
+//    }
+//    
+//    public func sortContacts(contacts: [BCNContact]) -> [BCNContact] {
+//        var contacts = contacts
+//        var otherContacts = contacts
+//        contacts.sort({ $0.description < $1.description })
+//        otherContacts.sorted({ $0.description > $1.description })
+//        return otherContacts
+//    }
+//    
+//    public func contactsOfCurrentUsers() -> [BCNContact] {
+//        //create an array with the most recent non-duplicateNamed shopUses
+//        var currentUsersArray = currentUsers()
+//        var contacts = [BCNContact]()
+//        for shopUse in currentUsersArray {
+//            if shopUse.contact.firstName != nil || shopUse.contact.lastName != nil {
+//                contacts.append(shopUse.contact)
+//            }
+//        }
+//        contacts = sortContacts(contacts)
+//        var listOfContactsWithOutDuplication = [BCNContact]()
+//        var contactToCompare = BCNContact?()
+//        for contact in contacts {
+//            if contactToCompare == nil {
+//                listOfContactsWithOutDuplication.append(contact)
+//                contactToCompare = contact
+//            }
+//            if contact != contactToCompare {
+//                listOfContactsWithOutDuplication.append(contact)
+//            }
+//            contactToCompare = contact
+//        }
+//
+//        return listOfContactsWithOutDuplication
+//    }
+//    public func contactsOfCurrentMemberships() -> [BCNContact] {
+//        var memberContacts = [BCNContact]()
+//        for contact in contactLog {
+//            //check for current membership
+////            sometime the membershipExpiration is nil because of the bad data we added
+//            if contact.membershipExpiration != nil && contact.membershipExpiration.timeIntervalSinceNow > 0 {
+//                memberContacts.append(contact)
+//            }
+//        }
+//        return memberContacts
+//    }
 }

@@ -7,6 +7,7 @@
 //
 
 #import "BCNShopUse.h"
+#import "BCNContact.h"
 
 @implementation BCNShopUse
 
@@ -23,6 +24,12 @@
     double loggedSeconds = [self.signIn timeIntervalSinceDate:signOut];
     double hours = -loggedSeconds/60/60;
     _numberOfHoursLogged = hours;
+}
+
+-(void)setVolunteer:(BOOL)volunteer
+{
+    _volunteer = volunteer;
+    _contact.volunteer = volunteer;
 }
 
 @end

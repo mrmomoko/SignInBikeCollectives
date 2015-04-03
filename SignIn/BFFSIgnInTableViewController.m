@@ -89,10 +89,7 @@
     else {
         self.contact = [self.filteredLog objectAtIndex:index];
         [self _createShopUse];
-        [[BCNContactLog sharedStore] saveContact:self.contact];
         [self performSegueWithIdentifier:@"Thank You" sender:self];
-
-        //[self.delegate contactWasSaved];
     }
 }
 
