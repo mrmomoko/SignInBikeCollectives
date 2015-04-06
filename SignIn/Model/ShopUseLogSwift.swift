@@ -82,6 +82,11 @@ public class ShopUseLogSwift: NSObject {
         case .allVolunteers:
             filteredContactLog = pullOutVolunteers(toBeFilteredShopUseLog)
             filteredContactLog = removeDuplicateContacts(filteredContactLog)
+        case .recentShopUseNotAlreadyLoggedIn:
+            filteredShopUseLog = shopUsesInLast3Months(toBeFilteredShopUseLog)
+            filteredShopUseLog = pullOutCurrentUsers(filteredShopUseLog)
+            filteredContactLog = pullOutContacts(filteredShopUseLog)
+            filteredContactLog = removeDuplicateContacts(filteredContactLog)
         default:
             break
         }
@@ -90,7 +95,7 @@ public class ShopUseLogSwift: NSObject {
         }
         return filteredContactLog
     }
-    func shopUsesInLast3Months([BCNShopUse]) -> [BCNShopUse] {
+    func shopUsesInLast3Months(shopUseArray: [BCNShopUse]) -> [BCNShopUse] {
         var currentShopUse = [BCNShopUse]()
         for shopUse in shopUseLog {
             let now = NSDate().timeIntervalSince1970
@@ -108,6 +113,15 @@ public class ShopUseLogSwift: NSObject {
             }
         }
         return currentShopUse
+    }
+    func pullOutCurrentUsers(shopUseArray: [BCNShopUse]) -> [BCNShopUse] {
+        var activeUsersMinusThoseAlreadyLoggedIn = [BCNShopUse]()
+        for shopUse in shopUseArray {
+            if shopUse.signOut.timeIntervalSinceNow <= 0 {
+                activeUsersMinusThoseAlreadyLoggedIn.append(shopUse)
+            }
+        }
+        return activeUsersMinusThoseAlreadyLoggedIn
     }
     func currentMembers(contactArray: [BCNContact]) -> [BCNContact] {
         var currentMembers = [BCNContact]()
@@ -158,7 +172,22 @@ public class ShopUseLogSwift: NSObject {
         
         return listOfContactsWithOutDuplication
     }
-    
+    public func activeUsersMinusThoseAlreadyLoggedIn() -> [BCNContact] {
+        return self.filterShopLog(Filters.recentShopUseNotAlreadyLoggedIn)
+    }
+
+    public func findContactsWhichContainString(substring: String) -> [BCNContact] {
+        return self.filterShopLog(Filters.recentShopUseNotAlreadyLoggedIn)
+    }
+//    -(NSArray *)findContactsWhichContainsString:(NSString *)substring
+//    {
+//    NSString *userIdentity = substring;
+//    NSPredicate *filterForShopUse= [NSPredicate predicateWithFormat:@"firstName ==[c] %@ OR lastName ==[c] %@ OR pin ==[c] %@ OR emailAddress ==[c] %@", userIdentity, userIdentity, userIdentity, userIdentity];
+//    NSArray *filteredVolunteerLog =
+//    [[NSArray alloc] initWithArray:[[self privateContacts] filteredArrayUsingPredicate:filterForShopUse]];
+//    return filteredVolunteerLog;
+//    }
+
 //    public func sortByLastToLogIn() -> [BCNContact] {
 //        var mostRecentUsers = [BCNShopUse]()
 //        var contactsOfMostRecentUsers = [BCNContact]()

@@ -17,8 +17,6 @@
 
 @end
 
-// rememeber to change "item" to shopUse
-
 @implementation BCNShopUseLog
 
 + (instancetype)sharedStore
@@ -50,30 +48,31 @@
     if (self) {
         _privateShopUse = [[NSMutableArray alloc] init];
     }
-//    // remove at time of launch
-//    BCNContact *contact = [[BCNContact alloc] init];
-//    BCNShopUse *a = [[BCNShopUse alloc] init];
-//    a.userIdentity = @"momoko";
-//    a.volunteer = YES;
-//    a.signIn = [NSDate dateWithTimeIntervalSinceNow:-60*60*24];
-//    a.signOut = [NSDate dateWithTimeIntervalSinceNow:-60*60*22];
-//    a.contact = contact;
-//    BCNShopUse *b = [[BCNShopUse alloc] init];
-//    b.userIdentity = @"momoko";
-//    b.volunteer = YES;
-//    b.signIn = [NSDate dateWithTimeIntervalSinceNow:-60*60*24];
-//    b.signOut = [NSDate dateWithTimeIntervalSinceNow:-60*60*22];
-//    b.contact = contact;
-//    BCNShopUse *c = [[BCNShopUse alloc] init];
-//    c.userIdentity = @"momoko";
-//    c.volunteer = NO;
-//    c.signIn = [NSDate dateWithTimeIntervalSinceNow:-60*60*24];
-//    c.signOut = [NSDate dateWithTimeIntervalSinceNow:-60*60*22];
-//    c.contact = contact;
-//    [_privateShopUse addObject:a];
-//    [_privateShopUse addObject:b];
-//    [_privateShopUse addObject:c];
-//    //end of code to be removed
+    // remove at time of launch
+    BCNContact *contact = [[BCNContact alloc] init];
+    contact.firstName = @"momoko";
+    BCNShopUse *a = [[BCNShopUse alloc] init];
+    a.userIdentity = @"momoko";
+    a.volunteer = YES;
+    a.signIn = [NSDate dateWithTimeIntervalSinceNow:-60*60*24];
+    a.signOut = [NSDate dateWithTimeIntervalSinceNow:-60*60*22];
+    a.contact = contact;
+    BCNShopUse *b = [[BCNShopUse alloc] init];
+    b.userIdentity = @"momoko";
+    b.volunteer = YES;
+    b.signIn = [NSDate dateWithTimeIntervalSinceNow:-60*60*24];
+    b.signOut = [NSDate dateWithTimeIntervalSinceNow:-60*60*22];
+    b.contact = contact;
+    BCNShopUse *c = [[BCNShopUse alloc] init];
+    c.userIdentity = @"momoko";
+    c.volunteer = NO;
+    c.signIn = [NSDate dateWithTimeIntervalSinceNow:-60*60*24];
+    c.signOut = [NSDate dateWithTimeIntervalSinceNow:-60*60*22];
+    c.contact = contact;
+    [_privateShopUse addObject:a];
+    [_privateShopUse addObject:b];
+    [_privateShopUse addObject:c];
+    //end of code to be removed
     
     return self;
 }

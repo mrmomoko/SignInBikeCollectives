@@ -127,6 +127,7 @@
     //insert item in array at new location
     [[self privateContacts] insertObject:contact atIndex:toIndex];
 }
+
 -(NSArray *)findContactsWhichContainsString:(NSString *)substring
 {
     NSString *userIdentity = substring;
@@ -135,6 +136,7 @@
     [[NSArray alloc] initWithArray:[[self privateContacts] filteredArrayUsingPredicate:filterForShopUse]];
     return filteredVolunteerLog;
 }
+
 - (NSString *)contactsArchivePath
 {
     NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);

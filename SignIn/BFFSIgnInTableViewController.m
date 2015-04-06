@@ -11,7 +11,6 @@
 #import "SignIn-Swift.h"
 
 #import "BCNShopUse.h"
-//#import "BCNShopUseLog.h"
 #import "BCNContact.h"
 #import "BCNContactLog.h"
 
@@ -31,7 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    self.filteredLog = [[[ShopUseLogSwift alloc] init] activeUsersMinusThoseAlreadyLoggedIn];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -97,7 +96,6 @@
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    self.filteredLog = [[BCNContactLog sharedStore] filteredVolunteerLog];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
@@ -120,14 +118,14 @@
 }
 
 #pragma mark - Helper Methods
-- (void)searchAutocompleteEntriesWithSubstring:(NSString *)substring {
-    
+- (void)searchAutocompleteEntriesWithSubstring:(NSString *)substring
+{
     // Put anything that starts with this substring into the autocompleteUrls array
     // The items in this array is what will show up in the table view
-    NSMutableArray *temporaryLog = [[NSMutableArray alloc] init];
-    self.temporaryLog = temporaryLog;
-    BCNContactLog *log = [BCNContactLog sharedStore];
-    self.filteredLog = [log findContactsWhichContainsString:substring];
+    NSArray *log = [[[ShopUseLogSwift alloc] init] activeUsersMinusThoseAlreadyLoggedIn];
+    NSString *userIdentity = substring;
+    NSPredicate *filterForShopUse= [NSPredicate predicateWithFormat:@"firstName ==[c] %@ OR lastName ==[c] %@ OR pin ==[c] %@ OR emailAddress ==[c] %@", userIdentity, userIdentity, userIdentity, userIdentity];
+    self.filteredLog = [[NSArray alloc] initWithArray:[log filteredArrayUsingPredicate:filterForShopUse]];
     [self.tableView reloadData];
 }
 
