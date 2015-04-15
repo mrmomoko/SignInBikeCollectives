@@ -32,7 +32,7 @@ extension BFFAdminViewController {
     func tableView(tableView: UITableView!,
         cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
             var cell = UITableViewCell()
-            cell = listOfPeopleTableView.dequeueReusableCellWithIdentifier("person") as UITableViewCell
+            cell = listOfPeopleTableView.dequeueReusableCellWithIdentifier("person") as! UITableViewCell
             let contact = filteredContacts[indexPath.row]
             cell.textLabel?.text = contact.description()
             cell.backgroundColor = contact.colour

@@ -18,7 +18,7 @@ class BFFThankYouForSigningIn: UIViewController {
         let segueIdentifier = segue.identifier
         
         if segueIdentifier == "User Info" {
-            let vc = segue.destinationViewController as BFFPersonDetailViewController
+            let vc = segue.destinationViewController as! BFFPersonDetailViewController
             vc.contact = contact;
             vc.shopUse = shopUse;
         }

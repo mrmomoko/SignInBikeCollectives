@@ -68,45 +68,45 @@ extension BFFNewMemberViewController {
             var cell = UITableViewCell()
             if tableView == membershipTableView {
                 if indexPath.row == 0 {
-                    cell = membershipTableView.dequeueReusableCellWithIdentifier("month") as UITableViewCell
+                    cell = membershipTableView.dequeueReusableCellWithIdentifier("month") as! UITableViewCell
                     cell.textLabel?.text = "1 Month"
                 }
                 else if indexPath.row == 1 {
-                    cell = membershipTableView.dequeueReusableCellWithIdentifier("6 month") as UITableViewCell
+                    cell = membershipTableView.dequeueReusableCellWithIdentifier("6 month") as! UITableViewCell
                     cell.textLabel?.text = "6 Month"
                 }
                 else if indexPath.row == 2 {
-                    cell = membershipTableView.dequeueReusableCellWithIdentifier("year") as UITableViewCell
+                    cell = membershipTableView.dequeueReusableCellWithIdentifier("year") as! UITableViewCell
                     cell.textLabel?.text = "1 Year"
                 }
                 else {
-                    cell = membershipTableView.dequeueReusableCellWithIdentifier("life") as UITableViewCell
+                    cell = membershipTableView.dequeueReusableCellWithIdentifier("life") as! UITableViewCell
                     cell.textLabel?.text = "Bike Farm for Life"
                 }
             }
             if tableView == colourTableView {
                 if indexPath.row == 0 {
-                    cell = colourTableView.dequeueReusableCellWithIdentifier("Purple Cell") as UITableViewCell
+                    cell = colourTableView.dequeueReusableCellWithIdentifier("Purple Cell") as! UITableViewCell
                     cell.backgroundColor = UIColor.purpleColor()
                 }
                 else if indexPath.row == 1 {
-                    cell = colourTableView.dequeueReusableCellWithIdentifier("Blue Cell") as UITableViewCell
+                    cell = colourTableView.dequeueReusableCellWithIdentifier("Blue Cell") as! UITableViewCell
                     cell.backgroundColor = UIColor.cyanColor()
                 }
                 else if indexPath.row == 2 {
-                    cell = colourTableView.dequeueReusableCellWithIdentifier("Green Cell") as UITableViewCell
+                    cell = colourTableView.dequeueReusableCellWithIdentifier("Green Cell") as! UITableViewCell
                     cell.backgroundColor = UIColor.greenColor()
                 }
                 else if indexPath.row == 3 {
-                    cell = colourTableView.dequeueReusableCellWithIdentifier("Yellow Cell") as UITableViewCell
+                    cell = colourTableView.dequeueReusableCellWithIdentifier("Yellow Cell") as! UITableViewCell
                     cell.backgroundColor = UIColor.yellowColor()
                 }
                 else if indexPath.row == 4 {
-                    cell = colourTableView.dequeueReusableCellWithIdentifier("Orange Cell") as UITableViewCell
+                    cell = colourTableView.dequeueReusableCellWithIdentifier("Orange Cell") as! UITableViewCell
                     cell.backgroundColor = UIColor.orangeColor()
                 }
                 else if indexPath.row == 5 {
-                    cell = colourTableView.dequeueReusableCellWithIdentifier("Red Cell") as UITableViewCell
+                    cell = colourTableView.dequeueReusableCellWithIdentifier("Red Cell") as! UITableViewCell
                     cell.backgroundColor = UIColor.redColor()
                 }
             }

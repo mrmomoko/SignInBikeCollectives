@@ -15,8 +15,8 @@ public class ShopUseLogSwift: NSObject {
     
     public override init() {
         shopUseLogMaster = BCNShopUseLog.sharedStore()
-        shopUseLog = shopUseLogMaster.shopUseLog as [ BCNShopUse ]
-        contactLog = BCNContactLog.sharedStore().contactLog as [BCNContact]
+        shopUseLog = shopUseLogMaster.shopUseLog as! [ BCNShopUse ]
+        contactLog = BCNContactLog.sharedStore().contactLog as! [BCNContact]
     }
     public func createShopUse() -> BCNShopUse {
         // not sure why we need the () after createShopUse
@@ -64,7 +64,7 @@ public class ShopUseLogSwift: NSObject {
     public func filterShopLog(incomingFilter: Filters) -> [BCNContact] {
         // why is shopUselog empty?
         
-        let toBeFilteredShopUseLog = shopUseLogMaster.shopUseLog as [ BCNShopUse ]
+        let toBeFilteredShopUseLog = shopUseLogMaster.shopUseLog as! [ BCNShopUse ]
         let toBeFilteredContactLog = contactLog
         var filteredShopUseLog = [BCNShopUse]()
         var filteredContactLog = [BCNContact]()
