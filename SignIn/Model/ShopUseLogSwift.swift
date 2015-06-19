@@ -4,14 +4,11 @@
 
 import Foundation
 
-// do i really want public? I'm only doing this cause rocketmiles did
 public class ShopUseLogSwift: NSObject {
 
     public var shopUseLogMaster : BCNShopUseLog
     public var shopUseLog : [BCNShopUse]
     public var contactLog : [BCNContact]
-//    public var filterType : Filters
-//    public var filterType = Filters.currentShopUse
     
     public override init() {
         shopUseLogMaster = BCNShopUseLog.sharedStore()
@@ -62,8 +59,6 @@ public class ShopUseLogSwift: NSObject {
     }
 
     public func filterShopLog(incomingFilter: Filters) -> [BCNContact] {
-        // why is shopUselog empty?
-        
         let toBeFilteredShopUseLog = shopUseLogMaster.shopUseLog as! [ BCNShopUse ]
         let toBeFilteredContactLog = contactLog
         var filteredShopUseLog = [BCNShopUse]()

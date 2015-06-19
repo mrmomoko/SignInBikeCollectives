@@ -12,8 +12,21 @@ import UIKit
 class BFFThankYouForSigningIn: UIViewController {
     var contact : BCNContact!
     var shopUse : BCNShopUse!
+    var delegate : BFFThankYouForSigningInDelegate! = nil
     
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        let delay = 10.0 * Double(NSEC_PER_SEC)
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        dispatch_after(time, dispatch_get_main_queue()) {
+            if self.delegate != nil {
+            self.delegate.viewControllerDidTimeOutWithUser(self, user: self.contact)
+            }
+        }
+        
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
         let segueIdentifier = segue.identifier
         
@@ -23,5 +36,10 @@ class BFFThankYouForSigningIn: UIViewController {
             vc.shopUse = shopUse;
         }
     }
-
 }
+
+@objc protocol BFFThankYouForSigningInDelegate {
+    func viewControllerDidTimeOutWithUser(controller:BFFThankYouForSigningIn,user:BCNContact)
+}
+
+

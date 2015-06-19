@@ -60,8 +60,10 @@
     NSString *lastNameInitial;
     if (self.lastName.length > 0) {
         lastNameInitial = [self.lastName substringToIndex:1];
+        return [NSString stringWithFormat: @"%@ %@", self.firstName, lastNameInitial];
+    } else {
+        return self.firstName;
     }
-    return [NSString stringWithFormat: @"%@ %@", self.firstName, lastNameInitial];
 }
 
 @end

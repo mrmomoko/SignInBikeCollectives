@@ -14,7 +14,7 @@
 #import "BCNContact.h"
 #import "BCNContactLog.h"
 
-@interface BFFSignInTableViewController () <UITextFieldDelegate, BFFNewUserViewControllerDelegate>
+@interface BFFSignInTableViewController () <UITextFieldDelegate, BFFNewUserViewControllerDelegate, BFFThankYouForSigningInDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *uniqueIdentifier;
 @property (weak, nonatomic) IBOutlet UIButton *addUser;
@@ -47,6 +47,7 @@
        BFFThankYouForSigningIn *thankYou = (BFFThankYouForSigningIn *)[segue destinationViewController];
         thankYou.contact = self.contact;
         thankYou.shopUse = self.shopUse;
+        thankYou.delegate = self;
     }
 }
 
@@ -167,6 +168,13 @@
 #pragma mark - New User Delegate Methods
 
 -(void)contactWasSaved
+{
+    [self dismissViewControllerAnimated:NO completion:nil];
+}
+
+#pragma mark - ThankYouForSigningIn Delegate Method
+
+-(void)viewControllerDidTimeOutWithUser:(BFFThankYouForSigningIn * __nonnull)controller user:(BCNContact * __nonnull)user
 {
     [self dismissViewControllerAnimated:NO completion:nil];
 }

@@ -162,12 +162,10 @@
 - (NSString *)commaSeporatedStyle;
 {
     NSString *contactString = @"";
-    NSString *commaSeporatedString;
-    NSString *tempString = @"";
+    NSString *commaSeporatedString = @"First name, Last name, Email,\n";
     for (BCNContact *contact in self.contactLog) {
-        contactString = [NSString stringWithFormat:@"%@, %@, %@, ", contact.firstName, contact.lastName, contact.emailAddress];
-        commaSeporatedString = [tempString stringByAppendingString:contactString];
-        tempString = commaSeporatedString;
+        contactString = [NSString stringWithFormat:@"%@, %@, %@,\n", contact.firstName, contact.lastName, contact.emailAddress];
+        commaSeporatedString = [commaSeporatedString stringByAppendingString:contactString];
     }
     
     return commaSeporatedString;

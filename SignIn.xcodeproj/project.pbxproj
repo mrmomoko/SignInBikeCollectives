@@ -25,6 +25,8 @@
 		4C7550EE1A6A1B6800874972 /* BCNShopUse.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7550EC1A6A1B6800874972 /* BCNShopUse.m */; };
 		4C7550F51A6A347E00874972 /* BFFSignInTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7550F41A6A347E00874972 /* BFFSignInTableViewController.m */; };
 		4C7AB00B1A92A9EE001F2BEF /* ShopUseLogSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AB00A1A92A9EE001F2BEF /* ShopUseLogSwiftTests.swift */; };
+		4CB8DE601B34830C0020F6D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB8DE5F1B34830C0020F6D0 /* CoreData.framework */; };
+		4CB8DE631B3483620020F6D0 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4CB8DE611B3483620020F6D0 /* Model.xcdatamodeld */; };
 		4CC9E40C1A785E770004D4BD /* BFFNewMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC9E40B1A785E770004D4BD /* BFFNewMemberViewController.swift */; };
 		4CCB75651A7AF5F20039D10B /* BFFPersonDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCB75641A7AF5F20039D10B /* BFFPersonDetailViewController.swift */; };
 		4CCB75681A7C50F70039D10B /* BFFThankYouForSigningIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCB75671A7C50F70039D10B /* BFFThankYouForSigningIn.swift */; };
@@ -75,6 +77,8 @@
 		4C7AB0061A8D44EA001F2BEF /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		4C7AB0071A929F44001F2BEF /* SignInTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SignInTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		4C7AB00A1A92A9EE001F2BEF /* ShopUseLogSwiftTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopUseLogSwiftTests.swift; sourceTree = "<group>"; };
+		4CB8DE5F1B34830C0020F6D0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		4CB8DE621B3483620020F6D0 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		4CC9E40A1A785E770004D4BD /* SignIn-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SignIn-Bridging-Header.h"; sourceTree = "<group>"; };
 		4CC9E40B1A785E770004D4BD /* BFFNewMemberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BFFNewMemberViewController.swift; path = ../BFFNewMemberViewController.swift; sourceTree = "<group>"; };
 		4CCB75641A7AF5F20039D10B /* BFFPersonDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BFFPersonDetailViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CB8DE601B34830C0020F6D0 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,6 +107,7 @@
 		4C0C13671A5070BF0019A6B2 = {
 			isa = PBXGroup;
 			children = (
+				4CB8DE5F1B34830C0020F6D0 /* CoreData.framework */,
 				4C0C13721A5070BF0019A6B2 /* SignIn */,
 				4C0C138F1A5070C00019A6B2 /* SignInTests */,
 				4C0C13711A5070BF0019A6B2 /* Products */,
@@ -186,6 +192,7 @@
 				4C7550EC1A6A1B6800874972 /* BCNShopUse.m */,
 				4C7550DB1A6A158A00874972 /* BCNShopUseLog.h */,
 				4C7550DC1A6A158A00874972 /* BCNShopUseLog.m */,
+				4CB8DE611B3483620020F6D0 /* Model.xcdatamodeld */,
 				4C7AB0061A8D44EA001F2BEF /* MyPlayground.playground */,
 			);
 			path = Model;
@@ -299,6 +306,7 @@
 				4CCB75651A7AF5F20039D10B /* BFFPersonDetailViewController.swift in Sources */,
 				4CCB75681A7C50F70039D10B /* BFFThankYouForSigningIn.swift in Sources */,
 				4C7550EE1A6A1B6800874972 /* BCNShopUse.m in Sources */,
+				4CB8DE631B3483620020F6D0 /* Model.xcdatamodeld in Sources */,
 				4C7550D71A6A144900874972 /* BFFContactsViewController.m in Sources */,
 				4C7550ED1A6A1B6800874972 /* BCNContact.m in Sources */,
 				4C67F96C1A6A128C0079913C /* BFFMyAccountViewController.m in Sources */,
@@ -522,6 +530,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		4CB8DE611B3483620020F6D0 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				4CB8DE621B3483620020F6D0 /* Model.xcdatamodel */,
+			);
+			currentVersion = 4CB8DE621B3483620020F6D0 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 4C0C13681A5070BF0019A6B2 /* Project object */;
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -142,11 +142,13 @@
             </objects>
             <point key="canvasLocation" x="1502" y="-320"/>
         </scene>
-        <!--Item-->
+        <!--Admin-->
         <scene sceneID="rnQ-kL-VEt">
             <objects>
                 <navigationController id="S9Z-ER-rkd" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="L4I-Tw-cqn"/>
+                    <tabBarItem key="tabBarItem" title="Admin" image="Settings" id="L4I-Tw-cqn">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rqg-QJ-CYs">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -276,7 +278,7 @@
                             <constraint firstItem="Ggp-sV-sW7" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" id="zyg-hq-vcE"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Second" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Admin" image="second" id="cPa-gy-q4n"/>
                     <navigationItem key="navigationItem" id="Jnz-xy-eFw"/>
                     <connections>
                         <outlet property="listOfPeopleTableView" destination="ZSd-vt-D2v" id="qfc-Jk-o9i"/>
@@ -724,11 +726,11 @@
             </objects>
             <point key="canvasLocation" x="2232" y="-320"/>
         </scene>
-        <!--Item-->
+        <!--Sign In-->
         <scene sceneID="v9j-B5-pU3">
             <objects>
                 <navigationController id="x59-mI-g4j" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="rTP-eH-79t"/>
+                    <tabBarItem key="tabBarItem" title="Sign In" image="Sign In" id="rTP-eH-79t"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hLy-T3-9nd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -906,6 +908,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Settings" width="32" height="32"/>
+        <image name="Sign In" width="32" height="32"/>
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
