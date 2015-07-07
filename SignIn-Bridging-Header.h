@@ -6,3 +6,4 @@
 #import "BCNShopUseLog.h"
 #import "BCNContact.h"
 #import "BCNContactLog.h"
+#import "AppDelegate.h"

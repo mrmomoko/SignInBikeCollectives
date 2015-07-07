@@ -10,7 +10,6 @@
 		4C0C13761A5070BF0019A6B2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0C13751A5070BF0019A6B2 /* main.m */; };
 		4C0C13791A5070BF0019A6B2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0C13781A5070BF0019A6B2 /* AppDelegate.m */; };
 		4C0C13821A5070BF0019A6B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C0C13801A5070BF0019A6B2 /* Main.storyboard */; };
-		4C0C13841A5070C00019A6B2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C0C13831A5070C00019A6B2 /* Images.xcassets */; };
 		4C0C13871A5070C00019A6B2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C0C13851A5070C00019A6B2 /* LaunchScreen.xib */; };
 		4C0C13931A5070C00019A6B2 /* SignInTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0C13921A5070C00019A6B2 /* SignInTests.m */; };
 		4C41FD6F1A81819B006456A6 /* BFFAdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C41FD6E1A81819B006456A6 /* BFFAdminViewController.swift */; };
@@ -25,11 +24,17 @@
 		4C7550EE1A6A1B6800874972 /* BCNShopUse.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7550EC1A6A1B6800874972 /* BCNShopUse.m */; };
 		4C7550F51A6A347E00874972 /* BFFSignInTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7550F41A6A347E00874972 /* BFFSignInTableViewController.m */; };
 		4C7AB00B1A92A9EE001F2BEF /* ShopUseLogSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AB00A1A92A9EE001F2BEF /* ShopUseLogSwiftTests.swift */; };
+		4C83FF661B4A42BC00E12761 /* ContactLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C83FF651B4A42BC00E12761 /* ContactLog.swift */; };
 		4CB8DE601B34830C0020F6D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB8DE5F1B34830C0020F6D0 /* CoreData.framework */; };
 		4CB8DE631B3483620020F6D0 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4CB8DE611B3483620020F6D0 /* Model.xcdatamodeld */; };
+		4CC133841B4B2A8D00208250 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CC133831B4B2A8D00208250 /* Images.xcassets */; };
+		4CC133861B4B4BB500208250 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC133851B4B4BB500208250 /* Contact.swift */; };
+		4CC1338A1B4C547800208250 /* ShopUse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC133891B4C547800208250 /* ShopUse.swift */; };
 		4CC9E40C1A785E770004D4BD /* BFFNewMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC9E40B1A785E770004D4BD /* BFFNewMemberViewController.swift */; };
 		4CCB75651A7AF5F20039D10B /* BFFPersonDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCB75641A7AF5F20039D10B /* BFFPersonDetailViewController.swift */; };
 		4CCB75681A7C50F70039D10B /* BFFThankYouForSigningIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCB75671A7C50F70039D10B /* BFFThankYouForSigningIn.swift */; };
+		4CF193A01B44A850001CB464 /* Membership.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1939F1B44A850001CB464 /* Membership.swift */; };
+		4CF193A21B44CB0C001CB464 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF193A11B44CB0C001CB464 /* SignInViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,7 +54,6 @@
 		4C0C13771A5070BF0019A6B2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4C0C13781A5070BF0019A6B2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4C0C13811A5070BF0019A6B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		4C0C13831A5070C00019A6B2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4C0C13861A5070C00019A6B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		4C0C138C1A5070C00019A6B2 /* SignInTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SignInTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C0C13911A5070C00019A6B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -77,12 +81,18 @@
 		4C7AB0061A8D44EA001F2BEF /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		4C7AB0071A929F44001F2BEF /* SignInTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SignInTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		4C7AB00A1A92A9EE001F2BEF /* ShopUseLogSwiftTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopUseLogSwiftTests.swift; sourceTree = "<group>"; };
+		4C83FF651B4A42BC00E12761 /* ContactLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactLog.swift; sourceTree = "<group>"; };
 		4CB8DE5F1B34830C0020F6D0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4CB8DE621B3483620020F6D0 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		4CC133831B4B2A8D00208250 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SignIn/Images.xcassets; sourceTree = SOURCE_ROOT; };
+		4CC133851B4B4BB500208250 /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		4CC133891B4C547800208250 /* ShopUse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopUse.swift; sourceTree = "<group>"; };
 		4CC9E40A1A785E770004D4BD /* SignIn-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SignIn-Bridging-Header.h"; sourceTree = "<group>"; };
 		4CC9E40B1A785E770004D4BD /* BFFNewMemberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BFFNewMemberViewController.swift; path = ../BFFNewMemberViewController.swift; sourceTree = "<group>"; };
 		4CCB75641A7AF5F20039D10B /* BFFPersonDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BFFPersonDetailViewController.swift; sourceTree = "<group>"; };
 		4CCB75671A7C50F70039D10B /* BFFThankYouForSigningIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BFFThankYouForSigningIn.swift; sourceTree = "<group>"; };
+		4CF1939F1B44A850001CB464 /* Membership.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Membership.swift; sourceTree = "<group>"; };
+		4CF193A11B44CB0C001CB464 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +145,7 @@
 				4C41FD6E1A81819B006456A6 /* BFFAdminViewController.swift */,
 				4C7550F31A6A347E00874972 /* BFFSignInTableViewController.h */,
 				4C7550F41A6A347E00874972 /* BFFSignInTableViewController.m */,
+				4CF193A11B44CB0C001CB464 /* SignInViewController.swift */,
 				4C67F9671A6A12320079913C /* BFFNewUserViewController.h */,
 				4C67F9681A6A12320079913C /* BFFNewUserViewController.m */,
 				4C67F96A1A6A128C0079913C /* BFFMyAccountViewController.h */,
@@ -143,7 +154,6 @@
 				4C7550D61A6A144900874972 /* BFFContactsViewController.m */,
 				4C7550D81A6A158A00874972 /* Model */,
 				4C0C13801A5070BF0019A6B2 /* Main.storyboard */,
-				4C0C13831A5070C00019A6B2 /* Images.xcassets */,
 				4C0C13851A5070C00019A6B2 /* LaunchScreen.xib */,
 				4C0C13731A5070BF0019A6B2 /* Supporting Files */,
 			);
@@ -181,7 +191,11 @@
 		4C7550D81A6A158A00874972 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4CC133891B4C547800208250 /* ShopUse.swift */,
 				4C41FD701A831F27006456A6 /* ShopUseLogSwift.swift */,
+				4CC133851B4B4BB500208250 /* Contact.swift */,
+				4C83FF651B4A42BC00E12761 /* ContactLog.swift */,
+				4CF1939F1B44A850001CB464 /* Membership.swift */,
 				4C7550DF1A6A19F300874972 /* BFFOrganization.h */,
 				4C7550E01A6A19F300874972 /* BFFOrganization.m */,
 				4C7550D91A6A158A00874972 /* BCNContactLog.h */,
@@ -193,6 +207,7 @@
 				4C7550DB1A6A158A00874972 /* BCNShopUseLog.h */,
 				4C7550DC1A6A158A00874972 /* BCNShopUseLog.m */,
 				4CB8DE611B3483620020F6D0 /* Model.xcdatamodeld */,
+				4CC133831B4B2A8D00208250 /* Images.xcassets */,
 				4C7AB0061A8D44EA001F2BEF /* MyPlayground.playground */,
 			);
 			path = Model;
@@ -278,9 +293,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CC133841B4B2A8D00208250 /* Images.xcassets in Resources */,
 				4C0C13821A5070BF0019A6B2 /* Main.storyboard in Resources */,
 				4C0C13871A5070C00019A6B2 /* LaunchScreen.xib in Resources */,
-				4C0C13841A5070C00019A6B2 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,15 +313,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C83FF661B4A42BC00E12761 /* ContactLog.swift in Sources */,
 				4CC9E40C1A785E770004D4BD /* BFFNewMemberViewController.swift in Sources */,
 				4C7550E11A6A19F300874972 /* BFFOrganization.m in Sources */,
 				4C41FD711A831F27006456A6 /* ShopUseLogSwift.swift in Sources */,
 				4C7550DE1A6A158A00874972 /* BCNShopUseLog.m in Sources */,
 				4C0C13791A5070BF0019A6B2 /* AppDelegate.m in Sources */,
+				4CC133861B4B4BB500208250 /* Contact.swift in Sources */,
 				4CCB75651A7AF5F20039D10B /* BFFPersonDetailViewController.swift in Sources */,
 				4CCB75681A7C50F70039D10B /* BFFThankYouForSigningIn.swift in Sources */,
+				4CF193A21B44CB0C001CB464 /* SignInViewController.swift in Sources */,
 				4C7550EE1A6A1B6800874972 /* BCNShopUse.m in Sources */,
+				4CF193A01B44A850001CB464 /* Membership.swift in Sources */,
 				4CB8DE631B3483620020F6D0 /* Model.xcdatamodeld in Sources */,
+				4CC1338A1B4C547800208250 /* ShopUse.swift in Sources */,
 				4C7550D71A6A144900874972 /* BFFContactsViewController.m in Sources */,
 				4C7550ED1A6A1B6800874972 /* BCNContact.m in Sources */,
 				4C67F96C1A6A128C0079913C /* BFFMyAccountViewController.m in Sources */,
