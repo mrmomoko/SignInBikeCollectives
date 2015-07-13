@@ -11,12 +11,12 @@ import CoreData
 
 class ContactLog: NSObject {
     
-    var fullContactLog = [NSManagedObject]()
+    var fullContactLog = [Contact]()
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-    var recentUsersWhoAreNotLoggedIn: [NSManagedObject]
+    var recentUsersWhoAreNotLoggedIn: [Contact]
     
     override init() {
-        recentUsersWhoAreNotLoggedIn = [NSManagedObject]()
+        recentUsersWhoAreNotLoggedIn = [Contact]()
 
         let fetchRequest = NSFetchRequest(entityName: "Contact")
 //        let firstSortDescriptor = NSSortDescriptor(key: "shopUse.signOut", ascending: false)
@@ -25,7 +25,7 @@ class ContactLog: NSObject {
         var error: NSError?
         
         let fetchedResults = managedObjectContext.executeFetchRequest(fetchRequest,
-            error: &error) as? [NSManagedObject]
+            error: &error) as? [Contact]
         
         if let results = fetchedResults {
             recentUsersWhoAreNotLoggedIn = results
@@ -35,21 +35,35 @@ class ContactLog: NSObject {
         
         super.init()
         
+    }
+    func createUserWithIdentity(identity:String) -> Contact {
+        
+        let entity = NSEntityDescription.entityForName("Contact", inManagedObjectContext: managedObjectContext)
+        
+        
+        let contact = Contact(entity: entity!,  insertIntoManagedObjectContext: managedObjectContext)
+        
+        //set default behaviour for contact
+        contact.firstName = ""
+        contact.lastName = ""
+        contact.emailAddress = ""
+        contact.pin = ""
+//        contact.membership = Membership.membershipType(rawValue: mem))
+        contact.colour = 6 //white value
 
-//        let fetchRequest = NSFetchRequest(entityName:"Contact")
-
- //       var error: NSError?
-//        
-//        let fetchedResults = managedObjectContext.executeFetchRequest(fetchRequest,
-//            error: &error) as? [NSManagedObject]
-//        
-//        if let results = fetchedResults {
-//            fullContactLog = results
-//        } else {
-//            println("Could not fetch \(error), \(error!.userInfo)")
-//        }
-//    }
+        //save new stuff
+        contact.firstName = identity
+        
+        self.saveContact(contact)
+        
+        return contact
+    }
     
-   
+    func saveContact(contact: Contact) {
+        var error: NSError?
+        if !managedObjectContext.save(&error) {
+            println("Could not save \(error), \(error?.userInfo)")
+        }
+        fullContactLog.append(contact)
     }
 }

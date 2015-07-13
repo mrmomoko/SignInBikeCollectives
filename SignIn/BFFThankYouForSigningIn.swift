@@ -10,8 +10,8 @@ import Foundation
 import UIKit
 
 class BFFThankYouForSigningIn: UIViewController {
-    var contact : BCNContact!
-    var shopUse : BCNShopUse!
+    var contact : Contact!
+    var shopUse : ShopUse!
     var delegate : BFFThankYouForSigningInDelegate! = nil
     
     override func viewDidAppear(animated: Bool) {
@@ -20,7 +20,7 @@ class BFFThankYouForSigningIn: UIViewController {
         let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
         dispatch_after(time, dispatch_get_main_queue()) {
             if self.delegate != nil {
-            self.delegate.viewControllerDidTimeOutWithUser(self, user: self.contact)
+//            self.delegate.viewControllerDidTimeOutWithUser(self, user: self.contact)
             }
         }
         
@@ -32,8 +32,8 @@ class BFFThankYouForSigningIn: UIViewController {
         
         if segueIdentifier == "User Info" {
             let vc = segue.destinationViewController as! BFFPersonDetailViewController
-            vc.contact = contact;
-            vc.shopUse = shopUse;
+//            vc.contact = contact;
+//            vc.shopUse = shopUse;
         }
     }
 }

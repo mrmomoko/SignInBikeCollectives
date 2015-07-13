@@ -7,3 +7,4 @@
 #import "BCNContact.h"
 #import "BCNContactLog.h"
 #import "AppDelegate.h"
+#import "BFFNewUserViewController.h"

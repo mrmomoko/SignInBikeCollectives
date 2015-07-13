@@ -11,7 +11,7 @@ import UIKit
 
 class BFFNewMemberViewController: UIViewController, UITableViewDelegate {
 
-    var contact = BCNContact()
+    var contact = Contact()
 
     @IBOutlet weak var firstName: UITextField!
     @IBOutlet weak var lastName: UITextField!
@@ -28,11 +28,9 @@ class BFFNewMemberViewController: UIViewController, UITableViewDelegate {
         contact.lastName = lastName.text
         contact.emailAddress = email.text
         contact.pin = pin.text
-        contact.okToContact = emailPermission.on
+//        contact.okToContact = emailPermission.on
 
         // then save it
-        var contactLog = BCNContactLog.sharedStore()
-        contactLog.saveContact(contact)
         //create a membership
         // or do I need to? membership is on the contact.
         // i need a method that is "isMembershipActive"
@@ -112,50 +110,50 @@ extension BFFNewMemberViewController {
             }
        return cell
     }
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var selectedMembership = BCNMembershipType.TypeNonMember
-        if tableView == membershipTableView {
-            if indexPath.row == 0 {
-                selectedMembership = BCNMembershipType.TypeMonthly
-            }
-            else if indexPath.row == 1 {
-                selectedMembership = BCNMembershipType.Type6Month
-            }
-            else if indexPath.row == 2 {
-                selectedMembership = BCNMembershipType.TypeYearly
-            }
-            else if indexPath.row == 3 {
-                selectedMembership = BCNMembershipType.TypeLifeTime
-            }
-            self.contact.membershipType = selectedMembership
-        }
-        if tableView == colourTableView {
-            if indexPath.row == 0 {
-                contact.colour = UIColor.purpleColor()
-                view.backgroundColor = UIColor.purpleColor()
-            }
-            else if indexPath.row == 1 {
-                contact.colour = UIColor.cyanColor()
-                view.backgroundColor = UIColor.cyanColor()
-            }
-            else if indexPath.row == 2 {
-                contact.colour = UIColor.greenColor()
-                view.backgroundColor = UIColor.greenColor()
-            }
-            else if indexPath.row == 3 {
-                contact.colour = UIColor.yellowColor()
-                view.backgroundColor = UIColor.yellowColor()
-            }
-            else if indexPath.row == 4 {
-                contact.colour = UIColor.orangeColor()
-                view.backgroundColor = UIColor.orangeColor()
-            }
-            else if indexPath.row == 5 {
-                contact.colour = UIColor.redColor()
-                view.backgroundColor = UIColor.redColor()
-             
-            }
-        }
-    }
+//    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        var selectedMembership = BCNMembershipType.TypeNonMember
+//        if tableView == membershipTableView {
+//            if indexPath.row == 0 {
+//                selectedMembership = BCNMembershipType.TypeMonthly
+//            }
+//            else if indexPath.row == 1 {
+//                selectedMembership = BCNMembershipType.Type6Month
+//            }
+//            else if indexPath.row == 2 {
+//                selectedMembership = BCNMembershipType.TypeYearly
+//            }
+//            else if indexPath.row == 3 {
+//                selectedMembership = BCNMembershipType.TypeLifeTime
+//            }
+//            self.contact.membershipType = selectedMembership
+//        }
+//        if tableView == colourTableView {
+//            if indexPath.row == 0 {
+//                contact.colour = UIColor.purpleColor()
+//                view.backgroundColor = UIColor.purpleColor()
+//            }
+//            else if indexPath.row == 1 {
+//                contact.colour = UIColor.cyanColor()
+//                view.backgroundColor = UIColor.cyanColor()
+//            }
+//            else if indexPath.row == 2 {
+//                contact.colour = UIColor.greenColor()
+//                view.backgroundColor = UIColor.greenColor()
+//            }
+//            else if indexPath.row == 3 {
+//                contact.colour = UIColor.yellowColor()
+//                view.backgroundColor = UIColor.yellowColor()
+//            }
+//            else if indexPath.row == 4 {
+//                contact.colour = UIColor.orangeColor()
+//                view.backgroundColor = UIColor.orangeColor()
+//            }
+//            else if indexPath.row == 5 {
+//                contact.colour = UIColor.redColor()
+//                view.backgroundColor = UIColor.redColor()
+//             
+//            }
+//        }
+//    }
 }
 
