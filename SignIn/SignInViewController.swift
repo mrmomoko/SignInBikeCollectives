@@ -42,6 +42,13 @@ class SignInViewController: UIViewController, UITableViewDataSource {
                 vc.contact = loggedInUser
             }
         }
+        if segue.identifier == "Thank You" {
+            let vc = segue.destinationViewController as! BFFThankYouForSigningIn
+            if let identity = uniqueIdentifier?.text! {
+                let loggedInUser = contactLog.createUserWithIdentity(identity)
+                vc.contact = loggedInUser
+            }
+        }
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredLog.count + 1
@@ -56,6 +63,7 @@ class SignInViewController: UIViewController, UITableViewDataSource {
         } else {
             let contact = filteredLog[indexPath.row - 1]
             cell.textLabel!.text = contact.valueForKey("firstName") as? String
+            cell.backgroundColor = contactLog.colourOfContact(contact)
         }
         return cell
     }
@@ -68,4 +76,13 @@ class SignInViewController: UIViewController, UITableViewDataSource {
             performSegueWithIdentifier("Thank You", sender: self)
         }
     }
+    func showAlertForCompleteForm () {
+        let alert = UIAlertController(title: "Are you here to work on your bike or volunteer", message: nil, preferredStyle: .Alert)
+        let shopUse = UIAlertAction(title: "Use the Shop", style: .Default, handler: nil)
+        alert.addAction(shopUse)
+        let volunteer = UIAlertAction(title: "Volunteer", style: .Default, handler: nil)
+        alert.addAction(volunteer)
+        presentViewController(alert, animated: true, completion: {self.performSegueWithIdentifier("Thank You", sender: self)})
+    }
+
 }

@@ -11,7 +11,7 @@ import CoreData
 
 class Contact: NSManagedObject {
 
-    @NSManaged var colour: NSNumber
+    @NSManaged var colour: String
     @NSManaged var emailAddress: String
     @NSManaged var firstName: String
     @NSManaged var lastName: String

@@ -32,7 +32,7 @@ class BFFThankYouForSigningIn: UIViewController {
         
         if segueIdentifier == "User Info" {
             let vc = segue.destinationViewController as! BFFPersonDetailViewController
-//            vc.contact = contact;
+            vc.contact = contact;
 //            vc.shopUse = shopUse;
         }
     }

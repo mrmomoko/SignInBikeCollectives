@@ -30,12 +30,11 @@
 		4CC133841B4B2A8D00208250 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CC133831B4B2A8D00208250 /* Images.xcassets */; };
 		4CC133861B4B4BB500208250 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC133851B4B4BB500208250 /* Contact.swift */; };
 		4CC1338A1B4C547800208250 /* ShopUse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC133891B4C547800208250 /* ShopUse.swift */; };
-		4CC1338C1B4DC61600208250 /* NewUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC1338B1B4DC61600208250 /* NewUserViewController.swift */; };
-		4CC9E40C1A785E770004D4BD /* BFFNewMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC9E40B1A785E770004D4BD /* BFFNewMemberViewController.swift */; };
 		4CCB75651A7AF5F20039D10B /* BFFPersonDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCB75641A7AF5F20039D10B /* BFFPersonDetailViewController.swift */; };
 		4CCB75681A7C50F70039D10B /* BFFThankYouForSigningIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCB75671A7C50F70039D10B /* BFFThankYouForSigningIn.swift */; };
-		4CF193A01B44A850001CB464 /* Membership.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF1939F1B44A850001CB464 /* Membership.swift */; };
 		4CF193A21B44CB0C001CB464 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF193A11B44CB0C001CB464 /* SignInViewController.swift */; };
+		4CF657841B55D85A00FBB45E /* NewUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF657831B55D85A00FBB45E /* NewUserViewController.swift */; };
+		4CF657861B55F0FB00FBB45E /* Membership.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF657851B55F0FB00FBB45E /* Membership.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,13 +87,12 @@
 		4CC133831B4B2A8D00208250 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SignIn/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		4CC133851B4B4BB500208250 /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		4CC133891B4C547800208250 /* ShopUse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopUse.swift; sourceTree = "<group>"; };
-		4CC1338B1B4DC61600208250 /* NewUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewUserViewController.swift; path = ../NewUserViewController.swift; sourceTree = "<group>"; };
 		4CC9E40A1A785E770004D4BD /* SignIn-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SignIn-Bridging-Header.h"; sourceTree = "<group>"; };
-		4CC9E40B1A785E770004D4BD /* BFFNewMemberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BFFNewMemberViewController.swift; path = ../BFFNewMemberViewController.swift; sourceTree = "<group>"; };
 		4CCB75641A7AF5F20039D10B /* BFFPersonDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BFFPersonDetailViewController.swift; sourceTree = "<group>"; };
 		4CCB75671A7C50F70039D10B /* BFFThankYouForSigningIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BFFThankYouForSigningIn.swift; sourceTree = "<group>"; };
-		4CF1939F1B44A850001CB464 /* Membership.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Membership.swift; sourceTree = "<group>"; };
 		4CF193A11B44CB0C001CB464 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		4CF657831B55D85A00FBB45E /* NewUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUserViewController.swift; sourceTree = "<group>"; };
+		4CF657851B55F0FB00FBB45E /* Membership.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Membership.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,9 +139,8 @@
 			children = (
 				4C0C13771A5070BF0019A6B2 /* AppDelegate.h */,
 				4C0C13781A5070BF0019A6B2 /* AppDelegate.m */,
-				4CC9E40B1A785E770004D4BD /* BFFNewMemberViewController.swift */,
+				4CF657831B55D85A00FBB45E /* NewUserViewController.swift */,
 				4CCB75641A7AF5F20039D10B /* BFFPersonDetailViewController.swift */,
-				4CC1338B1B4DC61600208250 /* NewUserViewController.swift */,
 				4CCB75671A7C50F70039D10B /* BFFThankYouForSigningIn.swift */,
 				4C41FD6E1A81819B006456A6 /* BFFAdminViewController.swift */,
 				4C7550F31A6A347E00874972 /* BFFSignInTableViewController.h */,
@@ -194,11 +191,11 @@
 		4C7550D81A6A158A00874972 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4CF657851B55F0FB00FBB45E /* Membership.swift */,
 				4CC133891B4C547800208250 /* ShopUse.swift */,
 				4C41FD701A831F27006456A6 /* ShopUseLogSwift.swift */,
 				4CC133851B4B4BB500208250 /* Contact.swift */,
 				4C83FF651B4A42BC00E12761 /* ContactLog.swift */,
-				4CF1939F1B44A850001CB464 /* Membership.swift */,
 				4C7550DF1A6A19F300874972 /* BFFOrganization.h */,
 				4C7550E01A6A19F300874972 /* BFFOrganization.m */,
 				4C7550D91A6A158A00874972 /* BCNContactLog.h */,
@@ -317,7 +314,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C83FF661B4A42BC00E12761 /* ContactLog.swift in Sources */,
-				4CC9E40C1A785E770004D4BD /* BFFNewMemberViewController.swift in Sources */,
 				4C7550E11A6A19F300874972 /* BFFOrganization.m in Sources */,
 				4C41FD711A831F27006456A6 /* ShopUseLogSwift.swift in Sources */,
 				4C7550DE1A6A158A00874972 /* BCNShopUseLog.m in Sources */,
@@ -326,9 +322,8 @@
 				4CCB75651A7AF5F20039D10B /* BFFPersonDetailViewController.swift in Sources */,
 				4CCB75681A7C50F70039D10B /* BFFThankYouForSigningIn.swift in Sources */,
 				4CF193A21B44CB0C001CB464 /* SignInViewController.swift in Sources */,
-				4CC1338C1B4DC61600208250 /* NewUserViewController.swift in Sources */,
+				4CF657861B55F0FB00FBB45E /* Membership.swift in Sources */,
 				4C7550EE1A6A1B6800874972 /* BCNShopUse.m in Sources */,
-				4CF193A01B44A850001CB464 /* Membership.swift in Sources */,
 				4CB8DE631B3483620020F6D0 /* Model.xcdatamodeld in Sources */,
 				4CC1338A1B4C547800208250 /* ShopUse.swift in Sources */,
 				4C7550D71A6A144900874972 /* BFFContactsViewController.m in Sources */,
@@ -339,6 +334,7 @@
 				4C7550F51A6A347E00874972 /* BFFSignInTableViewController.m in Sources */,
 				4C67F9691A6A12320079913C /* BFFNewUserViewController.m in Sources */,
 				4C41FD6F1A81819B006456A6 /* BFFAdminViewController.swift in Sources */,
+				4CF657841B55D85A00FBB45E /* NewUserViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

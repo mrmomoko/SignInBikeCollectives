@@ -33,7 +33,7 @@ struct People {
     }
 }
 
-let momoko = People(name: "Momoko", lastName: "S", pin: 1234, emailAddress: " ", membershipType: .oneMonth)
+var momoko = People(name: "Momoko", lastName: "S", pin: 1234, emailAddress: " ", membershipType: .oneMonth)
 let evan = People(name: "Evan", lastName: "DeLaney", pin: 2345, emailAddress: " ", membershipType: .noMembership)
 let alan = People(name: "Alan", lastName: " ", pin: 3456, emailAddress: " ", membershipType: .noMembership)
 
@@ -69,3 +69,12 @@ let aSortedLog = log.sorted({$0.name < $1.name})
 sortedLog
 otherSortedLog
 aSortedLog
+
+momoko.membershipType.rawValue
+momoko.membershipType.hashValue
+
+momoko.membershipType.rawValue
+
+
+
+

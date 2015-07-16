@@ -11,7 +11,7 @@ import UIKit
 
 class BFFPersonDetailViewController: UIViewController {
    
-    var contact : BCNContact!
+    var contact : Contact?
     var shopUse : BCNShopUse!
     
     @IBOutlet weak var firstNameLastInitial: UILabel!
@@ -21,21 +21,26 @@ class BFFPersonDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        firstNameLastInitial.text = contact.description()
-        if contact.membershipExpiration != nil {
-            membership.text = contact.membershipExpiration.description
+        firstNameLastInitial.text = contact?.firstName
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateStyle = .MediumStyle
+        let membershipExpiration = contact?.membershipExpiration
+        if membershipExpiration?.timeIntervalSinceNow > 0 {
+            membership.text = dateFormatter.stringFromDate(membershipExpiration!)
         } else {
-            contact.membershipType = BCNMembershipType.TypeNonMember
+            membership.text = "Membership does not exist or is expired."
+            //println(membershipExpiration?.timeIntervalSinceNow)
         }
+        //membership.text = contact!.membership.membershipType.rawValue
         if shopUse == nil {
             //why would shopUse be nil? oh, if going from the admin page...
             // also, should i really be creating a shop use, does each time i create one, add it to the log, or do i have to do that manually?
             var shopUse = BCNShopUse()
-            shopUse.userIdentity = contact.firstName
+            shopUse.userIdentity = contact?.firstName
         }
         let log = ShopUseLogSwift()
-        totalHours.text = log.hoursOfShopUseByContact(contact, uniqueIdentifier:shopUse.userIdentity)
-        totalHoursVolunteering.text = log.hoursOfVolunteeringByContact(contact, uniqueIdentifier: shopUse.userIdentity)
+//        totalHours.text = log.hoursOfShopUseByContact(contact, uniqueIdentifier:shopUse.userIdentity)
+//        totalHoursVolunteering.text = log.hoursOfVolunteeringByContact(contact, uniqueIdentifier: shopUse.userIdentity)
     }
 }
 
