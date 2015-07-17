@@ -34,21 +34,16 @@ class NewUserViewController: UIViewController, UITableViewDelegate {
         // save contact
         contactLog.saveContact(contact!)
         
-        // show volutneer question
+        // show waiver
         showWaiverForCompleteForm()
-            
-        // show
         }
     }
-
-}
-
-extension NewUserViewController {
-    // why do I override?
     override func viewDidLoad() {
         super.viewDidLoad()
     
         firstName.text = contact!.firstName
+        lastName.text = contact!.lastName
+        email.text = contact!.emailAddress
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Thank You" {

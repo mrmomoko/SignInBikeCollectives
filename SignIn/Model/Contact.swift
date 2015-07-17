@@ -18,6 +18,6 @@ class Contact: NSManagedObject {
     @NSManaged var membershipExpiration: NSDate
     @NSManaged var pin: String
     @NSManaged var membership: Membership
-    @NSManaged var shopUse: BCNShopUse
+    @NSManaged var shopUse: Set<ShopUse>
 }
 

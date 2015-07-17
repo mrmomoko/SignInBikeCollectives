@@ -11,6 +11,8 @@ import Foundation
 class SignInViewController: UIViewController, UITableViewDataSource {
 
     let contactLog = ContactLog()
+    let shopUseLog = ShopUseLog()
+    var currentContact = Contact()
     var filteredLog: [Contact]
     
     @IBOutlet weak var uniqueIdentifier: UITextField!
@@ -24,30 +26,28 @@ class SignInViewController: UIViewController, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "\"Sign In\""
+        title = "Sign In"
         mostRecentSignIns.registerClass(UITableViewCell.self,
             forCellReuseIdentifier: "Cell")
     }
     
     override func viewDidAppear(animated: Bool) {
-        filteredLog = contactLog.recentUsersWhoAreNotLoggedIn
+        filteredLog = ContactLog().recentUsersWhoAreNotLoggedIn
         mostRecentSignIns.reloadData()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+
         if segue.identifier == "New User Segue" {
             let vc = segue.destinationViewController as! NewUserViewController
-            if let identity = uniqueIdentifier?.text! {
-                let loggedInUser = contactLog.createUserWithIdentity(identity)
+            let loggedInUser = contactLog.createUserWithIdentity(uniqueIdentifier.text)
+            shopUseLog.createShopUseWithContact(loggedInUser)
                 vc.contact = loggedInUser
-            }
         }
         if segue.identifier == "Thank You" {
             let vc = segue.destinationViewController as! BFFThankYouForSigningIn
-            if let identity = uniqueIdentifier?.text! {
-                let loggedInUser = contactLog.createUserWithIdentity(identity)
-                vc.contact = loggedInUser
-            }
+            vc.contact = currentContact
+            shopUseLog.createShopUseWithContact(currentContact)
         }
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -69,10 +69,10 @@ class SignInViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView( tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        switch indexPath.row {
-        case 0:
+        if indexPath.row == 0 {
             performSegueWithIdentifier("New User Segue", sender: self)
-        default:
+        } else {
+            currentContact = filteredLog[indexPath.row - 1]
             performSegueWithIdentifier("Thank You", sender: self)
         }
     }

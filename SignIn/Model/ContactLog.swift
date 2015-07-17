@@ -75,7 +75,7 @@ class ContactLog: NSObject {
         //save new stuff
         contact.firstName = identity
         
-        self.saveContact(contact)
+ //       self.saveContact(contact)
         
         return contact
     }

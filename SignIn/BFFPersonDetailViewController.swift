@@ -38,7 +38,7 @@ class BFFPersonDetailViewController: UIViewController {
             var shopUse = BCNShopUse()
             shopUse.userIdentity = contact?.firstName
         }
-        let log = ShopUseLogSwift()
+        let log = ShopUseLog()
 //        totalHours.text = log.hoursOfShopUseByContact(contact, uniqueIdentifier:shopUse.userIdentity)
 //        totalHoursVolunteering.text = log.hoursOfVolunteeringByContact(contact, uniqueIdentifier: shopUse.userIdentity)
     }

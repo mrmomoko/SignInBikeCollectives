@@ -11,19 +11,20 @@ import UIKit
 
 class BFFThankYouForSigningIn: UIViewController {
     var contact : Contact!
-    var shopUse : ShopUse!
-    var delegate : BFFThankYouForSigningInDelegate! = nil
+    @IBOutlet weak var nameLabel: UILabel!
+    
+//    override func init(coder aDecoder: NSCoder) {
+//        nameLabel.text = contact!.firstName
+//    }
     
     override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+        nameLabel.text = contact.firstName
         let delay = 10.0 * Double(NSEC_PER_SEC)
         let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
         dispatch_after(time, dispatch_get_main_queue()) {
-            if self.delegate != nil {
-//            self.delegate.viewControllerDidTimeOutWithUser(self, user: self.contact)
-            }
+            println("something happened")
         }
-        
+        super.viewDidAppear(animated)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
@@ -33,13 +34,9 @@ class BFFThankYouForSigningIn: UIViewController {
         if segueIdentifier == "User Info" {
             let vc = segue.destinationViewController as! BFFPersonDetailViewController
             vc.contact = contact;
-//            vc.shopUse = shopUse;
+
         }
     }
-}
-
-@objc protocol BFFThankYouForSigningInDelegate {
-    func viewControllerDidTimeOutWithUser(controller:BFFThankYouForSigningIn,user:BCNContact)
 }
 
 

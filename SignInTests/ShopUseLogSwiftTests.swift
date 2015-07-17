@@ -8,7 +8,7 @@ import SignIn
 
 class ShopUseLogSwiftTests: XCTestCase {
     
-    var shopUse = ShopUseLogSwift().shopUseLogMaster
+//    var shopUse = ShopUseLogSwift().shopUseLogMaster
 
     override func setUp() {
         super.setUp()

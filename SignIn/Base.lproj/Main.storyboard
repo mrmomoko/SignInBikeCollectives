@@ -183,7 +183,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JZ0-wl-4eB">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JZ0-wl-4eB">
                                 <rect key="frame" x="251" y="238" width="99" height="30"/>
                                 <state key="normal" title="See Your stats">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -192,9 +192,18 @@
                                     <segue destination="g4w-5m-Doc" kind="show" identifier="User Info" id="hpO-SX-Wzc"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Thank You for Signing In!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2oS-Zk-Ktn">
-                                <rect key="frame" x="204" y="135" width="192" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank You for Signing In!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2oS-Zk-Ktn">
+                                <rect key="frame" x="143" y="137" width="314" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="314" id="IcP-VY-3n5"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSc-9V-aBB">
+                                <rect key="frame" x="204" y="55" width="192" height="49"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -202,11 +211,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="2oS-Zk-Ktn" secondAttribute="centerX" id="3xQ-qN-uIu"/>
-                            <constraint firstItem="2oS-Zk-Ktn" firstAttribute="top" secondItem="GOa-u6-jEf" secondAttribute="bottom" constant="71" id="Aib-Q7-hB2"/>
+                            <constraint firstItem="2oS-Zk-Ktn" firstAttribute="top" secondItem="GOa-u6-jEf" secondAttribute="bottom" constant="137" id="Aib-Q7-hB2"/>
                             <constraint firstAttribute="centerX" secondItem="JZ0-wl-4eB" secondAttribute="centerX" id="JpM-gF-AG6"/>
-                            <constraint firstItem="JZ0-wl-4eB" firstAttribute="top" secondItem="2oS-Zk-Ktn" secondAttribute="bottom" constant="82" id="R6K-eW-fJn"/>
+                            <constraint firstItem="JZ0-wl-4eB" firstAttribute="top" secondItem="2oS-Zk-Ktn" secondAttribute="bottom" constant="80" id="R6K-eW-fJn"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="nameLabel" destination="VSc-9V-aBB" id="DaM-GI-Bap"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rm9-xP-oS6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
