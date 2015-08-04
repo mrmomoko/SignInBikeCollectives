@@ -75,6 +75,31 @@ momoko.membershipType.hashValue
 
 momoko.membershipType.rawValue
 
+let contacts = ["Alec", "Annalee", "Anya", "Arlie", "Blaine", "Burton", "Cecily", "Deana",
+    "Deirdre", "Elena", "Elodia", "Francina", "Freeman", "Herbert", "Iona", "Jacqui", "Janna",
+    "Jeneva", "Karla", "Katelin", "Kathaleen", "Kesha", "Kum", "Lilliam", "Mardell", "Margarite",
+    "Margy", "Marta", "Maryalice", "Mellisa", "Melodee", "Miguel", "Millie", "Myong", "Nakita",
+    "Nancy", "Nicolasa", "Noemi", "Roselia", "Sade", "Shalonda", "Shawn", "Siobhan", "Tanna",
+    "Thu", "Vanesa", "Vonnie", "Wade", "Winford", "Xiomara"]
+
+let prefix = "ma"
+
+// Case sensitive
+contacts.filter({ contact in
+    contact.hasPrefix(prefix)
+})
+// has 0 matches
+
+// Case unsensitive
+let lowercasePrefix = prefix.lowercaseString
+
+contacts.filter({ contact in
+    contact.lowercaseString.hasPrefix(lowercasePrefix)
+})
+// has 5 matches -> "Mardell", "Margarite", "Margy", "Marta", "Maryalice"
+
+
+
 
 
 

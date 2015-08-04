@@ -54,6 +54,15 @@ class SignInViewController: UIViewController, UITableViewDataSource {
             shopUseLog.createShopUseWithContact(currentContact)
         }
     }
+    
+    override func presentViewController(viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?) {
+    
+    }
+    
+    override func performSegueWithIdentifier(identifier: String?, sender: AnyObject?) {
+
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredLog.count + 1
     }
@@ -80,7 +89,15 @@ class SignInViewController: UIViewController, UITableViewDataSource {
             performSegueWithIdentifier("Thank You", sender: self)
         }
     }
-    func showAlertForCompleteForm() {
+    
+    func textField( textField: UITextField,
+        shouldChangeCharactersInRange range: NSRange,
+        replacementString string: String) -> Bool {
+        _delayWithClosure {self._searchContactsWithSubstring(string)}
+        return true
+    }
+    
+    func showAlertForCompleteForm () {
         let alert = UIAlertController(title: "Are you here to work on your bike or volunteer", message: nil, preferredStyle: .Alert)
         let shopUse = UIAlertAction(title: "Use the Shop", style: .Default, handler: nil)
         alert.addAction(shopUse)
@@ -89,8 +106,28 @@ class SignInViewController: UIViewController, UITableViewDataSource {
         presentViewController(alert, animated: true, completion: {self.performSegueWithIdentifier("Thank You", sender: self)})
     }
     
-    func _thankYouVCDidTimeOut() {
-        
-        
+    func _delayWithClosure(closure: () -> ()) {
+        closure()
+    }
+    
+    func _searchContactsWithSubstring(substring: String) {
+        let prefix = uniqueIdentifier.text.lowercaseString
+        var fullContactList = contactLog.recentUsersWhoAreNotLoggedIn
+//        let predicate = NSPredicate(format: "firstName ==[c] %@ OR lastName ==[c] %@ OR pin ==[c] %@ OR emailAddress ==[c] %@", subtring, uniqueIdentifier.text, uniqueIdentifier.text, uniqueIdentifier.text)
+        let predicate = NSPredicate(format:"firstName BEGINSWITH %@", prefix)
+        filteredLog = (fullContactList as NSArray).filteredArrayUsingPredicate(predicate) as! [Contact]
+        mostRecentSignIns.reloadData()
     }
 }
+
+//#pragma mark - Helper Methods
+//- (void)searchAutocompleteEntriesWithSubstring:(NSString *)substring
+//{
+//    // Put anything that starts with this substring into the autocompleteUrls array
+//    // The items in this array is what will show up in the table view
+//    NSArray *log = [[[ShopUseLogSwift alloc] init] activeUsersMinusThoseAlreadyLoggedIn];
+//    NSString *userIdentity = substring;
+//    NSPredicate *filterForShopUse= [NSPredicate predicateWithFormat:@"firstName ==[c] %@ OR lastName ==[c] %@ OR pin ==[c] %@ OR emailAddress ==[c] %@", userIdentity, userIdentity, userIdentity, userIdentity];
+//    self.filteredLog = [[NSArray alloc] initWithArray:[log filteredArrayUsingPredicate:filterForShopUse]];
+//    [self.tableView reloadData];
+//}
