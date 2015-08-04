@@ -22,7 +22,6 @@
 		4C7550E11A6A19F300874972 /* BFFOrganization.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7550E01A6A19F300874972 /* BFFOrganization.m */; };
 		4C7550ED1A6A1B6800874972 /* BCNContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7550EB1A6A1B6800874972 /* BCNContact.m */; };
 		4C7550EE1A6A1B6800874972 /* BCNShopUse.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7550EC1A6A1B6800874972 /* BCNShopUse.m */; };
-		4C7550F51A6A347E00874972 /* BFFSignInTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7550F41A6A347E00874972 /* BFFSignInTableViewController.m */; };
 		4C7AB00B1A92A9EE001F2BEF /* ShopUseLogSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AB00A1A92A9EE001F2BEF /* ShopUseLogSwiftTests.swift */; };
 		4C83FF661B4A42BC00E12761 /* ContactLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C83FF651B4A42BC00E12761 /* ContactLog.swift */; };
 		4CB8DE601B34830C0020F6D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB8DE5F1B34830C0020F6D0 /* CoreData.framework */; };
@@ -76,8 +75,6 @@
 		4C7550EA1A6A1B6800874972 /* BCNShopUse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCNShopUse.h; sourceTree = "<group>"; };
 		4C7550EB1A6A1B6800874972 /* BCNContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCNContact.m; sourceTree = "<group>"; };
 		4C7550EC1A6A1B6800874972 /* BCNShopUse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCNShopUse.m; sourceTree = "<group>"; };
-		4C7550F31A6A347E00874972 /* BFFSignInTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFFSignInTableViewController.h; sourceTree = "<group>"; };
-		4C7550F41A6A347E00874972 /* BFFSignInTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFFSignInTableViewController.m; sourceTree = "<group>"; };
 		4C7AB0061A8D44EA001F2BEF /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		4C7AB0071A929F44001F2BEF /* SignInTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SignInTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		4C7AB00A1A92A9EE001F2BEF /* ShopUseLogSwiftTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopUseLogSwiftTests.swift; sourceTree = "<group>"; };
@@ -143,8 +140,6 @@
 				4CCB75641A7AF5F20039D10B /* BFFPersonDetailViewController.swift */,
 				4CCB75671A7C50F70039D10B /* BFFThankYouForSigningIn.swift */,
 				4C41FD6E1A81819B006456A6 /* BFFAdminViewController.swift */,
-				4C7550F31A6A347E00874972 /* BFFSignInTableViewController.h */,
-				4C7550F41A6A347E00874972 /* BFFSignInTableViewController.m */,
 				4CF193A11B44CB0C001CB464 /* SignInViewController.swift */,
 				4C67F9671A6A12320079913C /* BFFNewUserViewController.h */,
 				4C67F9681A6A12320079913C /* BFFNewUserViewController.m */,
@@ -331,7 +326,6 @@
 				4C67F96C1A6A128C0079913C /* BFFMyAccountViewController.m in Sources */,
 				4C7550DD1A6A158A00874972 /* BCNContactLog.m in Sources */,
 				4C0C13761A5070BF0019A6B2 /* main.m in Sources */,
-				4C7550F51A6A347E00874972 /* BFFSignInTableViewController.m in Sources */,
 				4C67F9691A6A12320079913C /* BFFNewUserViewController.m in Sources */,
 				4C41FD6F1A81819B006456A6 /* BFFAdminViewController.swift in Sources */,
 				4CF657841B55D85A00FBB45E /* NewUserViewController.swift in Sources */,

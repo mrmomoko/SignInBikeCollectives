@@ -201,8 +201,11 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSc-9V-aBB">
-                                <rect key="frame" x="204" y="55" width="192" height="49"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSc-9V-aBB">
+                                <rect key="frame" x="150" y="55" width="300" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="Sfk-KJ-m3v"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -212,8 +215,10 @@
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="2oS-Zk-Ktn" secondAttribute="centerX" id="3xQ-qN-uIu"/>
                             <constraint firstItem="2oS-Zk-Ktn" firstAttribute="top" secondItem="GOa-u6-jEf" secondAttribute="bottom" constant="137" id="Aib-Q7-hB2"/>
+                            <constraint firstAttribute="centerX" secondItem="VSc-9V-aBB" secondAttribute="centerX" id="HM3-qp-byY"/>
                             <constraint firstAttribute="centerX" secondItem="JZ0-wl-4eB" secondAttribute="centerX" id="JpM-gF-AG6"/>
                             <constraint firstItem="JZ0-wl-4eB" firstAttribute="top" secondItem="2oS-Zk-Ktn" secondAttribute="bottom" constant="80" id="R6K-eW-fJn"/>
+                            <constraint firstItem="VSc-9V-aBB" firstAttribute="top" secondItem="GOa-u6-jEf" secondAttribute="bottom" constant="55" id="r7O-kz-oIh"/>
                         </constraints>
                     </view>
                     <connections>

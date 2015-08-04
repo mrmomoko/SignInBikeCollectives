@@ -8,11 +8,13 @@
 
 import Foundation
 
+//let timedOutNotificationKey = "com.bikecollectives.timedOutNotificationKey"
+
 class SignInViewController: UIViewController, UITableViewDataSource {
 
     let contactLog = ContactLog()
     let shopUseLog = ShopUseLog()
-    var currentContact = Contact()
+    var currentContact : Contact!
     var filteredLog: [Contact]
     
     @IBOutlet weak var uniqueIdentifier: UITextField!
@@ -29,6 +31,8 @@ class SignInViewController: UIViewController, UITableViewDataSource {
         title = "Sign In"
         mostRecentSignIns.registerClass(UITableViewCell.self,
             forCellReuseIdentifier: "Cell")
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "_thankYouVCDidTimeOut", name: timedOutNotificationKey, object: nil)
+
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -76,7 +80,7 @@ class SignInViewController: UIViewController, UITableViewDataSource {
             performSegueWithIdentifier("Thank You", sender: self)
         }
     }
-    func showAlertForCompleteForm () {
+    func showAlertForCompleteForm() {
         let alert = UIAlertController(title: "Are you here to work on your bike or volunteer", message: nil, preferredStyle: .Alert)
         let shopUse = UIAlertAction(title: "Use the Shop", style: .Default, handler: nil)
         alert.addAction(shopUse)
@@ -84,5 +88,9 @@ class SignInViewController: UIViewController, UITableViewDataSource {
         alert.addAction(volunteer)
         presentViewController(alert, animated: true, completion: {self.performSegueWithIdentifier("Thank You", sender: self)})
     }
-
+    
+    func _thankYouVCDidTimeOut() {
+        
+        
+    }
 }
