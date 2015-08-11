@@ -9,6 +9,7 @@
         <attribute name="pin" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="membership" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Membership" inverseName="contact" inverseEntity="Membership" syncable="YES"/>
         <relationship name="shopUse" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ShopUse" inverseName="contact" inverseEntity="ShopUse" syncable="YES"/>
+        <relationship name="volunteer" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="VolunteerUse" inverseName="contact" inverseEntity="VolunteerUse" syncable="YES"/>
     </entity>
     <entity name="Membership" representedClassName="SignIn.Membership" syncable="YES">
         <attribute name="membershipExpiration" optional="YES" attributeType="Date" syncable="YES"/>
@@ -18,13 +19,17 @@
     <entity name="ShopUse" representedClassName="SignIn.ShopUse" syncable="YES">
         <attribute name="signIn" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="signOut" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="userIdentity" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="volunteer" optional="YES" attributeType="Boolean" syncable="YES"/>
         <relationship name="contact" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Contact" inverseName="shopUse" inverseEntity="Contact" syncable="YES"/>
     </entity>
+    <entity name="VolunteerUse" representedClassName="PRODUCT_MODULE_NAME.VolunteerUse" syncable="YES">
+        <attribute name="signIn" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="signOut" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="contact" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Contact" inverseName="volunteer" inverseEntity="Contact" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="Contact" positionX="-387" positionY="-139" width="128" height="163"/>
-        <element name="Membership" positionX="-128" positionY="-171" width="128" height="88"/>
-        <element name="ShopUse" positionX="-173" positionY="152" width="128" height="120"/>
+        <element name="Membership" positionX="-243" positionY="-297" width="128" height="88"/>
+        <element name="VolunteerUse" positionX="-209" positionY="87" width="128" height="88"/>
+        <element name="ShopUse" positionX="-209" positionY="-126" width="128" height="88"/>
+        <element name="Contact" positionX="-396" positionY="-162" width="128" height="178"/>
     </elements>
 </model>

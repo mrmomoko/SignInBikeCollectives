@@ -12,7 +12,7 @@ import UIKit
 class BFFPersonDetailViewController: UIViewController {
    
     var contact : Contact?
-    var shopUse : BCNShopUse!
+    var shopUse : ShopUse?
     
     @IBOutlet weak var firstNameLastInitial: UILabel!
     @IBOutlet weak var membership: UILabel!
@@ -29,18 +29,9 @@ class BFFPersonDetailViewController: UIViewController {
             membership.text = dateFormatter.stringFromDate(membershipExpiration!)
         } else {
             membership.text = "Membership does not exist or is expired."
-            //println(membershipExpiration?.timeIntervalSinceNow)
         }
-        //membership.text = contact!.membership.membershipType.rawValue
-        if shopUse == nil {
-            //why would shopUse be nil? oh, if going from the admin page...
-            // also, should i really be creating a shop use, does each time i create one, add it to the log, or do i have to do that manually?
-            var shopUse = BCNShopUse()
-            shopUse.userIdentity = contact?.firstName
-        }
-        let log = ShopUseLog()
-//        totalHours.text = log.hoursOfShopUseByContact(contact, uniqueIdentifier:shopUse.userIdentity)
-//        totalHoursVolunteering.text = log.hoursOfVolunteeringByContact(contact, uniqueIdentifier: shopUse.userIdentity)
+        totalHours.text = ShopUseLog().numberOfShopUseHoursLoggedByContact(contact!)
+        
     }
 }
 

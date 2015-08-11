@@ -7,7 +7,6 @@ import Foundation
 class ShopUseLog: NSObject {
 
     var shopUseLog = [ShopUse]()
-//    let contactLog = ContactLog()
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
     override init(){
@@ -31,16 +30,29 @@ class ShopUseLog: NSObject {
         
         let shopUse = ShopUse(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
 
-        shopUse.timestamp = NSDate()
+        shopUse.signIn = NSDate()
+        shopUse.signOut = NSDate().dateByAddingTimeInterval(2*60*60)
 
-        var setOfShopUses = contact.shopUse
-        setOfShopUses.insert(shopUse)
+        shopUse.contact = contact
+        ContactLog().saveContact(contact)
 
         var error: NSError?
         if !managedObjectContext.save(&error) {
             println("Could not save \(error), \(error?.userInfo)")
         }
-        shopUseLog.append(shopUse)
+    }
+    
+    func numberOfVolunteerHoursLoggedByContact(contact: Contact) {
+    }
+
+    func numberOfShopUseHoursLoggedByContact(contact: Contact) -> String {
+        var totalHoursOfShopUse = 0
+        for shopUseHour in contact.shopUse {
+            var shopUseInstance = Int(shopUseHour.signIn.timeIntervalSinceNow - shopUseHour.signOut.timeIntervalSinceNow)
+            shopUseInstance = shopUseInstance/60/60 * -1
+            totalHoursOfShopUse = totalHoursOfShopUse + shopUseInstance
+        }
+        return String(totalHoursOfShopUse)
     }
 }
 

@@ -1,9 +1,9 @@
 //
 //  Contact.swift
-//  
+//  SignIn
 //
-//  Created by Momoko Saunders on 7/6/15.
-//
+//  Created by Momoko Saunders on 8/11/15.
+//  Copyright (c) 2015 Momoko Saunders. All rights reserved.
 //
 
 import Foundation
@@ -17,7 +17,8 @@ class Contact: NSManagedObject {
     @NSManaged var lastName: String
     @NSManaged var membershipExpiration: NSDate
     @NSManaged var pin: String
+    @NSManaged var shopUse: NSSet
+    @NSManaged var volunteer: NSSet
     @NSManaged var membership: Membership
-    @NSManaged var shopUse: Set<ShopUse>
-}
 
+}

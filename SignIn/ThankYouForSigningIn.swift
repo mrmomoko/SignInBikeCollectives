@@ -13,10 +13,6 @@ class BFFThankYouForSigningIn: UIViewController {
     var contact : Contact!
     @IBOutlet weak var nameLabel: UILabel!
     
-//    override func init(coder aDecoder: NSCoder) {
-//        nameLabel.text = contact!.firstName
-//    }
-    
     override func viewDidLoad() {
         nameLabel.text = contact.firstName
         super.viewDidLoad()
@@ -26,7 +22,9 @@ class BFFThankYouForSigningIn: UIViewController {
         let delay = 10.0 * Double(NSEC_PER_SEC)
         let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
         dispatch_after(time, dispatch_get_main_queue()) {
+            if self.navigationController?.topViewController == self {
             self.navigationController!.popToRootViewControllerAnimated(true)
+            }
         }
         super.viewDidAppear(animated)
     }
@@ -38,7 +36,6 @@ class BFFThankYouForSigningIn: UIViewController {
         if segueIdentifier == "User Info" {
             let vc = segue.destinationViewController as! BFFPersonDetailViewController
             vc.contact = contact;
-
         }
     }
 }

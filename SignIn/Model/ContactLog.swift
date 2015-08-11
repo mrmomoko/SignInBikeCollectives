@@ -11,7 +11,6 @@ import CoreData
 
 class ContactLog: NSObject {
     
-    var fullContactLog = [Contact]()
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     var recentUsersWhoAreNotLoggedIn: [Contact]
     
@@ -41,7 +40,7 @@ class ContactLog: NSObject {
         let fetchRequest = NSFetchRequest(entityName: "Contact")
 //        let firstSortDescriptor = NSSortDescriptor(key: "shopUse.signOut", ascending: false)
 //        fetchRequest.sortDescriptors = [firstSortDescriptor]
-        
+//        
         var error: NSError?
         
         let fetchedResults = managedObjectContext.executeFetchRequest(fetchRequest,
@@ -74,8 +73,7 @@ class ContactLog: NSObject {
 
         //save new stuff
         contact.firstName = identity
-        
- //       self.saveContact(contact)
+//       self.saveContact(contact)
         
         return contact
     }
@@ -85,7 +83,6 @@ class ContactLog: NSObject {
         if !managedObjectContext.save(&error) {
             println("Could not save \(error), \(error?.userInfo)")
         }
-        fullContactLog.append(contact)
     }
     
 //    func membershipDescriptionOfContact(contact: Contact) -> String {

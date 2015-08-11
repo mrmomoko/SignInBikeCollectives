@@ -1,5 +1,5 @@
 //
-//  Membership.swift
+//  VolunteerUse.swift
 //  SignIn
 //
 //  Created by Momoko Saunders on 8/11/15.
@@ -9,10 +9,10 @@
 import Foundation
 import CoreData
 
-class Membership: NSManagedObject {
+class VolunteerUse: NSManagedObject {
 
-    @NSManaged var membershipExpiration: NSDate
-    @NSManaged var membershipType: String
+    @NSManaged var signIn: NSDate
+    @NSManaged var signOut: NSDate
     @NSManaged var contact: Contact
 
 }
