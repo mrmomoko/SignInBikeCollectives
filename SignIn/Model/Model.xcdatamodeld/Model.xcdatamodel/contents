@@ -21,15 +21,15 @@
         <attribute name="signOut" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="contact" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Contact" inverseName="shopUse" inverseEntity="Contact" syncable="YES"/>
     </entity>
-    <entity name="VolunteerUse" representedClassName="PRODUCT_MODULE_NAME.VolunteerUse" syncable="YES">
+    <entity name="VolunteerUse" representedClassName="SignIn.VolunteerUse" syncable="YES">
         <attribute name="signIn" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="signOut" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="contact" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Contact" inverseName="volunteer" inverseEntity="Contact" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Membership" positionX="-243" positionY="-297" width="128" height="88"/>
-        <element name="VolunteerUse" positionX="-209" positionY="87" width="128" height="88"/>
-        <element name="ShopUse" positionX="-209" positionY="-126" width="128" height="88"/>
         <element name="Contact" positionX="-396" positionY="-162" width="128" height="178"/>
+        <element name="Membership" positionX="-243" positionY="-297" width="128" height="88"/>
+        <element name="ShopUse" positionX="-209" positionY="-126" width="128" height="88"/>
+        <element name="VolunteerUse" positionX="-209" positionY="87" width="128" height="88"/>
     </elements>
 </model>

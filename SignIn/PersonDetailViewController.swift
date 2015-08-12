@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class BFFPersonDetailViewController: UIViewController {
+class PersonDetailViewController: UIViewController {
    
     var contact : Contact?
     var shopUse : ShopUse?
@@ -19,6 +19,12 @@ class BFFPersonDetailViewController: UIViewController {
     @IBOutlet weak var totalHours: UILabel!
     @IBOutlet weak var totalHoursVolunteering: UILabel!
 
+    @IBOutlet weak var thisMonthShopUse: UILabel!
+    @IBOutlet weak var thisMonthVolunteering: UILabel!
+    
+    @IBOutlet weak var lastMonthShopUse: UILabel!
+    @IBOutlet weak var lastMonthVolunteering: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         firstNameLastInitial.text = contact?.firstName
@@ -31,8 +37,11 @@ class BFFPersonDetailViewController: UIViewController {
             membership.text = "Membership does not exist or is expired."
         }
         totalHours.text = ShopUseLog().numberOfShopUseHoursLoggedByContact(contact!)
-        
+        totalHoursVolunteering.text = ShopUseLog().numberOfVolunteerHoursLoggedByContact(contact!)
+        thisMonthShopUse.text = "no data yet"
+        thisMonthVolunteering.text = "no data yet"
+        lastMonthShopUse.text = "no data yet"
+        lastMonthVolunteering.text = "no data yet"
     }
 }
 
-// Mark: extension view life cycle

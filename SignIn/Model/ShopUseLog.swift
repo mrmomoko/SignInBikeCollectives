@@ -43,9 +43,9 @@ class ShopUseLog: NSObject {
     }
     
     func createVolunteerUseWithContact(contact: Contact) {
-        let entity = NSEntityDescription.entityForName("Volunteer", inManagedObjectContext: managedObjectContext)
+        let entity = NSEntityDescription.entityForName("VolunteerUse", inManagedObjectContext: managedObjectContext)
         
-        let volunteerUse = ShopUse(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
+        let volunteerUse = VolunteerUse(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
         
         volunteerUse.signIn = NSDate()
         volunteerUse.signOut = NSDate().dateByAddingTimeInterval(2*60*60)

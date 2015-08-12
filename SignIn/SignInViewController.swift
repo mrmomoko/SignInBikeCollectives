@@ -65,7 +65,7 @@ class SignInViewController: UIViewController, UITableViewDataSource {
         } else {
             let contact = filteredLog[indexPath.row - 1]
             cell.textLabel!.text = contact.valueForKey("firstName") as? String
-            cell.detailTextLabel!.text = shopUseLog.numberOfShopUseHoursLoggedByContact(contact)
+ //           cell.detailTextLabel!.text = contact.membership.description
             cell.backgroundColor = contactLog.colourOfContact(contact)
         }
         return cell
