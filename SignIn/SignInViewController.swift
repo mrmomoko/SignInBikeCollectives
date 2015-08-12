@@ -20,7 +20,7 @@ class SignInViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var mostRecentSignIns: UITableView!
     
     required init(coder aDecoder: NSCoder) {
-        filteredLog = contactLog.recentUsersWhoAreNotLoggedIn
+        filteredLog = contactLog.recentContactsWhoAreNotLoggedIn()
         super.init(coder: aDecoder)
     }
     
@@ -32,7 +32,7 @@ class SignInViewController: UIViewController, UITableViewDataSource {
     }
     
     override func viewDidAppear(animated: Bool) {
-        filteredLog = ContactLog().recentUsersWhoAreNotLoggedIn
+        filteredLog = ContactLog().recentContactsWhoAreNotLoggedIn()
         mostRecentSignIns.reloadData()
     }
     
@@ -97,7 +97,7 @@ class SignInViewController: UIViewController, UITableViewDataSource {
         let shopUse = UIAlertAction(title: "Use the Shop", style: .Default, handler: { alert in self.shopUseLog.createShopUseWithContact(self.currentContact)
         })
         alert.addAction(shopUse)
-        let volunteer = UIAlertAction(title: "Volunteer", style: .Default, handler: { alert in self.shopUseLog.createShopUseWithContact(self.currentContact)
+        let volunteer = UIAlertAction(title: "Volunteer", style: .Default, handler: { alert in self.shopUseLog.createVolunteerUseWithContact(self.currentContact)
         })
         alert.addAction(volunteer)
         presentViewController(alert, animated: true, completion: nil)
@@ -105,10 +105,9 @@ class SignInViewController: UIViewController, UITableViewDataSource {
     
     func _searchContactsWithSubstring(substring: String) {
         let prefix = uniqueIdentifier.text.lowercaseString
-        var fullContactList = contactLog.recentUsersWhoAreNotLoggedIn
-        let predicate = NSPredicate(format: "firstName ==[c] %@ OR lastName ==[c] %@ OR pin ==[c] %@ OR emailAddress ==[c] %@", uniqueIdentifier.text, uniqueIdentifier.text, uniqueIdentifier.text, uniqueIdentifier.text)
-//        let predicate = NSPredicate(format:"firstName BEGINSWITH %@", substring)
-//        let predicate = NSPredicate(format:"firstName = 'Momoko'")
+        var fullContactList = contactLog.allContacts
+//        let predicate = NSPredicate(format: "firstName BEGINSWITH %@ OR lastName BEGINSWITH %@ OR pin BEGINSWITH %@ OR emailAddress BEGINSWITH %@", prefix, prefix, prefix, prefix)
+        let predicate = NSPredicate(format:"firstName BEGINSWITH %@", prefix)
         
         filteredLog = (fullContactList as NSArray).filteredArrayUsingPredicate(predicate) as! [Contact]
         if filteredLog == [] {filteredLog = fullContactList}

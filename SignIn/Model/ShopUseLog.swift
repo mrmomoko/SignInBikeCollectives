@@ -42,7 +42,31 @@ class ShopUseLog: NSObject {
         }
     }
     
-    func numberOfVolunteerHoursLoggedByContact(contact: Contact) {
+    func createVolunteerUseWithContact(contact: Contact) {
+        let entity = NSEntityDescription.entityForName("Volunteer", inManagedObjectContext: managedObjectContext)
+        
+        let volunteerUse = ShopUse(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
+        
+        volunteerUse.signIn = NSDate()
+        volunteerUse.signOut = NSDate().dateByAddingTimeInterval(2*60*60)
+        
+        volunteerUse.contact = contact
+        ContactLog().saveContact(contact)
+        
+        var error: NSError?
+        if !managedObjectContext.save(&error) {
+            println("Could not save \(error), \(error?.userInfo)")
+        }
+    }
+
+    func numberOfVolunteerHoursLoggedByContact(contact: Contact) -> String {
+        var totalHoursOfShopUse = 0
+        for volunteerUseHour in contact.volunteer {
+            var shopUseInstance = Int(volunteerUseHour.signIn.timeIntervalSinceNow - volunteerUseHour.signOut.timeIntervalSinceNow)
+            shopUseInstance = shopUseInstance/60/60 * -1
+            totalHoursOfShopUse = totalHoursOfShopUse + shopUseInstance
+        }
+        return String(totalHoursOfShopUse)
     }
 
     func numberOfShopUseHoursLoggedByContact(contact: Contact) -> String {
@@ -53,6 +77,45 @@ class ShopUseLog: NSObject {
             totalHoursOfShopUse = totalHoursOfShopUse + shopUseInstance
         }
         return String(totalHoursOfShopUse)
+    }
+    
+    func shopUsesForContact(contact: Contact) -> [ShopUse] {
+        let shopUseSet = contact.shopUse
+        var shopUseArray = [ShopUse]()
+        for use in shopUseSet {
+            shopUseArray.append(use as! ShopUse)
+        }
+        return shopUseArray
+    }
+    
+    func recentShopUses() -> [ShopUse] {
+        var recentUses = [ShopUse]()
+        for use in shopUseLog {
+            if use.signOut.timeIntervalSinceNow > -60*60 {
+                recentUses.append(use)
+            }
+        }
+        return recentUses
+    }
+    func recentShopUsesNotLoggedIn() -> [ShopUse] {
+        var recentUsesNotLoggedIn = [ShopUse]()
+        let recentUser = recentShopUses()
+        for use in recentUser {
+            if use.signOut.timeIntervalSinceNow < 0 {
+                recentUsesNotLoggedIn.append(use)
+            }
+        }
+        return recentUsesNotLoggedIn
+    }
+
+    func shopUsersLoggedIn() -> [ShopUse] {
+        var usersLoggedIn = [ShopUse]()
+        for use in shopUseLog {
+            if use.signOut.timeIntervalSinceNow > -60*60 {
+                usersLoggedIn.append(use)
+            }
+        }
+        return usersLoggedIn
     }
 }
 

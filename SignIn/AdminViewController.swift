@@ -12,6 +12,7 @@ class AdminViewController: UIViewController, UITableViewDelegate  {
     @IBOutlet weak var listOfPeopleTableView: UITableView!
 
     @IBAction func whosInTheShop(sender: AnyObject) {
+        filteredContacts = contactLog.usersWhoAreLoggedIn()
         listOfPeopleTableView.reloadData()
     }
     @IBAction func allVolunteers(sender: AnyObject) {

@@ -12,7 +12,8 @@ import CoreData
 class ContactLog: NSObject {
     
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-    var recentUsersWhoAreNotLoggedIn: [Contact]
+    var allContacts : [Contact]
+    var allShopUses : [ShopUse]
     
     enum MembershipType: String {
         case
@@ -35,26 +36,40 @@ class ContactLog: NSObject {
     }
 
     override init() {
-        recentUsersWhoAreNotLoggedIn = [Contact]()
+        allContacts = [Contact]()
+        allShopUses = ShopUseLog().shopUseLog
 
         let fetchRequest = NSFetchRequest(entityName: "Contact")
-//        let firstSortDescriptor = NSSortDescriptor(key: "shopUse.signOut", ascending: false)
-//        fetchRequest.sortDescriptors = [firstSortDescriptor]
-//        
         var error: NSError?
         
         let fetchedResults = managedObjectContext.executeFetchRequest(fetchRequest,
             error: &error) as? [Contact]
         
         if let results = fetchedResults {
-            recentUsersWhoAreNotLoggedIn = results
+            allContacts = results
         } else {
             println("Could not fetch \(error), \(error!.userInfo)")
         }
         
         super.init()
-        
     }
+    
+    func recentContactsWhoAreNotLoggedIn() -> [Contact] {
+        var recentUsers = [Contact]()
+        let recentShopLog = ShopUseLog().recentShopUsesNotLoggedIn()
+        recentUsers = pullOutContacts(recentShopLog)
+        recentUsers = removeDuplicateContacts(recentUsers)
+        return recentUsers
+    }
+    func usersWhoAreLoggedIn() -> [Contact] {
+        var loggedInUsers = [Contact]()
+        let shopUsesForLoggedInContacts = ShopUseLog().shopUsersLoggedIn()
+        loggedInUsers = pullOutContacts(shopUsesForLoggedInContacts)
+        loggedInUsers = removeDuplicateContacts(loggedInUsers)
+        return loggedInUsers
+
+    }
+    
     func createUserWithIdentity(identity:String) -> Contact {
         
         let entity = NSEntityDescription.entityForName("Contact", inManagedObjectContext: managedObjectContext)
@@ -132,4 +147,32 @@ class ContactLog: NSObject {
     func editColourForContact(contact: Contact, colour: Colour) {
         contact.colour = colour.rawValue
     }
+
+    func removeDuplicateContacts(contactsArray: [Contact]) -> [Contact] {
+        var listOfContactsWithOutDuplication = [Contact]()
+        var contactToCompare = Contact?()
+        for contact in contactsArray {
+            if contactToCompare == nil {
+                listOfContactsWithOutDuplication.append(contact)
+                contactToCompare = contact
+            }
+            if contact != contactToCompare {
+                listOfContactsWithOutDuplication.append(contact)
+            }
+            contactToCompare = contact
+        }
+
+        return listOfContactsWithOutDuplication
+    }
+        func pullOutContacts(shopUseArray: [ShopUse]) -> [Contact] {
+            var contacts = [Contact]()
+            for shopUse in shopUseArray {
+                if shopUse.contact.firstName != "" || shopUse.contact.lastName != "" || shopUse.contact.emailAddress != "" {
+                    contacts.append(shopUse.contact)
+                }
+            }
+            return contacts
+        }
+
+
 }
