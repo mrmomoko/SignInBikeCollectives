@@ -54,22 +54,6 @@ class ContactLog: NSObject {
         super.init()
     }
     
-    func recentContactsWhoAreNotLoggedIn() -> [Contact] {
-        var recentUsers = [Contact]()
-        let recentShopLog = ShopUseLog().recentShopUsesNotLoggedIn()
-        recentUsers = pullOutContacts(recentShopLog)
-        recentUsers = removeDuplicateContacts(recentUsers)
-        return recentUsers
-    }
-    func usersWhoAreLoggedIn() -> [Contact] {
-        var loggedInUsers = [Contact]()
-        let shopUsesForLoggedInContacts = ShopUseLog().shopUsersLoggedIn()
-        loggedInUsers = pullOutContacts(shopUsesForLoggedInContacts)
-        loggedInUsers = removeDuplicateContacts(loggedInUsers)
-        return loggedInUsers
-
-    }
-    
     func createUserWithIdentity(identity:String) -> Contact {
         
         let entity = NSEntityDescription.entityForName("Contact", inManagedObjectContext: managedObjectContext)
@@ -78,17 +62,11 @@ class ContactLog: NSObject {
         let contact = Contact(entity: entity!,  insertIntoManagedObjectContext: managedObjectContext)
         
         //set default behaviour for contact
-        contact.firstName = ""
+        contact.firstName = identity
         contact.lastName = ""
         contact.emailAddress = ""
         contact.pin = ""
-        contact.membershipExpiration = NSDate()
-        contact.membership.membershipType = MembershipType.NonMember.rawValue
         contact.colour = Colour.clear.rawValue //white value
-
-        //save new stuff
-        contact.firstName = identity
-//       self.saveContact(contact)
         
         return contact
     }
@@ -100,13 +78,25 @@ class ContactLog: NSObject {
         }
     }
     
-//    func membershipDescriptionOfContact(contact: Contact) -> String {
-//        return contact.membership.membershipType
-//    }
-    
-    func editMembershipTypeForContact(contact: Contact, type: MembershipType) {
-        contact.membership.membershipType = type.rawValue
+    // Contact Filters - possibly a category
+
+    func recentContactsWhoAreNotLoggedIn() -> [Contact] {
+        var recentUsers = [Contact]()
+        let recentShopLog = ShopUseLog().recentShopUsesNotLoggedIn()
+        recentUsers = pullOutContacts(recentShopLog)
+        recentUsers = removeDuplicateContacts(recentUsers)
+        return recentUsers
     }
+    
+    func usersWhoAreLoggedIn() -> [Contact] {
+        var loggedInUsers = [Contact]()
+        let shopUsesForLoggedInContacts = ShopUseLog().shopUsersLoggedIn()
+        loggedInUsers = pullOutContacts(shopUsesForLoggedInContacts)
+        loggedInUsers = removeDuplicateContacts(loggedInUsers)
+        return loggedInUsers
+    }
+
+    // Helpers for turning color strings to UIColors
     
     func colourOfContact(contactInQuestion: Contact) -> UIColor {
         let colour = enumColourValueWithStringColour(contactInQuestion.colour)
@@ -147,7 +137,19 @@ class ContactLog: NSObject {
     func editColourForContact(contact: Contact, colour: Colour) {
         contact.colour = colour.rawValue
     }
+    
+//    // helpers for membership
+//    func membershipDescriptionOfContact(contact: Contact) -> String {
+//        return contact.membership.membershipType
+//    }
+//    
+//    func editMembershipTypeForContact(contact: Contact, type: MembershipType) {
+//        contact.membership.membershipType = type.rawValue
+//    }
 
+
+    // helpers for filters
+    
     func removeDuplicateContacts(contactsArray: [Contact]) -> [Contact] {
         var listOfContactsWithOutDuplication = [Contact]()
         var contactToCompare = Contact?()

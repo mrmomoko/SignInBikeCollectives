@@ -9,6 +9,8 @@ class AdminViewController: UIViewController, UITableViewDelegate  {
     var filteredContacts = [Contact]()
     let contactLog = ContactLog()
     let shopUseLog = ShopUseLog()
+    var selectedContact = Contact()
+    
     @IBOutlet weak var listOfPeopleTableView: UITableView!
 
     @IBAction func whosInTheShop(sender: AnyObject) {
@@ -16,9 +18,11 @@ class AdminViewController: UIViewController, UITableViewDelegate  {
         listOfPeopleTableView.reloadData()
     }
     @IBAction func allVolunteers(sender: AnyObject) {
+        filteredContacts = shopUseLog.contactsOfVolunteers()
         listOfPeopleTableView.reloadData()
     }
     @IBAction func currentMembers(sender: AnyObject) {
+        filteredContacts = MembershipLog().contactsOfMemberships()
         listOfPeopleTableView.reloadData()
     }
 }
@@ -36,6 +40,10 @@ extension AdminViewController {
             cell.textLabel?.text = contact.firstName
             cell.backgroundColor = contactLog.colourOfContact(contact)
             return cell
-                
+    }
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        selectedContact = contactLog.allContacts[indexPath.row]
+        performSegueWithIdentifier("", sender: self)
+        
     }
 }

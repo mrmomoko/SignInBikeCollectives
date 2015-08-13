@@ -33,6 +33,7 @@ class NewUserViewController: UIViewController, UITableViewDelegate {
 
         // save contact
         contactLog.saveContact(contact!)
+        MembershipLog().createMembershipWithContact(contact!)
         
         // show waiver
         showWaiverForCompleteForm()

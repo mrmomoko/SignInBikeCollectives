@@ -87,6 +87,16 @@ class ShopUseLog: NSObject {
         }
         return shopUseArray
     }
+    func contactsOfVolunteers() -> [Contact] {
+        var contacts = [Contact]()
+        let allContacts = ContactLog().allContacts
+        for contact in allContacts {
+            if contact.volunteer.count > 0 {
+                 contacts.append(contact)
+            }
+        }
+        return contacts
+    }
     
     func recentShopUses() -> [ShopUse] {
         var recentUses = [ShopUse]()

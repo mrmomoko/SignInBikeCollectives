@@ -65,7 +65,9 @@ class SignInViewController: UIViewController, UITableViewDataSource {
         } else {
             let contact = filteredLog[indexPath.row - 1]
             cell.textLabel!.text = contact.valueForKey("firstName") as? String
- //           cell.detailTextLabel!.text = contact.membership.description
+            let membership = contact.valueForKey("membership") as? Membership
+            let membershipType = membership?.membershipType
+            cell.detailTextLabel!.text = membershipType
             cell.backgroundColor = contactLog.colourOfContact(contact)
         }
         return cell
@@ -106,8 +108,8 @@ class SignInViewController: UIViewController, UITableViewDataSource {
     func _searchContactsWithSubstring(substring: String) {
         let prefix = uniqueIdentifier.text.lowercaseString
         var fullContactList = contactLog.allContacts
-//        let predicate = NSPredicate(format: "firstName BEGINSWITH %@ OR lastName BEGINSWITH %@ OR pin BEGINSWITH %@ OR emailAddress BEGINSWITH %@", prefix, prefix, prefix, prefix)
-        let predicate = NSPredicate(format:"firstName BEGINSWITH %@", prefix)
+        let predicate = NSPredicate(format: "firstName BEGINSWITH %@ OR lastName BEGINSWITH %@ OR pin BEGINSWITH %@ OR emailAddress BEGINSWITH %@", prefix, prefix, prefix, prefix)
+//        let predicate = NSPredicate(format:"firstName BEGINSWITH %@", prefix)
         
         filteredLog = (fullContactList as NSArray).filteredArrayUsingPredicate(predicate) as! [Contact]
         if filteredLog == [] {filteredLog = fullContactList}
