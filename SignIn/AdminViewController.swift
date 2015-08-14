@@ -9,7 +9,7 @@ class AdminViewController: UIViewController, UITableViewDelegate  {
     var filteredContacts = [Contact]()
     let contactLog = ContactLog()
     let shopUseLog = ShopUseLog()
-    var selectedContact = Contact()
+    var selectedContact : Contact?
     
     @IBOutlet weak var listOfPeopleTableView: UITableView!
 
@@ -17,13 +17,27 @@ class AdminViewController: UIViewController, UITableViewDelegate  {
         filteredContacts = contactLog.usersWhoAreLoggedIn()
         listOfPeopleTableView.reloadData()
     }
+    
     @IBAction func allVolunteers(sender: AnyObject) {
         filteredContacts = shopUseLog.contactsOfVolunteers()
         listOfPeopleTableView.reloadData()
     }
+    
     @IBAction func currentMembers(sender: AnyObject) {
         filteredContacts = MembershipLog().contactsOfMemberships()
         listOfPeopleTableView.reloadData()
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        selectedContact = contactLog.createUserWithIdentity("")
+        super.init(coder: aDecoder)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "Person Detail Segue" {
+            let vc = segue.destinationViewController as! PersonDetailViewController
+            vc.contact = selectedContact
+        }
     }
 }
 
@@ -42,8 +56,7 @@ extension AdminViewController {
             return cell
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        selectedContact = contactLog.allContacts[indexPath.row]
-        performSegueWithIdentifier("", sender: self)
-        
+        selectedContact = filteredContacts[indexPath.row]
+        performSegueWithIdentifier("Person Detail Segue", sender: self)
     }
 }

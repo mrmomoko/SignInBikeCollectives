@@ -20,7 +20,7 @@ class SignInViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var mostRecentSignIns: UITableView!
     
     required init(coder aDecoder: NSCoder) {
-        filteredLog = contactLog.recentContactsWhoAreNotLoggedIn()
+        filteredLog = contactLog.allContacts
         super.init(coder: aDecoder)
     }
     
@@ -32,7 +32,10 @@ class SignInViewController: UIViewController, UITableViewDataSource {
     }
     
     override func viewDidAppear(animated: Bool) {
-        filteredLog = ContactLog().recentContactsWhoAreNotLoggedIn()
+        filteredLog = contactLog.recentContactsWhoAreNotLoggedIn()
+        if filteredLog.count == 0 {
+            filteredLog = contactLog.allContacts
+        }
         mostRecentSignIns.reloadData()
     }
     
