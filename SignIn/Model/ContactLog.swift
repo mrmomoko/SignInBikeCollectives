@@ -72,9 +72,11 @@ class ContactLog: NSObject {
     }
     
     func saveContact(contact: Contact) {
-        var error: NSError?
-        if !managedObjectContext.save(&error) {
-            println("Could not save \(error), \(error?.userInfo)")
+        if contact.firstName != "" && contact.lastName != "" && contact.emailAddress != "" {
+            var error: NSError?
+            if !managedObjectContext.save(&error) {
+                println("Could not save \(error), \(error?.userInfo)")
+            }
         }
     }
     
@@ -83,7 +85,9 @@ class ContactLog: NSObject {
     func recentContactsWhoAreNotLoggedIn() -> [Contact] {
         var recentUsers = [Contact]()
         let recentShopLog = ShopUseLog().recentShopUsesNotLoggedIn()
+        let recentVolunteerLog = ShopUseLog().recentVolunteerUsesNotLoggedIn()
         recentUsers = pullOutContacts(recentShopLog)
+        recentUsers = recentUsers + pullOutContactsFromVolunteerLog(recentVolunteerLog)
         recentUsers = removeDuplicateContacts(recentUsers)
         return recentUsers
     }
@@ -91,7 +95,9 @@ class ContactLog: NSObject {
     func usersWhoAreLoggedIn() -> [Contact] {
         var loggedInUsers = [Contact]()
         let shopUsesForLoggedInContacts = ShopUseLog().shopUsersLoggedIn()
+        let recentVolunteerLog = ShopUseLog().volunteerUsersLoggedIn()
         loggedInUsers = pullOutContacts(shopUsesForLoggedInContacts)
+        loggedInUsers = loggedInUsers + pullOutContactsFromVolunteerLog(recentVolunteerLog)
         loggedInUsers = removeDuplicateContacts(loggedInUsers)
         return loggedInUsers
     }
@@ -138,16 +144,6 @@ class ContactLog: NSObject {
         contact.colour = colour.rawValue
     }
     
-//    // helpers for membership
-//    func membershipDescriptionOfContact(contact: Contact) -> String {
-//        return contact.membership.membershipType
-//    }
-//    
-//    func editMembershipTypeForContact(contact: Contact, type: MembershipType) {
-//        contact.membership.membershipType = type.rawValue
-//    }
-
-
     // helpers for filters
     
     func removeDuplicateContacts(contactsArray: [Contact]) -> [Contact] {
@@ -166,15 +162,24 @@ class ContactLog: NSObject {
 
         return listOfContactsWithOutDuplication
     }
-        func pullOutContacts(shopUseArray: [ShopUse]) -> [Contact] {
-            var contacts = [Contact]()
-            for shopUse in shopUseArray {
-                if shopUse.contact.firstName != "" || shopUse.contact.lastName != "" || shopUse.contact.emailAddress != "" {
-                    contacts.append(shopUse.contact)
-                }
+    func pullOutContacts(shopUseArray: [ShopUse]) -> [Contact] {
+        var contacts = [Contact]()
+        for shopUse in shopUseArray {
+            if shopUse.contact.firstName != "" || shopUse.contact.lastName != "" || shopUse.contact.emailAddress != "" {
+                contacts.append(shopUse.contact)
             }
-            return contacts
         }
-
+        return contacts
+    }
+    
+    func pullOutContactsFromVolunteerLog(shopUseArray: [VolunteerUse]) -> [Contact] {
+        var contacts = [Contact]()
+        for shopUse in shopUseArray {
+            if shopUse.contact.firstName != "" || shopUse.contact.lastName != "" || shopUse.contact.emailAddress != "" {
+                contacts.append(shopUse.contact)
+            }
+        }
+        return contacts
+    }
 
 }

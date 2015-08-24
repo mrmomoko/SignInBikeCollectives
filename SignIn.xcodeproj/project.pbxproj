@@ -23,6 +23,8 @@
 		4C7550ED1A6A1B6800874972 /* BCNContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7550EB1A6A1B6800874972 /* BCNContact.m */; };
 		4C7550EE1A6A1B6800874972 /* BCNShopUse.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7550EC1A6A1B6800874972 /* BCNShopUse.m */; };
 		4C7AB00B1A92A9EE001F2BEF /* ShopUseLogSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AB00A1A92A9EE001F2BEF /* ShopUseLogSwiftTests.swift */; };
+		4C7EC5251B8963F80057D1A9 /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7EC5241B8963F80057D1A9 /* ContactTableViewCell.swift */; };
+		4C7EC5271B896A4C0057D1A9 /* ContactTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C7EC5261B896A4C0057D1A9 /* ContactTableView.xib */; };
 		4C83FF661B4A42BC00E12761 /* ContactLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C83FF651B4A42BC00E12761 /* ContactLog.swift */; };
 		4CB8DE601B34830C0020F6D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB8DE5F1B34830C0020F6D0 /* CoreData.framework */; };
 		4CC133841B4B2A8D00208250 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CC133831B4B2A8D00208250 /* Images.xcassets */; };
@@ -75,6 +77,8 @@
 		4C7AB0061A8D44EA001F2BEF /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		4C7AB0071A929F44001F2BEF /* SignInTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SignInTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		4C7AB00A1A92A9EE001F2BEF /* ShopUseLogSwiftTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopUseLogSwiftTests.swift; sourceTree = "<group>"; };
+		4C7EC5241B8963F80057D1A9 /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
+		4C7EC5261B896A4C0057D1A9 /* ContactTableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactTableView.xib; sourceTree = "<group>"; };
 		4C83FF651B4A42BC00E12761 /* ContactLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactLog.swift; sourceTree = "<group>"; };
 		4CB8DE5F1B34830C0020F6D0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4CC133831B4B2A8D00208250 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SignIn/Images.xcassets; sourceTree = SOURCE_ROOT; };
@@ -139,8 +143,10 @@
 				4C41FD6E1A81819B006456A6 /* AdminViewController.swift */,
 				4CF193A11B44CB0C001CB464 /* SignInViewController.swift */,
 				4C2FCA791B7D4C44001571E1 /* EditUserViewController.swift */,
+				4C7EC5231B8963CE0057D1A9 /* Views */,
 				4C7550D81A6A158A00874972 /* Model */,
 				4C0C13801A5070BF0019A6B2 /* Main.storyboard */,
+				4CC133831B4B2A8D00208250 /* Images.xcassets */,
 				4C0C13851A5070C00019A6B2 /* LaunchScreen.xib */,
 				4C0C13731A5070BF0019A6B2 /* Supporting Files */,
 			);
@@ -195,11 +201,19 @@
 				4C7550EC1A6A1B6800874972 /* BCNShopUse.m */,
 				4C7550DB1A6A158A00874972 /* BCNShopUseLog.h */,
 				4C7550DC1A6A158A00874972 /* BCNShopUseLog.m */,
-				4CC133831B4B2A8D00208250 /* Images.xcassets */,
 				4C5A12B31B71CB4800C3FC40 /* Model.xcdatamodeld */,
 				4C7AB0061A8D44EA001F2BEF /* MyPlayground.playground */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		4C7EC5231B8963CE0057D1A9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4C7EC5261B896A4C0057D1A9 /* ContactTableView.xib */,
+				4C7EC5241B8963F80057D1A9 /* ContactTableViewCell.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -282,6 +296,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C7EC5271B896A4C0057D1A9 /* ContactTableView.xib in Resources */,
 				4CC133841B4B2A8D00208250 /* Images.xcassets in Resources */,
 				4C0C13821A5070BF0019A6B2 /* Main.storyboard in Resources */,
 				4C0C13871A5070C00019A6B2 /* LaunchScreen.xib in Resources */,
@@ -304,6 +319,7 @@
 			files = (
 				4CC927641B7A9E44003E3A88 /* Contact.swift in Sources */,
 				4C83FF661B4A42BC00E12761 /* ContactLog.swift in Sources */,
+				4C7EC5251B8963F80057D1A9 /* ContactTableViewCell.swift in Sources */,
 				4C7550E11A6A19F300874972 /* BFFOrganization.m in Sources */,
 				4C41FD711A831F27006456A6 /* ShopUseLog.swift in Sources */,
 				4C7550DE1A6A158A00874972 /* BCNShopUseLog.m in Sources */,

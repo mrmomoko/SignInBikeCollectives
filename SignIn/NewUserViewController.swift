@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class NewUserViewController: UIViewController, UITableViewDelegate {
+class NewUserViewController: UIViewController, UITableViewDelegate,  UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     var contact : Contact?
     let contactLog = ContactLog()
@@ -20,6 +20,7 @@ class NewUserViewController: UIViewController, UITableViewDelegate {
     @IBOutlet weak var pin: UITextField!
     
     @IBOutlet weak var colourTableView: UITableView!
+    @IBOutlet weak var colourCollectionView: UICollectionView!
     
     @IBAction func save(sender: AnyObject) {
         if firstName.text == "" && lastName.text == "" && email.text == "" {
@@ -45,6 +46,7 @@ class NewUserViewController: UIViewController, UITableViewDelegate {
         firstName.text = contact!.firstName
         lastName.text = contact!.lastName
         email.text = contact!.emailAddress
+        colourCollectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Thank You" {
@@ -65,27 +67,27 @@ extension NewUserViewController {
             var cell = UITableViewCell()
             if tableView == colourTableView {
                 if indexPath.row == 0 {
-                    cell = colourTableView.dequeueReusableCellWithIdentifier("Purple Cell") as! UITableViewCell
+//                    cell = colourTableView.dequeueReusableCellWithIdentifier("Purple Cell") as! UITableViewCell
                     cell.backgroundColor = UIColor.purpleColor()
                 }
                 else if indexPath.row == 1 {
-                    cell = colourTableView.dequeueReusableCellWithIdentifier("Blue Cell") as! UITableViewCell
+//                    cell = colourTableView.dequeueReusableCellWithIdentifier("Blue Cell") as! UITableViewCell
                     cell.backgroundColor = UIColor.cyanColor()
                 }
                 else if indexPath.row == 2 {
-                    cell = colourTableView.dequeueReusableCellWithIdentifier("Green Cell") as! UITableViewCell
+//                    cell = colourTableView.dequeueReusableCellWithIdentifier("Green Cell") as! UITableViewCell
                     cell.backgroundColor = UIColor.greenColor()
                 }
                 else if indexPath.row == 3 {
-                    cell = colourTableView.dequeueReusableCellWithIdentifier("Yellow Cell") as! UITableViewCell
+//                    cell = colourTableView.dequeueReusableCellWithIdentifier("Yellow Cell") as! UITableViewCell
                     cell.backgroundColor = UIColor.yellowColor()
                 }
                 else if indexPath.row == 4 {
-                    cell = colourTableView.dequeueReusableCellWithIdentifier("Orange Cell") as! UITableViewCell
+//                    cell = colourTableView.dequeueReusableCellWithIdentifier("Orange Cell") as! UITableViewCell
                     cell.backgroundColor = UIColor.orangeColor()
                 }
                 else if indexPath.row == 5 {
-                    cell = colourTableView.dequeueReusableCellWithIdentifier("Red Cell") as! UITableViewCell
+//                    cell = colourTableView.dequeueReusableCellWithIdentifier("Red Cell") as! UITableViewCell
                     cell.backgroundColor = UIColor.redColor()
                 }
             }
@@ -120,6 +122,66 @@ extension NewUserViewController {
             }
         }
     }
+    // collectionView functions
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 6
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        var cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as? UICollectionViewCell
+        cell?.alpha = 0.5
+        if indexPath.row == 0 {
+            cell!.backgroundColor = UIColor.purpleColor()
+        }
+        else if indexPath.row == 1 {
+            cell!.backgroundColor = UIColor.cyanColor()
+        }
+        else if indexPath.row == 2 {
+            cell!.backgroundColor = UIColor.greenColor()
+        }
+        else if indexPath.row == 3 {
+            cell!.backgroundColor = UIColor.yellowColor()
+        }
+        else if indexPath.row == 4 {
+            cell!.backgroundColor = UIColor.orangeColor()
+        }
+        else if indexPath.row == 5 {
+            cell!.backgroundColor = UIColor.redColor()
+        }
+    return cell!
+    }
+
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.row == 0 {
+            contactLog.editColourForContact(contact!, colour: .purple)
+            view.backgroundColor = UIColor.purpleColor()
+        }
+        else if indexPath.row == 1 {
+            contactLog.editColourForContact(contact!, colour: .blue)
+            view.backgroundColor = UIColor.cyanColor()
+        }
+        else if indexPath.row == 2 {
+            contactLog.editColourForContact(contact!, colour: .green)
+            view.backgroundColor = UIColor.greenColor()
+        }
+        else if indexPath.row == 3 {
+            contactLog.editColourForContact(contact!, colour: .yellow)
+            view.backgroundColor = UIColor.yellowColor()
+        }
+        else if indexPath.row == 4 {
+            contactLog.editColourForContact(contact!, colour: .orange)
+            view.backgroundColor = UIColor.orangeColor()
+        }
+        else if indexPath.row == 5 {
+            contactLog.editColourForContact(contact!, colour: .red)
+            view.backgroundColor = UIColor.redColor()
+        }
+    }
+    
     func showAlertForIncompleteForm() {
         let alert = UIAlertController(title: "Did you mean to save", message: "You need to fill in at least one field to create a user", preferredStyle: .Alert)
         let ok = UIAlertAction(title: "Ok", style: .Default, handler: nil)

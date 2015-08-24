@@ -7,6 +7,7 @@ import Foundation
 class ShopUseLog: NSObject {
 
     var shopUseLog = [ShopUse]()
+    var volunteerLog = [VolunteerUse]()
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
     override init(){
@@ -23,6 +24,15 @@ class ShopUseLog: NSObject {
             println("Could not fetch \(error), \(error!.userInfo)")
         }
         
+        let volunteerFetchRequest = NSFetchRequest(entityName: "VolunteerUse")
+        let volunteerFetchedResults = managedObjectContext.executeFetchRequest(volunteerFetchRequest,
+        error: &error) as? [VolunteerUse]
+    
+        if let results = volunteerFetchedResults {
+            volunteerLog = results
+        } else {
+            println("Could not fetch \(error), \(error!.userInfo)")
+        }
         super.init()
     }
     func createShopUseWithContact(contact: Contact) {
@@ -87,6 +97,16 @@ class ShopUseLog: NSObject {
         }
         return shopUseArray
     }
+    
+    func volunteerUsesForContact(contact: Contact) -> [VolunteerUse] {
+        let shopUseSet = contact.volunteer
+        var shopUseArray = [VolunteerUse]()
+        for use in shopUseSet {
+            shopUseArray.append(use as! VolunteerUse)
+        }
+        return shopUseArray
+    }
+
     func contactsOfVolunteers() -> [Contact] {
         var contacts = [Contact]()
         let allContacts = ContactLog().allContacts
@@ -98,6 +118,7 @@ class ShopUseLog: NSObject {
         return contacts
     }
     
+    // recent Users Generally
     func recentShopUses() -> [ShopUse] {
         var recentUses = [ShopUse]()
         for use in shopUseLog {
@@ -107,6 +128,18 @@ class ShopUseLog: NSObject {
         }
         return recentUses
     }
+    
+    func recentVolunteersUses() -> [VolunteerUse] {
+        var recentUses = [VolunteerUse]()
+        for use in volunteerLog {
+            if use.signOut.timeIntervalSinceNow > -60*60 {
+                recentUses.append(use)
+            }
+        }
+        return recentUses
+    }
+
+    // recent Users Not Logged In
     func recentShopUsesNotLoggedIn() -> [ShopUse] {
         var recentUsesNotLoggedIn = [ShopUse]()
         let recentUser = recentShopUses()
@@ -117,10 +150,32 @@ class ShopUseLog: NSObject {
         }
         return recentUsesNotLoggedIn
     }
+    
+    func recentVolunteerUsesNotLoggedIn() -> [VolunteerUse] {
+        var recentVolunteersNotLoggedIn = [VolunteerUse]()
+        let recentUser = recentVolunteersUses()
+        for use in recentUser {
+            if use.signOut.timeIntervalSinceNow < 0 {
+                recentVolunteersNotLoggedIn.append(use)
+            }
+        }
+        return recentVolunteersNotLoggedIn
+    }
 
+    // Users who are Logged In
     func shopUsersLoggedIn() -> [ShopUse] {
         var usersLoggedIn = [ShopUse]()
         for use in shopUseLog {
+            if use.signOut.timeIntervalSinceNow > -60*60 {
+                usersLoggedIn.append(use)
+            }
+        }
+        return usersLoggedIn
+    }
+    
+    func volunteerUsersLoggedIn() -> [VolunteerUse] {
+        var usersLoggedIn = [VolunteerUse]()
+        for use in volunteerLog {
             if use.signOut.timeIntervalSinceNow > -60*60 {
                 usersLoggedIn.append(use)
             }

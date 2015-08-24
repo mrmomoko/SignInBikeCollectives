@@ -100,6 +100,10 @@ contacts.filter({ contact in
 })
 // has 5 matches -> "Mardell", "Margarite", "Margy", "Marta", "Maryalice"
 
+let arrayWithMultipleThings = [8, "hi", NSDate()]
+arrayWithMultipleThings
+
+
 
 
 
