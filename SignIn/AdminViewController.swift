@@ -48,8 +48,8 @@ extension AdminViewController {
     }
     func tableView(tableView: UITableView!,
         cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-            var cell = UITableViewCell()
-            cell = listOfPeopleTableView.dequeueReusableCellWithIdentifier("person") as! UITableViewCell
+            var cell = ContactTableViewCell()
+            cell = listOfPeopleTableView.dequeueReusableCellWithIdentifier("CustomCell") as! ContactTableViewCell
             let contact = filteredContacts[indexPath.row]
             cell.textLabel?.text = contact.firstName
             cell.backgroundColor = contactLog.colourOfContact(contact)

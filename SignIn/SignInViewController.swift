@@ -40,7 +40,10 @@ class SignInViewController: UIViewController, UITableViewDataSource {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "New User Segue" {
             let vc = segue.destinationViewController as! NewUserViewController
-            vc.firstName.text = newSignUpName
+            let loggedInUser = contactLog.createUserWithIdentity(uniqueIdentifier.text)
+                vc.contact = loggedInUser
+            currentContact = loggedInUser
+
         }
         if segue.identifier == "Thank You" {
             let vc = segue.destinationViewController as! BFFThankYouForSigningIn
