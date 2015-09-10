@@ -20,7 +20,9 @@ class MembershipLog: NSObject {
         Monthly = "Monthly",
         SixMonth = "6 Month",
         Yearly = "Yearly",
-        LifeTime = "Life Time"
+        LifeTime = "Life Time",
+        DedicatedVolunteer = "Volunteer",
+        CoreVolunteer = "Core Volunteer"
     }
     
     override init() {
@@ -58,7 +60,10 @@ class MembershipLog: NSObject {
             println("Could not save \(error), \(error?.userInfo)")
         }
     }
-
+    func deleteMembershipForContact(contact: Contact) {
+        managedObjectContext.deleteObject(contact.membership)
+        
+    }
     func contactsOfMemberships() -> [Contact] {
         var contacts = [Contact]()
         for member in membershipLog {

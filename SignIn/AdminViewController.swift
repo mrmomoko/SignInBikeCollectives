@@ -29,7 +29,6 @@ class AdminViewController: UIViewController, UITableViewDelegate  {
     }
     
     required init(coder aDecoder: NSCoder) {
-        selectedContact = contactLog.createUserWithIdentity("")
         super.init(coder: aDecoder)
     }
     
@@ -51,8 +50,17 @@ extension AdminViewController {
             var cell = ContactTableViewCell()
             cell = listOfPeopleTableView.dequeueReusableCellWithIdentifier("CustomCell") as! ContactTableViewCell
             let contact = filteredContacts[indexPath.row]
-            cell.textLabel?.text = contact.firstName
-            cell.backgroundColor = contactLog.colourOfContact(contact)
+            let membership = contact.valueForKey("membership") as? Membership
+            var title = contact.valueForKey("firstName") as? String
+            if title == "" {
+                title = contact.valueForKey("lastName") as? String
+            }
+            let membershipType = membership?.membershipType
+            cell.titleLabel.text = title
+            cell.detailLabel.text = membershipType
+            let circle = UIImage(named: "circle")
+            cell.circleView.image = circle
+            cell.circleView.tintColor = contactLog.colourOfContact(contact)
             return cell
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

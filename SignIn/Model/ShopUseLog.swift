@@ -35,6 +35,13 @@ class ShopUseLog: NSObject {
         }
         super.init()
     }
+    
+    func deleteShopUsesForContact(contact: Contact) {
+        for shopUse in contact.shopUse {
+            managedObjectContext.deleteObject(shopUse as! NSManagedObject)
+        }
+    }
+    
     func createShopUseWithContact(contact: Contact) {
         let entity = NSEntityDescription.entityForName("ShopUse", inManagedObjectContext: managedObjectContext)
         
@@ -122,7 +129,7 @@ class ShopUseLog: NSObject {
     func recentShopUses() -> [ShopUse] {
         var recentUses = [ShopUse]()
         for use in shopUseLog {
-            if use.signOut.timeIntervalSinceNow > -60*60 {
+            if use.signOut.timeIntervalSinceNow > -5*60 {
                 recentUses.append(use)
             }
         }
@@ -132,7 +139,7 @@ class ShopUseLog: NSObject {
     func recentVolunteersUses() -> [VolunteerUse] {
         var recentUses = [VolunteerUse]()
         for use in volunteerLog {
-            if use.signOut.timeIntervalSinceNow > -60*60 {
+            if use.signOut.timeIntervalSinceNow > -5*60 {
                 recentUses.append(use)
             }
         }

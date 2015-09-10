@@ -15,14 +15,14 @@ class ContactLog: NSObject {
     var allContacts : [Contact]
     var allShopUses : [ShopUse]
     
-    enum MembershipType: String {
-        case
-        NonMember = "Non Member",
-        Monthly = "Monthly",
-        SixMonth = "6 Month",
-        Yearly = "Yearly",
-        LifeTime = "Life Time"
-    }
+//    enum MembershipType: String {
+//        case
+//        NonMember = "Non Member",
+//        Monthly = "Monthly",
+//        SixMonth = "6 Month",
+//        Yearly = "Yearly",
+//        LifeTime = "Life Time"
+//    }
     
     enum Colour: String {
         case
@@ -70,13 +70,22 @@ class ContactLog: NSObject {
         
         return contact
     }
-    
+    func deleteContact(contact: Contact) {
+        // delete the shopUses too
+        ShopUseLog().deleteShopUsesForContact(contact)
+        // delete membership (this should be easier)
+        MembershipLog().deleteMembershipForContact(contact)
+        managedObjectContext.deleteObject(contact)
+       
+        var error: NSError?
+        if !managedObjectContext.save(&error) {
+            println("Could not save \(error), \(error?.userInfo)")
+        }
+    }
     func saveContact(contact: Contact) {
-        if contact.firstName != "" && contact.lastName != "" && contact.emailAddress != "" {
-            var error: NSError?
-            if !managedObjectContext.save(&error) {
-                println("Could not save \(error), \(error?.userInfo)")
-            }
+        var error: NSError?
+        if !managedObjectContext.save(&error) {
+            println("Could not save \(error), \(error?.userInfo)")
         }
     }
     
@@ -131,12 +140,12 @@ class ContactLog: NSObject {
     func enumColourValueWithStringColour(colourName: String) -> Colour {
         var colourType = Colour.clear
         if colourName == "purple" { colourType = .purple }
-        if colourName == "blue" { colourType = .blue }
-        if colourName == "green" { colourType = .green }
-        if colourName == "yellow" { colourType = .yellow }
-        if colourName == "orange" { colourType = .orange }
-        if colourName == "red" { colourType = .red }
-        if colourName == "clear" { colourType = .clear }
+        else if colourName == "blue" { colourType = .blue }
+        else if colourName == "green" { colourType = .green }
+        else if colourName == "yellow" { colourType = .yellow }
+        else if colourName == "orange" { colourType = .orange }
+        else if colourName == "red" { colourType = .red }
+        else if colourName == "clear" { colourType = .clear }
         return colourType
     }
     

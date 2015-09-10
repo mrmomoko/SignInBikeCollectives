@@ -48,7 +48,14 @@ class EditUserViewController: UIViewController, UITableViewDelegate {
             lastName.text = contact.lastName
             email.text = contact.emailAddress
         } else {
-            contact = contactLog.createUserWithIdentity("")
+            contact = contactLog.createUserWithIdentity("edit user")
+        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        if firstName.text == "edit user" && lastName.text == "" && email.text == "" {
+            //delete the contact from the data base
+            contactLog.deleteContact(contact!)
         }
     }
 }

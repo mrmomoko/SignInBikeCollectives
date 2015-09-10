@@ -43,5 +43,11 @@ class PersonDetailViewController: UIViewController {
         lastMonthShopUse.text = "no data yet"
         lastMonthVolunteering.text = "no data yet"
     }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "Edit User Segue" {
+            let vc = segue.destinationViewController as! EditUserViewController
+            vc.contact = contact
+        }
+    }
 }
 

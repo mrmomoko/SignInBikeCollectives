@@ -12,20 +12,23 @@ import UIKit
 class NewUserViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     var contact : Contact?
+    var contactIndentifier : String?
     let contactLog = ContactLog()
+    let shopUseLog = ShopUseLog()
     
     @IBOutlet weak var firstName: UITextField!
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var pin: UITextField!
     
+    @IBOutlet weak var permissionToEmail: UISwitch!
+
     @IBOutlet weak var colourCollectionView: UICollectionView!
     
     @IBAction func save(sender: AnyObject) {
         if firstName.text == "" && lastName.text == "" && email.text == "" {
             showAlertForIncompleteForm()
         } else {
-//        contactLog.createUserWithIdentity(firstName.text)
         // set the contacts properties
         contact!.firstName = firstName.text
         contact!.lastName = lastName.text
@@ -42,11 +45,21 @@ class NewUserViewController: UIViewController, UICollectionViewDelegateFlowLayou
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+
+        contact = contactLog.createUserWithIdentity(contactIndentifier!)
+
+        showAlertForCompleteForm()
+
         firstName.text = contact!.firstName
         lastName.text = contact!.lastName
         email.text = contact!.emailAddress
         colourCollectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+    }
+    override func viewWillDisappear(animated: Bool) {
+        if firstName.text == "" && lastName.text == "" && email.text == "" {
+            //delete the contact from the data base
+            contactLog.deleteContact(contact!)
+        }
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Thank You" {
@@ -140,4 +153,16 @@ extension NewUserViewController {
         alert.addAction(agree)
         presentViewController(alert, animated: true, completion: nil)
     }
+    
+    func showAlertForCompleteForm () {
+        let alert = UIAlertController(title: "Are you here to work on your bike or volunteer", message: nil, preferredStyle: .Alert)
+        let shopUse = UIAlertAction(title: "Use the Shop", style: .Default, handler: { alert in self.shopUseLog.createShopUseWithContact(self.contact!)
+        })
+        alert.addAction(shopUse)
+        let volunteer = UIAlertAction(title: "Volunteer", style: .Default, handler: { alert in self.shopUseLog.createVolunteerUseWithContact(self.contact!)
+        })
+        alert.addAction(volunteer)
+        presentViewController(alert, animated: true, completion: nil)
+    }
+
 }

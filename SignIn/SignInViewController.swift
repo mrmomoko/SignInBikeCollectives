@@ -11,7 +11,6 @@ import Foundation
 class SignInViewController: UIViewController, UITableViewDataSource {
 
     let contactLog = ContactLog()
-    let shopUseLog = ShopUseLog()
     var currentContact : Contact!
     var newSignUpName = ""
     var filteredLog: [Contact]
@@ -40,10 +39,7 @@ class SignInViewController: UIViewController, UITableViewDataSource {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "New User Segue" {
             let vc = segue.destinationViewController as! NewUserViewController
-            let loggedInUser = contactLog.createUserWithIdentity(uniqueIdentifier.text)
-                vc.contact = loggedInUser
-            currentContact = loggedInUser
-
+            vc.contactIndentifier = uniqueIdentifier.text
         }
         if segue.identifier == "Thank You" {
             let vc = segue.destinationViewController as! BFFThankYouForSigningIn
@@ -66,7 +62,10 @@ class SignInViewController: UIViewController, UITableViewDataSource {
         } else {
             let contact = filteredLog[indexPath.row - 1]
             let membership = contact.valueForKey("membership") as? Membership
-            let title = contact.valueForKey("firstName") as? String
+            var title = contact.valueForKey("firstName") as? String
+            if title == "" {
+                title = contact.valueForKey("lastName") as? String
+            }
             let membershipType = membership?.membershipType
             cell.titleLabel.text = title
             cell.detailLabel.text = membershipType
@@ -85,7 +84,6 @@ class SignInViewController: UIViewController, UITableViewDataSource {
             currentContact = filteredLog[indexPath.row - 1]
             performSegueWithIdentifier("Thank You", sender: self)
         }
-        showAlertForCompleteForm()
     }
     
     func textField( textField: UITextField,
@@ -99,16 +97,6 @@ class SignInViewController: UIViewController, UITableViewDataSource {
         return true
     }
     
-    func showAlertForCompleteForm () {
-        let alert = UIAlertController(title: "Are you here to work on your bike or volunteer", message: nil, preferredStyle: .Alert)
-        let shopUse = UIAlertAction(title: "Use the Shop", style: .Default, handler: { alert in self.shopUseLog.createShopUseWithContact(self.currentContact)
-        })
-        alert.addAction(shopUse)
-        let volunteer = UIAlertAction(title: "Volunteer", style: .Default, handler: { alert in self.shopUseLog.createVolunteerUseWithContact(self.currentContact)
-        })
-        alert.addAction(volunteer)
-        presentViewController(alert, animated: true, completion: nil)
-    }
     
     func _searchContactsWithSubstring(substring: String) {
         let prefix = uniqueIdentifier.text.lowercaseString
