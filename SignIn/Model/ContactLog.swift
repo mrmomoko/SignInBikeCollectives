@@ -68,6 +68,8 @@ class ContactLog: NSObject {
         contact.pin = ""
         contact.colour = Colour.clear.rawValue //white value
         
+        MembershipLog().createMembershipWithContact(contact)
+        
         return contact
     }
     func deleteContact(contact: Contact) {

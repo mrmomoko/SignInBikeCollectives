@@ -77,7 +77,8 @@ class MembershipLog: NSObject {
         return contact.membership.membershipType
     }
     
-    func editMembershipTypeForContact(contact: Contact, type: MembershipType) {
-        contact.membership.membershipType = type.rawValue
+    func editMembershipTypeForContact(contact: Contact, type: String) {
+        // if the membership is nil, then we are fucked, but i can't check if it's nil, boo swift.
+        contact.membership.membershipType = type
     }
 }
