@@ -19,7 +19,7 @@ class BFFThankYouForSigningIn: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        let delay = 10.0 * Double(NSEC_PER_SEC)
+        let delay = 5.0 * Double(NSEC_PER_SEC) // change to *15 sec
         let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
         dispatch_after(time, dispatch_get_main_queue()) {
             if self.navigationController?.topViewController == self {

@@ -32,6 +32,10 @@ class AdminViewController: UIViewController, UITableViewDelegate  {
         super.init(coder: aDecoder)
     }
     
+    override func viewDidLoad() {
+//        self.navigationItem.leftBarButtonItem?. == "Sign Out"
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Person Detail Segue" {
             let vc = segue.destinationViewController as! PersonDetailViewController

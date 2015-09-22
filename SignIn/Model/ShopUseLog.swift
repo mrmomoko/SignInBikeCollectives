@@ -48,7 +48,7 @@ class ShopUseLog: NSObject {
         let shopUse = ShopUse(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
 
         shopUse.signIn = NSDate()
-        shopUse.signOut = NSDate().dateByAddingTimeInterval(2*60*60)
+        shopUse.signOut = NSDate().dateByAddingTimeInterval(2*60) //*60)
 
         shopUse.contact = contact
         ContactLog().saveContact(contact)
@@ -65,7 +65,7 @@ class ShopUseLog: NSObject {
         let volunteerUse = VolunteerUse(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
         
         volunteerUse.signIn = NSDate()
-        volunteerUse.signOut = NSDate().dateByAddingTimeInterval(2*60*60)
+        volunteerUse.signOut = NSDate().dateByAddingTimeInterval(2*60) //*60)
         
         volunteerUse.contact = contact
         ContactLog().saveContact(contact)
@@ -129,7 +129,7 @@ class ShopUseLog: NSObject {
     func recentShopUses() -> [ShopUse] {
         var recentUses = [ShopUse]()
         for use in shopUseLog {
-            if use.signOut.timeIntervalSinceNow > -5*60 {
+            if use.signOut.timeIntervalSinceNow > -2*60*60*24*30 {
                 recentUses.append(use)
             }
         }
@@ -139,7 +139,7 @@ class ShopUseLog: NSObject {
     func recentVolunteersUses() -> [VolunteerUse] {
         var recentUses = [VolunteerUse]()
         for use in volunteerLog {
-            if use.signOut.timeIntervalSinceNow > -5*60 {
+            if use.signOut.timeIntervalSinceNow > -2*60*60*24*30 {
                 recentUses.append(use)
             }
         }

@@ -29,10 +29,13 @@ class SignInViewController: UIViewController, UITableViewDataSource {
     }
     
     override func viewDidAppear(animated: Bool) {
-        filteredLog = contactLog.recentContactsWhoAreNotLoggedIn()
-        if filteredLog.count == 0 {
-            filteredLog = contactLog.allContacts
+        if uniqueIdentifier.text != "" {
+            uniqueIdentifier.text == ""
         }
+        filteredLog = contactLog.recentContactsWhoAreNotLoggedIn()
+//        if filteredLog.count == 0 {
+//            filteredLog = contactLog.allContacts
+//        }
         mostRecentSignIns.reloadData()
     }
     
@@ -100,7 +103,7 @@ class SignInViewController: UIViewController, UITableViewDataSource {
     
     func _searchContactsWithSubstring(substring: String) {
         let prefix = uniqueIdentifier.text.lowercaseString
-        var fullContactList = contactLog.allContacts
+        var fullContactList = contactLog.recentContactsWhoAreNotLoggedIn()
         let predicate = NSPredicate(format: "firstName BEGINSWITH %@ OR lastName BEGINSWITH %@ OR pin BEGINSWITH %@ OR emailAddress BEGINSWITH %@", prefix, prefix, prefix, prefix)
 //        let predicate = NSPredicate(format:"firstName BEGINSWITH %@", prefix)
         
