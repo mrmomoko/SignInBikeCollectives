@@ -13,26 +13,26 @@ class ShopUseLog: NSObject {
     override init(){
         let fetchRequest = NSFetchRequest(entityName: "ShopUse")
         
-        var error: NSError?
-        
-        let fetchedResults = managedObjectContext.executeFetchRequest(fetchRequest,
-            error: &error) as? [ShopUse]
-        
-        if let results = fetchedResults {
-            shopUseLog = results
-        } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
+        do { if let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as? [ShopUse] {
+                shopUseLog = fetchedResults}
+            else {
+              assertionFailure("Could not executeFetchRequest")
+            }
+        } catch let error as NSError {
+            print("Could not fetch \(error)")
         }
         
         let volunteerFetchRequest = NSFetchRequest(entityName: "VolunteerUse")
-        let volunteerFetchedResults = managedObjectContext.executeFetchRequest(volunteerFetchRequest,
-        error: &error) as? [VolunteerUse]
-    
-        if let results = volunteerFetchedResults {
-            volunteerLog = results
-        } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
+        
+        do { if let volunteerFetchedResults = try managedObjectContext.executeFetchRequest(volunteerFetchRequest) as? [VolunteerUse] {
+            volunteerLog = volunteerFetchedResults }
+        else {
+            assertionFailure("Could not executeFetchRequest")
+            }
+        } catch let error as NSError {
+            print("Could not fetch \(error)")
         }
+
         super.init()
     }
     
@@ -51,11 +51,15 @@ class ShopUseLog: NSObject {
         shopUse.signOut = NSDate().dateByAddingTimeInterval(2*60) //*60)
 
         shopUse.contact = contact
+        shopUse.contact.recentUse = shopUse.signOut
         ContactLog().saveContact(contact)
 
         var error: NSError?
-        if !managedObjectContext.save(&error) {
-            println("Could not save \(error), \(error?.userInfo)")
+        do {
+            try managedObjectContext.save()
+        } catch let error1 as NSError {
+            error = error1
+            print("Could not save \(error), \(error?.userInfo)")
         }
     }
     
@@ -68,11 +72,15 @@ class ShopUseLog: NSObject {
         volunteerUse.signOut = NSDate().dateByAddingTimeInterval(2*60) //*60)
         
         volunteerUse.contact = contact
+        volunteerUse.contact.recentUse = volunteerUse.signOut
         ContactLog().saveContact(contact)
         
         var error: NSError?
-        if !managedObjectContext.save(&error) {
-            println("Could not save \(error), \(error?.userInfo)")
+        do {
+            try managedObjectContext.save()
+        } catch let error1 as NSError {
+            error = error1
+            print("Could not save \(error), \(error?.userInfo)")
         }
     }
 

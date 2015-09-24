@@ -30,10 +30,10 @@ class NewUserViewController: UIViewController, UICollectionViewDelegateFlowLayou
             showAlertForIncompleteForm()
         } else {
         // set the contacts properties
-        contact!.firstName = firstName.text
-        contact!.lastName = lastName.text
-        contact!.emailAddress = email.text
-        contact!.pin = pin.text
+        contact!.firstName = firstName.text!
+        contact!.lastName = lastName.text!
+        contact!.emailAddress = email.text!
+        contact!.pin = pin.text!
 
         // save contact
         contactLog.saveContact(contact!)
@@ -58,12 +58,15 @@ class NewUserViewController: UIViewController, UICollectionViewDelegateFlowLayou
         if firstName.text == "" && lastName.text == "" && email.text == "" {
             //delete the contact from the data base
             contactLog.deleteContact(contact!)
+        } else {
+            ContactLog()
         }
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Thank You" {
             let vc = segue.destinationViewController as! BFFThankYouForSigningIn
             vc.contact = contact!
+            vc.weHaventAlreadyAsed = false
         }
     }
 }
@@ -81,26 +84,26 @@ extension NewUserViewController {
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as? UICollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as UICollectionViewCell
         if indexPath.row == 0 {
-            cell!.backgroundColor = UIColor.purpleColor()
+            cell.backgroundColor = UIColor.purpleColor()
         }
         else if indexPath.row == 1 {
-            cell!.backgroundColor = UIColor.cyanColor()
+            cell.backgroundColor = UIColor.cyanColor()
         }
         else if indexPath.row == 2 {
-            cell!.backgroundColor = UIColor.greenColor()
+            cell.backgroundColor = UIColor.greenColor()
         }
         else if indexPath.row == 3 {
-            cell!.backgroundColor = UIColor.yellowColor()
+            cell.backgroundColor = UIColor.yellowColor()
         }
         else if indexPath.row == 4 {
-            cell!.backgroundColor = UIColor.orangeColor()
+            cell.backgroundColor = UIColor.orangeColor()
         }
         else if indexPath.row == 5 {
-            cell!.backgroundColor = UIColor.redColor()
+            cell.backgroundColor = UIColor.redColor()
         }
-    return cell!
+    return cell
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -161,6 +164,10 @@ extension NewUserViewController {
         let volunteer = UIAlertAction(title: "Volunteer", style: .Default, handler: { alert in self.shopUseLog.createVolunteerUseWithContact(self.contact!)
         })
         alert.addAction(volunteer)
+        let undo = UIAlertAction(title: "Undo", style: .Default, handler: {alert in
+            self.contactLog.deleteContact(self.contact!)
+        })
+        alert.addAction(undo)
         presentViewController(alert, animated: true, completion: nil)
     }
 

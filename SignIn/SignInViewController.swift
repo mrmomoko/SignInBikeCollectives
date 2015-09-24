@@ -19,7 +19,7 @@ class SignInViewController: UIViewController, UITableViewDataSource {
     
     @IBOutlet weak var mostRecentSignIns: UITableView!
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         filteredLog = contactLog.allContacts
         super.init(coder: aDecoder)
     }
@@ -55,7 +55,7 @@ class SignInViewController: UIViewController, UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("CustomCell") as! ContactTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("CustomCell") as! ContactTableViewCell
         
         if indexPath.row == 0 {
             cell.titleLabel!.text = "I'm New, I don't have a login"
@@ -81,7 +81,7 @@ class SignInViewController: UIViewController, UITableViewDataSource {
     
     func tableView( tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == 0 {
-            newSignUpName = uniqueIdentifier.text
+            newSignUpName = uniqueIdentifier.text!
             performSegueWithIdentifier("New User Segue", sender: self)
         } else {
             currentContact = filteredLog[indexPath.row - 1]
@@ -102,8 +102,8 @@ class SignInViewController: UIViewController, UITableViewDataSource {
     
     
     func _searchContactsWithSubstring(substring: String) {
-        let prefix = uniqueIdentifier.text.lowercaseString
-        var fullContactList = contactLog.recentContactsWhoAreNotLoggedIn()
+        let prefix = uniqueIdentifier.text!.lowercaseString
+        let fullContactList = contactLog.recentContactsWhoAreNotLoggedIn()
         let predicate = NSPredicate(format: "firstName BEGINSWITH %@ OR lastName BEGINSWITH %@ OR pin BEGINSWITH %@ OR emailAddress BEGINSWITH %@", prefix, prefix, prefix, prefix)
 //        let predicate = NSPredicate(format:"firstName BEGINSWITH %@", prefix)
         

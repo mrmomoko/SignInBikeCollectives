@@ -28,10 +28,10 @@ class EditUserViewController: UIViewController, UITableViewDelegate {
             showAlertForIncompleteForm()
         } else {
             // set the contacts properties
-            contact!.firstName = firstName.text
-            contact!.lastName = lastName.text
-            contact!.emailAddress = email.text
-            contact!.pin = pin.text
+            contact!.firstName = firstName.text!
+            contact!.lastName = lastName.text!
+            contact!.emailAddress = email.text!
+            contact!.pin = pin.text!
             
             // save contact
             contactLog.saveContact(contact!)
@@ -72,26 +72,26 @@ extension EditUserViewController {
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as? UICollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as UICollectionViewCell
         if indexPath.row == 0 {
-            cell!.backgroundColor = UIColor.purpleColor()
+            cell.backgroundColor = UIColor.purpleColor()
         }
         else if indexPath.row == 1 {
-            cell!.backgroundColor = UIColor.cyanColor()
+            cell.backgroundColor = UIColor.cyanColor()
         }
         else if indexPath.row == 2 {
-            cell!.backgroundColor = UIColor.greenColor()
+            cell.backgroundColor = UIColor.greenColor()
         }
         else if indexPath.row == 3 {
-            cell!.backgroundColor = UIColor.yellowColor()
+            cell.backgroundColor = UIColor.yellowColor()
         }
         else if indexPath.row == 4 {
-            cell!.backgroundColor = UIColor.orangeColor()
+            cell.backgroundColor = UIColor.orangeColor()
         }
         else if indexPath.row == 5 {
-            cell!.backgroundColor = UIColor.redColor()
+            cell.backgroundColor = UIColor.redColor()
         }
-        return cell!
+        return cell
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -139,21 +139,21 @@ extension EditUserViewController {
     
     func tableView(tableView: UITableView!,
         cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-            var cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! UITableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as UITableViewCell?
             if indexPath.row == 0 {
-                cell.textLabel?.text = "Non Member"
+                cell!.textLabel?.text = "Non Member"
             }
             else if indexPath.row == 1 {
-                cell.textLabel?.text = "One Month"
+                cell!.textLabel?.text = "One Month"
             }
             else if indexPath.row == 2 {
-                cell.textLabel?.text = "Six Months"
+                cell!.textLabel?.text = "Six Months"
             }
             else if indexPath.row == 3 {
-                cell.textLabel?.text = "Yearly"
+                cell!.textLabel?.text = "Yearly"
             }
             else if indexPath.row == 4 {
-                cell.textLabel?.text = "Life Time"
+                cell!.textLabel?.text = "Life Time"
             }
             return cell
     }

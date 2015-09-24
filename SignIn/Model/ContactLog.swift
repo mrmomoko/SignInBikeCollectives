@@ -38,26 +38,36 @@ class ContactLog: NSObject {
     override init() {
         allContacts = [Contact]()
         allShopUses = ShopUseLog().shopUseLog
-
+    
         let fetchRequest = NSFetchRequest(entityName: "Contact")
-        var error: NSError?
-        
-        let fetchedResults = managedObjectContext.executeFetchRequest(fetchRequest,
-            error: &error) as? [Contact]
-        
-        if let results = fetchedResults {
-            allContacts = results
-        } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
+        do { if let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Contact] {
+            self.allContacts = fetchedResults }
+        else {
+            assertionFailure("Could not executeFetchRequest")
+            }
+        } catch let error as NSError {
+            print("Could not fetch \(error)")
         }
-        
+
         super.init()
+ 
+    }
+    
+    func fetchContacts() {
+        let fetchRequest = NSFetchRequest(entityName: "Contact")
+        do { if let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Contact] {
+            allContacts = fetchedResults }
+        else {
+            assertionFailure("Could not executeFetchRequest")
+            }
+        } catch let error as NSError {
+            print("Could not fetch \(error)")
+        }
     }
     
     func createUserWithIdentity(identity:String) -> Contact {
         
         let entity = NSEntityDescription.entityForName("Contact", inManagedObjectContext: managedObjectContext)
-        
         
         let contact = Contact(entity: entity!,  insertIntoManagedObjectContext: managedObjectContext)
         
@@ -67,6 +77,7 @@ class ContactLog: NSObject {
         contact.emailAddress = ""
         contact.pin = ""
         contact.colour = Colour.clear.rawValue //white value
+        contact.recentUse = NSDate()
         
         MembershipLog().createMembershipWithContact(contact)
         
@@ -80,36 +91,38 @@ class ContactLog: NSObject {
         managedObjectContext.deleteObject(contact)
        
         var error: NSError?
-        if !managedObjectContext.save(&error) {
-            println("Could not save \(error), \(error?.userInfo)")
+        do {
+            try managedObjectContext.save()
+        } catch let error1 as NSError {
+            error = error1
+            print("Could not save \(error), \(error?.userInfo)")
         }
     }
     func saveContact(contact: Contact) {
         var error: NSError?
-        if !managedObjectContext.save(&error) {
-            println("Could not save \(error), \(error?.userInfo)")
+        do {
+            try managedObjectContext.save()
+        } catch let error1 as NSError {
+            error = error1
+            print("Could not save \(error), \(error?.userInfo)")
         }
     }
     
     // Contact Filters - possibly a category
 
     func recentContactsWhoAreNotLoggedIn() -> [Contact] {
-        var recentUsers = [Contact]()
-        let recentShopLog = ShopUseLog().recentShopUsesNotLoggedIn()
-        let recentVolunteerLog = ShopUseLog().recentVolunteerUsesNotLoggedIn()
-        recentUsers = pullOutContacts(recentShopLog)
-        recentUsers = recentUsers + pullOutContactsFromVolunteerLog(recentVolunteerLog)
-        recentUsers = removeDuplicateContacts(recentUsers)
+        var recentUsers = allContacts.sort({ $0.recentUse.timeIntervalSinceNow > $1.recentUse.timeIntervalSinceNow})
+        recentUsers.removeRange(Range(start: 0, end: usersWhoAreLoggedIn().count))
         return recentUsers
     }
     
     func usersWhoAreLoggedIn() -> [Contact] {
         var loggedInUsers = [Contact]()
-        let shopUsesForLoggedInContacts = ShopUseLog().shopUsersLoggedIn()
-        let recentVolunteerLog = ShopUseLog().volunteerUsersLoggedIn()
-        loggedInUsers = pullOutContacts(shopUsesForLoggedInContacts)
-        loggedInUsers = loggedInUsers + pullOutContactsFromVolunteerLog(recentVolunteerLog)
-        loggedInUsers = removeDuplicateContacts(loggedInUsers)
+        for contact in allContacts {
+            if contact.recentUse.timeIntervalSinceNow > 0 {
+                loggedInUsers.append(contact)
+            }
+        }
         return loggedInUsers
     }
 
@@ -156,16 +169,20 @@ class ContactLog: NSObject {
     }
     
     // helpers for filters
-    
-    func removeDuplicateContacts(contactsArray: [Contact]) -> [Contact] {
+    func removeDuplicateContacts(var contactsArray: [Contact]) -> [Contact] {
         var listOfContactsWithOutDuplication = [Contact]()
         var contactToCompare = Contact?()
+        
+        contactsArray = contactsArray.sort({ $0.firstName < $1.firstName })
+        
         for contact in contactsArray {
             if contactToCompare == nil {
                 listOfContactsWithOutDuplication.append(contact)
                 contactToCompare = contact
             }
-            if contact != contactToCompare {
+            // all contacts are not equal to each other :(
+            // must be in order for this to work...
+            if contactIsEqualToContact(contact, otherContact: contactToCompare!) == false {
                 listOfContactsWithOutDuplication.append(contact)
             }
             contactToCompare = contact
@@ -191,6 +208,10 @@ class ContactLog: NSObject {
             }
         }
         return contacts
+    }
+    
+    func contactIsEqualToContact(contact: Contact, otherContact: Contact) -> Bool {
+        return contact.firstName == otherContact.firstName && contact.lastName == otherContact.lastName && contact.emailAddress == contact.emailAddress
     }
 
 }

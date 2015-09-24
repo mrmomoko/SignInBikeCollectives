@@ -15,7 +15,7 @@ class Contact: NSManagedObject {
     @NSManaged var emailAddress: String
     @NSManaged var firstName: String
     @NSManaged var lastName: String
-    @NSManaged var membershipExpiration: NSDate
+    @NSManaged var recentUse: NSDate
     @NSManaged var pin: String
     @NSManaged var shopUse: NSSet
     @NSManaged var volunteer: NSSet

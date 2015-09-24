@@ -5,17 +5,17 @@ import Foundation
 
 
 var str = "Hello, playground"
-var array = [1,2,3,4,5,6,7]
-let index = find(array, 5)
-let abc: Array = sorted(array)
-array.sort({ $0 > $1 })
-array
-var cba = sorted(array, {$0 > $1 })
-sort(&array, {$0 < $1})
-array
+//var array = [1,2,3,4,5,6,7]
+//let index = find(array, 5)
+//let abc: Array = sorted(array)
+//array.sort({ $0 > $1 })
+//array
+//var cba = sorted(array, {$0 > $1 })
+//sort(&array, {$0 < $1})
+//array
 
-abc
-cba
+//abc
+//cba
 
 
 enum MembershipType: String {
@@ -31,7 +31,7 @@ struct People {
     
     func printNameWithFormate(handler: (String, String) -> String)
     {
-        println(handler(name, lastName))
+//        println(handler(name, lastName))
     }
 }
 
@@ -58,19 +58,19 @@ func evanStinks(s1: String, s2: String) -> Bool {
 
 let log = [momoko, evan, alan]
 
-let otherSortedLog = sorted(log, { (s1: People, s2: People) -> Bool in
-    return s1.name < s2.name })
-
-let otherSortedLog1 = sorted(log, { (s1, s2) -> Bool in
-    s1.name < s2.name })
-
-let otherSortedLog2 = sorted(log, { $0.name < $1.name })
-
-let sortedLog = sorted(log, {$0.membershipType.rawValue > $1.membershipType.rawValue})
-let aSortedLog = log.sorted({$0.name < $1.name})
-sortedLog
-otherSortedLog
-aSortedLog
+//let otherSortedLog = sorted(log, { (s1: People, s2: People) -> Bool in
+//    return s1.name < s2.name })
+//
+//let otherSortedLog1 = sorted(log, { (s1, s2) -> Bool in
+//    s1.name < s2.name })
+//
+//let otherSortedLog2 = sorted(log, { $0.name < $1.name })
+//
+//let sortedLog = sorted(log, {$0.membershipType.rawValue > $1.membershipType.rawValue})
+//let aSortedLog = log.sorted({$0.name < $1.name})
+//sortedLog
+//otherSortedLog
+//aSortedLog
 
 momoko.membershipType.rawValue
 momoko.membershipType.hashValue
@@ -102,6 +102,14 @@ contacts.filter({ contact in
 
 let arrayWithMultipleThings = [8, "hi", NSDate()]
 arrayWithMultipleThings
+
+var alphaSortArray = contacts.sort({ $0 > $1})
+alphaSortArray.removeRange(Range(start: 0, end: 7))
+
+
+
+
+
 
 
 

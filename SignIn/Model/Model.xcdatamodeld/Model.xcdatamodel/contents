@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14E46" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8195" systemVersion="14F27" minimumToolsVersion="Xcode 4.3">
     <entity name="Contact" representedClassName="SignIn.Contact" syncable="YES">
         <attribute name="colour" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="emailAddress" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="membershipExpiration" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="pin" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="recentUse" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="membership" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Membership" inverseName="contact" inverseEntity="Membership" syncable="YES"/>
         <relationship name="shopUse" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ShopUse" inverseName="contact" inverseEntity="ShopUse" syncable="YES"/>
         <relationship name="volunteer" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="VolunteerUse" inverseName="contact" inverseEntity="VolunteerUse" syncable="YES"/>

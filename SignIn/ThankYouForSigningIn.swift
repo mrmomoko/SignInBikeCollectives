@@ -11,10 +11,18 @@ import UIKit
 
 class BFFThankYouForSigningIn: UIViewController {
     var contact : Contact!
+    let shopUseLog = ShopUseLog()
+    let contactLog = ContactLog()
+    var weHaventAlreadyAsed = true
+    
     @IBOutlet weak var nameLabel: UILabel!
     
     override func viewDidLoad() {
         nameLabel.text = contact.firstName
+        // show volunteer or use the shop pop up
+        if weHaventAlreadyAsed {
+            showAlertForCompleteForm()
+        }
         super.viewDidLoad()
     }
     
@@ -37,6 +45,16 @@ class BFFThankYouForSigningIn: UIViewController {
             let vc = segue.destinationViewController as! PersonDetailViewController
             vc.contact = contact;
         }
+    }
+    func showAlertForCompleteForm () {
+        let alert = UIAlertController(title: "Are you here to work on your bike or volunteer", message: nil, preferredStyle: .Alert)
+        let shopUse = UIAlertAction(title: "Use the Shop", style: .Default, handler: { alert in self.shopUseLog.createShopUseWithContact(self.contact!)
+        })
+        alert.addAction(shopUse)
+        let volunteer = UIAlertAction(title: "Volunteer", style: .Default, handler: { alert in self.shopUseLog.createVolunteerUseWithContact(self.contact!)
+        })
+        alert.addAction(volunteer)
+        presentViewController(alert, animated: true, completion: nil)
     }
 }
 

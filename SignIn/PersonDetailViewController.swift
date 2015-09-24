@@ -30,7 +30,7 @@ class PersonDetailViewController: UIViewController {
         firstNameLastInitial.text = contact?.firstName
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateStyle = .MediumStyle
-        let membershipExpiration = contact?.membershipExpiration
+        let membershipExpiration = contact?.membership.membershipExpiration
         if membershipExpiration?.timeIntervalSinceNow > 0 {
             membership.text = dateFormatter.stringFromDate(membershipExpiration!)
         } else {

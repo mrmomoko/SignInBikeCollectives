@@ -36,12 +36,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SignIn/Model/ContactLog.swift"
-            timestampString = "464134604.028961"
+            timestampString = "464812136.43623"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
-            landmarkName = "recentContactsWhoAreNotLoggedIn()"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
+            landmarkName = "contactIsEqualToContact(_:otherContact:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -52,28 +52,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SignIn/Model/ContactLog.swift"
-            timestampString = "464134581.026046"
+            timestampString = "464812553.442936"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "193"
-            endingLineNumber = "193"
-            landmarkName = "pullOutContactsFromVolunteerLog(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SignIn/Model/ShopUseLog.swift"
-            timestampString = "464134575.889658"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
-            landmarkName = "recentVolunteersUses()"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
+            landmarkName = "usersWhoAreLoggedIn()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

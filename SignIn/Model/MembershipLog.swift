@@ -28,15 +28,13 @@ class MembershipLog: NSObject {
     override init() {
         membershipLog = [Membership]()
         let fetchRequest = NSFetchRequest(entityName: "Membership")
-        var error: NSError?
-        
-        let fetchedResults = managedObjectContext.executeFetchRequest(fetchRequest,
-            error: &error) as? [Membership]
-        
-        if let results = fetchedResults {
-            membershipLog = results
-        } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
+        do { if let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Membership] {
+            membershipLog = fetchedResults }
+        else {
+            assertionFailure("Could not executeFetchRequest")
+            }
+        } catch let error as NSError {
+            print("Could not fetch \(error)")
         }
         
         super.init()
@@ -56,8 +54,11 @@ class MembershipLog: NSObject {
     
     func saveMembership(membership: Membership) {
         var error: NSError?
-        if !managedObjectContext.save(&error) {
-            println("Could not save \(error), \(error?.userInfo)")
+        do {
+            try managedObjectContext.save()
+        } catch let error1 as NSError {
+            error = error1
+            print("Could not save \(error), \(error?.userInfo)")
         }
     }
     func deleteMembershipForContact(contact: Contact) {
