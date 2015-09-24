@@ -14,7 +14,7 @@ class AdminViewController: UIViewController, UITableViewDelegate  {
     @IBOutlet weak var listOfPeopleTableView: UITableView!
 
     @IBAction func whosInTheShop(sender: AnyObject) {
-        filteredContacts = contactLog.usersWhoAreLoggedIn()
+        filteredContacts = usersWhoAreLoggedIn()
         listOfPeopleTableView.reloadData()
     }
     
@@ -42,6 +42,16 @@ class AdminViewController: UIViewController, UITableViewDelegate  {
             vc.contact = selectedContact
         }
     }
+    func usersWhoAreLoggedIn() -> [Contact] {
+        var loggedInUsers = [Contact]()
+        for contact in ContactLog().allContacts {
+            if contact.recentUse.timeIntervalSinceNow > 0 {
+                loggedInUsers.append(contact)
+            }
+        }
+        return loggedInUsers
+    }
+
 }
 
 // Mark: - TableView Delegate -

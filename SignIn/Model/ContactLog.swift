@@ -12,8 +12,8 @@ import CoreData
 class ContactLog: NSObject {
     
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-    var allContacts : [Contact]
-    var allShopUses : [ShopUse]
+    var allContacts = [Contact]()
+    var allShopUses = ShopUseLog().shopUseLog
     
 //    enum MembershipType: String {
 //        case
@@ -36,8 +36,6 @@ class ContactLog: NSObject {
     }
 
     override init() {
-        allContacts = [Contact]()
-        allShopUses = ShopUseLog().shopUseLog
     
         let fetchRequest = NSFetchRequest(entityName: "Contact")
         do { if let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Contact] {
@@ -50,7 +48,6 @@ class ContactLog: NSObject {
         }
 
         super.init()
- 
     }
     
     func fetchContacts() {
@@ -80,7 +77,13 @@ class ContactLog: NSObject {
         contact.recentUse = NSDate()
         
         MembershipLog().createMembershipWithContact(contact)
-        
+        var error: NSError?
+        do {
+            try managedObjectContext.save()
+        } catch let error1 as NSError {
+            error = error1
+            print("Could not save \(error), \(error?.userInfo)")
+        }
         return contact
     }
     func deleteContact(contact: Contact) {
