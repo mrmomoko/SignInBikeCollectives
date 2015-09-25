@@ -46,27 +46,20 @@ class NewUserViewController: UIViewController, UICollectionViewDelegateFlowLayou
         super.viewDidLoad()
 
         contact = contactLog.createUserWithIdentity(contactIndentifier!)
-
-        showAlertForCompleteForm()
-
         firstName.text = contact!.firstName
-        lastName.text = contact!.lastName
-        email.text = contact!.emailAddress
+        
         colourCollectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
     }
     override func viewWillDisappear(animated: Bool) {
         if firstName.text == "" && lastName.text == "" && email.text == "" {
             //delete the contact from the data base
             contactLog.deleteContact(contact!)
-        } else {
-            ContactLog()
         }
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Thank You" {
             let vc = segue.destinationViewController as! BFFThankYouForSigningIn
             vc.contact = contact!
-            vc.weHaventAlreadyAsed = false
         }
     }
 }
@@ -155,20 +148,4 @@ extension NewUserViewController {
         alert.addAction(agree)
         presentViewController(alert, animated: true, completion: nil)
     }
-    
-    func showAlertForCompleteForm () {
-        let alert = UIAlertController(title: "Are you here to work on your bike or volunteer", message: nil, preferredStyle: .Alert)
-        let shopUse = UIAlertAction(title: "Use the Shop", style: .Default, handler: { alert in self.shopUseLog.createShopUseWithContact(self.contact!)
-        })
-        alert.addAction(shopUse)
-        let volunteer = UIAlertAction(title: "Volunteer", style: .Default, handler: { alert in self.shopUseLog.createVolunteerUseWithContact(self.contact!)
-        })
-        alert.addAction(volunteer)
-        let undo = UIAlertAction(title: "Undo", style: .Default, handler: {alert in
-            self.contactLog.deleteContact(self.contact!)
-        })
-        alert.addAction(undo)
-        presentViewController(alert, animated: true, completion: nil)
-    }
-
 }

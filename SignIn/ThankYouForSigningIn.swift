@@ -13,16 +13,12 @@ class BFFThankYouForSigningIn: UIViewController {
     var contact : Contact!
     let shopUseLog = ShopUseLog()
     let contactLog = ContactLog()
-    var weHaventAlreadyAsed = true
     
     @IBOutlet weak var nameLabel: UILabel!
     
     override func viewDidLoad() {
         nameLabel.text = contact.firstName
-        // show volunteer or use the shop pop up
-        if weHaventAlreadyAsed {
-            showAlertForCompleteForm()
-        }
+           showAlertForCompleteForm()
         super.viewDidLoad()
     }
     

@@ -16,7 +16,6 @@ class SignInViewController: UIViewController, UITableViewDataSource {
     var filteredLog: [Contact]
     
     @IBOutlet weak var uniqueIdentifier: UITextField!
-    
     @IBOutlet weak var mostRecentSignIns: UITableView!
     
     required init?(coder aDecoder: NSCoder) {
@@ -33,9 +32,6 @@ class SignInViewController: UIViewController, UITableViewDataSource {
             uniqueIdentifier.text == ""
         }
         filteredLog = contactLog.recentContactsWhoAreNotLoggedIn()
-//        if filteredLog.count == 0 {
-//            filteredLog = contactLog.allContacts
-//        }
         mostRecentSignIns.reloadData()
     }
     
@@ -61,6 +57,7 @@ class SignInViewController: UIViewController, UITableViewDataSource {
             cell.titleLabel!.text = "I'm New, I don't have a login"
             cell.titleLabel!.textAlignment = .Center
             cell.detailLabel!.text = ""
+            cell.circleView.tintColor = UIColor.clearColor()
             // I'd like to formate this cell to look more like a button, or maybe I should put a button in it?
         } else {
             let contact = filteredLog[indexPath.row - 1]
@@ -89,24 +86,22 @@ class SignInViewController: UIViewController, UITableViewDataSource {
         }
     }
     
-    func textField( textField: UITextField,
-        shouldChangeCharactersInRange range: NSRange,
-        replacementString string: String) -> Bool {
-//        if count(uniqueIdentifier.text) == 1 && string == "" {
-//            filteredLog = contactLog.recentUsersWhoAreNotLoggedIn
-//        } else {
-            _searchContactsWithSubstring(string)
- //       }
+    func textField( textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        
+        if uniqueIdentifier.text?.characters.count == 1 && string == "" {
+            filteredLog = contactLog.recentContactsWhoAreNotLoggedIn()
+            mostRecentSignIns.reloadData()
+        }
+        else {
+            let combinedString = (uniqueIdentifier.text! + string)
+            _searchContactsWithSubstring(combinedString)
+        }
         return true
     }
     
-    
     func _searchContactsWithSubstring(substring: String) {
-        let prefix = uniqueIdentifier.text!.lowercaseString
         let fullContactList = contactLog.recentContactsWhoAreNotLoggedIn()
-        let predicate = NSPredicate(format: "firstName BEGINSWITH %@ OR lastName BEGINSWITH %@ OR pin BEGINSWITH %@ OR emailAddress BEGINSWITH %@", prefix, prefix, prefix, prefix)
-//        let predicate = NSPredicate(format:"firstName BEGINSWITH %@", prefix)
-        
+        let predicate = NSPredicate(format: "firstName BEGINSWITH[cd] %@ OR lastName BEGINSWITH[cd] %@ OR pin BEGINSWITH[cd] %@ OR emailAddress BEGINSWITH[cd] %@", substring, substring, substring, substring)
         filteredLog = (fullContactList as NSArray).filteredArrayUsingPredicate(predicate) as! [Contact]
         if filteredLog == [] {filteredLog = fullContactList}
         mostRecentSignIns.reloadData()

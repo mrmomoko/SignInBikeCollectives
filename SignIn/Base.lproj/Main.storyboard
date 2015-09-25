@@ -258,10 +258,12 @@
                                                 <constraint firstItem="1h2-yA-fwD" firstAttribute="leading" secondItem="A2Z-3w-IQh" secondAttribute="leading" constant="3" id="oVn-wF-TBg"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <gestureRecognizers/>
                                         <connections>
                                             <outlet property="circleView" destination="1h2-yA-fwD" id="wyD-uf-Juq"/>
                                             <outlet property="detailLabel" destination="DtJ-O5-Qp5" id="fPG-Vr-auh"/>
                                             <outlet property="titleLabel" destination="nxq-yH-rF9" id="ws7-yC-TX0"/>
+                                            <outletCollection property="gestureRecognizers" destination="ONT-za-H2a" appends="YES" id="Sdb-Ay-sPs"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -273,6 +275,9 @@
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Ggp-sV-sW7">
                                 <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="8rJ-Kc-sve" id="W3M-s7-8DD"/>
+                                </connections>
                             </searchBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YFa-hb-A2F">
                                 <rect key="frame" x="12" y="123" width="78" height="30"/>
@@ -339,6 +344,7 @@
                     <navigationItem key="navigationItem" id="Jnz-xy-eFw"/>
                     <connections>
                         <outlet property="listOfPeopleTableView" destination="ZSd-vt-D2v" id="qfc-Jk-o9i"/>
+                        <outlet property="searchBar" destination="Ggp-sV-sW7" id="yBn-fY-jAF"/>
                         <outlet property="searchDisplayController" destination="YvC-X3-7qR" id="0Mz-Hw-nba"/>
                         <segue destination="g4w-5m-Doc" kind="show" identifier="Person Detail Segue" id="bBf-9G-G1y"/>
                     </connections>
@@ -352,6 +358,11 @@
                         <outlet property="searchResultsDelegate" destination="8rJ-Kc-sve" id="8xb-Xv-Pml"/>
                     </connections>
                 </searchDisplayController>
+                <swipeGestureRecognizer direction="left" id="ONT-za-H2a">
+                    <connections>
+                        <action selector="signOutContact:" destination="8rJ-Kc-sve" id="hK5-Bs-Cer"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="750" y="360"/>
         </scene>

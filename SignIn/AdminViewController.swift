@@ -5,14 +5,19 @@
 import Foundation
 import UIKit
 
-class AdminViewController: UIViewController, UITableViewDelegate  {
+class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDelegate {
     var filteredContacts = [Contact]()
     let contactLog = ContactLog()
     let shopUseLog = ShopUseLog()
     var selectedContact : Contact?
     
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var listOfPeopleTableView: UITableView!
 
+    @IBAction func signOutContact(sender: AnyObject) {
+ //       shopUseLog.signOutContact(selectedContact!)
+    }
+    
     @IBAction func whosInTheShop(sender: AnyObject) {
         filteredContacts = usersWhoAreLoggedIn()
         listOfPeopleTableView.reloadData()
@@ -50,6 +55,23 @@ class AdminViewController: UIViewController, UITableViewDelegate  {
             }
         }
         return loggedInUsers
+    }
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    
+        if searchBar.text?.characters.count == 1 && searchText == "" {
+            listOfPeopleTableView.reloadData()
+        }
+        else {
+            _searchContactsWithSubstring(searchText)
+        }
+    }
+    
+    
+    func _searchContactsWithSubstring(substring: String) {
+        let fullContactList = contactLog.recentContactsWhoAreNotLoggedIn()
+        let predicate = NSPredicate(format: "firstName BEGINSWITH[cd] %@ OR lastName BEGINSWITH[cd] %@ OR pin BEGINSWITH[cd] %@ OR emailAddress BEGINSWITH[cd] %@", substring, substring, substring, substring)
+        filteredContacts = (fullContactList as NSArray).filteredArrayUsingPredicate(predicate) as! [Contact]
+        listOfPeopleTableView.reloadData()
     }
 
 }

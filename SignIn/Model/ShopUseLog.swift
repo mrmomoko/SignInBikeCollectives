@@ -48,7 +48,7 @@ class ShopUseLog: NSObject {
         let shopUse = ShopUse(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
 
         shopUse.signIn = NSDate()
-        shopUse.signOut = NSDate().dateByAddingTimeInterval(2*60) //*60)
+        shopUse.signOut = NSDate().dateByAddingTimeInterval(2*60*60)
 
         shopUse.contact = contact
         shopUse.contact.recentUse = shopUse.signOut
@@ -69,7 +69,7 @@ class ShopUseLog: NSObject {
         let volunteerUse = VolunteerUse(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
         
         volunteerUse.signIn = NSDate()
-        volunteerUse.signOut = NSDate().dateByAddingTimeInterval(2*60) //*60)
+        volunteerUse.signOut = NSDate().dateByAddingTimeInterval(2*60*60)
         
         volunteerUse.contact = contact
         volunteerUse.contact.recentUse = volunteerUse.signOut
@@ -84,13 +84,26 @@ class ShopUseLog: NSObject {
         }
     }
 
+    func signOutContact(contact: Contact) {
+        let shopUses = shopUsesForContact(contact).sort({ $0.signOut.timeIntervalSinceNow > $1.signOut.timeIntervalSinceNow})
+        let volunteerUses = volunteerUsesForContact(contact).sort({ $0.signOut.timeIntervalSinceNow > $1.signOut.timeIntervalSinceNow})
+        if shopUses.last?.signOut.timeIntervalSinceNow == contact.recentUse.timeIntervalSinceNow {
+            //is the current session
+            shopUses.last?.signOut = NSDate()
+        } else if volunteerUses.last?.signOut.timeIntervalSinceNow == contact.recentUse.timeIntervalSinceNow {
+            // this is the current session
+            volunteerUses.last?.signOut = NSDate()
+        }
+    }
+
     func numberOfVolunteerHoursLoggedByContact(contact: Contact) -> String {
         var totalHoursOfShopUse = 0
         for volunteerUseHour in contact.volunteer {
-            var shopUseInstance = Int(volunteerUseHour.signIn.timeIntervalSinceNow - volunteerUseHour.signOut.timeIntervalSinceNow)
-            shopUseInstance = shopUseInstance/60/60 * -1
+            let shopUseInstance = Int(volunteerUseHour.signIn.timeIntervalSinceNow - volunteerUseHour.signOut.timeIntervalSinceNow)
             totalHoursOfShopUse = totalHoursOfShopUse + shopUseInstance
         }
+        totalHoursOfShopUse = totalHoursOfShopUse/60 * -1 ///60 * -1
+
         return String(totalHoursOfShopUse)
     }
 
@@ -98,7 +111,7 @@ class ShopUseLog: NSObject {
         var totalHoursOfShopUse = 0
         for shopUseHour in contact.shopUse {
             var shopUseInstance = Int(shopUseHour.signIn.timeIntervalSinceNow - shopUseHour.signOut.timeIntervalSinceNow)
-            shopUseInstance = shopUseInstance/60/60 * -1
+            shopUseInstance = shopUseInstance/60 * -1 ///60 * -1
             totalHoursOfShopUse = totalHoursOfShopUse + shopUseInstance
         }
         return String(totalHoursOfShopUse)

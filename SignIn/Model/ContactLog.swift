@@ -149,8 +149,6 @@ class ContactLog: NSObject {
             uicolor = UIColor.redColor()
         case .clear:
             uicolor = UIColor.clearColor()
-        default:
-            break
         }
         return uicolor
     }
@@ -172,49 +170,49 @@ class ContactLog: NSObject {
     }
     
     // helpers for filters
-    func removeDuplicateContacts(var contactsArray: [Contact]) -> [Contact] {
-        var listOfContactsWithOutDuplication = [Contact]()
-        var contactToCompare = Contact?()
-        
-        contactsArray = contactsArray.sort({ $0.firstName < $1.firstName })
-        
-        for contact in contactsArray {
-            if contactToCompare == nil {
-                listOfContactsWithOutDuplication.append(contact)
-                contactToCompare = contact
-            }
-            // all contacts are not equal to each other :(
-            // must be in order for this to work...
-            if contactIsEqualToContact(contact, otherContact: contactToCompare!) == false {
-                listOfContactsWithOutDuplication.append(contact)
-            }
-            contactToCompare = contact
-        }
-
-        return listOfContactsWithOutDuplication
-    }
-    func pullOutContacts(shopUseArray: [ShopUse]) -> [Contact] {
-        var contacts = [Contact]()
-        for shopUse in shopUseArray {
-            if shopUse.contact.firstName != "" || shopUse.contact.lastName != "" || shopUse.contact.emailAddress != "" {
-                contacts.append(shopUse.contact)
-            }
-        }
-        return contacts
-    }
-    
-    func pullOutContactsFromVolunteerLog(shopUseArray: [VolunteerUse]) -> [Contact] {
-        var contacts = [Contact]()
-        for shopUse in shopUseArray {
-            if shopUse.contact.firstName != "" || shopUse.contact.lastName != "" || shopUse.contact.emailAddress != "" {
-                contacts.append(shopUse.contact)
-            }
-        }
-        return contacts
-    }
-    
-    func contactIsEqualToContact(contact: Contact, otherContact: Contact) -> Bool {
-        return contact.firstName == otherContact.firstName && contact.lastName == otherContact.lastName && contact.emailAddress == contact.emailAddress
-    }
-
+//    func removeDuplicateContacts(var contactsArray: [Contact]) -> [Contact] {
+//        var listOfContactsWithOutDuplication = [Contact]()
+//        var contactToCompare = Contact?()
+//        
+//        contactsArray = contactsArray.sort({ $0.firstName < $1.firstName })
+//        
+//        for contact in contactsArray {
+//            if contactToCompare == nil {
+//                listOfContactsWithOutDuplication.append(contact)
+//                contactToCompare = contact
+//            }
+//            // all contacts are not equal to each other :(
+//            // must be in order for this to work...
+//            if contactIsEqualToContact(contact, otherContact: contactToCompare!) == false {
+//                listOfContactsWithOutDuplication.append(contact)
+//            }
+//            contactToCompare = contact
+//        }
+//
+//        return listOfContactsWithOutDuplication
+//    }
+//    func pullOutContacts(shopUseArray: [ShopUse]) -> [Contact] {
+//        var contacts = [Contact]()
+//        for shopUse in shopUseArray {
+//            if shopUse.contact.firstName != "" || shopUse.contact.lastName != "" || shopUse.contact.emailAddress != "" {
+//                contacts.append(shopUse.contact)
+//            }
+//        }
+//        return contacts
+//    }
+//    
+//    func pullOutContactsFromVolunteerLog(shopUseArray: [VolunteerUse]) -> [Contact] {
+//        var contacts = [Contact]()
+//        for shopUse in shopUseArray {
+//            if shopUse.contact.firstName != "" || shopUse.contact.lastName != "" || shopUse.contact.emailAddress != "" {
+//                contacts.append(shopUse.contact)
+//            }
+//        }
+//        return contacts
+//    }
+//    
+//    func contactIsEqualToContact(contact: Contact, otherContact: Contact) -> Bool {
+//        return contact.firstName == otherContact.firstName && contact.lastName == otherContact.lastName && contact.emailAddress == contact.emailAddress
+//    }
+//
 }
