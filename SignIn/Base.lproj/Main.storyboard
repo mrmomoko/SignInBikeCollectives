@@ -361,6 +361,7 @@
                 <swipeGestureRecognizer direction="left" id="ONT-za-H2a">
                     <connections>
                         <action selector="signOutContact:" destination="8rJ-Kc-sve" id="hK5-Bs-Cer"/>
+                        <outlet property="delegate" destination="ZSd-vt-D2v" id="vu3-L8-Z0f"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>

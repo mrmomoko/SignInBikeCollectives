@@ -28,9 +28,7 @@ class SignInViewController: UIViewController, UITableViewDataSource {
     }
     
     override func viewDidAppear(animated: Bool) {
-        if uniqueIdentifier.text != "" {
-            uniqueIdentifier.text == ""
-        }
+        uniqueIdentifier.text == ""
         filteredLog = contactLog.recentContactsWhoAreNotLoggedIn()
         mostRecentSignIns.reloadData()
     }

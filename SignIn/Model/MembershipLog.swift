@@ -62,7 +62,7 @@ class MembershipLog: NSObject {
         }
     }
     func deleteMembershipForContact(contact: Contact) {
-        managedObjectContext.deleteObject(contact.membership)
+        managedObjectContext.deleteObject(contact.membership!)
         
     }
     func contactsOfMemberships() -> [Contact] {
@@ -75,11 +75,11 @@ class MembershipLog: NSObject {
     
     // helpers for membership
     func membershipDescriptionOfContact(contact: Contact) -> String {
-        return contact.membership.membershipType
+        return contact.membership!.membershipType
     }
     
     func editMembershipTypeForContact(contact: Contact, type: String) {
         // if the membership is nil, then we are fucked, but i can't check if it's nil, boo swift.
-        contact.membership.membershipType = type
+        contact.membership!.membershipType = type
     }
 }

@@ -15,7 +15,12 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     @IBOutlet weak var listOfPeopleTableView: UITableView!
 
     @IBAction func signOutContact(sender: AnyObject) {
- //       shopUseLog.signOutContact(selectedContact!)
+        let cell = sender.view as! ContactTableViewCell
+        let indexPath = listOfPeopleTableView.indexPathForCell(cell)?.row
+        if let index = filteredContacts[indexPath!] as Contact! {
+            shopUseLog.signOutContact(index)
+            whosInTheShop(self)
+        }
     }
     
     @IBAction func whosInTheShop(sender: AnyObject) {
@@ -50,7 +55,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     func usersWhoAreLoggedIn() -> [Contact] {
         var loggedInUsers = [Contact]()
         for contact in ContactLog().allContacts {
-            if contact.recentUse.timeIntervalSinceNow > 0 {
+            if contact.recentUse!.timeIntervalSinceNow > 0 {
                 loggedInUsers.append(contact)
             }
         }
@@ -93,7 +98,7 @@ extension AdminViewController {
             }
             let membershipType = membership?.membershipType
             cell.titleLabel.text = title
-            cell.detailLabel.text = membershipType
+            cell.detailLabel.text = membershipType // soon to be minutes of shopUse
             let circle = UIImage(named: "circle")
             cell.circleView.image = circle
             cell.circleView.tintColor = contactLog.colourOfContact(contact)

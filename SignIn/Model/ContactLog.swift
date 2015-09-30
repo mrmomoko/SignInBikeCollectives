@@ -114,7 +114,7 @@ class ContactLog: NSObject {
     // Contact Filters - possibly a category
 
     func recentContactsWhoAreNotLoggedIn() -> [Contact] {
-        var recentUsers = allContacts.sort({ $0.recentUse.timeIntervalSinceNow > $1.recentUse.timeIntervalSinceNow})
+        var recentUsers = allContacts.sort({ $0.recentUse!.timeIntervalSinceNow > $1.recentUse!.timeIntervalSinceNow})
         recentUsers.removeRange(Range(start: 0, end: usersWhoAreLoggedIn().count))
         return recentUsers
     }
@@ -122,7 +122,7 @@ class ContactLog: NSObject {
     func usersWhoAreLoggedIn() -> [Contact] {
         var loggedInUsers = [Contact]()
         for contact in allContacts {
-            if contact.recentUse.timeIntervalSinceNow > 0 {
+            if contact.recentUse!.timeIntervalSinceNow > 0 {
                 loggedInUsers.append(contact)
             }
         }
@@ -132,7 +132,7 @@ class ContactLog: NSObject {
     // Helpers for turning color strings to UIColors
     
     func colourOfContact(contactInQuestion: Contact) -> UIColor {
-        let colour = enumColourValueWithStringColour(contactInQuestion.colour)
+        let colour = enumColourValueWithStringColour(contactInQuestion.colour!)
         var uicolor = UIColor.clearColor()
         switch colour {
         case .purple:

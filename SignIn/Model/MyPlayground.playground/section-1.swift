@@ -108,9 +108,17 @@ alphaSortArray.removeRange(Range(start: 0, end: 7))
 
 
 
+let now = NSDate()
+var later = now
 
+now == later
 
+let nowTime = now.timeIntervalSinceNow
+let laterTime = later.timeIntervalSinceNow
 
+nowTime == laterTime
+
+let difference = now.timeIntervalSinceNow - later.timeIntervalSinceNow
 
 
 

@@ -37,9 +37,13 @@ class ShopUseLog: NSObject {
     }
     
     func deleteShopUsesForContact(contact: Contact) {
-        for shopUse in contact.shopUse {
+        for shopUse in contact.shopUse! {
             managedObjectContext.deleteObject(shopUse as! NSManagedObject)
         }
+    }
+    
+    func deleteSignalShopUse(shopUse: AnyObject) {
+        managedObjectContext.deleteObject(shopUse as! NSManagedObject)
     }
     
     func createShopUseWithContact(contact: Contact) {
@@ -52,6 +56,7 @@ class ShopUseLog: NSObject {
 
         shopUse.contact = contact
         shopUse.contact.recentUse = shopUse.signOut
+        shopUse.contact.recentUseType = "shopUse"
         ContactLog().saveContact(contact)
 
         var error: NSError?
@@ -73,6 +78,7 @@ class ShopUseLog: NSObject {
         
         volunteerUse.contact = contact
         volunteerUse.contact.recentUse = volunteerUse.signOut
+        volunteerUse.contact.recentUseType = "volunteerUse"
         ContactLog().saveContact(contact)
         
         var error: NSError?
@@ -85,20 +91,64 @@ class ShopUseLog: NSObject {
     }
 
     func signOutContact(contact: Contact) {
-        let shopUses = shopUsesForContact(contact).sort({ $0.signOut.timeIntervalSinceNow > $1.signOut.timeIntervalSinceNow})
-        let volunteerUses = volunteerUsesForContact(contact).sort({ $0.signOut.timeIntervalSinceNow > $1.signOut.timeIntervalSinceNow})
-        if shopUses.last?.signOut.timeIntervalSinceNow == contact.recentUse.timeIntervalSinceNow {
-            //is the current session
-            shopUses.last?.signOut = NSDate()
-        } else if volunteerUses.last?.signOut.timeIntervalSinceNow == contact.recentUse.timeIntervalSinceNow {
-            // this is the current session
-            volunteerUses.last?.signOut = NSDate()
+        // Get the most recent shopUse
+        if contact.recentUseType == "volunteerUse" {
+            // Set the signOut to now
+            let use = ShopUseLog().getMostRecentShopUseForContact(contact) as! VolunteerUse
+            use.signOut = NSDate()
+        } else {
+            let use = ShopUseLog().getMostRecentShopUseForContact(contact) as! ShopUse
+            // Set the signOut to now
+            use.signOut = NSDate()
         }
+        // reset the recentUse time
+        contact.recentUse = NSDate()
+    }
+    
+    func getMostRecentShopUseForContact(contact: Contact) -> AnyObject {
+        var log = []
+        if contact.recentUseType == "volunteerUse" {
+            let volunteerFetchRequest = NSFetchRequest(entityName: "VolunteerUse")
+            let predicate = NSPredicate(format: "signOut == %@", contact.recentUse!)
+            volunteerFetchRequest.predicate = predicate
+            do { if let volunteerFetchedResults = try managedObjectContext.executeFetchRequest(volunteerFetchRequest) as? [VolunteerUse] {
+                 log = volunteerFetchedResults }
+            else {
+                assertionFailure("Could not executeFetchRequest")
+                }
+            } catch let error as NSError {
+                print("Could not fetch \(error)")
+            }
+        } else if contact.recentUseType == "shopUse" {
+            let FetchRequest = NSFetchRequest(entityName: "ShopUse")
+            let predicate = NSPredicate(format: "signOut == %@", contact.recentUse!)
+            FetchRequest.predicate = predicate
+            do { if let FetchedResults = try managedObjectContext.executeFetchRequest(FetchRequest) as? [ShopUse] {
+                log = FetchedResults }
+            else {
+                assertionFailure("Could not executeFetchRequest")
+                }
+            } catch let error as NSError {
+                print("Could not fetch \(error)")
+            }
+        }
+        return log[0]
+    }
+    
+    func loggedInContacts() -> [Contact] {
+        let loggedInContacts = ContactLog().allContacts
+        var newContacts = [Contact]()
+        for user in loggedInContacts {
+            if user.recentUse!.timeIntervalSinceNow > 0 {
+                newContacts.append(user)
+            }
+        }
+        return newContacts
     }
 
     func numberOfVolunteerHoursLoggedByContact(contact: Contact) -> String {
         var totalHoursOfShopUse = 0
-        for volunteerUseHour in contact.volunteer {
+        for volunteerUseHour in contact.volunteer! {
             let shopUseInstance = Int(volunteerUseHour.signIn.timeIntervalSinceNow - volunteerUseHour.signOut.timeIntervalSinceNow)
             totalHoursOfShopUse = totalHoursOfShopUse + shopUseInstance
         }
@@ -109,7 +159,7 @@ class ShopUseLog: NSObject {
 
     func numberOfShopUseHoursLoggedByContact(contact: Contact) -> String {
         var totalHoursOfShopUse = 0
-        for shopUseHour in contact.shopUse {
+        for shopUseHour in contact.shopUse! {
             var shopUseInstance = Int(shopUseHour.signIn.timeIntervalSinceNow - shopUseHour.signOut.timeIntervalSinceNow)
             shopUseInstance = shopUseInstance/60 * -1 ///60 * -1
             totalHoursOfShopUse = totalHoursOfShopUse + shopUseInstance
@@ -120,7 +170,7 @@ class ShopUseLog: NSObject {
     func shopUsesForContact(contact: Contact) -> [ShopUse] {
         let shopUseSet = contact.shopUse
         var shopUseArray = [ShopUse]()
-        for use in shopUseSet {
+        for use in shopUseSet! {
             shopUseArray.append(use as! ShopUse)
         }
         return shopUseArray
@@ -129,7 +179,7 @@ class ShopUseLog: NSObject {
     func volunteerUsesForContact(contact: Contact) -> [VolunteerUse] {
         let shopUseSet = contact.volunteer
         var shopUseArray = [VolunteerUse]()
-        for use in shopUseSet {
+        for use in shopUseSet! {
             shopUseArray.append(use as! VolunteerUse)
         }
         return shopUseArray
@@ -139,318 +189,67 @@ class ShopUseLog: NSObject {
         var contacts = [Contact]()
         let allContacts = ContactLog().allContacts
         for contact in allContacts {
-            if contact.volunteer.count > 0 {
+            if contact.volunteer!.count > 0 {
                  contacts.append(contact)
             }
         }
         return contacts
     }
-    
-    // recent Users Generally
-    func recentShopUses() -> [ShopUse] {
-        var recentUses = [ShopUse]()
-        for use in shopUseLog {
-            if use.signOut.timeIntervalSinceNow > -2*60*60*24*30 {
-                recentUses.append(use)
-            }
-        }
-        return recentUses
-    }
-    
-    func recentVolunteersUses() -> [VolunteerUse] {
-        var recentUses = [VolunteerUse]()
-        for use in volunteerLog {
-            if use.signOut.timeIntervalSinceNow > -2*60*60*24*30 {
-                recentUses.append(use)
-            }
-        }
-        return recentUses
-    }
-
-    // recent Users Not Logged In
-    func recentShopUsesNotLoggedIn() -> [ShopUse] {
-        var recentUsesNotLoggedIn = [ShopUse]()
-        let recentUser = recentShopUses()
-        for use in recentUser {
-            if use.signOut.timeIntervalSinceNow < 0 {
-                recentUsesNotLoggedIn.append(use)
-            }
-        }
-        return recentUsesNotLoggedIn
-    }
-    
-    func recentVolunteerUsesNotLoggedIn() -> [VolunteerUse] {
-        var recentVolunteersNotLoggedIn = [VolunteerUse]()
-        let recentUser = recentVolunteersUses()
-        for use in recentUser {
-            if use.signOut.timeIntervalSinceNow < 0 {
-                recentVolunteersNotLoggedIn.append(use)
-            }
-        }
-        return recentVolunteersNotLoggedIn
-    }
-
-    // Users who are Logged In
-    func shopUsersLoggedIn() -> [ShopUse] {
-        var usersLoggedIn = [ShopUse]()
-        for use in shopUseLog {
-            if use.signOut.timeIntervalSinceNow > -60*60 {
-                usersLoggedIn.append(use)
-            }
-        }
-        return usersLoggedIn
-    }
-    
-    func volunteerUsersLoggedIn() -> [VolunteerUse] {
-        var usersLoggedIn = [VolunteerUse]()
-        for use in volunteerLog {
-            if use.signOut.timeIntervalSinceNow > -60*60 {
-                usersLoggedIn.append(use)
-            }
-        }
-        return usersLoggedIn
-    }
 }
+//    // recent Users Generally
+//    func recentShopUses() -> [ShopUse] {
+//        var recentUses = [ShopUse]()
+//        for use in shopUseLog {
+//            if use.signOut.timeIntervalSinceNow > -2*60*60*24*30 {
+//                recentUses.append(use)
+//            }
+//        }
+//        return recentUses
+//    }
 
+//    func recentVolunteersUses() -> [VolunteerUse] {
+//        var recentUses = [VolunteerUse]()
+//        for use in volunteerLog {
+//            if use.signOut.timeIntervalSinceNow > -2*60*60*24*30 {
+//                recentUses.append(use)
+//            }
+//        }
+//        return recentUses
+//    }
 
+//    // recent Users Not Logged In
+//    func recentShopUsesNotLoggedIn() -> [ShopUse] {
+//        var recentUsesNotLoggedIn = [ShopUse]()
+//        let recentUser = recentShopUses()
+//        for use in recentUser {
+//            if use.signOut.timeIntervalSinceNow < 0 {
+//                recentUsesNotLoggedIn.append(use)
+//            }
+//        }
+//        return recentUsesNotLoggedIn
+//    }
 
-//    override init() {
-//        shopUseLogMaster = BCNShopUseLog.sharedStore()
-//        shopUseLog = shopUseLogMaster.shopUseLog as! [ BCNShopUse ]
-//        contactLog = BCNContactLog.sharedStore().contactLog as! [Contact]
+//    func recentVolunteerUsesNotLoggedIn() -> [VolunteerUse] {
+//        var recentVolunteersNotLoggedIn = [VolunteerUse]()
+//        let recentUser = recentVolunteersUses()
+//        for use in recentUser {
+//            if use.signOut.timeIntervalSinceNow < 0 {
+//                recentVolunteersNotLoggedIn.append(use)
+//            }
+//        }
+//        return recentVolunteersNotLoggedIn
 //    }
-//    func createShopUse() -> BCNShopUse {
-//        // not sure why we need the () after createShopUse
-//        // also, if I can be explicit, should I be?
-//        var shopUse : BCNShopUse = shopUseLogMaster.createShopUse()
-//        return shopUse
-//    }
+//
+//    // Users who are Logged In
 //    
-//    func hoursOfVolunteeringByContact(contact: Contact, uniqueIdentifier: String) -> String {
-//        var hours = iterateThroughShopUseLogForHoursOfShopUse(true, contact: contact, uniqueIdentifier: uniqueIdentifier)
-//        return hours
-//    }
 //    
-//    func hoursOfShopUseByContact(contact: Contact, uniqueIdentifier: String) -> String {
-//        var hours = iterateThroughShopUseLogForHoursOfShopUse(false, contact: contact, uniqueIdentifier: uniqueIdentifier)
-//        return hours
-//    }
-//
-//    func iterateThroughShopUseLogForHoursOfShopUse(shopUseIsVolunteeringType: Bool, contact: Contact, uniqueIdentifier: String) ->String {
-//        //i need to name shopUseType better
-//        // should i have made this a privateFunc?
-//        var contactShopUse = [BCNShopUse]()
-//        var totalShopHours = 0.0
-//        var previousShopHours = 0.0
-//        for shopUse in shopUseLog {
-//            if shopUse.volunteer == shopUseIsVolunteeringType && (shopUse.userIdentity == uniqueIdentifier || shopUse.userIdentity == contact.description || shopUse.contact == contact) {
-//                contactShopUse.append(shopUse)
+//    func volunteerUsersLoggedIn() -> [VolunteerUse] {
+//        var usersLoggedIn = [VolunteerUse]()
+//        for use in volunteerLog {
+//            if use.signOut.timeIntervalSinceNow > -60*60 {
+//                usersLoggedIn.append(use)
 //            }
 //        }
-//        for shopUseOfContact in contactShopUse {
-//            var newHours = shopUseOfContact.numberOfHoursLogged
-//            totalShopHours = previousShopHours + newHours
-//            previousShopHours = totalShopHours
-//        }
-//        let intHours = Int(totalShopHours)
-//        var hours = String(intHours)
-//        return hours
-//
+//        return usersLoggedIn
 //    }
-//    
-//    enum Filters: String {
-//        case currentMembers = "Current Members", currentShopUse = "Current Shop Use", currentVolunteers = "Current Volunteers", recentlyExpiredMembers = "Recently Expired Members", allShopUses = "All Shop Uses", allMembers = "All Members", allContacts = "All Contacts", allVolunteers = "All Volunteers", recentShopUseNotAlreadyLoggedIn = "Recent Shop Use Not Already Logged In"
-//    }
-//
-//    func filterShopLog(incomingFilter: Filters) -> [Contact] {
-//        let toBeFilteredShopUseLog = shopUseLogMaster.shopUseLog as! [ BCNShopUse ]
-//        let toBeFilteredContactLog = contactLog
-//        var filteredShopUseLog = [BCNShopUse]()
-//        var filteredContactLog = [Contact]()
-//        
-//        switch incomingFilter {
-//        case .currentMembers:
-//            filteredContactLog = currentMembers(toBeFilteredContactLog)
-//            filteredContactLog = sortContactsByName(filteredContactLog)
-//        case .currentShopUse:
-//            filteredShopUseLog = currentUsers(toBeFilteredShopUseLog)
-//        case .currentVolunteers:
-//            filteredShopUseLog = currentUsers(toBeFilteredShopUseLog)
-//            filteredContactLog = pullOutVolunteers(filteredShopUseLog)
-//            filteredContactLog = removeDuplicateContacts(filteredContactLog)
-//        case .allVolunteers:
-//            filteredContactLog = pullOutVolunteers(toBeFilteredShopUseLog)
-//            filteredContactLog = removeDuplicateContacts(filteredContactLog)
-//        case .recentShopUseNotAlreadyLoggedIn:
-//            filteredShopUseLog = shopUsesInLast3Months(toBeFilteredShopUseLog)
-//            filteredShopUseLog = pullOutCurrentUsers(filteredShopUseLog)
-//            filteredContactLog = pullOutContacts(filteredShopUseLog)
-//            filteredContactLog = removeDuplicateContacts(filteredContactLog)
-//        default:
-//            break
-//        }
-//        if filteredContactLog.isEmpty {
-//            filteredContactLog = pullOutContacts(filteredShopUseLog)
-//        }
-//        return filteredContactLog
-//    }
-//    func shopUsesInLast3Months(shopUseArray: [BCNShopUse]) -> [BCNShopUse] {
-//        var currentShopUse = [BCNShopUse]()
-//        for shopUse in shopUseLog {
-//            let now = NSDate().timeIntervalSince1970
-//            if shopUse.signIn.timeIntervalSinceNow >= -now-60*60*24*60 {
-//                currentShopUse.append(shopUse)
-//            }
-//        }
-//        return currentShopUse
-//    }
-//    func currentUsers(shopUseArray: [BCNShopUse]) -> [BCNShopUse] {
-//        var currentShopUse = [BCNShopUse]()
-//        for shopUse in shopUseArray {
-//            if shopUse.signOut.timeIntervalSinceNow >= 0 {
-//                currentShopUse.append(shopUse)
-//            }
-//        }
-//        return currentShopUse
-//    }
-//    func pullOutCurrentUsers(shopUseArray: [BCNShopUse]) -> [BCNShopUse] {
-//        var activeUsersMinusThoseAlreadyLoggedIn = [BCNShopUse]()
-//        for shopUse in shopUseArray {
-//            if shopUse.signOut.timeIntervalSinceNow <= 0 {
-//                activeUsersMinusThoseAlreadyLoggedIn.append(shopUse)
-//            }
-//        }
-//        return activeUsersMinusThoseAlreadyLoggedIn
-//    }
-//    func currentMembers(contactArray: [Contact]) -> [Contact] {
-//        var currentMembers = [Contact]()
-//        for contact in contactArray {
-//            if contact.membershipExpiration.timeIntervalSinceNow >= 0 {
-//                currentMembers.append(contact)
-//            }
-//        }
-//        return currentMembers
-//    }
-//    func sortContactsByName(contactsArray: [Contact]) -> [Contact] {
-//        var contacts = contactsArray
-//        contacts.sort({$0.description < $1.description})
-//        return contacts
-//    }
-//    func pullOutContacts(shopUseArray: [BCNShopUse]) -> [Contact] {
-//        var contacts = [Contact]()
-//        for shopUse in shopUseArray {
-//            if shopUse.contact.firstName != nil || shopUse.contact.lastName != nil || shopUse.contact.emailAddress != nil {
-////                contacts.append(shopUse.contact)
-//            }
-//        }
-//        return contacts
-//    }
-//    func pullOutVolunteers(shopUseArray: [BCNShopUse]) -> [Contact] {
-//        var contacts = [Contact]()
-//        for shopUse in shopUseArray {
-//            if shopUse.contact.volunteer == true {
-////                contacts.append(shopUse.contact)
-//            }
-//        }
-//        return contacts
-//    }
-//    
-//    func removeDuplicateContacts(contactsArray: [Contact]) -> [Contact] {
-//        var listOfContactsWithOutDuplication = [Contact]()
-//        var contactToCompare = Contact?()
-//        for contact in contactsArray {
-//            if contactToCompare == nil {
-//                listOfContactsWithOutDuplication.append(contact)
-//                contactToCompare = contact
-//            }
-//            if contact != contactToCompare {
-//                listOfContactsWithOutDuplication.append(contact)
-//            }
-//            contactToCompare = contact
-//        }
-//        
-//        return listOfContactsWithOutDuplication
-//    }
-//    func activeUsersMinusThoseAlreadyLoggedIn() -> [Contact] {
-//        return self.filterShopLog(Filters.recentShopUseNotAlreadyLoggedIn)
-//    }
-//
-//    func findContactsWhichContainString(substring: String) -> [Contact] {
-//        return self.filterShopLog(Filters.recentShopUseNotAlreadyLoggedIn)
-//    }
-////    -(NSArray *)findContactsWhichContainsString:(NSString *)substring
-////    {
-////    NSString *userIdentity = substring;
-////    NSPredicate *filterForShopUse= [NSPredicate predicateWithFormat:@"firstName ==[c] %@ OR lastName ==[c] %@ OR pin ==[c] %@ OR emailAddress ==[c] %@", userIdentity, userIdentity, userIdentity, userIdentity];
-////    NSArray *filteredVolunteerLog =
-////    [[NSArray alloc] initWithArray:[[self privateContacts] filteredArrayUsingPredicate:filterForShopUse]];
-////    return filteredVolunteerLog;
-////    }
-//
-////    public func sortByLastToLogIn() -> [BCNContact] {
-////        var mostRecentUsers = [BCNShopUse]()
-////        var contactsOfMostRecentUsers = [BCNContact]()
-////        var contactToCompare = BCNContact?()
-////        for shopUse in currentUsers() {
-////            if contactToCompare == nil {
-////                mostRecentUsers.append(shopUse)
-////                contactToCompare = shopUse.contact
-////            }
-////            if shopUse.contact != contactToCompare {
-////                mostRecentUsers.append(shopUse)
-////            }
-////            contactToCompare = shopUse.contact
-////        }
-////        for shopUse in mostRecentUsers {
-////            if shopUse.contact.firstName != nil || shopUse.contact.lastName != nil {
-////                contactsOfMostRecentUsers.append(shopUse.contact)
-////            }
-////        }
-////        return contactsOfMostRecentUsers
-////    }
-////    
-////    public func sortContacts(contacts: [BCNContact]) -> [BCNContact] {
-////        var contacts = contacts
-////        var otherContacts = contacts
-////        contacts.sort({ $0.description < $1.description })
-////        otherContacts.sorted({ $0.description > $1.description })
-////        return otherContacts
-////    }
-////    
-////    public func contactsOfCurrentUsers() -> [BCNContact] {
-////        //create an array with the most recent non-duplicateNamed shopUses
-////        var currentUsersArray = currentUsers()
-////        var contacts = [BCNContact]()
-////        for shopUse in currentUsersArray {
-////            if shopUse.contact.firstName != nil || shopUse.contact.lastName != nil {
-////                contacts.append(shopUse.contact)
-////            }
-////        }
-////        contacts = sortContacts(contacts)
-////        var listOfContactsWithOutDuplication = [BCNContact]()
-////        var contactToCompare = BCNContact?()
-////        for contact in contacts {
-////            if contactToCompare == nil {
-////                listOfContactsWithOutDuplication.append(contact)
-////                contactToCompare = contact
-////            }
-////            if contact != contactToCompare {
-////                listOfContactsWithOutDuplication.append(contact)
-////            }
-////            contactToCompare = contact
-////        }
-////
-////        return listOfContactsWithOutDuplication
-////    }
-////    public func contactsOfCurrentMemberships() -> [BCNContact] {
-////        var memberContacts = [BCNContact]()
-////        for contact in contactLog {
-////            //check for current membership
-//////            sometime the membershipExpiration is nil because of the bad data we added
-////            if contact.membershipExpiration != nil && contact.membershipExpiration.timeIntervalSinceNow > 0 {
-////                memberContacts.append(contact)
-////            }
-////        }
-////        return memberContacts
-////    }
 //}
