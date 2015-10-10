@@ -27,6 +27,7 @@
 		4C83FF661B4A42BC00E12761 /* ContactLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C83FF651B4A42BC00E12761 /* ContactLog.swift */; };
 		4CA6A07E1BBB98B800759754 /* Contact+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA6A07C1BBB98B800759754 /* Contact+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
 		4CA6A07F1BBB98B800759754 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA6A07D1BBB98B800759754 /* Contact.swift */; settings = {ASSET_TAGS = (); }; };
+		4CA6A0811BBC7EC100759754 /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA6A0801BBC7EC100759754 /* MyAccountViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		4CB8DE601B34830C0020F6D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB8DE5F1B34830C0020F6D0 /* CoreData.framework */; };
 		4CC133841B4B2A8D00208250 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CC133831B4B2A8D00208250 /* Images.xcassets */; };
 		4CC927661B7A9E6B003E3A88 /* Membership.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC927651B7A9E6B003E3A88 /* Membership.swift */; };
@@ -81,6 +82,7 @@
 		4C83FF651B4A42BC00E12761 /* ContactLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactLog.swift; sourceTree = "<group>"; };
 		4CA6A07C1BBB98B800759754 /* Contact+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Contact+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4CA6A07D1BBB98B800759754 /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		4CA6A0801BBC7EC100759754 /* MyAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
 		4CB8DE5F1B34830C0020F6D0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4CC133831B4B2A8D00208250 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SignIn/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		4CC927651B7A9E6B003E3A88 /* Membership.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Membership.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				4C0C13771A5070BF0019A6B2 /* AppDelegate.h */,
 				4C0C13781A5070BF0019A6B2 /* AppDelegate.m */,
 				4CF657831B55D85A00FBB45E /* NewUserViewController.swift */,
+				4CA6A0801BBC7EC100759754 /* MyAccountViewController.swift */,
 				4CCB75641A7AF5F20039D10B /* PersonDetailViewController.swift */,
 				4CCB75671A7C50F70039D10B /* ThankYouForSigningIn.swift */,
 				4C41FD6E1A81819B006456A6 /* AdminViewController.swift */,
@@ -320,6 +323,7 @@
 			files = (
 				4C83FF661B4A42BC00E12761 /* ContactLog.swift in Sources */,
 				4C7EC5251B8963F80057D1A9 /* ContactTableViewCell.swift in Sources */,
+				4CA6A0811BBC7EC100759754 /* MyAccountViewController.swift in Sources */,
 				4C7550E11A6A19F300874972 /* BFFOrganization.m in Sources */,
 				4C41FD711A831F27006456A6 /* ShopUseLog.swift in Sources */,
 				4CA6A07F1BBB98B800759754 /* Contact.swift in Sources */,
