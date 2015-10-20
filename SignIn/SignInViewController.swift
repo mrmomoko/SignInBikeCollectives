@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SignInViewController: UIViewController, UITableViewDataSource {
+class SignInViewController: UIViewController, UITableViewDataSource, UITabBarControllerDelegate {
 
     let contactLog = ContactLog()
     var currentContact : Contact!
@@ -21,6 +21,7 @@ class SignInViewController: UIViewController, UITableViewDataSource {
     required init?(coder aDecoder: NSCoder) {
         filteredLog = contactLog.allContacts
         super.init(coder: aDecoder)
+        self.tabBarController?.delegate = self
     }
     
     override func viewDidLoad() {

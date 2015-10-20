@@ -26,6 +26,16 @@ class MyAccountViewController : UIViewController {
         }
     }
     
+    override func viewDidLoad() {
+        let alert = UIAlertController(title: "Password", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.Default, handler: nil))
+        alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+            textField.placeholder = "Enter Password:"
+            textField.secureTextEntry = false
+        })
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
     //- (NSString *)commaSeporatedStyle;
     //{
     //    NSString *contactString = @"";

@@ -8,19 +8,45 @@
         <attribute name="pin" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="recentUse" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="recentUseType" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="employee" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EmployeeUse" inverseName="contact" inverseEntity="EmployeeUse" syncable="YES"/>
         <relationship name="membership" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Membership" inverseName="contact" inverseEntity="Membership" syncable="YES"/>
         <relationship name="shopUse" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ShopUse" inverseName="contact" inverseEntity="ShopUse" syncable="YES"/>
         <relationship name="volunteer" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="VolunteerUse" inverseName="contact" inverseEntity="VolunteerUse" syncable="YES"/>
+    </entity>
+    <entity name="EmployeeUse" representedClassName=".EmployeeUse" syncable="YES">
+        <attribute name="signIn" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="signOut" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="contact" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Contact" inverseName="employee" inverseEntity="Contact" syncable="YES"/>
     </entity>
     <entity name="Membership" representedClassName="SignIn.Membership" syncable="YES">
         <attribute name="membershipExpiration" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="membershipType" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="contact" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Contact" inverseName="membership" inverseEntity="Contact" syncable="YES"/>
     </entity>
+    <entity name="Organization" representedClassName=".Organization" syncable="YES">
+        <attribute name="defaultSignOutTime" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="emailAddress" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="password" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="saferSpaceAgreement" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="waiver" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="yesOrNoQuestion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zipCode" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="userTypes" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserTypes" syncable="YES"/>
+    </entity>
     <entity name="ShopUse" representedClassName="SignIn.ShopUse" syncable="YES">
         <attribute name="signIn" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="signOut" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="contact" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Contact" inverseName="shopUse" inverseEntity="Contact" syncable="YES"/>
+    </entity>
+    <entity name="UserTypes" syncable="YES">
+        <attribute name="coreVolunteers" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="lifeTimeMembers" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="oneMonthMembers" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="sixMonthMembers" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="staff" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="yearlyMembers" optional="YES" attributeType="Boolean" syncable="YES"/>
     </entity>
     <entity name="VolunteerUse" representedClassName="SignIn.VolunteerUse" syncable="YES">
         <attribute name="signIn" optional="YES" attributeType="Date" syncable="YES"/>
@@ -29,8 +55,11 @@
     </entity>
     <elements>
         <element name="Contact" positionX="-396" positionY="-162" width="128" height="30"/>
-        <element name="Membership" positionX="-243" positionY="-297" width="128" height="88"/>
+        <element name="Membership" positionX="-243" positionY="-297" width="128" height="90"/>
         <element name="ShopUse" positionX="-209" positionY="-126" width="128" height="88"/>
         <element name="VolunteerUse" positionX="-209" positionY="87" width="128" height="88"/>
+        <element name="Organization" positionX="-306" positionY="-144" width="128" height="195"/>
+        <element name="UserTypes" positionX="-297" positionY="-135" width="128" height="135"/>
+        <element name="EmployeeUse" positionX="-288" positionY="-117" width="128" height="90"/>
     </elements>
 </model>

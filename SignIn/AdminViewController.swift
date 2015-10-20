@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDelegate {
+class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDelegate, UITabBarControllerDelegate {
     var filteredContacts = [Contact]()
     let contactLog = ContactLog()
     let shopUseLog = ShopUseLog()
@@ -40,18 +40,47 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        self.tabBarController?.delegate = self
     }
-    
     override func viewDidLoad() {
+        filteredContacts = usersWhoAreLoggedIn()
+//        listOfPeopleTableView.reloadData()
 //        self.navigationItem.leftBarButtonItem?. == "Sign Out"
     }
     
+    override func viewDidAppear(animated: Bool) {
+        // if user has a password and is coming from the other tab
+//        showPassWordAlert()
+    }
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Person Detail Segue" {
             let vc = segue.destinationViewController as! PersonDetailViewController
             vc.contact = selectedContact
         }
     }
+    
+    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        
+    }
+    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
+        return true
+    }
+    
+    func showPassWordAlert() {
+        let alert = UIAlertController(title: "Password", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.Default, handler: nil))
+        alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+            textField.placeholder = "Enter Password:"
+            textField.secureTextEntry = false
+        })
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func showFilterAlert() {
+        //pop up an alert with the different filters?
+    }
+    
     func usersWhoAreLoggedIn() -> [Contact] {
         var loggedInUsers = [Contact]()
         for contact in ContactLog().allContacts {
@@ -61,8 +90,8 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
         }
         return loggedInUsers
     }
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
     
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text?.characters.count == 1 && searchText == "" {
             listOfPeopleTableView.reloadData()
         }
