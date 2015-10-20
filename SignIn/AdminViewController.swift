@@ -63,9 +63,6 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
         
     }
-    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
-        return true
-    }
     
     func showPassWordAlert() {
         let alert = UIAlertController(title: "Password", message: nil, preferredStyle: UIAlertControllerStyle.Alert)

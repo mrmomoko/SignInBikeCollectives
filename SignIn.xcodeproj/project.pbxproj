@@ -17,11 +17,6 @@
 		4C41FD711A831F27006456A6 /* ShopUseLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C41FD701A831F27006456A6 /* ShopUseLog.swift */; };
 		4C591D801B7C1632001BEA74 /* MembershipLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C591D7F1B7C1632001BEA74 /* MembershipLog.swift */; };
 		4C5A12B51B71CB4800C3FC40 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4C5A12B31B71CB4800C3FC40 /* Model.xcdatamodeld */; };
-		4C7550DD1A6A158A00874972 /* BCNContactLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7550DA1A6A158A00874972 /* BCNContactLog.m */; };
-		4C7550DE1A6A158A00874972 /* BCNShopUseLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7550DC1A6A158A00874972 /* BCNShopUseLog.m */; };
-		4C7550E11A6A19F300874972 /* BFFOrganization.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7550E01A6A19F300874972 /* BFFOrganization.m */; };
-		4C7550ED1A6A1B6800874972 /* BCNContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7550EB1A6A1B6800874972 /* BCNContact.m */; };
-		4C7550EE1A6A1B6800874972 /* BCNShopUse.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7550EC1A6A1B6800874972 /* BCNShopUse.m */; };
 		4C7AB00B1A92A9EE001F2BEF /* ShopUseLogSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AB00A1A92A9EE001F2BEF /* ShopUseLogSwiftTests.swift */; };
 		4C7EC5251B8963F80057D1A9 /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7EC5241B8963F80057D1A9 /* ContactTableViewCell.swift */; };
 		4C80C4181BD0DC3400707469 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C80C4171BD0DC3400707469 /* UIKit.framework */; };
@@ -70,16 +65,6 @@
 		4C41FD701A831F27006456A6 /* ShopUseLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopUseLog.swift; sourceTree = "<group>"; };
 		4C591D7F1B7C1632001BEA74 /* MembershipLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembershipLog.swift; sourceTree = "<group>"; };
 		4C5A12B41B71CB4800C3FC40 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		4C7550D91A6A158A00874972 /* BCNContactLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCNContactLog.h; sourceTree = "<group>"; };
-		4C7550DA1A6A158A00874972 /* BCNContactLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCNContactLog.m; sourceTree = "<group>"; };
-		4C7550DB1A6A158A00874972 /* BCNShopUseLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCNShopUseLog.h; sourceTree = "<group>"; };
-		4C7550DC1A6A158A00874972 /* BCNShopUseLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCNShopUseLog.m; sourceTree = "<group>"; };
-		4C7550DF1A6A19F300874972 /* BFFOrganization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFFOrganization.h; sourceTree = "<group>"; };
-		4C7550E01A6A19F300874972 /* BFFOrganization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFFOrganization.m; sourceTree = "<group>"; };
-		4C7550E91A6A1B6800874972 /* BCNContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCNContact.h; sourceTree = "<group>"; };
-		4C7550EA1A6A1B6800874972 /* BCNShopUse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCNShopUse.h; sourceTree = "<group>"; };
-		4C7550EB1A6A1B6800874972 /* BCNContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCNContact.m; sourceTree = "<group>"; };
-		4C7550EC1A6A1B6800874972 /* BCNShopUse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCNShopUse.m; sourceTree = "<group>"; };
 		4C7AB0061A8D44EA001F2BEF /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		4C7AB0071A929F44001F2BEF /* SignInTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SignInTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		4C7AB00A1A92A9EE001F2BEF /* ShopUseLogSwiftTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopUseLogSwiftTests.swift; sourceTree = "<group>"; };
@@ -211,16 +196,6 @@
 				4C591D7F1B7C1632001BEA74 /* MembershipLog.swift */,
 				4C41FD701A831F27006456A6 /* ShopUseLog.swift */,
 				4C83FF651B4A42BC00E12761 /* ContactLog.swift */,
-				4C7550DF1A6A19F300874972 /* BFFOrganization.h */,
-				4C7550E01A6A19F300874972 /* BFFOrganization.m */,
-				4C7550D91A6A158A00874972 /* BCNContactLog.h */,
-				4C7550DA1A6A158A00874972 /* BCNContactLog.m */,
-				4C7550E91A6A1B6800874972 /* BCNContact.h */,
-				4C7550EB1A6A1B6800874972 /* BCNContact.m */,
-				4C7550EA1A6A1B6800874972 /* BCNShopUse.h */,
-				4C7550EC1A6A1B6800874972 /* BCNShopUse.m */,
-				4C7550DB1A6A158A00874972 /* BCNShopUseLog.h */,
-				4C7550DC1A6A158A00874972 /* BCNShopUseLog.m */,
 				4C5A12B31B71CB4800C3FC40 /* Model.xcdatamodeld */,
 				4C7AB0061A8D44EA001F2BEF /* MyPlayground.playground */,
 			);
@@ -340,10 +315,8 @@
 				4C83FF661B4A42BC00E12761 /* ContactLog.swift in Sources */,
 				4C7EC5251B8963F80057D1A9 /* ContactTableViewCell.swift in Sources */,
 				4CA6A0811BBC7EC100759754 /* MyAccountViewController.swift in Sources */,
-				4C7550E11A6A19F300874972 /* BFFOrganization.m in Sources */,
 				4C41FD711A831F27006456A6 /* ShopUseLog.swift in Sources */,
 				4CA6A07F1BBB98B800759754 /* Contact.swift in Sources */,
-				4C7550DE1A6A158A00874972 /* BCNShopUseLog.m in Sources */,
 				4C0C13791A5070BF0019A6B2 /* AppDelegate.m in Sources */,
 				4CA6A07E1BBB98B800759754 /* Contact+CoreDataProperties.swift in Sources */,
 				4CCB75651A7AF5F20039D10B /* PersonDetailViewController.swift in Sources */,
@@ -352,12 +325,9 @@
 				4CCB75681A7C50F70039D10B /* ThankYouForSigningIn.swift in Sources */,
 				4CF193A21B44CB0C001CB464 /* SignInViewController.swift in Sources */,
 				4CC927661B7A9E6B003E3A88 /* Membership.swift in Sources */,
-				4C7550EE1A6A1B6800874972 /* BCNShopUse.m in Sources */,
-				4C7550ED1A6A1B6800874972 /* BCNContact.m in Sources */,
 				4C2FCA7A1B7D4C44001571E1 /* EditUserViewController.swift in Sources */,
 				4C80C4241BD5C9B200707469 /* Organization.swift in Sources */,
 				4C591D801B7C1632001BEA74 /* MembershipLog.swift in Sources */,
-				4C7550DD1A6A158A00874972 /* BCNContactLog.m in Sources */,
 				4C0C13761A5070BF0019A6B2 /* main.m in Sources */,
 				4C5A12B51B71CB4800C3FC40 /* Model.xcdatamodeld in Sources */,
 				4CC9276A1B7A9E95003E3A88 /* VolunteerUse.swift in Sources */,
