@@ -141,11 +141,16 @@ extension NewUserViewController {
         presentViewController(alert, animated: true, completion: nil)
     }
     func showWaiverForCompleteForm () {
-        let alert = UIAlertController(title: "Waiver - You're working on your bike - Please don't sue us", message: " I, and my heirs, in consideration of my participation in Bike Farm Inc., hereby release Bike Farm Inc., its officers, employees and agents, and any other people officially connected with this event, from any and all liability for damage to or loss of personal property, sickness or injury from whatever source, legal entanglements, imprisonment, death, or loss of money, which might occur while participating in this event. Specifically, I release said persons from any liability or responsibility for injury while working on my bike and other accidents relating to riding this bicycle. I am aware of the risks of participation, which include, but are not limited to, the possibility of sprained muscles and ligaments, broken bones and fatigue. I hereby state that I am in sufficient physical condition to accept a rigorous level of physical activity. I understand that participation in this program is strictly voluntary and I freely chose to participate. I understand that Bike Farm does not provide medical coverage for me. I verify that I will be responsible for any medical costs I incur as a result of my participation.", preferredStyle: .Alert)
+        let orgLog = OrganizationLog()
+        if let waiver = orgLog.currentOrganization().organization!.waiver   {
+        let alert = UIAlertController(title: "Waiver", message: waiver, preferredStyle: .Alert)
         let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         alert.addAction(cancel)
         let agree = UIAlertAction(title: "I Agree", style: .Default, handler: { alert in self.performSegueWithIdentifier("Thank You", sender: self)})
         alert.addAction(agree)
         presentViewController(alert, animated: true, completion: nil)
+        } else {
+            performSegueWithIdentifier("Thank You", sender: self)
+        }
     }
 }

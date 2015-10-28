@@ -25,6 +25,11 @@ class PersonDetailViewController: UIViewController {
     @IBOutlet weak var lastMonthShopUse: UILabel!
     @IBOutlet weak var lastMonthVolunteering: UILabel!
     
+    
+    // i need to customize this view... I will use this type of code
+//    let orgLog = OrganizationLog()
+//    if let waiver = orgLog.currentOrganization().organization!.waiver
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         firstNameLastInitial.text = contact?.firstName

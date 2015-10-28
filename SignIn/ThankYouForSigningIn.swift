@@ -18,7 +18,12 @@ class BFFThankYouForSigningIn: UIViewController {
     
     override func viewDidLoad() {
         nameLabel.text = contact.firstName
-           showAlertForCompleteForm()
+        let orgLog = OrganizationLog()
+        if let userTypes = orgLog.currentOrganization().organization!.userTypes {
+            // if there's staff, so a different sign in form
+        } else {
+            showAlertForCompleteForm()
+        }
         super.viewDidLoad()
     }
     

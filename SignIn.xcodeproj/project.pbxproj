@@ -24,7 +24,11 @@
 		4C80C4201BD5C99100707469 /* EmployeeUse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C80C41E1BD5C99100707469 /* EmployeeUse.swift */; settings = {ASSET_TAGS = (); }; };
 		4C80C4231BD5C9B200707469 /* Organization+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C80C4211BD5C9B200707469 /* Organization+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
 		4C80C4241BD5C9B200707469 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C80C4221BD5C9B200707469 /* Organization.swift */; settings = {ASSET_TAGS = (); }; };
+		4C8387491BE03DB500DED65E /* UserTypes+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8387471BE03DB500DED65E /* UserTypes+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
+		4C83874A1BE03DB500DED65E /* UserTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8387481BE03DB500DED65E /* UserTypes.swift */; settings = {ASSET_TAGS = (); }; };
+		4C83874C1BE03EA000DED65E /* UserTypeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C83874B1BE03EA000DED65E /* UserTypeHandler.swift */; settings = {ASSET_TAGS = (); }; };
 		4C83FF661B4A42BC00E12761 /* ContactLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C83FF651B4A42BC00E12761 /* ContactLog.swift */; };
+		4C9464101BD700C300665BE6 /* OrganizationLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C94640F1BD700C300665BE6 /* OrganizationLog.swift */; settings = {ASSET_TAGS = (); }; };
 		4CA6A07E1BBB98B800759754 /* Contact+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA6A07C1BBB98B800759754 /* Contact+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
 		4CA6A07F1BBB98B800759754 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA6A07D1BBB98B800759754 /* Contact.swift */; settings = {ASSET_TAGS = (); }; };
 		4CA6A0811BBC7EC100759754 /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA6A0801BBC7EC100759754 /* MyAccountViewController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -74,7 +78,11 @@
 		4C80C41E1BD5C99100707469 /* EmployeeUse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeUse.swift; sourceTree = "<group>"; };
 		4C80C4211BD5C9B200707469 /* Organization+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Organization+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4C80C4221BD5C9B200707469 /* Organization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
+		4C8387471BE03DB500DED65E /* UserTypes+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserTypes+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4C8387481BE03DB500DED65E /* UserTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTypes.swift; sourceTree = "<group>"; };
+		4C83874B1BE03EA000DED65E /* UserTypeHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTypeHandler.swift; sourceTree = "<group>"; };
 		4C83FF651B4A42BC00E12761 /* ContactLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactLog.swift; sourceTree = "<group>"; };
+		4C94640F1BD700C300665BE6 /* OrganizationLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationLog.swift; sourceTree = "<group>"; };
 		4CA6A07C1BBB98B800759754 /* Contact+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Contact+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4CA6A07D1BBB98B800759754 /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		4CA6A0801BBC7EC100759754 /* MyAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
@@ -184,18 +192,12 @@
 		4C7550D81A6A158A00874972 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4C80C4211BD5C9B200707469 /* Organization+CoreDataProperties.swift */,
-				4C80C4221BD5C9B200707469 /* Organization.swift */,
-				4C80C41D1BD5C99100707469 /* EmployeeUse+CoreDataProperties.swift */,
-				4C80C41E1BD5C99100707469 /* EmployeeUse.swift */,
-				4CA6A07C1BBB98B800759754 /* Contact+CoreDataProperties.swift */,
-				4CA6A07D1BBB98B800759754 /* Contact.swift */,
-				4CC927691B7A9E95003E3A88 /* VolunteerUse.swift */,
-				4CC927671B7A9E84003E3A88 /* ShopUse.swift */,
-				4CC927651B7A9E6B003E3A88 /* Membership.swift */,
+				4C94640E1BD700A500665BE6 /* Objects */,
 				4C591D7F1B7C1632001BEA74 /* MembershipLog.swift */,
+				4C94640F1BD700C300665BE6 /* OrganizationLog.swift */,
 				4C41FD701A831F27006456A6 /* ShopUseLog.swift */,
 				4C83FF651B4A42BC00E12761 /* ContactLog.swift */,
+				4C83874B1BE03EA000DED65E /* UserTypeHandler.swift */,
 				4C5A12B31B71CB4800C3FC40 /* Model.xcdatamodeld */,
 				4C7AB0061A8D44EA001F2BEF /* MyPlayground.playground */,
 			);
@@ -208,6 +210,24 @@
 				4C7EC5241B8963F80057D1A9 /* ContactTableViewCell.swift */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		4C94640E1BD700A500665BE6 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				4C8387471BE03DB500DED65E /* UserTypes+CoreDataProperties.swift */,
+				4C8387481BE03DB500DED65E /* UserTypes.swift */,
+				4C80C4211BD5C9B200707469 /* Organization+CoreDataProperties.swift */,
+				4C80C4221BD5C9B200707469 /* Organization.swift */,
+				4C80C41D1BD5C99100707469 /* EmployeeUse+CoreDataProperties.swift */,
+				4C80C41E1BD5C99100707469 /* EmployeeUse.swift */,
+				4CA6A07C1BBB98B800759754 /* Contact+CoreDataProperties.swift */,
+				4CA6A07D1BBB98B800759754 /* Contact.swift */,
+				4CC927691B7A9E95003E3A88 /* VolunteerUse.swift */,
+				4CC927671B7A9E84003E3A88 /* ShopUse.swift */,
+				4CC927651B7A9E6B003E3A88 /* Membership.swift */,
+			);
+			name = Objects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -316,6 +336,7 @@
 				4C7EC5251B8963F80057D1A9 /* ContactTableViewCell.swift in Sources */,
 				4CA6A0811BBC7EC100759754 /* MyAccountViewController.swift in Sources */,
 				4C41FD711A831F27006456A6 /* ShopUseLog.swift in Sources */,
+				4C8387491BE03DB500DED65E /* UserTypes+CoreDataProperties.swift in Sources */,
 				4CA6A07F1BBB98B800759754 /* Contact.swift in Sources */,
 				4C0C13791A5070BF0019A6B2 /* AppDelegate.m in Sources */,
 				4CA6A07E1BBB98B800759754 /* Contact+CoreDataProperties.swift in Sources */,
@@ -329,12 +350,15 @@
 				4C80C4241BD5C9B200707469 /* Organization.swift in Sources */,
 				4C591D801B7C1632001BEA74 /* MembershipLog.swift in Sources */,
 				4C0C13761A5070BF0019A6B2 /* main.m in Sources */,
+				4C83874A1BE03DB500DED65E /* UserTypes.swift in Sources */,
 				4C5A12B51B71CB4800C3FC40 /* Model.xcdatamodeld in Sources */,
 				4CC9276A1B7A9E95003E3A88 /* VolunteerUse.swift in Sources */,
 				4C41FD6F1A81819B006456A6 /* AdminViewController.swift in Sources */,
+				4C83874C1BE03EA000DED65E /* UserTypeHandler.swift in Sources */,
 				4CF657841B55D85A00FBB45E /* NewUserViewController.swift in Sources */,
 				4CC927681B7A9E84003E3A88 /* ShopUse.swift in Sources */,
 				4C80C4201BD5C99100707469 /* EmployeeUse.swift in Sources */,
+				4C9464101BD700C300665BE6 /* OrganizationLog.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

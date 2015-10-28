@@ -20,6 +20,10 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
     
     required init?(coder aDecoder: NSCoder) {
         filteredLog = contactLog.allContacts
+        let orgLog = OrganizationLog()
+        if !orgLog.currentOrganization().doesTheOrgExist {
+            orgLog.createOrganizationWithDefaultValues()
+        }
         super.init(coder: aDecoder)
         self.tabBarController?.delegate = self
     }
@@ -29,7 +33,7 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
     }
     
     override func viewDidAppear(animated: Bool) {
-        uniqueIdentifier.text == ""
+        uniqueIdentifier.text = ""
         filteredLog = contactLog.recentContactsWhoAreNotLoggedIn()
         mostRecentSignIns.reloadData()
     }
