@@ -105,6 +105,24 @@ class ShopUseLog: NSObject {
         contact.recentUse = NSDate()
     }
     
+    func findMostRecentShopUseForContact(contact: Contact) -> ShopUse {
+        var log = []
+        let recentUseFetchRequest = NSFetchRequest(entityName: "ShopUse")
+        let predicate = NSPredicate(format: "contact == %@ && signOut > NSDate", contact)
+        //let sortDescriptor
+        //set fetch limit, so that the fetch request only returns one.
+        recentUseFetchRequest.predicate = predicate
+        do { if let recentUseFetch = try managedObjectContext.executeFetchRequest(recentUseFetchRequest) as? [ShopUse] {
+            log =  recentUseFetch}
+        else {
+            assertionFailure("Could not executeFetchRequest")
+            }
+        } catch let error as NSError {
+            print("Could not fetch \(error)")
+        }
+        return log.firstObject! as! ShopUse
+    }
+    
     func getMostRecentShopUseForContact(contact: Contact) -> AnyObject {
         var log = []
         if contact.recentUseType == "volunteerUse" {

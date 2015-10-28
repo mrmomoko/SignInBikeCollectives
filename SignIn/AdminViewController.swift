@@ -50,7 +50,6 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     
     override func viewDidAppear(animated: Bool) {
         // if user has a password and is coming from the other tab
-//        showPassWordAlert()
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -61,6 +60,9 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     }
     
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        if self.tabBarController?.selectedIndex == 1 {
+            showPassWordAlert()
+        }
         
     }
     

@@ -40,10 +40,12 @@
         <attribute name="signOut" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="contact" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Contact" inverseName="shopUse" inverseEntity="Contact" syncable="YES"/>
     </entity>
-    <entity name="UserTypes" syncable="YES">
+    <entity name="UserTypes" representedClassName=".UserTypes" syncable="YES">
         <attribute name="coreVolunteers" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="earnABike" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="lifeTimeMembers" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="oneMonthMembers" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="other" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="sixMonthMembers" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="staff" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="yearlyMembers" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -55,12 +57,12 @@
         <relationship name="contact" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Contact" inverseName="volunteer" inverseEntity="Contact" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Contact" positionX="-396" positionY="-162" width="128" height="30"/>
-        <element name="EmployeeUse" positionX="-288" positionY="-117" width="128" height="90"/>
+        <element name="Contact" positionX="-522" positionY="-243" width="128" height="208"/>
+        <element name="EmployeeUse" positionX="-83" positionY="-270" width="128" height="90"/>
         <element name="Membership" positionX="-243" positionY="-297" width="128" height="90"/>
-        <element name="Organization" positionX="-306" positionY="-144" width="128" height="195"/>
-        <element name="ShopUse" positionX="-209" positionY="-126" width="128" height="88"/>
-        <element name="UserTypes" positionX="-297" positionY="-135" width="128" height="150"/>
-        <element name="VolunteerUse" positionX="-209" positionY="87" width="128" height="88"/>
+        <element name="Organization" positionX="-767" positionY="-279" width="128" height="195"/>
+        <element name="ShopUse" positionX="-38" positionY="-126" width="128" height="88"/>
+        <element name="UserTypes" positionX="-765" positionY="-60" width="128" height="178"/>
+        <element name="VolunteerUse" positionX="-38" positionY="36" width="128" height="88"/>
     </elements>
 </model>
