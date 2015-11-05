@@ -35,6 +35,7 @@ class EditUserViewController: UIViewController, UITableViewDelegate {
             
             // save contact
             contactLog.saveContact(contact!)
+            navigationController?.popViewControllerAnimated(true)
         }
     }
     

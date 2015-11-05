@@ -27,13 +27,16 @@ class MyAccountViewController : UIViewController {
     }
     
     override func viewDidLoad() {
-        let alert = UIAlertController(title: "Password", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.Default, handler: nil))
-        alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
-            textField.placeholder = "Enter Password:"
-            textField.secureTextEntry = false
-        })
-        self.presentViewController(alert, animated: true, completion: nil)
+     }
+    
+    override func viewDidAppear(animated: Bool) {
+        let tap = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        view.addGestureRecognizer(tap)
+        tap.cancelsTouchesInView = false
+    }
+    
+    func dismissKeyboard() {
+        self.view.endEditing(true)
     }
     
     //- (NSString *)commaSeporatedStyle;
@@ -47,7 +50,4 @@ class MyAccountViewController : UIViewController {
     //
     //    return commaSeporatedString;
     //}
-    //
-
-    
 }

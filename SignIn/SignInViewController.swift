@@ -19,7 +19,7 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
     @IBOutlet weak var mostRecentSignIns: UITableView!
     
     required init?(coder aDecoder: NSCoder) {
-        filteredLog = contactLog.allContacts
+        filteredLog = contactLog.allContacts!
         let orgLog = OrganizationLog()
         if !orgLog.currentOrganization().doesTheOrgExist {
             orgLog.createOrganizationWithDefaultValues()

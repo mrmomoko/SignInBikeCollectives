@@ -156,7 +156,7 @@ class ShopUseLog: NSObject {
     func loggedInContacts() -> [Contact] {
         let loggedInContacts = ContactLog().allContacts
         var newContacts = [Contact]()
-        for user in loggedInContacts {
+        for user in loggedInContacts! {
             if user.recentUse!.timeIntervalSinceNow > 0 {
                 newContacts.append(user)
             }
@@ -206,7 +206,7 @@ class ShopUseLog: NSObject {
     func contactsOfVolunteers() -> [Contact] {
         var contacts = [Contact]()
         let allContacts = ContactLog().allContacts
-        for contact in allContacts {
+        for contact in allContacts! {
             if contact.volunteer!.count > 0 {
                  contacts.append(contact)
             }

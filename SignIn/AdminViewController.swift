@@ -10,6 +10,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     let contactLog = ContactLog()
     let shopUseLog = ShopUseLog()
     var selectedContact : Contact?
+    let organizationLog = OrganizationLog()
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var listOfPeopleTableView: UITableView!
@@ -60,7 +61,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     }
     
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
-        if self.tabBarController?.selectedIndex == 1 {
+        if self.tabBarController?.selectedIndex == 1 && organizationLog.hasPassword() {
             showPassWordAlert()
         }
         
@@ -82,7 +83,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     
     func usersWhoAreLoggedIn() -> [Contact] {
         var loggedInUsers = [Contact]()
-        for contact in ContactLog().allContacts {
+        for contact in ContactLog().allContacts! {
             if contact.recentUse!.timeIntervalSinceNow > 0 {
                 loggedInUsers.append(contact)
             }

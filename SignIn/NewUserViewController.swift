@@ -42,14 +42,23 @@ class NewUserViewController: UIViewController, UICollectionViewDelegateFlowLayou
         showWaiverForCompleteForm()
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         contact = contactLog.createUserWithIdentity(contactIndentifier!)
         firstName.text = contact!.firstName
+        let tap = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        view.addGestureRecognizer(tap)
+        tap.cancelsTouchesInView = false
         
         colourCollectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        firstName.becomeFirstResponder()
+    }
+    
     override func viewWillDisappear(animated: Bool) {
         if firstName.text == "" && lastName.text == "" && email.text == "" {
             //delete the contact from the data base
@@ -132,6 +141,10 @@ extension NewUserViewController {
             view.backgroundColor = UIColor.redColor()
             collectionView.backgroundColor = UIColor.redColor()
         }
+    }
+    
+    func dismissKeyboard() {
+        self.view.endEditing(true)
     }
     
     func showAlertForIncompleteForm() {

@@ -25,13 +25,9 @@ class PersonDetailViewController: UIViewController {
     @IBOutlet weak var lastMonthShopUse: UILabel!
     @IBOutlet weak var lastMonthVolunteering: UILabel!
     
-    
-    // i need to customize this view... I will use this type of code
-//    let orgLog = OrganizationLog()
-//    if let waiver = orgLog.currentOrganization().organization!.waiver
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.dismissViewControllerAfterTimeOut()
         firstNameLastInitial.text = contact?.firstName
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateStyle = .MediumStyle
@@ -47,11 +43,25 @@ class PersonDetailViewController: UIViewController {
         thisMonthVolunteering.text = "no data yet"
         lastMonthShopUse.text = "no data yet"
         lastMonthVolunteering.text = "no data yet"
+        if self.tabBarController?.selectedIndex == 0 {
+            self.navigationItem.rightBarButtonItem = nil 
+        }
     }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Edit User Segue" {
             let vc = segue.destinationViewController as! EditUserViewController
             vc.contact = contact
+        }
+    }
+    
+    func dismissViewControllerAfterTimeOut() {
+        let delay = 15.0 * Double(NSEC_PER_SEC) // change to *15 sec
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        dispatch_after(time, dispatch_get_main_queue()) {
+            if self.navigationController?.topViewController == self {
+                self.navigationController!.popToRootViewControllerAnimated(true)
+            }
         }
     }
 }

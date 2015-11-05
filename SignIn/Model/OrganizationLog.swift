@@ -11,6 +11,15 @@ import Foundation
 class  OrganizationLog: NSObject {
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     var organizationLog : [Organization]
+    enum MembershipType: String {
+            case
+            NonMember = "Non Member",
+            Monthly = "Monthly",
+            SixMonth = "6 Month",
+            Yearly = "Yearly",
+            LifeTime = "Life Time"
+        }
+
     
     override init() {
         organizationLog = []
@@ -34,6 +43,9 @@ class  OrganizationLog: NSObject {
         
         //set default behaviour for organization
         org.defaultSignOutTime = 4
+
+        org.password = ""
+        
 //        org.userTypes = UserTypeHandler().createUserTypesForOrganization
         //create UserTypes?
 
@@ -76,5 +88,13 @@ class  OrganizationLog: NSObject {
             error = error1
             print("Could not save \(error), \(error?.userInfo)")
         }
+    }
+    
+    func hasPassword() -> Bool {
+        var bool = false
+        if let org = organizationLog.first {
+            bool = (org.password == "" ? false : true)
+        }
+        return bool
     }
 }
