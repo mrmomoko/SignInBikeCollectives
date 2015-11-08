@@ -46,7 +46,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     override func viewDidLoad() {
         filteredContacts = usersWhoAreLoggedIn()
 //        listOfPeopleTableView.reloadData()
-//        self.navigationItem.leftBarButtonItem?. == "Sign Out"
+        self.navigationItem.rightBarButtonItem?.image = UIImage(contentsOfFile: "email")
     }
     
     override func viewDidAppear(animated: Bool) {
