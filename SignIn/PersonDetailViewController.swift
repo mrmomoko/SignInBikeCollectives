@@ -13,6 +13,7 @@ class PersonDetailViewController: UIViewController {
    
     var contact : Contact?
     var shopUse : ShopUse?
+    let shopUseLog = ShopUseLog()
     
     @IBOutlet weak var firstNameLastInitial: UILabel!
     @IBOutlet weak var membership: UILabel!
@@ -37,12 +38,12 @@ class PersonDetailViewController: UIViewController {
         } else {
             membership.text = "Membership does not exist or is expired."
         }
-        totalHours.text = ShopUseLog().numberOfShopUseHoursLoggedByContact(contact!)
-        totalHoursVolunteering.text = ShopUseLog().numberOfVolunteerHoursLoggedByContact(contact!)
-        thisMonthShopUse.text = "no data yet"
-        thisMonthVolunteering.text = "no data yet"
-        lastMonthShopUse.text = "no data yet"
-        lastMonthVolunteering.text = "no data yet"
+        totalHours.text = shopUseLog.numberOfShopUseHoursLoggedByContact(contact!)
+        totalHoursVolunteering.text = shopUseLog.numberOfVolunteerHoursLoggedByContact(contact!)
+        thisMonthShopUse.text = shopUseLog.hourlyTotalForThisMonth(contact!)
+        thisMonthVolunteering.text = shopUseLog.hourlyVolunteerTotalForThisMonth(contact!)
+        lastMonthShopUse.text = shopUseLog.hourlyTotalForLastMonth(contact!)
+        lastMonthVolunteering.text = shopUseLog.hourlyVolunteerTotalForLastMonth(contact!)
         if self.tabBarController?.selectedIndex == 0 {
             self.navigationItem.rightBarButtonItem = nil 
         }

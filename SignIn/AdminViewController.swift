@@ -83,7 +83,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     
     func usersWhoAreLoggedIn() -> [Contact] {
         var loggedInUsers = [Contact]()
-        for contact in ContactLog().allContacts! {
+        for contact in ContactLog().allContacts {
             if contact.recentUse!.timeIntervalSinceNow > 0 {
                 loggedInUsers.append(contact)
             }

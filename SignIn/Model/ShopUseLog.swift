@@ -156,7 +156,7 @@ class ShopUseLog: NSObject {
     func loggedInContacts() -> [Contact] {
         let loggedInContacts = ContactLog().allContacts
         var newContacts = [Contact]()
-        for user in loggedInContacts! {
+        for user in loggedInContacts {
             if user.recentUse!.timeIntervalSinceNow > 0 {
                 newContacts.append(user)
             }
@@ -170,7 +170,7 @@ class ShopUseLog: NSObject {
             let shopUseInstance = Int(volunteerUseHour.signIn.timeIntervalSinceNow - volunteerUseHour.signOut.timeIntervalSinceNow)
             totalHoursOfShopUse = totalHoursOfShopUse + shopUseInstance
         }
-        totalHoursOfShopUse = totalHoursOfShopUse/60 * -1 ///60 * -1
+        totalHoursOfShopUse = totalHoursOfShopUse/(60 * 60) * -1
 
         return String(totalHoursOfShopUse)
     }
@@ -179,12 +179,86 @@ class ShopUseLog: NSObject {
         var totalHoursOfShopUse = 0
         for shopUseHour in contact.shopUse! {
             var shopUseInstance = Int(shopUseHour.signIn.timeIntervalSinceNow - shopUseHour.signOut.timeIntervalSinceNow)
-            shopUseInstance = shopUseInstance/60 * -1 ///60 * -1
+            shopUseInstance = shopUseInstance/(60 * 60) * -1
             totalHoursOfShopUse = totalHoursOfShopUse + shopUseInstance
         }
         return String(totalHoursOfShopUse)
     }
     
+    func hourlyTotalForThisMonth(contact: Contact) -> String {
+        var hourlyTotalForThisMonth = 0
+        for shopUseHour in contact.shopUse! {
+            if isDateInThisMonth(shopUseHour.signIn) {
+                var shopUseInstance = Int(shopUseHour.signIn.timeIntervalSinceNow - shopUseHour.signOut.timeIntervalSinceNow)
+                shopUseInstance = shopUseInstance/(60 * 60) * -1
+                hourlyTotalForThisMonth = hourlyTotalForThisMonth + shopUseInstance
+            }
+        }
+        return String(hourlyTotalForThisMonth)
+    }
+    
+    func hourlyTotalForLastMonth(contact: Contact) -> String {
+        var hourlyTotalForThisMonth = 0
+        for shopUseHour in contact.shopUse! {
+            if isDateInLastMonth(shopUseHour.signIn) {
+                var shopUseInstance = Int(shopUseHour.signIn.timeIntervalSinceNow - shopUseHour.signOut.timeIntervalSinceNow)
+                shopUseInstance = shopUseInstance/(60 * 60) * -1
+                hourlyTotalForThisMonth = hourlyTotalForThisMonth + shopUseInstance
+            }
+        }
+        return String(hourlyTotalForThisMonth)
+    }
+    
+    func hourlyVolunteerTotalForThisMonth(contact: Contact) -> String {
+        var hourlyTotalForThisMonth = 0
+        for shopUseHour in contact.volunteer! {
+            if isDateInThisMonth(shopUseHour.signIn) {
+                var shopUseInstance = Int(shopUseHour.signIn.timeIntervalSinceNow - shopUseHour.signOut.timeIntervalSinceNow)
+                shopUseInstance = shopUseInstance/(60 * 60) * -1
+                hourlyTotalForThisMonth = hourlyTotalForThisMonth + shopUseInstance
+            }
+        }
+        return String(hourlyTotalForThisMonth)
+    }
+    
+    func hourlyVolunteerTotalForLastMonth(contact: Contact) -> String {
+        var hourlyTotalForThisMonth = 0
+        for shopUseHour in contact.volunteer! {
+            if isDateInLastMonth(shopUseHour.signIn) {
+                var shopUseInstance = Int(shopUseHour.signIn.timeIntervalSinceNow - shopUseHour.signOut.timeIntervalSinceNow)
+                shopUseInstance = shopUseInstance/(60 * 60) * -1
+                hourlyTotalForThisMonth = hourlyTotalForThisMonth + shopUseInstance
+            }
+        }
+        return String(hourlyTotalForThisMonth)
+    }
+
+    func isDateInThisMonth(date: NSDate) -> Bool {
+        var bool = true
+        let calendar = NSCalendar.currentCalendar()
+        let thisMonth = calendar.component(.Month, fromDate: NSDate())
+        let dateComponets = calendar.component(.Month, fromDate: date)
+        if thisMonth == dateComponets {
+            bool = true
+        } else {
+            bool = false
+        }
+        return bool
+    }
+    
+    func isDateInLastMonth(date: NSDate) -> Bool {
+        var bool = true
+        let calendar = NSCalendar.currentCalendar()
+        let thisMonth = calendar.component(.Month, fromDate: NSDate()) - 1
+        let dateComponets = calendar.component(.Month, fromDate: date)
+        if thisMonth == dateComponets {
+            bool = true
+        } else {
+            bool = false
+        }
+        return bool
+    }
+
     func shopUsesForContact(contact: Contact) -> [ShopUse] {
         let shopUseSet = contact.shopUse
         var shopUseArray = [ShopUse]()
@@ -206,7 +280,7 @@ class ShopUseLog: NSObject {
     func contactsOfVolunteers() -> [Contact] {
         var contacts = [Contact]()
         let allContacts = ContactLog().allContacts
-        for contact in allContacts! {
+        for contact in allContacts {
             if contact.volunteer!.count > 0 {
                  contacts.append(contact)
             }
@@ -214,60 +288,3 @@ class ShopUseLog: NSObject {
         return contacts
     }
 }
-//    // recent Users Generally
-//    func recentShopUses() -> [ShopUse] {
-//        var recentUses = [ShopUse]()
-//        for use in shopUseLog {
-//            if use.signOut.timeIntervalSinceNow > -2*60*60*24*30 {
-//                recentUses.append(use)
-//            }
-//        }
-//        return recentUses
-//    }
-
-//    func recentVolunteersUses() -> [VolunteerUse] {
-//        var recentUses = [VolunteerUse]()
-//        for use in volunteerLog {
-//            if use.signOut.timeIntervalSinceNow > -2*60*60*24*30 {
-//                recentUses.append(use)
-//            }
-//        }
-//        return recentUses
-//    }
-
-//    // recent Users Not Logged In
-//    func recentShopUsesNotLoggedIn() -> [ShopUse] {
-//        var recentUsesNotLoggedIn = [ShopUse]()
-//        let recentUser = recentShopUses()
-//        for use in recentUser {
-//            if use.signOut.timeIntervalSinceNow < 0 {
-//                recentUsesNotLoggedIn.append(use)
-//            }
-//        }
-//        return recentUsesNotLoggedIn
-//    }
-
-//    func recentVolunteerUsesNotLoggedIn() -> [VolunteerUse] {
-//        var recentVolunteersNotLoggedIn = [VolunteerUse]()
-//        let recentUser = recentVolunteersUses()
-//        for use in recentUser {
-//            if use.signOut.timeIntervalSinceNow < 0 {
-//                recentVolunteersNotLoggedIn.append(use)
-//            }
-//        }
-//        return recentVolunteersNotLoggedIn
-//    }
-//
-//    // Users who are Logged In
-//    
-//    
-//    func volunteerUsersLoggedIn() -> [VolunteerUse] {
-//        var usersLoggedIn = [VolunteerUse]()
-//        for use in volunteerLog {
-//            if use.signOut.timeIntervalSinceNow > -60*60 {
-//                usersLoggedIn.append(use)
-//            }
-//        }
-//        return usersLoggedIn
-//    }
-//}

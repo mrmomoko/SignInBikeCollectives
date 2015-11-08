@@ -12,7 +12,7 @@ import CoreData
 class ContactLog: NSObject {
     
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-    var allContacts : [Contact]?
+    var allContacts = [Contact]()
     var allShopUses = ShopUseLog().shopUseLog
     
 //    enum MembershipType: String {
@@ -77,29 +77,24 @@ class ContactLog: NSObject {
         contact.recentUse = NSDate()
         
         MembershipLog().createMembershipWithContact(contact)
-        var error: NSError?
-        do {
-            try managedObjectContext.save()
-        } catch let error1 as NSError {
-            error = error1
-            print("Could not save \(error), \(error?.userInfo)")
-        }
+
+        fetchContacts()
+
+        saveContact(contact)
+        
         return contact
     }
+    
     func deleteContact(contact: Contact) {
         // delete the shopUses too
         ShopUseLog().deleteShopUsesForContact(contact)
         // delete membership (this should be easier)
         MembershipLog().deleteMembershipForContact(contact)
         managedObjectContext.deleteObject(contact)
+
+        fetchContacts()
        
-        var error: NSError?
-        do {
-            try managedObjectContext.save()
-        } catch let error1 as NSError {
-            error = error1
-            print("Could not save \(error), \(error?.userInfo)")
-        }
+        saveContact(contact)
     }
     func saveContact(contact: Contact) {
         var error: NSError?
@@ -114,14 +109,14 @@ class ContactLog: NSObject {
     // Contact Filters - possibly a category
 
     func recentContactsWhoAreNotLoggedIn() -> [Contact] {
-        var recentUsers = allContacts!.sort({ $0.recentUse!.timeIntervalSinceNow > $1.recentUse!.timeIntervalSinceNow})
+        var recentUsers = allContacts.sort({ $0.recentUse!.timeIntervalSinceNow > $1.recentUse!.timeIntervalSinceNow})
         recentUsers.removeRange(Range(start: 0, end: usersWhoAreLoggedIn().count))
         return recentUsers
     }
     
     func usersWhoAreLoggedIn() -> [Contact] {
         var loggedInUsers = [Contact]()
-        for contact in allContacts! {
+        for contact in allContacts {
             if contact.recentUse!.timeIntervalSinceNow > 0 {
                 loggedInUsers.append(contact)
             }
@@ -132,7 +127,7 @@ class ContactLog: NSObject {
     // turn data into strings
     func returnAllContactsAsCommaSeporatedString() -> String {
         var commaSeporated = "FirstName, LastName, Email Address, Yes/No, Membership" + "\r\n"
-        for names in allContacts! {
+        for names in allContacts {
             commaSeporated += String("\(names.firstName!), \(names.lastName!), \(names.emailAddress!), yes, \((names.membership?.membershipType)!)" + "\r\n")
         }
         return commaSeporated
