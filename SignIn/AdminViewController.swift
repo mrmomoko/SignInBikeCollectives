@@ -45,8 +45,13 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     }
     override func viewDidLoad() {
         filteredContacts = usersWhoAreLoggedIn()
-//        listOfPeopleTableView.reloadData()
-        self.navigationItem.rightBarButtonItem?.image = UIImage(contentsOfFile: "email")
+        let rightBarButton = UIBarButtonItem(image: UIImage(named: "email"), style: .Plain, target: self, action: "showFilterAlert")
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 60))
+        let viewButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        viewButton.setBackgroundImage(UIImage(named: "cloud"), forState: .Normal)
+        view.addSubview(viewButton)
+        let button = UIBarButtonItem(customView: view)
+        self.navigationItem.rightBarButtonItems = [rightBarButton, button]
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -79,6 +84,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     
     func showFilterAlert() {
         //pop up an alert with the different filters?
+        
     }
     
     func usersWhoAreLoggedIn() -> [Contact] {

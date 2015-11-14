@@ -368,7 +368,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Admin" image="Settings" id="cPa-gy-q4n"/>
-                    <navigationItem key="navigationItem" title="Title" id="syP-SV-E5t"/>
+                    <navigationItem key="navigationItem" title="Admin Panel" id="ee9-oV-OEi"/>
                     <connections>
                         <outlet property="listOfPeopleTableView" destination="ZSd-vt-D2v" id="qfc-Jk-o9i"/>
                         <outlet property="searchBar" destination="Ggp-sV-sW7" id="yBn-fY-jAF"/>
@@ -1051,7 +1051,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-674" y="24"/>
+            <point key="canvasLocation" x="-662" y="-6"/>
         </scene>
         <!--Set Up-->
         <scene sceneID="y3U-vb-RpE">
@@ -1219,8 +1219,8 @@
         <image name="Sign In" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="bBf-9G-G1y"/>
-        <segue reference="g9I-0o-bgj"/>
         <segue reference="Amy-fO-jFU"/>
+        <segue reference="g9I-0o-bgj"/>
+        <segue reference="bBf-9G-G1y"/>
     </inferredMetricsTieBreakers>
 </document>

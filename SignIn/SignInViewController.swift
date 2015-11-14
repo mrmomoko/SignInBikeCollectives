@@ -34,7 +34,7 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
     
     override func viewDidAppear(animated: Bool) {
         uniqueIdentifier.text = ""
-        filteredLog = contactLog.recentContactsWhoAreNotLoggedIn()
+        filteredLog = usersWhoAreNotLoggedIn()
         mostRecentSignIns.reloadData()
     }
     
@@ -109,4 +109,15 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
         if filteredLog == [] {filteredLog = fullContactList}
         mostRecentSignIns.reloadData()
     }
+    
+    func usersWhoAreNotLoggedIn() -> [Contact] {
+        var loggedInUsers = [Contact]()
+        for contact in ContactLog().allContacts {
+            if contact.recentUse!.timeIntervalSinceNow < 0 {
+                loggedInUsers.append(contact)
+            }
+        }
+        return loggedInUsers
+    }
+
 }

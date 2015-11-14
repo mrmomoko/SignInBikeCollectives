@@ -10,26 +10,11 @@
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="orgLogo" translatesAutoresizingMaskIntoConstraints="NO" id="F3f-LC-OCS">
-                    <rect key="frame" x="0.0" y="50" width="480" height="430"/>
-                    <animations/>
-                </imageView>
-            </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <constraints>
-                <constraint firstAttribute="bottom" secondItem="F3f-LC-OCS" secondAttribute="bottom" id="7rh-of-nQE"/>
-                <constraint firstAttribute="trailing" secondItem="F3f-LC-OCS" secondAttribute="trailing" id="gOf-i4-BbR"/>
-                <constraint firstItem="F3f-LC-OCS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="50" id="mhC-AC-GZa"/>
-                <constraint firstItem="F3f-LC-OCS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="szW-ob-Cuv"/>
-            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="548" y="455"/>
         </view>
     </objects>
-    <resources>
-        <image name="orgLogo" width="200" height="200"/>
-    </resources>
 </document>
