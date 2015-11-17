@@ -27,6 +27,7 @@
 		4C83874C1BE03EA000DED65E /* UserTypeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C83874B1BE03EA000DED65E /* UserTypeHandler.swift */; };
 		4C83FF661B4A42BC00E12761 /* ContactLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C83FF651B4A42BC00E12761 /* ContactLog.swift */; };
 		4C9464101BD700C300665BE6 /* OrganizationLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C94640F1BD700C300665BE6 /* OrganizationLog.swift */; };
+		4C9BCD241BF70DC10054B59D /* SaferSpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9BCD231BF70DC10054B59D /* SaferSpaceViewController.swift */; };
 		4CA6A07E1BBB98B800759754 /* Contact+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA6A07C1BBB98B800759754 /* Contact+CoreDataProperties.swift */; };
 		4CA6A07F1BBB98B800759754 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA6A07D1BBB98B800759754 /* Contact.swift */; };
 		4CA6A0811BBC7EC100759754 /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA6A0801BBC7EC100759754 /* MyAccountViewController.swift */; };
@@ -81,6 +82,7 @@
 		4C83874B1BE03EA000DED65E /* UserTypeHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTypeHandler.swift; sourceTree = "<group>"; };
 		4C83FF651B4A42BC00E12761 /* ContactLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactLog.swift; sourceTree = "<group>"; };
 		4C94640F1BD700C300665BE6 /* OrganizationLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationLog.swift; sourceTree = "<group>"; };
+		4C9BCD231BF70DC10054B59D /* SaferSpaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaferSpaceViewController.swift; sourceTree = "<group>"; };
 		4CA6A07C1BBB98B800759754 /* Contact+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Contact+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4CA6A07D1BBB98B800759754 /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		4CA6A0801BBC7EC100759754 /* MyAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 		4C7EC5231B8963CE0057D1A9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4C9BCD231BF70DC10054B59D /* SaferSpaceViewController.swift */,
 				4C7EC5241B8963F80057D1A9 /* ContactTableViewCell.swift */,
 			);
 			name = Views;
@@ -337,6 +340,7 @@
 				4CA6A0811BBC7EC100759754 /* MyAccountViewController.swift in Sources */,
 				4C41FD711A831F27006456A6 /* ShopUseLog.swift in Sources */,
 				4C8387491BE03DB500DED65E /* UserTypes+CoreDataProperties.swift in Sources */,
+				4C9BCD241BF70DC10054B59D /* SaferSpaceViewController.swift in Sources */,
 				4CA6A07F1BBB98B800759754 /* Contact.swift in Sources */,
 				4C0C13791A5070BF0019A6B2 /* AppDelegate.m in Sources */,
 				4CA6A07E1BBB98B800759754 /* Contact+CoreDataProperties.swift in Sources */,

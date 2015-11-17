@@ -27,6 +27,8 @@ class MyAccountViewController : UIViewController {
     }
     
     override func viewDidLoad() {
+        let rightBarButton = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "showSaveAlert")
+        self.navigationItem.rightBarButtonItems = [rightBarButton]
      }
     
     override func viewDidAppear(animated: Bool) {
@@ -39,6 +41,9 @@ class MyAccountViewController : UIViewController {
         self.view.endEditing(true)
     }
     
+    func showSaveAlert() {
+        
+    }
     //- (NSString *)commaSeporatedStyle;
     //{
     //    NSString *contactString = @"";
