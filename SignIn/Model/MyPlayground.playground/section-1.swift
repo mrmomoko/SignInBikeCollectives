@@ -19,7 +19,7 @@ var str = "Hello, playground"
 
 
 enum MembershipType: String {
-    case oneMonth = "One Month", sixMonth = "Six Month", oneYear = "One Year", lifeTime = "Life Time", noMembership = "No Membership"
+    case oneMonth = "One Month", sixMonth = "Six Months", oneYear = "One Year", lifeTime = "Life Time", noMembership = "No Membership"
 }
 
 struct People {

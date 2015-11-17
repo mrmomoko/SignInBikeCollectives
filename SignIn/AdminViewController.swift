@@ -46,15 +46,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     override func viewDidLoad() {
         filteredContacts = usersWhoAreLoggedIn()
         let rightBarButton = UIBarButtonItem(image: UIImage(named: "email"), style: .Plain, target: self, action: "showFilterAlert")
-        rightBarButton.imageInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: -10)
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 60))
-        let viewButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-        viewButton.setBackgroundImage(UIImage(named: "cloud"), forState: .Normal)
-        view.addSubview(viewButton)
-        let button = UIBarButtonItem(customView: view)
-        button.tintColor = UIColor.cyanColor()
-        rightBarButton.tintColor = UIColor.blackColor()
-        self.navigationItem.rightBarButtonItems = [rightBarButton, button]
+         self.navigationItem.rightBarButtonItem = rightBarButton
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -137,9 +129,12 @@ extension AdminViewController {
             let membershipType = membership?.membershipType
             cell.titleLabel.text = title
             cell.detailLabel.text = membershipType // soon to be minutes of shopUse
-            let circle = UIImage(named: "circle")
-            cell.circleView.image = circle
+            cell.circleView.image = UIImage(named: "circle")
             cell.circleView.tintColor = contactLog.colourOfContact(contact)
+            // add gesture recognizer
+            let gestureRecognizer = UISwipeGestureRecognizer(target: self, action: "signOutContact:")
+            gestureRecognizer.direction = .Left
+            cell.addGestureRecognizer(gestureRecognizer)
             return cell
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

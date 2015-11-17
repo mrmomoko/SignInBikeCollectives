@@ -161,7 +161,7 @@ extension EditUserViewController {
             membershipLog.editMembershipTypeForContact(contact!, type: "Non Member")
         }
         else if indexPath.row == 1 {
-            membershipLog.editMembershipTypeForContact(contact!, type: "One Month")
+            membershipLog.editMembershipTypeForContact(contact!, type: "Monthly")
         }
         else if indexPath.row == 2 {
             membershipLog.editMembershipTypeForContact(contact!, type: "Six Months")

@@ -15,15 +15,6 @@ class ContactLog: NSObject {
     var allContacts = [Contact]()
     var allShopUses = ShopUseLog().shopUseLog
     
-//    enum MembershipType: String {
-//        case
-//        NonMember = "Non Member",
-//        Monthly = "Monthly",
-//        SixMonth = "6 Month",
-//        Yearly = "Yearly",
-//        LifeTime = "Life Time"
-//    }
-    
     enum Colour: String {
         case
         purple = "purple",

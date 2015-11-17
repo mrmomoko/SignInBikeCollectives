@@ -15,7 +15,7 @@ class  OrganizationLog: NSObject {
             case
             NonMember = "Non Member",
             Monthly = "Monthly",
-            SixMonth = "6 Month",
+            SixMonth = "Six Months",
             Yearly = "Yearly",
             LifeTime = "Life Time"
         }
