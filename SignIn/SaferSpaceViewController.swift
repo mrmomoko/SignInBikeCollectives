@@ -8,7 +8,14 @@
 
 import Foundation
 
+protocol SaferSpaceViewControllerDelegate {
+    func didAddSaferSpaceAggrement(sender:SaferSpaceViewController)
+}
+
 class SaferSpaceViewController: UIViewController {
+    
+    var delegate : SaferSpaceViewControllerDelegate? = nil
+    var org : Organization? = nil
     
     @IBOutlet weak var textView: UITextView!
     
@@ -17,10 +24,16 @@ class SaferSpaceViewController: UIViewController {
 //        textView.layer.cornerRadius = 0.2
 //        textView.clipsToBounds = true
         textView.layer.borderColor = CGColorCreate(CGColorSpaceCreateDeviceRGB(), [0.0, 0.0, 0.0, 0.5])
-        let rightBarButton = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "showFilterAlert")
-
+        let rightBarButton = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "saveSaferSpace")
         self.navigationItem.rightBarButtonItem = rightBarButton
         
-        
+        if org!.saferSpaceAgreement != "" {
+            textView.text = org!.saferSpaceAgreement
+        }
+    }
+    
+    func saveSaferSpace() {
+        org!.saferSpaceAgreement = textView.text
+        delegate?.didAddSaferSpaceAggrement(self)
     }
 }

@@ -9,8 +9,22 @@
 import Foundation
 import UIKit
 
-class MyAccountViewController : UIViewController {
+class MyAccountViewController : UIViewController, SaferSpaceViewControllerDelegate {
     
+    let org = OrganizationLog().organizationLog.first
+    
+    @IBOutlet weak var name: UITextField!
+    
+    @IBOutlet weak var emailAddress: UITextField!
+    @IBOutlet weak var password: UITextField!
+    
+    @IBOutlet weak var logoImage: UIImageView!
+    @IBOutlet weak var saferSpaceText: UILabel!
+    
+    @IBOutlet weak var yesOrNoQuestion: UITextField!
+    @IBAction func setUpLogo(sender: AnyObject) {
+    }
+
     @IBAction func sendData(sender: AnyObject) {
         let activityItems = [ContactLog().returnAllContactsAsCommaSeporatedString()]
         let activityViewController = UIActivityViewController(activityItems: activityItems as [AnyObject], applicationActivities: nil)
@@ -28,7 +42,10 @@ class MyAccountViewController : UIViewController {
     
     override func viewDidLoad() {
         let rightBarButton = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "showSaveAlert")
-        self.navigationItem.rightBarButtonItems = [rightBarButton]
+        let uploadButton = UIBarButtonItem(image: UIImage(named: "cloud"), style: .Plain, target: self, action: "")
+        uploadButton.imageInsets = UIEdgeInsetsMake(0, 10, 0, -10)
+        self.navigationItem.rightBarButtonItems = [rightBarButton, uploadButton]
+        saferSpaceText.text = org?.saferSpaceAgreement
      }
     
     override func viewDidAppear(animated: Bool) {
@@ -37,13 +54,31 @@ class MyAccountViewController : UIViewController {
         tap.cancelsTouchesInView = false
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let segueIdentifier = segue.identifier
+        
+        if segueIdentifier == "Safer Space Segue" {
+            let vc = segue.destinationViewController as! SaferSpaceViewController
+            vc.delegate = self
+            vc.org = org
+        }
+    }
+    
     func dismissKeyboard() {
         self.view.endEditing(true)
     }
     
     func showSaveAlert() {
+        OrganizationLog().saveOrg(org!)
+    }
+    
+    // safer space delegate
+    func didAddSaferSpaceAggrement(sender:SaferSpaceViewController) {
+        self.navigationController?.popViewControllerAnimated(true)
+        saferSpaceText.text = org?.saferSpaceAgreement
         
     }
+    
     //- (NSString *)commaSeporatedStyle;
     //{
     //    NSString *contactString = @"";

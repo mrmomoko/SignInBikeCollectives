@@ -30,6 +30,8 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //refresh all contact data, some memberships may have expired. 
+        contactLog.refreshContactMembershipData()
     }
     
     override func viewDidAppear(animated: Bool) {

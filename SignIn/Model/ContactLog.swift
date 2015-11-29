@@ -14,6 +14,7 @@ class ContactLog: NSObject {
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     var allContacts = [Contact]()
     var allShopUses = ShopUseLog().shopUseLog
+    var membershipLog = MembershipLog()
     
     enum Colour: String {
         case
@@ -67,7 +68,7 @@ class ContactLog: NSObject {
         contact.colour = Colour.clear.rawValue //white value
         contact.recentUse = NSDate()
         
-        MembershipLog().createMembershipWithContact(contact)
+        membershipLog.createMembershipWithContact(contact)
 
         fetchContacts()
 
@@ -80,7 +81,7 @@ class ContactLog: NSObject {
         // delete the shopUses too
         ShopUseLog().deleteShopUsesForContact(contact)
         // delete membership (this should be easier)
-        MembershipLog().deleteMembershipForContact(contact)
+        membershipLog.deleteMembershipForContact(contact)
         managedObjectContext.deleteObject(contact)
 
         fetchContacts()
@@ -162,5 +163,14 @@ class ContactLog: NSObject {
     
     func editColourForContact(contact: Contact, colour: Colour) {
         contact.colour = colour.rawValue
+    }
+    
+    func refreshContactMembershipData() {
+        for contact in allContacts {
+            if contact.membership?.membershipExpiration.timeIntervalSinceNow < 0 {
+                contact.membership?.membershipType = "Non Member"
+            }
+        }
+        
     }
 }
