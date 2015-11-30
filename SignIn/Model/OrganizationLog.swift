@@ -11,6 +11,7 @@ import Foundation
 class  OrganizationLog: NSObject {
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     var organizationLog : [Organization]
+    var orgTypes : [Type]! = nil
     enum MembershipType: String {
             case
             NonMember = "Non Member",
@@ -46,9 +47,6 @@ class  OrganizationLog: NSObject {
 
         org.password = ""
         
-//        org.userTypes = UserTypeHandler().createUserTypesForOrganization
-        //create UserTypes?
-
         var error: NSError?
         do {
             try managedObjectContext.save()
@@ -56,6 +54,10 @@ class  OrganizationLog: NSObject {
             error = error1
             print("Could not save \(error), \(error?.userInfo)")
         }
+        
+        //create default types
+        TypeLog().addType("volunteer")
+        TypeLog().addType("patron")
     }
     
     func currentOrganization() -> (organization:Organization?, doesTheOrgExist:Bool) {
@@ -97,4 +99,18 @@ class  OrganizationLog: NSObject {
         }
         return bool
     }
+    
+    func activeTypes() -> [String] {
+        var types = [String]()
+        orgTypes = []
+        let typeSet = currentOrganization().organization!.type
+        for type in typeSet! {
+            orgTypes.append(type as! Type)
+        }
+        for type in orgTypes { // if active
+            types.append(type.title!)
+        }
+        return types
+    }
+
 }

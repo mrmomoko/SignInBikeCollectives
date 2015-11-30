@@ -19,11 +19,14 @@ class BFFThankYouForSigningIn: UIViewController {
     override func viewDidLoad() {
         nameLabel.text = contact.firstName
         let orgLog = OrganizationLog()
-        if let userTypes = orgLog.currentOrganization().organization!.userTypes {
-            // if there's staff, so a different sign in form
-        } else {
-            showAlertForCompleteForm()
+        let orgTypes = orgLog.currentOrganization().organization!.type
+        var types = orgLog.activeTypes()
+        for type in orgTypes! {
+            if type.title == "employee" && type.active == true {
+                types.append("Employee")
+            }
         }
+        showAlertForUserType(types)
         super.viewDidLoad()
     }
     
@@ -41,14 +44,21 @@ class BFFThankYouForSigningIn: UIViewController {
         }
     }
     
-    func showAlertForCompleteForm () {
+    func showAlertForUserType(types: [String]) {
         let alert = UIAlertController(title: "Are you here to work on your bike or volunteer", message: nil, preferredStyle: .Alert)
-        let shopUse = UIAlertAction(title: "Use the Shop", style: .Default, handler: { alert in self.shopUseLog.createShopUseWithContact(self.contact!)
+        let shopUse = UIAlertAction(title: types[0], style: .Default, handler: { alert in self.shopUseLog.createShopUseWithContact(self.contact!, type: types[0])
         })
         alert.addAction(shopUse)
-        let volunteer = UIAlertAction(title: "Volunteer", style: .Default, handler: { alert in self.shopUseLog.createVolunteerUseWithContact(self.contact!)
+        let volunteer = UIAlertAction(title: types[1], style: .Default, handler: { alert in self.shopUseLog.createShopUseWithContact(self.contact!, type: types[1])
         })
         alert.addAction(volunteer)
+        
+        if types.count > 2 {
+            alert.addAction(shopUse)
+            let other = UIAlertAction(title: types[2], style: .Default, handler: { alert in self.shopUseLog.createShopUseWithContact(self.contact!, type: types[2])
+            })
+            alert.addAction(other)
+        }
         presentViewController(alert, animated: true, completion: nil)
     }
     

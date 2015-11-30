@@ -12,7 +12,7 @@ import CoreData
 class ContactLog: NSObject {
     
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-    var allContacts = [Contact]()
+    var allContacts : [Contact]
     var allShopUses = ShopUseLog().shopUseLog
     var membershipLog = MembershipLog()
     
@@ -28,7 +28,7 @@ class ContactLog: NSObject {
     }
 
     override init() {
-    
+        allContacts = []
         let fetchRequest = NSFetchRequest(entityName: "Contact")
         do { if let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Contact] {
             self.allContacts = fetchedResults }
@@ -38,7 +38,6 @@ class ContactLog: NSObject {
         } catch let error as NSError {
             print("Could not fetch \(error)")
         }
-
         super.init()
     }
     

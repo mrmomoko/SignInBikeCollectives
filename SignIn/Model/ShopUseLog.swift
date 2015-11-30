@@ -6,11 +6,12 @@ import Foundation
 
 class ShopUseLog: NSObject {
 
-    var shopUseLog = [ShopUse]()
-    var volunteerLog = [VolunteerUse]()
+    var shopUseLog : [ShopUse]
+    var volunteerLog : [VolunteerUse]
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
     override init(){
+        shopUseLog = []
         let fetchRequest = NSFetchRequest(entityName: "ShopUse")
         
         do { if let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as? [ShopUse] {
@@ -21,7 +22,7 @@ class ShopUseLog: NSObject {
         } catch let error as NSError {
             print("Could not fetch \(error)")
         }
-        
+        volunteerLog = []
         let volunteerFetchRequest = NSFetchRequest(entityName: "VolunteerUse")
         
         do { if let volunteerFetchedResults = try managedObjectContext.executeFetchRequest(volunteerFetchRequest) as? [VolunteerUse] {
@@ -46,7 +47,7 @@ class ShopUseLog: NSObject {
         managedObjectContext.deleteObject(shopUse as! NSManagedObject)
     }
     
-    func createShopUseWithContact(contact: Contact) {
+    func createShopUseWithContact(contact: Contact, type: String) {
         let entity = NSEntityDescription.entityForName("ShopUse", inManagedObjectContext: managedObjectContext)
         
         let shopUse = ShopUse(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)

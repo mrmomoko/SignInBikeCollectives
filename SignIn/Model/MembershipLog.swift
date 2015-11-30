@@ -26,7 +26,7 @@ class MembershipLog: NSObject {
     }
     
     override init() {
-        membershipLog = [Membership]()
+        membershipLog = []
         let fetchRequest = NSFetchRequest(entityName: "Membership")
         do { if let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Membership] {
             membershipLog = fetchedResults }
