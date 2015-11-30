@@ -56,8 +56,8 @@ class  OrganizationLog: NSObject {
         }
         
         //create default types
-        TypeLog().addType("volunteer")
-        TypeLog().addType("patron")
+        TypeLog().addType("Volunteer")
+        TypeLog().addType("Patron")
     }
     
     func currentOrganization() -> (organization:Organization?, doesTheOrgExist:Bool) {

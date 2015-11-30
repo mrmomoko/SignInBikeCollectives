@@ -82,6 +82,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
         
     }
     
+    // this is a copy of the function used in Sign In, is there a way to move this to ContactLog?
     func usersWhoAreLoggedIn() -> [Contact] {
         var loggedInUsers = [Contact]()
         for contact in ContactLog().allContacts {
@@ -103,7 +104,9 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     
     
     func _searchContactsWithSubstring(substring: String) {
-        let fullContactList = contactLog.recentContactsWhoAreNotLoggedIn()
+        // why not search all contacts?
+//        let fullContactList = contactLog.recentContactsWhoAreNotLoggedIn()
+        let fullContactList = contactLog.allContacts
         let predicate = NSPredicate(format: "firstName BEGINSWITH[cd] %@ OR lastName BEGINSWITH[cd] %@ OR pin BEGINSWITH[cd] %@ OR emailAddress BEGINSWITH[cd] %@", substring, substring, substring, substring)
         filteredContacts = (fullContactList as NSArray).filteredArrayUsingPredicate(predicate) as! [Contact]
         listOfPeopleTableView.reloadData()

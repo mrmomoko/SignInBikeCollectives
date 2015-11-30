@@ -21,9 +21,14 @@ class BFFThankYouForSigningIn: UIViewController {
         let orgLog = OrganizationLog()
         let orgTypes = orgLog.currentOrganization().organization!.type
         var types = orgLog.activeTypes()
+        // this should exist someplace else really, maybe in the typeLog
+        // the VC shoudl just ask the typeLog for the array of active types.
         for type in orgTypes! {
             if type.title == "employee" && type.active == true {
                 types.append("Employee")
+            }
+            if type.title == "earn a bike" && type.active == true {
+                types.append("Earn a Bike")
             }
         }
         showAlertForUserType(types)
@@ -45,14 +50,18 @@ class BFFThankYouForSigningIn: UIViewController {
     }
     
     func showAlertForUserType(types: [String]) {
-        let alert = UIAlertController(title: "Are you here to work on your bike or volunteer", message: nil, preferredStyle: .Alert)
+        
+        let alert = UIAlertController(title: "How are you using the shop today? As a ...", message: nil, preferredStyle: .Alert)
+        // maybe I can make this into a loop... find the count of the array, i ++ (incremental steps) and then loop until i == count
         let shopUse = UIAlertAction(title: types[0], style: .Default, handler: { alert in self.shopUseLog.createShopUseWithContact(self.contact!, type: types[0])
         })
         alert.addAction(shopUse)
-        let volunteer = UIAlertAction(title: types[1], style: .Default, handler: { alert in self.shopUseLog.createShopUseWithContact(self.contact!, type: types[1])
-        })
-        alert.addAction(volunteer)
         
+        if types.count > 1 {
+            let volunteer = UIAlertAction(title: types[1], style: .Default, handler: { alert in self.shopUseLog.createShopUseWithContact(self.contact!, type: types[1])
+            })
+            alert.addAction(volunteer)
+        }
         if types.count > 2 {
             alert.addAction(shopUse)
             let other = UIAlertAction(title: types[2], style: .Default, handler: { alert in self.shopUseLog.createShopUseWithContact(self.contact!, type: types[2])

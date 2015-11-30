@@ -42,6 +42,7 @@
 		4CCB75681A7C50F70039D10B /* ThankYouForSigningIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCB75671A7C50F70039D10B /* ThankYouForSigningIn.swift */; };
 		4CCC51D51BEAB9EB00EEBEC2 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCC51D41BEAB9EB00EEBEC2 /* Organization.swift */; };
 		4CCC51DB1BEB016A00EEBEC2 /* Organization+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCC51DA1BEB016A00EEBEC2 /* Organization+CoreDataProperties.swift */; };
+		4CEE0EF41C0D05AD0010C156 /* TypesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE0EF31C0D05AD0010C156 /* TypesViewController.swift */; };
 		4CF193A21B44CB0C001CB464 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF193A11B44CB0C001CB464 /* SignInViewController.swift */; };
 		4CF657841B55D85A00FBB45E /* NewUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF657831B55D85A00FBB45E /* NewUserViewController.swift */; };
 /* End PBXBuildFile section */
@@ -100,6 +101,7 @@
 		4CCB75671A7C50F70039D10B /* ThankYouForSigningIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThankYouForSigningIn.swift; sourceTree = "<group>"; };
 		4CCC51D41BEAB9EB00EEBEC2 /* Organization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
 		4CCC51DA1BEB016A00EEBEC2 /* Organization+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Organization+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4CEE0EF31C0D05AD0010C156 /* TypesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypesViewController.swift; sourceTree = "<group>"; };
 		4CF193A11B44CB0C001CB464 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		4CF657831B55D85A00FBB45E /* NewUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUserViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -151,6 +153,7 @@
 				4C0C13771A5070BF0019A6B2 /* AppDelegate.h */,
 				4C0C13781A5070BF0019A6B2 /* AppDelegate.m */,
 				4CF657831B55D85A00FBB45E /* NewUserViewController.swift */,
+				4CEE0EF31C0D05AD0010C156 /* TypesViewController.swift */,
 				4CA6A0801BBC7EC100759754 /* MyAccountViewController.swift */,
 				4CCB75641A7AF5F20039D10B /* PersonDetailViewController.swift */,
 				4CCB75671A7C50F70039D10B /* ThankYouForSigningIn.swift */,
@@ -361,6 +364,7 @@
 				4C2FCA7A1B7D4C44001571E1 /* EditUserViewController.swift in Sources */,
 				4C591D801B7C1632001BEA74 /* MembershipLog.swift in Sources */,
 				4C0C13761A5070BF0019A6B2 /* main.m in Sources */,
+				4CEE0EF41C0D05AD0010C156 /* TypesViewController.swift in Sources */,
 				4CB1AEAC1C0BC4CC0098BCE6 /* TypeLog.swift in Sources */,
 				4C83874A1BE03DB500DED65E /* UserTypes.swift in Sources */,
 				4C5A12B51B71CB4800C3FC40 /* Model.xcdatamodeld in Sources */,
