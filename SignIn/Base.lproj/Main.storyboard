@@ -648,10 +648,16 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SeT-ad-ARC">
                                 <rect key="frame" x="531" y="97" width="51" height="31"/>
                                 <animations/>
+                                <connections>
+                                    <action selector="volunteerType:" destination="GMj-jn-lt9" eventType="valueChanged" id="i26-uI-SdK"/>
+                                </connections>
                             </switch>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u0I-E7-Kc2">
                                 <rect key="frame" x="531" y="135" width="51" height="31"/>
                                 <animations/>
+                                <connections>
+                                    <action selector="patronType:" destination="GMj-jn-lt9" eventType="valueChanged" id="FOK-ws-DQ6"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Patrons" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bat-uX-Fnb">
                                 <rect key="frame" x="20" y="136" width="59" height="21"/>
@@ -660,9 +666,12 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="P5n-zX-DQK">
-                                <rect key="frame" x="531" y="173" width="51" height="31"/>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="P5n-zX-DQK">
+                                <rect key="frame" x="531" y="172" width="51" height="31"/>
                                 <animations/>
+                                <connections>
+                                    <action selector="employeeType:" destination="GMj-jn-lt9" eventType="valueChanged" id="QY5-eO-0Je"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paid Employees/Staff" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edA-dz-ZdG">
                                 <rect key="frame" x="20" y="175" width="163" height="21"/>
@@ -765,6 +774,11 @@
                             <constraint firstItem="znM-HR-pIV" firstAttribute="leading" secondItem="u0I-E7-Kc2" secondAttribute="leading" id="ykz-7L-eG8"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="EmployeeTypeStatus" destination="P5n-zX-DQK" id="HeR-NX-OV0"/>
+                        <outlet property="PatronTypeStatus" destination="u0I-E7-Kc2" id="L9l-MM-Mz0"/>
+                        <outlet property="voluteerTypeStatus" destination="SeT-ad-ARC" id="cF5-th-Q8l"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DR3-5m-08g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

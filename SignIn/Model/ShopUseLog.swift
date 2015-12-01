@@ -7,7 +7,6 @@ import Foundation
 class ShopUseLog: NSObject {
 
     var shopUseLog : [ShopUse]
-    var volunteerLog : [VolunteerUse]
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
     override init(){
@@ -22,18 +21,6 @@ class ShopUseLog: NSObject {
         } catch let error as NSError {
             print("Could not fetch \(error)")
         }
-        volunteerLog = []
-        let volunteerFetchRequest = NSFetchRequest(entityName: "VolunteerUse")
-        
-        do { if let volunteerFetchedResults = try managedObjectContext.executeFetchRequest(volunteerFetchRequest) as? [VolunteerUse] {
-            volunteerLog = volunteerFetchedResults }
-        else {
-            assertionFailure("Could not executeFetchRequest")
-            }
-        } catch let error as NSError {
-            print("Could not fetch \(error)")
-        }
-
         super.init()
     }
     
@@ -70,39 +57,11 @@ class ShopUseLog: NSObject {
         }
     }
     
-//    func createVolunteerUseWithContact(contact: Contact) {
-//        let entity = NSEntityDescription.entityForName("VolunteerUse", inManagedObjectContext: managedObjectContext)
-//        
-//        let volunteerUse = VolunteerUse(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
-//        
-//        volunteerUse.signIn = NSDate()
-//        volunteerUse.signOut = NSDate().dateByAddingTimeInterval(2*60*60)
-//        
-//        volunteerUse.contact = contact
-//        volunteerUse.contact.recentUse = volunteerUse.signOut
-//        volunteerUse.contact.recentUseType = "volunteerUse"
-//        ContactLog().saveContact(contact)
-//        
-//        var error: NSError?
-//        do {
-//            try managedObjectContext.save()
-//        } catch let error1 as NSError {
-//            error = error1
-//            print("Could not save \(error), \(error?.userInfo)")
-//        }
-//    }
-
     func signOutContact(contact: Contact) {
         // Get the most recent shopUse
-        if contact.recentUseType == "volunteerUse" {
-            // Set the signOut to now
-            let use = ShopUseLog().getMostRecentShopUseForContact(contact) as! VolunteerUse
-            use.signOut = NSDate()
-        } else {
-            let use = ShopUseLog().getMostRecentShopUseForContact(contact) as! ShopUse
-            // Set the signOut to now
-            use.signOut = NSDate()
-        }
+        let use = ShopUseLog().getMostRecentShopUseForContact(contact)
+        // Set the signOut to now
+        use.signOut = NSDate()
         // reset the recentUse time
         contact.recentUse = NSDate()
     }
@@ -127,33 +86,18 @@ class ShopUseLog: NSObject {
 //        return log.firstObject! as! ShopUse
 //    }
     
-    func getMostRecentShopUseForContact(contact: Contact) -> AnyObject {
-        var log = []
-        // i could get rid of all the volunteer stuff
-        if contact.recentUseType == "volunteerUse" {
-            let volunteerFetchRequest = NSFetchRequest(entityName: "VolunteerUse")
-            let predicate = NSPredicate(format: "signOut == %@", contact.recentUse!)
-            volunteerFetchRequest.predicate = predicate
-            do { if let volunteerFetchedResults = try managedObjectContext.executeFetchRequest(volunteerFetchRequest) as? [VolunteerUse] {
-                 log = volunteerFetchedResults }
-            else {
-                assertionFailure("Could not executeFetchRequest")
-                }
-            } catch let error as NSError {
-                print("Could not fetch \(error)")
+    func getMostRecentShopUseForContact(contact: Contact) -> ShopUse {
+        var log = [ShopUse]()
+        let FetchRequest = NSFetchRequest(entityName: "ShopUse")
+        let predicate = NSPredicate(format: "signOut == %@", contact.recentUse!)
+        FetchRequest.predicate = predicate
+        do { if let FetchedResults = try managedObjectContext.executeFetchRequest(FetchRequest) as? [ShopUse] {
+            log = FetchedResults }
+        else {
+            assertionFailure("Could not executeFetchRequest")
             }
-        } else if contact.recentUseType == "shopUse" {
-            let FetchRequest = NSFetchRequest(entityName: "ShopUse")
-            let predicate = NSPredicate(format: "signOut == %@", contact.recentUse!)
-            FetchRequest.predicate = predicate
-            do { if let FetchedResults = try managedObjectContext.executeFetchRequest(FetchRequest) as? [ShopUse] {
-                log = FetchedResults }
-            else {
-                assertionFailure("Could not executeFetchRequest")
-                }
-            } catch let error as NSError {
-                print("Could not fetch \(error)")
-            }
+        } catch let error as NSError {
+            print("Could not fetch \(error)")
         }
         return log[0]
     }
@@ -173,7 +117,7 @@ class ShopUseLog: NSObject {
         var totalHoursOfShopUse = 0
         for shopUseHour in contact.shopUse! { // what is shop Use is nil?n I think it can't be, unless we make the contact through admin and then edit him.
             if shopUseHour.type!!.title! == "Volunteer" {
-                let shopUseInstance = Int(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut.timeIntervalSinceNow)
+                let shopUseInstance = Int(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut!!.timeIntervalSinceNow)
                 totalHoursOfShopUse = totalHoursOfShopUse + shopUseInstance
             }
         }
@@ -182,23 +126,24 @@ class ShopUseLog: NSObject {
         return String(totalHoursOfShopUse)
     }
     
-    func numberOfShopUseHoursLoggedByContact(contact: Contact) -> String {
+    // need methods for other shopUseTypes, or for all of them, since it's all basically the same code.
+    func numberOfHoursLoggedByContact(contact: Contact, typeTitle: String) -> String {
         var totalHoursOfShopUse = 0
         for shopUseHour in contact.shopUse! {
-            if shopUseHour.type!!.title! == "Patron" {
-                let shopUseInstance = Int(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut.timeIntervalSinceNow)
+            if shopUseHour.type!!.title! == typeTitle {
+                let shopUseInstance = Int(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut!!.timeIntervalSinceNow)
                 totalHoursOfShopUse = totalHoursOfShopUse + shopUseInstance
             }
         }
+        totalHoursOfShopUse = totalHoursOfShopUse/(60 * 60) * -1
         return String(totalHoursOfShopUse)
+
     }
-    // need methods for other shopUseTypes, or for all of them, since it's all basically the same code.
-    
     func hourlyTotalForThisMonth(contact: Contact) -> String {
         var hourlyTotalForThisMonth = 0
         for shopUseHour in contact.shopUse! {
             if isDateInThisMonth(shopUseHour.signIn!!) {
-                var shopUseInstance = Int(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut.timeIntervalSinceNow)
+                var shopUseInstance = Int(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut!!.timeIntervalSinceNow)
                 shopUseInstance = shopUseInstance/(60 * 60) * -1
                 hourlyTotalForThisMonth = hourlyTotalForThisMonth + shopUseInstance
             }
@@ -210,7 +155,20 @@ class ShopUseLog: NSObject {
         var hourlyTotalForThisMonth = 0
         for shopUseHour in contact.shopUse! {
             if isDateInLastMonth(shopUseHour.signIn!!) {
-                var shopUseInstance = Int(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut.timeIntervalSinceNow)
+                var shopUseInstance = Int(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut!!.timeIntervalSinceNow)
+                shopUseInstance = shopUseInstance/(60 * 60) * -1
+                hourlyTotalForThisMonth = hourlyTotalForThisMonth + shopUseInstance
+            }
+        }
+        return String(hourlyTotalForThisMonth)
+    }
+
+    // still need refactoring
+    func hourlyTotalForThisMonth(contact: Contact, typeTitle: String) -> String {
+        var hourlyTotalForThisMonth = 0
+        for shopUseHour in contact.shopUse! {
+            if isDateInThisMonth(shopUseHour.signIn!!) && shopUseHour.type!!.title == typeTitle {
+                var shopUseInstance = Int(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut!!.timeIntervalSinceNow)
                 shopUseInstance = shopUseInstance/(60 * 60) * -1
                 hourlyTotalForThisMonth = hourlyTotalForThisMonth + shopUseInstance
             }
@@ -222,7 +180,7 @@ class ShopUseLog: NSObject {
         var hourlyTotalForThisMonth = 0
         for shopUseHour in contact.volunteer! {
             if isDateInThisMonth(shopUseHour.signIn!!) {
-                var shopUseInstance = Int(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut.timeIntervalSinceNow)
+                var shopUseInstance = Int(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut!!.timeIntervalSinceNow)
                 shopUseInstance = shopUseInstance/(60 * 60) * -1
                 hourlyTotalForThisMonth = hourlyTotalForThisMonth + shopUseInstance
             }
@@ -234,7 +192,7 @@ class ShopUseLog: NSObject {
         var hourlyTotalForThisMonth = 0
         for shopUseHour in contact.volunteer! {
             if isDateInLastMonth(shopUseHour.signIn!!) {
-                var shopUseInstance = Int(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut.timeIntervalSinceNow)
+                var shopUseInstance = Int(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut!!.timeIntervalSinceNow)
                 shopUseInstance = shopUseInstance/(60 * 60) * -1
                 hourlyTotalForThisMonth = hourlyTotalForThisMonth + shopUseInstance
             }
@@ -268,24 +226,15 @@ class ShopUseLog: NSObject {
         return bool
     }
 
-    func shopUsesForContact(contact: Contact) -> [ShopUse] {
-        let shopUseSet = contact.shopUse
-        var shopUseArray = [ShopUse]()
-        for use in shopUseSet! {
-            shopUseArray.append(use as! ShopUse)
-        }
-        return shopUseArray
-    }
+//    func shopUsesForContact(contact: Contact) -> [ShopUse] {
+//        let shopUseSet = contact.shopUse
+//        var shopUseArray = [ShopUse]()
+//        for use in shopUseSet! {
+//            shopUseArray.append(use as! ShopUse)
+//        }
+//        return shopUseArray
+//    }
     
-    func volunteerUsesForContact(contact: Contact) -> [VolunteerUse] {
-        let shopUseSet = contact.volunteer
-        var shopUseArray = [VolunteerUse]()
-        for use in shopUseSet! {
-            shopUseArray.append(use as! VolunteerUse)
-        }
-        return shopUseArray
-    }
-
     func contactsOfVolunteers() -> [Contact] {
         var contacts = [Contact]()
         // this is ugly, can i make it better?

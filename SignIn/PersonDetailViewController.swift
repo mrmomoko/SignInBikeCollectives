@@ -38,8 +38,8 @@ class PersonDetailViewController: UIViewController {
         } else {
             membership.text = "Membership does not exist or is expired."
         }
-        totalHours.text = shopUseLog.numberOfShopUseHoursLoggedByContact(contact!)
-        totalHoursVolunteering.text = shopUseLog.numberOfVolunteerHoursLoggedByContact(contact!)
+        totalHours.text = shopUseLog.numberOfHoursLoggedByContact(contact!, typeTitle: "Patron")
+        totalHoursVolunteering.text = shopUseLog.numberOfHoursLoggedByContact(contact!, typeTitle: "Volunteer")
         thisMonthShopUse.text = shopUseLog.hourlyTotalForThisMonth(contact!)
         thisMonthVolunteering.text = shopUseLog.hourlyVolunteerTotalForThisMonth(contact!)
         lastMonthShopUse.text = shopUseLog.hourlyTotalForLastMonth(contact!)
