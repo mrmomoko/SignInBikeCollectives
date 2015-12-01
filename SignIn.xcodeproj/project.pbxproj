@@ -36,13 +36,14 @@
 		4CB8DE601B34830C0020F6D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB8DE5F1B34830C0020F6D0 /* CoreData.framework */; };
 		4CC133841B4B2A8D00208250 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CC133831B4B2A8D00208250 /* Images.xcassets */; };
 		4CC927661B7A9E6B003E3A88 /* Membership.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC927651B7A9E6B003E3A88 /* Membership.swift */; };
-		4CC927681B7A9E84003E3A88 /* ShopUse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC927671B7A9E84003E3A88 /* ShopUse.swift */; };
 		4CC9276A1B7A9E95003E3A88 /* VolunteerUse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC927691B7A9E95003E3A88 /* VolunteerUse.swift */; };
 		4CCB75651A7AF5F20039D10B /* PersonDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCB75641A7AF5F20039D10B /* PersonDetailViewController.swift */; };
 		4CCB75681A7C50F70039D10B /* ThankYouForSigningIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCB75671A7C50F70039D10B /* ThankYouForSigningIn.swift */; };
 		4CCC51D51BEAB9EB00EEBEC2 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCC51D41BEAB9EB00EEBEC2 /* Organization.swift */; };
 		4CCC51DB1BEB016A00EEBEC2 /* Organization+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCC51DA1BEB016A00EEBEC2 /* Organization+CoreDataProperties.swift */; };
 		4CEE0EF41C0D05AD0010C156 /* TypesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE0EF31C0D05AD0010C156 /* TypesViewController.swift */; };
+		4CEE0EF91C0D0ABE0010C156 /* ShopUse+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE0EF71C0D0ABE0010C156 /* ShopUse+CoreDataProperties.swift */; };
+		4CEE0EFA1C0D0ABE0010C156 /* ShopUse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE0EF81C0D0ABE0010C156 /* ShopUse.swift */; };
 		4CF193A21B44CB0C001CB464 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF193A11B44CB0C001CB464 /* SignInViewController.swift */; };
 		4CF657841B55D85A00FBB45E /* NewUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF657831B55D85A00FBB45E /* NewUserViewController.swift */; };
 /* End PBXBuildFile section */
@@ -94,7 +95,6 @@
 		4CB8DE5F1B34830C0020F6D0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4CC133831B4B2A8D00208250 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SignIn/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		4CC927651B7A9E6B003E3A88 /* Membership.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Membership.swift; sourceTree = "<group>"; };
-		4CC927671B7A9E84003E3A88 /* ShopUse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopUse.swift; sourceTree = "<group>"; };
 		4CC927691B7A9E95003E3A88 /* VolunteerUse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolunteerUse.swift; sourceTree = "<group>"; };
 		4CC9E40A1A785E770004D4BD /* SignIn-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SignIn-Bridging-Header.h"; sourceTree = "<group>"; };
 		4CCB75641A7AF5F20039D10B /* PersonDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonDetailViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +102,8 @@
 		4CCC51D41BEAB9EB00EEBEC2 /* Organization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
 		4CCC51DA1BEB016A00EEBEC2 /* Organization+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Organization+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4CEE0EF31C0D05AD0010C156 /* TypesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypesViewController.swift; sourceTree = "<group>"; };
+		4CEE0EF71C0D0ABE0010C156 /* ShopUse+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ShopUse+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4CEE0EF81C0D0ABE0010C156 /* ShopUse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopUse.swift; sourceTree = "<group>"; };
 		4CF193A11B44CB0C001CB464 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		4CF657831B55D85A00FBB45E /* NewUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUserViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -225,6 +227,8 @@
 		4C94640E1BD700A500665BE6 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				4CEE0EF71C0D0ABE0010C156 /* ShopUse+CoreDataProperties.swift */,
+				4CEE0EF81C0D0ABE0010C156 /* ShopUse.swift */,
 				4CB1AEA71C0BC43C0098BCE6 /* Type+CoreDataProperties.swift */,
 				4CB1AEA81C0BC43C0098BCE6 /* Type.swift */,
 				4CCC51DA1BEB016A00EEBEC2 /* Organization+CoreDataProperties.swift */,
@@ -236,7 +240,6 @@
 				4CA6A07C1BBB98B800759754 /* Contact+CoreDataProperties.swift */,
 				4CA6A07D1BBB98B800759754 /* Contact.swift */,
 				4CC927691B7A9E95003E3A88 /* VolunteerUse.swift */,
-				4CC927671B7A9E84003E3A88 /* ShopUse.swift */,
 				4CC927651B7A9E6B003E3A88 /* Membership.swift */,
 			);
 			name = Objects;
@@ -359,8 +362,10 @@
 				4C80C41F1BD5C99100707469 /* EmployeeUse+CoreDataProperties.swift in Sources */,
 				4CCC51DB1BEB016A00EEBEC2 /* Organization+CoreDataProperties.swift in Sources */,
 				4CCB75681A7C50F70039D10B /* ThankYouForSigningIn.swift in Sources */,
+				4CEE0EFA1C0D0ABE0010C156 /* ShopUse.swift in Sources */,
 				4CF193A21B44CB0C001CB464 /* SignInViewController.swift in Sources */,
 				4CC927661B7A9E6B003E3A88 /* Membership.swift in Sources */,
+				4CEE0EF91C0D0ABE0010C156 /* ShopUse+CoreDataProperties.swift in Sources */,
 				4C2FCA7A1B7D4C44001571E1 /* EditUserViewController.swift in Sources */,
 				4C591D801B7C1632001BEA74 /* MembershipLog.swift in Sources */,
 				4C0C13761A5070BF0019A6B2 /* main.m in Sources */,
@@ -371,7 +376,6 @@
 				4CC9276A1B7A9E95003E3A88 /* VolunteerUse.swift in Sources */,
 				4C41FD6F1A81819B006456A6 /* AdminViewController.swift in Sources */,
 				4CF657841B55D85A00FBB45E /* NewUserViewController.swift in Sources */,
-				4CC927681B7A9E84003E3A88 /* ShopUse.swift in Sources */,
 				4C80C4201BD5C99100707469 /* EmployeeUse.swift in Sources */,
 				4CCC51D51BEAB9EB00EEBEC2 /* Organization.swift in Sources */,
 				4C9464101BD700C300665BE6 /* OrganizationLog.swift in Sources */,

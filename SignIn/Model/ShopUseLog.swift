@@ -54,10 +54,11 @@ class ShopUseLog: NSObject {
 
         shopUse.signIn = NSDate()
         shopUse.signOut = NSDate().dateByAddingTimeInterval(2*60*60)
+        shopUse.type = TypeLog().getType(type)
 
         shopUse.contact = contact
-        shopUse.contact.recentUse = shopUse.signOut
-        shopUse.contact.recentUseType = "shopUse"
+        shopUse.contact!.recentUse = shopUse.signOut
+        shopUse.contact!.recentUseType = "shopUse"
         ContactLog().saveContact(contact)
 
         var error: NSError?
@@ -69,27 +70,27 @@ class ShopUseLog: NSObject {
         }
     }
     
-    func createVolunteerUseWithContact(contact: Contact) {
-        let entity = NSEntityDescription.entityForName("VolunteerUse", inManagedObjectContext: managedObjectContext)
-        
-        let volunteerUse = VolunteerUse(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
-        
-        volunteerUse.signIn = NSDate()
-        volunteerUse.signOut = NSDate().dateByAddingTimeInterval(2*60*60)
-        
-        volunteerUse.contact = contact
-        volunteerUse.contact.recentUse = volunteerUse.signOut
-        volunteerUse.contact.recentUseType = "volunteerUse"
-        ContactLog().saveContact(contact)
-        
-        var error: NSError?
-        do {
-            try managedObjectContext.save()
-        } catch let error1 as NSError {
-            error = error1
-            print("Could not save \(error), \(error?.userInfo)")
-        }
-    }
+//    func createVolunteerUseWithContact(contact: Contact) {
+//        let entity = NSEntityDescription.entityForName("VolunteerUse", inManagedObjectContext: managedObjectContext)
+//        
+//        let volunteerUse = VolunteerUse(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
+//        
+//        volunteerUse.signIn = NSDate()
+//        volunteerUse.signOut = NSDate().dateByAddingTimeInterval(2*60*60)
+//        
+//        volunteerUse.contact = contact
+//        volunteerUse.contact.recentUse = volunteerUse.signOut
+//        volunteerUse.contact.recentUseType = "volunteerUse"
+//        ContactLog().saveContact(contact)
+//        
+//        var error: NSError?
+//        do {
+//            try managedObjectContext.save()
+//        } catch let error1 as NSError {
+//            error = error1
+//            print("Could not save \(error), \(error?.userInfo)")
+//        }
+//    }
 
     func signOutContact(contact: Contact) {
         // Get the most recent shopUse
@@ -105,27 +106,30 @@ class ShopUseLog: NSObject {
         // reset the recentUse time
         contact.recentUse = NSDate()
     }
-    
-    func findMostRecentShopUseForContact(contact: Contact) -> ShopUse {
-        var log = []
-        let recentUseFetchRequest = NSFetchRequest(entityName: "ShopUse")
-        let predicate = NSPredicate(format: "contact == %@ && signOut > NSDate", contact)
-        //let sortDescriptor
-        //set fetch limit, so that the fetch request only returns one.
-        recentUseFetchRequest.predicate = predicate
-        do { if let recentUseFetch = try managedObjectContext.executeFetchRequest(recentUseFetchRequest) as? [ShopUse] {
-            log =  recentUseFetch}
-        else {
-            assertionFailure("Could not executeFetchRequest")
-            }
-        } catch let error as NSError {
-            print("Could not fetch \(error)")
-        }
-        return log.firstObject! as! ShopUse
-    }
+
+    // this is just an experiement showing a better way t ouse fetch requests.
+    // it's not actually used here.
+//    func findMostRecentShopUseForContact(contact: Contact) -> ShopUse {
+//        var log = []
+//        let recentUseFetchRequest = NSFetchRequest(entityName: "ShopUse")
+//        let predicate = NSPredicate(format: "contact == %@ && signOut > NSDate", contact)
+//        //let sortDescriptor
+//        //set fetch limit, so that the fetch request only returns one.
+//        recentUseFetchRequest.predicate = predicate
+//        do { if let recentUseFetch = try managedObjectContext.executeFetchRequest(recentUseFetchRequest) as? [ShopUse] {
+//            log =  recentUseFetch}
+//        else {
+//            assertionFailure("Could not executeFetchRequest")
+//            }
+//        } catch let error as NSError {
+//            print("Could not fetch \(error)")
+//        }
+//        return log.firstObject! as! ShopUse
+//    }
     
     func getMostRecentShopUseForContact(contact: Contact) -> AnyObject {
         var log = []
+        // i could get rid of all the volunteer stuff
         if contact.recentUseType == "volunteerUse" {
             let volunteerFetchRequest = NSFetchRequest(entityName: "VolunteerUse")
             let predicate = NSPredicate(format: "signOut == %@", contact.recentUse!)
@@ -167,30 +171,34 @@ class ShopUseLog: NSObject {
 
     func numberOfVolunteerHoursLoggedByContact(contact: Contact) -> String {
         var totalHoursOfShopUse = 0
-        for volunteerUseHour in contact.volunteer! {
-            let shopUseInstance = Int(volunteerUseHour.signIn.timeIntervalSinceNow - volunteerUseHour.signOut.timeIntervalSinceNow)
-            totalHoursOfShopUse = totalHoursOfShopUse + shopUseInstance
+        for shopUseHour in contact.shopUse! { // what is shop Use is nil?n I think it can't be, unless we make the contact through admin and then edit him.
+            if shopUseHour.type!!.title! == "Volunteer" {
+                let shopUseInstance = Int(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut.timeIntervalSinceNow)
+                totalHoursOfShopUse = totalHoursOfShopUse + shopUseInstance
+            }
         }
         totalHoursOfShopUse = totalHoursOfShopUse/(60 * 60) * -1
 
         return String(totalHoursOfShopUse)
     }
-
+    
     func numberOfShopUseHoursLoggedByContact(contact: Contact) -> String {
         var totalHoursOfShopUse = 0
         for shopUseHour in contact.shopUse! {
-            var shopUseInstance = Int(shopUseHour.signIn.timeIntervalSinceNow - shopUseHour.signOut.timeIntervalSinceNow)
-            shopUseInstance = shopUseInstance/(60 * 60) * -1
-            totalHoursOfShopUse = totalHoursOfShopUse + shopUseInstance
+            if shopUseHour.type!!.title! == "Patron" {
+                let shopUseInstance = Int(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut.timeIntervalSinceNow)
+                totalHoursOfShopUse = totalHoursOfShopUse + shopUseInstance
+            }
         }
         return String(totalHoursOfShopUse)
     }
+    // need methods for other shopUseTypes, or for all of them, since it's all basically the same code.
     
     func hourlyTotalForThisMonth(contact: Contact) -> String {
         var hourlyTotalForThisMonth = 0
         for shopUseHour in contact.shopUse! {
-            if isDateInThisMonth(shopUseHour.signIn) {
-                var shopUseInstance = Int(shopUseHour.signIn.timeIntervalSinceNow - shopUseHour.signOut.timeIntervalSinceNow)
+            if isDateInThisMonth(shopUseHour.signIn!!) {
+                var shopUseInstance = Int(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut.timeIntervalSinceNow)
                 shopUseInstance = shopUseInstance/(60 * 60) * -1
                 hourlyTotalForThisMonth = hourlyTotalForThisMonth + shopUseInstance
             }
@@ -201,8 +209,8 @@ class ShopUseLog: NSObject {
     func hourlyTotalForLastMonth(contact: Contact) -> String {
         var hourlyTotalForThisMonth = 0
         for shopUseHour in contact.shopUse! {
-            if isDateInLastMonth(shopUseHour.signIn) {
-                var shopUseInstance = Int(shopUseHour.signIn.timeIntervalSinceNow - shopUseHour.signOut.timeIntervalSinceNow)
+            if isDateInLastMonth(shopUseHour.signIn!!) {
+                var shopUseInstance = Int(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut.timeIntervalSinceNow)
                 shopUseInstance = shopUseInstance/(60 * 60) * -1
                 hourlyTotalForThisMonth = hourlyTotalForThisMonth + shopUseInstance
             }
@@ -213,8 +221,8 @@ class ShopUseLog: NSObject {
     func hourlyVolunteerTotalForThisMonth(contact: Contact) -> String {
         var hourlyTotalForThisMonth = 0
         for shopUseHour in contact.volunteer! {
-            if isDateInThisMonth(shopUseHour.signIn) {
-                var shopUseInstance = Int(shopUseHour.signIn.timeIntervalSinceNow - shopUseHour.signOut.timeIntervalSinceNow)
+            if isDateInThisMonth(shopUseHour.signIn!!) {
+                var shopUseInstance = Int(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut.timeIntervalSinceNow)
                 shopUseInstance = shopUseInstance/(60 * 60) * -1
                 hourlyTotalForThisMonth = hourlyTotalForThisMonth + shopUseInstance
             }
@@ -225,8 +233,8 @@ class ShopUseLog: NSObject {
     func hourlyVolunteerTotalForLastMonth(contact: Contact) -> String {
         var hourlyTotalForThisMonth = 0
         for shopUseHour in contact.volunteer! {
-            if isDateInLastMonth(shopUseHour.signIn) {
-                var shopUseInstance = Int(shopUseHour.signIn.timeIntervalSinceNow - shopUseHour.signOut.timeIntervalSinceNow)
+            if isDateInLastMonth(shopUseHour.signIn!!) {
+                var shopUseInstance = Int(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut.timeIntervalSinceNow)
                 shopUseInstance = shopUseInstance/(60 * 60) * -1
                 hourlyTotalForThisMonth = hourlyTotalForThisMonth + shopUseInstance
             }
@@ -280,10 +288,17 @@ class ShopUseLog: NSObject {
 
     func contactsOfVolunteers() -> [Contact] {
         var contacts = [Contact]()
+        // this is ugly, can i make it better?
+        // fetchrequest! nope, that's worse
         let allContacts = ContactLog().allContacts
+        
         for contact in allContacts {
-            if contact.volunteer!.count > 0 {
-                 contacts.append(contact)
+            if contact.shopUse!.count > 0 {
+                for use in contact.shopUse! {
+                    if use.type!!.title! == "Volunteer" {
+                        contacts.append(contact)
+                    }
+                }
             }
         }
         return contacts
