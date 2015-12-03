@@ -44,7 +44,12 @@ class  OrganizationLog: NSObject {
         
         //set default behaviour for organization
         org.defaultSignOutTime = 4
-
+        org.saferSpaceAgreement = ""
+        org.waiver = ""
+        org.yesOrNoQuestion = ""
+        org.name = "Not yet set up"
+        org.zipCode = ""
+        org.emailAddress = ""
         org.password = ""
         
         var error: NSError?

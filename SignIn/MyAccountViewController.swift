@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class MyAccountViewController : UIViewController, SaferSpaceViewControllerDelegate {
+class MyAccountViewController : UITableViewController, SaferSpaceViewControllerDelegate {
     
     let org = OrganizationLog().organizationLog.first
     
@@ -25,7 +25,7 @@ class MyAccountViewController : UIViewController, SaferSpaceViewControllerDelega
     @IBAction func setUpLogo(sender: AnyObject) {
     }
 
-    @IBAction func sendData(sender: AnyObject) {
+    func sendData(sender: AnyObject) {
         let activityItems = [ContactLog().returnAllContactsAsCommaSeporatedString()]
         let activityViewController = UIActivityViewController(activityItems: activityItems as [AnyObject], applicationActivities: nil)
         activityViewController.excludedActivityTypes = [UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypePrint, UIActivityTypePostToFlickr, UIActivityTypePostToTencentWeibo, UIActivityTypeAddToReadingList]
@@ -45,13 +45,13 @@ class MyAccountViewController : UIViewController, SaferSpaceViewControllerDelega
         let uploadButton = UIBarButtonItem(image: UIImage(named: "cloud"), style: .Plain, target: self, action: "")
         uploadButton.imageInsets = UIEdgeInsetsMake(0, 10, 0, -10)
         self.navigationItem.rightBarButtonItems = [rightBarButton, uploadButton]
-        saferSpaceText.text = org?.saferSpaceAgreement
      }
     
     override func viewDidAppear(animated: Bool) {
         let tap = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
         tap.cancelsTouchesInView = false
+        saferSpaceText.text = org?.saferSpaceAgreement
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -78,6 +78,8 @@ class MyAccountViewController : UIViewController, SaferSpaceViewControllerDelega
         saferSpaceText.text = org?.saferSpaceAgreement
         
     }
+    
+    // tableview methods
     
     //- (NSString *)commaSeporatedStyle;
     //{

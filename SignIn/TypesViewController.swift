@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class TypesViewController : UIViewController {
+class TypesViewController : UITableViewController {
     
     @IBOutlet weak var voluteerTypeStatus: UISwitch!
     @IBOutlet weak var PatronTypeStatus: UISwitch!
@@ -25,5 +25,16 @@ class TypesViewController : UIViewController {
     }
     @IBAction func employeeType(sender: AnyObject) {
     }
+    
+    override func viewDidLoad() {
+        let rightBarButton = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "showSaveAlert")
+        self.navigationItem.rightBarButtonItem = rightBarButton
+
+    }
+    
+    func showSaveAlert() {
+        TypeLog().saveType()
+    }
+
     
 }

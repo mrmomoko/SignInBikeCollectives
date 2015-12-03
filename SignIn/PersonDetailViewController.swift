@@ -44,6 +44,7 @@ class PersonDetailViewController: UIViewController {
         thisMonthVolunteering.text = shopUseLog.hourlyTotalForThisMonth(contact!, typeTitle: "Volunteer")
         lastMonthShopUse.text = shopUseLog.hourlyTotalForLastMonth(contact!, typeTitle: "Patron")
         lastMonthVolunteering.text = shopUseLog.hourlyTotalForLastMonth(contact!, typeTitle: "Volunteer")
+        // user interface for employees
         if self.tabBarController?.selectedIndex == 0 {
             self.navigationItem.rightBarButtonItem = nil 
         }

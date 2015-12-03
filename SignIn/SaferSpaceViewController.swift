@@ -25,13 +25,14 @@ class SaferSpaceViewController: UIViewController {
 //        textView.clipsToBounds = true
         textView.layer.borderColor = CGColorCreate(CGColorSpaceCreateDeviceRGB(), [0.0, 0.0, 0.0, 0.5])
         let rightBarButton = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "saveSaferSpace")
-        self.navigationItem.rightBarButtonItem = rightBarButton
-        
+        self.navigationItem.rightBarButtonItem = rightBarButton        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
         if org!.saferSpaceAgreement != "" {
             textView.text = org!.saferSpaceAgreement
         }
     }
-    
     func saveSaferSpace() {
         org!.saferSpaceAgreement = textView.text
         delegate?.didAddSaferSpaceAggrement(self)
