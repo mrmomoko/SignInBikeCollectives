@@ -40,10 +40,10 @@ class PersonDetailViewController: UIViewController {
         }
         totalHours.text = shopUseLog.numberOfHoursLoggedByContact(contact!, typeTitle: "Patron")
         totalHoursVolunteering.text = shopUseLog.numberOfHoursLoggedByContact(contact!, typeTitle: "Volunteer")
-        thisMonthShopUse.text = shopUseLog.hourlyTotalForThisMonth(contact!)
-        thisMonthVolunteering.text = shopUseLog.hourlyVolunteerTotalForThisMonth(contact!)
-        lastMonthShopUse.text = shopUseLog.hourlyTotalForLastMonth(contact!)
-        lastMonthVolunteering.text = shopUseLog.hourlyVolunteerTotalForLastMonth(contact!)
+        thisMonthShopUse.text = shopUseLog.hourlyTotalForThisMonth(contact!, typeTitle: "Patron")
+        thisMonthVolunteering.text = shopUseLog.hourlyTotalForThisMonth(contact!, typeTitle: "Volunteer")
+        lastMonthShopUse.text = shopUseLog.hourlyTotalForLastMonth(contact!, typeTitle: "Patron")
+        lastMonthVolunteering.text = shopUseLog.hourlyTotalForLastMonth(contact!, typeTitle: "Volunteer")
         if self.tabBarController?.selectedIndex == 0 {
             self.navigationItem.rightBarButtonItem = nil 
         }

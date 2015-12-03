@@ -30,7 +30,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     }
     
     @IBAction func allVolunteers(sender: AnyObject) {
-        filteredContacts = shopUseLog.contactsOfVolunteers()
+        filteredContacts = shopUseLog.contactsOfVolunteer()
         listOfPeopleTableView.reloadData()
     }
     

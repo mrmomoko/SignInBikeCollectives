@@ -24,7 +24,6 @@ extension Organization {
     @NSManaged var waiver: String?
     @NSManaged var yesOrNoQuestion: String?
     @NSManaged var zipCode: String?
-    @NSManaged var userTypes: UserTypes?
     @NSManaged var type: NSSet?
 
 }

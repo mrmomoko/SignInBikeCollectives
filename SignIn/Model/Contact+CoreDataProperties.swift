@@ -23,6 +23,4 @@ extension Contact {
     @NSManaged var recentUseType: String?
     @NSManaged var membership: Membership?
     @NSManaged var shopUse: NSSet?
-    @NSManaged var volunteer: NSSet?
-    @NSManaged var employeeUse: NSSet?
 }
