@@ -59,11 +59,24 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
         let cell = tableView.dequeueReusableCellWithIdentifier("CustomCell") as! ContactTableViewCell
         
         if indexPath.row == 0 {
-            cell.titleLabel!.text = "I'm New, I don't have a login"
+//            cell.titleLabel.drawTextInRect(UIEdgeInsetsInsetRect(cell.titleLabel.frame, UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)))
+            cell.titleLabel!.text = " I'm New, I don't have a login  "
             cell.titleLabel!.textAlignment = .Center
             cell.detailLabel!.text = ""
+            cell.titleLabel.textColor = UIColor.darkGrayColor()
             cell.circleView.tintColor = UIColor.clearColor()
-            // I'd like to formate this cell to look more like a button, or maybe I should put a button in it?
+            cell.titleLabel.backgroundColor = UIColor.cyanColor()
+            // i might need to subclass UILabel
+            
+            // I'd like to formate this cell to look more like a button, or maybe I should put a button in it? needs a lot of work
+//            let button = UIButton(frame: CGRect(x: 40, y: 5, width: 250, height: 40))
+//            let label = UILabel(frame: button.frame)
+//            label.frame.origin.x = 20
+//            button.backgroundColor = UIColor.cyanColor()
+//            label.text = "I'm New, I don't have a login"
+//            label.textColor = UIColor.darkGrayColor()
+//            button.addSubview(label)
+//            cell.addSubview(button)
         } else {
             let contact = filteredLog[indexPath.row - 1]
             let membership = contact.valueForKey("membership") as? Membership
