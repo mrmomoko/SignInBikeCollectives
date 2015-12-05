@@ -21,6 +21,8 @@
 		4C7EC5251B8963F80057D1A9 /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7EC5241B8963F80057D1A9 /* ContactTableViewCell.swift */; };
 		4C80C4181BD0DC3400707469 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C80C4171BD0DC3400707469 /* UIKit.framework */; };
 		4C83FF661B4A42BC00E12761 /* ContactLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C83FF651B4A42BC00E12761 /* ContactLog.swift */; };
+		4C9437B21C125E700047771C /* WaiverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9437B11C125E700047771C /* WaiverViewController.swift */; };
+		4C9437B61C136B340047771C /* image.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C9437B51C136B340047771C /* image.png */; };
 		4C9464101BD700C300665BE6 /* OrganizationLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C94640F1BD700C300665BE6 /* OrganizationLog.swift */; };
 		4C9BCD241BF70DC10054B59D /* SaferSpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9BCD231BF70DC10054B59D /* SaferSpaceViewController.swift */; };
 		4CA6A07E1BBB98B800759754 /* Contact+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA6A07C1BBB98B800759754 /* Contact+CoreDataProperties.swift */; };
@@ -75,6 +77,8 @@
 		4C7EC5241B8963F80057D1A9 /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
 		4C80C4171BD0DC3400707469 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4C83FF651B4A42BC00E12761 /* ContactLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactLog.swift; sourceTree = "<group>"; };
+		4C9437B11C125E700047771C /* WaiverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WaiverViewController.swift; path = ../WaiverViewController.swift; sourceTree = "<group>"; };
+		4C9437B51C136B340047771C /* image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = image.png; path = ../../../.Trash/image.png; sourceTree = "<group>"; };
 		4C94640F1BD700C300665BE6 /* OrganizationLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationLog.swift; sourceTree = "<group>"; };
 		4C9BCD231BF70DC10054B59D /* SaferSpaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaferSpaceViewController.swift; sourceTree = "<group>"; };
 		4CA6A07C1BBB98B800759754 /* Contact+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Contact+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -145,6 +149,7 @@
 				4C0C13771A5070BF0019A6B2 /* AppDelegate.h */,
 				4C0C13781A5070BF0019A6B2 /* AppDelegate.m */,
 				4CF657831B55D85A00FBB45E /* NewUserViewController.swift */,
+				4C9437B11C125E700047771C /* WaiverViewController.swift */,
 				4CEE0EF31C0D05AD0010C156 /* TypesViewController.swift */,
 				4CA6A0801BBC7EC100759754 /* MyAccountViewController.swift */,
 				4CCB75641A7AF5F20039D10B /* PersonDetailViewController.swift */,
@@ -209,6 +214,7 @@
 		4C7EC5231B8963CE0057D1A9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4C9437B51C136B340047771C /* image.png */,
 				4C7EC5241B8963F80057D1A9 /* ContactTableViewCell.swift */,
 			);
 			name = Views;
@@ -295,6 +301,7 @@
 			knownRegions = (
 				en,
 				Base,
+				English,
 			);
 			mainGroup = 4C0C13671A5070BF0019A6B2;
 			productRefGroup = 4C0C13711A5070BF0019A6B2 /* Products */;
@@ -312,6 +319,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C9437B61C136B340047771C /* image.png in Resources */,
 				4CC133841B4B2A8D00208250 /* Images.xcassets in Resources */,
 				4C0C13821A5070BF0019A6B2 /* Main.storyboard in Resources */,
 				4C0C13871A5070C00019A6B2 /* LaunchScreen.xib in Resources */,
@@ -346,6 +354,7 @@
 				4CCC51DB1BEB016A00EEBEC2 /* Organization+CoreDataProperties.swift in Sources */,
 				4CCB75681A7C50F70039D10B /* ThankYouForSigningIn.swift in Sources */,
 				4CEE0EFA1C0D0ABE0010C156 /* ShopUse.swift in Sources */,
+				4C9437B21C125E700047771C /* WaiverViewController.swift in Sources */,
 				4CF193A21B44CB0C001CB464 /* SignInViewController.swift in Sources */,
 				4CC927661B7A9E6B003E3A88 /* Membership.swift in Sources */,
 				4CEE0EF91C0D0ABE0010C156 /* ShopUse+CoreDataProperties.swift in Sources */,

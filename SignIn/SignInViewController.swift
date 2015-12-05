@@ -38,6 +38,7 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
         uniqueIdentifier.text = ""
         filteredLog = usersWhoAreNotLoggedIn()
         mostRecentSignIns.reloadData()
+        self.title = OrganizationLog().currentOrganization().organization?.name
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -60,12 +61,12 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
         
         if indexPath.row == 0 {
 //            cell.titleLabel.drawTextInRect(UIEdgeInsetsInsetRect(cell.titleLabel.frame, UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)))
-            cell.titleLabel!.text = " I'm New, I don't have a login  "
+            cell.titleLabel!.text = "I'm New, I don't have a login"
             cell.titleLabel!.textAlignment = .Center
             cell.detailLabel!.text = ""
             cell.titleLabel.textColor = UIColor.darkGrayColor()
             cell.circleView.tintColor = UIColor.clearColor()
-            cell.titleLabel.backgroundColor = UIColor.cyanColor()
+            cell.backgroundColor = UIColor.cyanColor()
             // i might need to subclass UILabel
             
             // I'd like to formate this cell to look more like a button, or maybe I should put a button in it? needs a lot of work

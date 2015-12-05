@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class MyAccountViewController : UITableViewController, SaferSpaceViewControllerDelegate {
+class MyAccountViewController : UITableViewController, SaferSpaceViewControllerDelegate, WaiverViewControllerDelegate {
     
     let org = OrganizationLog().organizationLog.first
     
@@ -21,6 +21,7 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var saferSpaceText: UILabel!
     
+    @IBOutlet weak var waiverText: UILabel!
     @IBOutlet weak var yesOrNoQuestion: UITextField!
     @IBAction func setUpLogo(sender: AnyObject) {
     }
@@ -51,7 +52,16 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
         let tap = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
         tap.cancelsTouchesInView = false
+        name.text = org!.name
+        emailAddress.text = org!.emailAddress
+        password.text = org!.password
+        let path = NSBundle.mainBundle().pathForResource("image", ofType: "png")
+        let image = NSData(contentsOfFile: path!)
+        org!.image = image
+        yesOrNoQuestion.text = org!.yesOrNoQuestion
+
         saferSpaceText.text = org?.saferSpaceAgreement
+        waiverText.text = org?.waiver
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -62,6 +72,12 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
             vc.delegate = self
             vc.org = org
         }
+        if segueIdentifier == "Waiver Segue" {
+            let vc = segue.destinationViewController as! WaiverViewController
+            vc.delegate = self
+            vc.org = org
+        }
+
     }
     
     func dismissKeyboard() {
@@ -69,6 +85,14 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
     }
     
     func showSaveAlert() {
+        org!.name = name.text
+        org!.emailAddress = emailAddress.text
+        org!.password = password.text
+        let path = NSBundle.mainBundle().pathForResource("orgLogo", ofType: "png")
+        let image = NSData(contentsOfFile: path!)
+        org!.image = image
+        org!.yesOrNoQuestion = yesOrNoQuestion.text
+
         OrganizationLog().saveOrg(org!)
     }
     
@@ -77,6 +101,11 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
         self.navigationController?.popViewControllerAnimated(true)
         saferSpaceText.text = org?.saferSpaceAgreement
         
+    }
+
+    func didAddWaiver(sender: WaiverViewController) {
+        self.navigationController?.popViewControllerAnimated(true)
+        waiverText.text = org?.waiver
     }
     
     // tableview methods

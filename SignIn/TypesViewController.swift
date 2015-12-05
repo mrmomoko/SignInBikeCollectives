@@ -7,7 +7,8 @@
 //
 
 import Foundation
-class TypesViewController : UITableViewController {
+// should likely change to tableView
+class TypesViewController : UIViewController {
     
     @IBOutlet weak var voluteerTypeStatus: UISwitch!
     @IBOutlet weak var PatronTypeStatus: UISwitch!
@@ -29,6 +30,9 @@ class TypesViewController : UITableViewController {
     override func viewDidLoad() {
         let rightBarButton = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "showSaveAlert")
         self.navigationItem.rightBarButtonItem = rightBarButton
+//        let org = OrganizationLog().currentOrganization().organization
+//        let types = org?.type
+//        volunteerTypeStatus.on =
 
     }
     
