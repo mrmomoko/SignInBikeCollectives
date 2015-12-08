@@ -17,6 +17,7 @@ extension Type {
     @NSManaged var active: NSNumber?
     @NSManaged var title: String?
     @NSManaged var id: NSNumber?
+    @NSManaged var group: String?
     @NSManaged var contact: NSSet?
     @NSManaged var organization: Organization?
     @NSManaged var shopUse: NSSet?

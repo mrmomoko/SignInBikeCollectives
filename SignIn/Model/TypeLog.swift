@@ -12,6 +12,7 @@ class TypeLog: NSObject {
 
     var typeLog : [Type]
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    let org = OrganizationLog().currentOrganization().organization
     
     override init() {
         typeLog = []
@@ -27,14 +28,15 @@ class TypeLog: NSObject {
         super.init()
     }
     
-    func addType(title: String, id: Int) {
+    func addType(title: String, id: Int, group: String, active: Int) {
         if isDupicateType(title) == false {
             let entity = NSEntityDescription.entityForName("Type", inManagedObjectContext: managedObjectContext)
             
             let type = Type(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
             type.title = title
-            type.active = NSNumber.init(bool:true)
+            type.active = active
             type.id = id
+            type.group = group
             type.organization = OrganizationLog().currentOrganization().organization!
             //set default behaviour for organization
             
@@ -43,12 +45,6 @@ class TypeLog: NSObject {
     }
     
     func getType(title: String) -> Type {
-        // not sure if I should do this check, if it doesn't exist in the log,
-        // maybe I shouldn't be able to get it
-        //need to figure out if I want to get a type, and need the id, or should i remove these lines of code.
-//        if isDupicateType(title) == false {
-//            addType(title)
-//        }
         let fetchRequest = NSFetchRequest(entityName: "Type")
         let predicate = NSPredicate(format: "title == %@", title)
         var type = [Type]()
@@ -98,16 +94,35 @@ class TypeLog: NSObject {
         
     }
     
-    func getActiveStatusOfTypesInOrderOfIDForGroup(group: String) -> [Bool] {
-        var switcheStatus = [Bool]()
-        let org = OrganizationLog().currentOrganization().organization
-        let types = org?.type
-        // sort the NSSet into an array by ID number
-        let sortDescriptor = NSSortDescriptor(key: "id", ascending: true)
-        var array = Array(arrayLiteral: types)
-        for type in array {
-            switcheStatus.append(true)
+    func getAllTypes() -> [Type] {
+        var types = [Type]()
+        for type in (org?.type)! {
+            types.append(type as! Type)
         }
-        return switcheStatus
+        return types
+    }
+
+    func getAllTypesForGroup(group: String) -> [Type] {
+        var types = [Type]()
+        for type in getAllTypes() {
+            if type.group == group {
+                types.append(type)
+            }
+        }
+        return types
+    }
+    
+    func getActiveStatusOfTypesInOrderOfIDForGroup(group: String) -> [Bool] {
+        var switchStatus = [Bool]()
+        let types = getAllTypesForGroup(group)
+        let sortedTypes = types.sort {Int($0.id!) < Int($1.id!)}
+        for type in sortedTypes {
+            if type.active == 0 {
+                switchStatus.append(false)
+            } else {
+                switchStatus.append(true)
+            }
+        }
+        return switchStatus
     }
 }

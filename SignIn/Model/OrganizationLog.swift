@@ -63,10 +63,18 @@ class  OrganizationLog: NSObject {
             print("Could not save \(error), \(error?.userInfo)")
         }
         
-        //create default types
-        TypeLog().addType("Volunteer", id: 1)
-        TypeLog().addType("Patron", id: 2)
-        
+        //create default Contact types
+        TypeLog().addType("Volunteer", id: 1, group: "Contact", active: 1)
+        TypeLog().addType("Patron", id: 2, group: "Contact", active: 1)
+        TypeLog().addType("Employee", id: 3, group: "Contact", active: 0)
+        TypeLog().addType("Custom1", id: 4, group: "Contact", active: 0)
+        TypeLog().addType("Custom2", id: 5, group: "Contact", active: 0)
+        // create default MembershipTypes
+        TypeLog().addType("One Month", id: 6, group: "Membership", active: 1)
+        TypeLog().addType("Six Month", id: 7, group: "Membership", active: 1)
+        TypeLog().addType("Yearly", id: 8, group: "Membership", active: 1)
+        TypeLog().addType("Life Time", id: 9, group: "Membership", active: 1)
+        TypeLog().addType("Custom", id: 10, group: "Membership", active: 0)
     }
     
     func currentOrganization() -> (organization:Organization?, doesTheOrgExist:Bool) {

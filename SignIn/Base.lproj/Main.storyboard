@@ -627,22 +627,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SeT-ad-ARC">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Volunteers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DIl-yE-6j5">
+                                <rect key="frame" x="20" y="97" width="82" height="23"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="SeT-ad-ARC">
                                 <rect key="frame" x="531" y="97" width="51" height="31"/>
                                 <animations/>
                                 <connections>
                                     <action selector="volunteerType:" destination="GMj-jn-lt9" eventType="valueChanged" id="i26-uI-SdK"/>
                                 </connections>
                             </switch>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u0I-E7-Kc2">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Patrons" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bat-uX-Fnb">
+                                <rect key="frame" x="20" y="138" width="59" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="u0I-E7-Kc2">
                                 <rect key="frame" x="531" y="135" width="51" height="31"/>
                                 <animations/>
                                 <connections>
                                     <action selector="patronType:" destination="GMj-jn-lt9" eventType="valueChanged" id="FOK-ws-DQ6"/>
                                 </connections>
                             </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Patrons" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bat-uX-Fnb">
-                                <rect key="frame" x="20" y="138" width="59" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paid Employees/Staff" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edA-dz-ZdG">
+                                <rect key="frame" x="20" y="177" width="163" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -655,37 +669,6 @@
                                     <action selector="employeeType:" destination="GMj-jn-lt9" eventType="valueChanged" id="QY5-eO-0Je"/>
                                 </connections>
                             </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paid Employees/Staff" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edA-dz-ZdG">
-                                <rect key="frame" x="20" y="177" width="163" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="znM-HR-pIV">
-                                <rect key="frame" x="531" y="249" width="51" height="31"/>
-                                <animations/>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Custom" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RcK-1s-Vi0">
-                                <rect key="frame" x="20" y="255" width="60" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Volunteers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DIl-yE-6j5">
-                                <rect key="frame" x="20" y="97" width="82" height="23"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8wr-w7-oLg">
-                                <rect key="frame" x="96" y="250" width="418" height="30"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Custom" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oKO-oq-Nir">
                                 <rect key="frame" x="20" y="216" width="60" height="21"/>
                                 <animations/>
@@ -702,6 +685,29 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="At9-Uo-utm">
                                 <rect key="frame" x="531" y="211" width="51" height="31"/>
                                 <animations/>
+                                <connections>
+                                    <action selector="custom1:" destination="GMj-jn-lt9" eventType="valueChanged" id="42w-5m-fNQ"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Custom" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RcK-1s-Vi0">
+                                <rect key="frame" x="20" y="255" width="60" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8wr-w7-oLg">
+                                <rect key="frame" x="96" y="250" width="418" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="znM-HR-pIV">
+                                <rect key="frame" x="531" y="249" width="51" height="31"/>
+                                <animations/>
+                                <connections>
+                                    <action selector="custom2:" destination="GMj-jn-lt9" eventType="valueChanged" id="DTz-kd-9FK"/>
+                                </connections>
                             </switch>
                         </subviews>
                         <animations/>
@@ -745,6 +751,10 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="custom1" destination="At9-Uo-utm" id="aJj-mk-BIo"/>
+                        <outlet property="custom2" destination="znM-HR-pIV" id="0WZ-Z0-iYx"/>
+                        <outlet property="customOne" destination="dGe-K2-ozb" id="Yxa-Id-FlX"/>
+                        <outlet property="customTwo" destination="8wr-w7-oLg" id="UQb-ZZ-xPg"/>
                         <outlet property="employeeTypeStatus" destination="P5n-zX-DQK" id="nVZ-QS-vtw"/>
                         <outlet property="patronTypeStatus" destination="u0I-E7-Kc2" id="eNP-KM-i1a"/>
                         <outlet property="volunteerTypeStatus" destination="SeT-ad-ARC" id="rO6-ku-chN"/>
@@ -752,7 +762,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DR3-5m-08g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="586" y="1930"/>
+            <point key="canvasLocation" x="460" y="1923"/>
         </scene>
         <!--Waiver View Controller-->
         <scene sceneID="F0m-66-FSn">
@@ -1240,20 +1250,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3qe-8p-vQc">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="3qe-8p-vQc">
                                 <rect key="frame" x="531" y="72" width="51" height="31"/>
                                 <animations/>
                                 <connections>
                                     <action selector="oneMonthAction:" destination="BdQ-3S-Gog" eventType="valueChanged" id="0lp-5l-Bz3"/>
-                                    <action selector="sixMonthAction:" destination="BdQ-3S-Gog" eventType="valueChanged" id="9Qa-w4-ni7"/>
-                                    <action selector="volunteerType:" destination="GMj-jn-lt9" eventType="valueChanged" id="4jO-nE-g6s"/>
                                 </connections>
                             </switch>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Olb-b8-rfX">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="One Month" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6eM-eI-fpQ">
+                                <rect key="frame" x="20" y="72" width="86" height="23"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Olb-b8-rfX">
                                 <rect key="frame" x="531" y="110" width="51" height="31"/>
                                 <animations/>
                                 <connections>
-                                    <action selector="patronType:" destination="GMj-jn-lt9" eventType="valueChanged" id="nxJ-18-Yv5"/>
+                                    <action selector="sixMonthAction:" destination="BdQ-3S-Gog" eventType="valueChanged" id="5TH-ww-xck"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6 Month" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F2A-n1-MSz">
@@ -1263,16 +1278,22 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VI2-HC-gPk">
-                                <rect key="frame" x="531" y="148" width="51" height="31"/>
-                                <animations/>
-                                <connections>
-                                    <action selector="employeeType:" destination="GMj-jn-lt9" eventType="valueChanged" id="ao1-5L-szf"/>
-                                    <action selector="yearlyAction:" destination="BdQ-3S-Gog" eventType="valueChanged" id="fMB-8K-ZCe"/>
-                                </connections>
-                            </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yearly" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d6f-lC-6ND">
                                 <rect key="frame" x="20" y="152" width="47" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="1fk-AJ-A6Z">
+                                <rect key="frame" x="531" y="186" width="51" height="31"/>
+                                <animations/>
+                                <connections>
+                                    <action selector="lifetimeAction:" destination="BdQ-3S-Gog" eventType="valueChanged" id="Dlv-at-IDq"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Life Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MUe-tG-o2u">
+                                <rect key="frame" x="20" y="191" width="71" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1282,32 +1303,11 @@
                                 <rect key="frame" x="531" y="224" width="51" height="31"/>
                                 <animations/>
                                 <connections>
-                                    <action selector="lifetimeAction:" destination="BdQ-3S-Gog" eventType="valueChanged" id="L9Z-x1-CPE"/>
+                                    <action selector="customAction:" destination="BdQ-3S-Gog" eventType="valueChanged" id="q6o-KD-ZBm"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Custom" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hBf-gg-M5h">
                                 <rect key="frame" x="20" y="230" width="60" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="One Month" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6eM-eI-fpQ">
-                                <rect key="frame" x="20" y="72" width="86" height="23"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1fk-AJ-A6Z">
-                                <rect key="frame" x="531" y="186" width="51" height="31"/>
-                                <animations/>
-                                <connections>
-                                    <action selector="customAction:" destination="BdQ-3S-Gog" eventType="valueChanged" id="ZFZ-g2-Ej8"/>
-                                </connections>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Life Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MUe-tG-o2u">
-                                <rect key="frame" x="20" y="191" width="71" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1319,6 +1319,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="VI2-HC-gPk">
+                                <rect key="frame" x="531" y="147" width="51" height="31"/>
+                                <animations/>
+                                <connections>
+                                    <action selector="yearlyAction:" destination="BdQ-3S-Gog" eventType="valueChanged" id="fMB-8K-ZCe"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1351,11 +1358,12 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="customSwitch" destination="1fk-AJ-A6Z" id="anh-Kb-ujG"/>
-                        <outlet property="lifetimeSwitch" destination="CRy-HH-tl7" id="aFB-37-D3L"/>
+                        <outlet property="customSwitch" destination="CRy-HH-tl7" id="mZL-ar-ucO"/>
+                        <outlet property="customText" destination="5PB-ic-cIb" id="X2l-Wk-Nkn"/>
+                        <outlet property="lifetimeSwitch" destination="1fk-AJ-A6Z" id="SS1-Em-dcm"/>
                         <outlet property="monthSwitch" destination="3qe-8p-vQc" id="tNd-vz-lKk"/>
-                        <outlet property="sixMonthSwitch" destination="Olb-b8-rfX" id="3cr-IY-1sy"/>
-                        <outlet property="yearlySwitch" destination="VI2-HC-gPk" id="jax-dP-YcA"/>
+                        <outlet property="sixMonthSwitch" destination="Olb-b8-rfX" id="qjA-GI-Xzz"/>
+                        <outlet property="yearlySwitch" destination="VI2-HC-gPk" id="pYG-j9-qWz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hwt-cS-DlB" userLabel="First Responder" sceneMemberID="firstResponder"/>

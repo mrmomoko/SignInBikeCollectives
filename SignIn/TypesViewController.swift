@@ -15,6 +15,10 @@ class TypesViewController : UIViewController {
     @IBOutlet weak var volunteerTypeStatus: UISwitch!
     @IBOutlet weak var patronTypeStatus: UISwitch!
     @IBOutlet weak var employeeTypeStatus: UISwitch!
+    @IBOutlet weak var custom1: UISwitch!
+    @IBOutlet weak var customOne: UITextField!
+    @IBOutlet weak var custom2: UISwitch!
+    @IBOutlet weak var customTwo: UITextField!
     
     @IBAction func volunteerType(sender: AnyObject) {
         let type = TypeLog().getType("Volunteer")
@@ -25,9 +29,40 @@ class TypesViewController : UIViewController {
         }
     }
     @IBAction func patronType(sender: AnyObject) {
+        let type = TypeLog().getType("Patron")
+        if patronTypeStatus.on == true {
+            type.active = 1
+        } else {
+            type.active = 0
+        }
     }
     @IBAction func employeeType(sender: AnyObject) {
+        let type = TypeLog().getType("Employee")
+        if employeeTypeStatus.on == true {
+            type.active = 1
+        } else {
+            type.active = 0
+        }
     }
+    @IBAction func custom1(sender: AnyObject) {
+        let type = TypeLog().getType("Custom1")
+        if custom1.on == true {
+            type.title = customOne.text
+            type.active = 1
+        } else {
+            type.active = 0
+        }
+    }
+    @IBAction func custom2(sender: AnyObject) {
+        let type = TypeLog().getType("Custom2")
+        if custom2.on == true {
+            type.title = customTwo.text
+            type.active = 1
+        } else {
+            type.active = 0
+        }
+    }
+    
     
     override func viewDidLoad() {
         let rightBarButton = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "showSaveAlert")
@@ -35,47 +70,12 @@ class TypesViewController : UIViewController {
         updateOnOffSwitchesForTypes()
     }
     func updateOnOffSwitchesForTypes() {
-        let types = org?.type // an nsSet
-        for type in types! {
-            if type.title == "Volunteer"  {
-                if type.active == 1 {
-                    volunteerTypeStatus.on = true
-                } else {
-                    volunteerTypeStatus.on = false
-                }
-            }
-            if type.title == "Patron"  {
-                if type.active == 1 {
-                    volunteerTypeStatus.on = true
-                } else {
-                    volunteerTypeStatus.on = false
-                }
-            }
-            if type.title == "Employee"  {
-                if type.active == 1 {
-                    volunteerTypeStatus.on = true
-                } else {
-                    volunteerTypeStatus.on = false
-                }
-            }
-            if type.title == "Custom 1"  {
-                if type.active == 1 {
-                    volunteerTypeStatus.on = true
-                } else {
-                    volunteerTypeStatus.on = false
-                }
-            }
-            if type.title == "Custom 2"  {
-                if type.active == 1 {
-                    volunteerTypeStatus.on = true
-                } else {
-                    volunteerTypeStatus.on = false
-                }
-            }
-
-        }
-        
-        
+        let typesStatus = TypeLog().getActiveStatusOfTypesInOrderOfIDForGroup("Contact")
+        volunteerTypeStatus.on = typesStatus[0]
+        patronTypeStatus.on = typesStatus[1]
+        employeeTypeStatus.on = typesStatus[2]
+        custom1.on = typesStatus[3]
+        custom2.on = typesStatus[4]
     }
     func showSaveAlert() {
         TypeLog().saveType()

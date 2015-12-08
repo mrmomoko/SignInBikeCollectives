@@ -40,6 +40,7 @@
     </entity>
     <entity name="Type" representedClassName=".Type" syncable="YES">
         <attribute name="active" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="group" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="contact" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Contact" inverseName="mostRecentType" inverseEntity="Contact" syncable="YES"/>
@@ -51,6 +52,6 @@
         <element name="Membership" positionX="-243" positionY="-297" width="128" height="88"/>
         <element name="Organization" positionX="-828" positionY="-297" width="128" height="208"/>
         <element name="ShopUse" positionX="-297" positionY="50" width="128" height="103"/>
-        <element name="Type" positionX="-621" positionY="80" width="128" height="133"/>
+        <element name="Type" positionX="-621" positionY="80" width="128" height="148"/>
     </elements>
 </model>
