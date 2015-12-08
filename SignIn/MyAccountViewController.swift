@@ -14,17 +14,11 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
     let org = OrganizationLog().organizationLog.first
     
     @IBOutlet weak var name: UITextField!
-    
     @IBOutlet weak var emailAddress: UITextField!
     @IBOutlet weak var password: UITextField!
-    
-    @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var saferSpaceText: UILabel!
-    
     @IBOutlet weak var waiverText: UILabel!
     @IBOutlet weak var yesOrNoQuestion: UITextField!
-    @IBAction func setUpLogo(sender: AnyObject) {
-    }
 
     func sendData(sender: AnyObject) {
         let activityItems = [ContactLog().returnAllContactsAsCommaSeporatedString()]
@@ -52,14 +46,11 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
         let tap = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
         tap.cancelsTouchesInView = false
+        
         name.text = org!.name
         emailAddress.text = org!.emailAddress
         password.text = org!.password
-        let path = NSBundle.mainBundle().pathForResource("image", ofType: "png")
-        let image = NSData(contentsOfFile: path!)
-        org!.image = image
         yesOrNoQuestion.text = org!.yesOrNoQuestion
-
         saferSpaceText.text = org?.saferSpaceAgreement
         waiverText.text = org?.waiver
     }
@@ -77,7 +68,10 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
             vc.delegate = self
             vc.org = org
         }
-
+        if segueIdentifier == "Types Segue" {
+            let vc = segue.destinationViewController as! TypesViewController
+            vc.org = org
+        }
     }
     
     func dismissKeyboard() {
@@ -88,9 +82,6 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
         org!.name = name.text
         org!.emailAddress = emailAddress.text
         org!.password = password.text
-        let path = NSBundle.mainBundle().pathForResource("orgLogo", ofType: "png")
-        let image = NSData(contentsOfFile: path!)
-        org!.image = image
         org!.yesOrNoQuestion = yesOrNoQuestion.text
 
         OrganizationLog().saveOrg(org!)

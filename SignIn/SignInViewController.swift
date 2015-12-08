@@ -66,18 +66,11 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
             cell.detailLabel!.text = ""
             cell.titleLabel.textColor = UIColor.darkGrayColor()
             cell.circleView.tintColor = UIColor.clearColor()
-            cell.backgroundColor = UIColor.cyanColor()
-            // i might need to subclass UILabel
-            
-            // I'd like to formate this cell to look more like a button, or maybe I should put a button in it? needs a lot of work
-//            let button = UIButton(frame: CGRect(x: 40, y: 5, width: 250, height: 40))
-//            let label = UILabel(frame: button.frame)
-//            label.frame.origin.x = 20
-//            button.backgroundColor = UIColor.cyanColor()
-//            label.text = "I'm New, I don't have a login"
-//            label.textColor = UIColor.darkGrayColor()
-//            button.addSubview(label)
-//            cell.addSubview(button)
+            let view = UIView(frame: CGRect(x: 30, y: 5, width: 254, height: 35))
+            view.backgroundColor = UIColor(red:0.00, green:0.87, blue:0.9, alpha:0.3)
+            view.layer.cornerRadius = 12.0
+            cell.addSubview(view)
+            cell.sendSubviewToBack(view)
         } else {
             let contact = filteredLog[indexPath.row - 1]
             let membership = contact.valueForKey("membership") as? Membership

@@ -106,6 +106,9 @@ class ContactLog: NSObject {
     }
     
     func usersWhoAreLoggedIn() -> [Contact] {
+        let count = String(managedObjectContext.registeredObjects.count)
+        print(count)
+
         var loggedInUsers = [Contact]()
         for contact in allContacts {
             if contact.recentUse!.timeIntervalSinceNow > 0 {
@@ -133,7 +136,7 @@ class ContactLog: NSObject {
         case .purple:
             uicolor = UIColor.purpleColor()
         case .blue:
-            uicolor = UIColor.cyanColor()
+            uicolor = UIColor(red:0.00, green:0.87, blue:0.9, alpha:1)
         case .green:
             uicolor = UIColor.greenColor()
         case .yellow:

@@ -28,6 +28,8 @@ class  OrganizationLog: NSObject {
         let fetchRequest = NSFetchRequest(entityName: "Organization")
         do { if let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Organization] {
             organizationLog = fetchedResults
+            //remove at launch, this is a check to see if there is ever more than one org
+            print("%@", organizationLog.count)
         }
         else {
             assertionFailure("Could not executeFetchRequest")
@@ -35,6 +37,7 @@ class  OrganizationLog: NSObject {
         } catch let error as NSError {
             print("Could not fetch \(error)")
         }
+
     }
     
     func createOrganizationWithDefaultValues() {
@@ -61,8 +64,9 @@ class  OrganizationLog: NSObject {
         }
         
         //create default types
-        TypeLog().addType("Volunteer")
-        TypeLog().addType("Patron")
+        TypeLog().addType("Volunteer", id: 1)
+        TypeLog().addType("Patron", id: 2)
+        
     }
     
     func currentOrganization() -> (organization:Organization?, doesTheOrgExist:Bool) {

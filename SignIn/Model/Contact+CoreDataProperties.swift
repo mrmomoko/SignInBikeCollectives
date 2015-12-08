@@ -2,7 +2,7 @@
 //  Contact+CoreDataProperties.swift
 //  SignIn
 //
-//  Created by Momoko Saunders on 9/29/15.
+//  Created by Momoko Saunders on 12/5/15.
 //  Copyright © 2015 Momoko Saunders. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -21,6 +21,10 @@ extension Contact {
     @NSManaged var pin: String?
     @NSManaged var recentUse: NSDate?
     @NSManaged var recentUseType: String?
+    @NSManaged var yesOrNoQuestion: NSNumber?
+    @NSManaged var hasGoneThroughSetUp: NSNumber?
     @NSManaged var membership: Membership?
+    @NSManaged var mostRecentType: Type?
     @NSManaged var shopUse: NSSet?
+
 }

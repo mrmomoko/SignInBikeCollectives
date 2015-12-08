@@ -119,7 +119,7 @@ extension NewUserViewController {
         else if indexPath.row == 1 {
             contactLog.editColourForContact(contact!, colour: .blue)
             view.backgroundColor = UIColor.cyanColor()
-            collectionView.backgroundColor = UIColor.cyanColor()
+            collectionView.backgroundColor = UIColor(red:0.00, green:0.87, blue:0.9, alpha:1)
         }
         else if indexPath.row == 2 {
             contactLog.editColourForContact(contact!, colour: .green)

@@ -75,7 +75,7 @@ extension EditUserViewController {
             cell.backgroundColor = UIColor.purpleColor()
         }
         else if indexPath.row == 1 {
-            cell.backgroundColor = UIColor.cyanColor()
+            cell.backgroundColor = UIColor(red:0.00, green:0.87, blue:0.9, alpha:1)
         }
         else if indexPath.row == 2 {
             cell.backgroundColor = UIColor.greenColor()

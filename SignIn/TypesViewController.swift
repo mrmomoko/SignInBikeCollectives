@@ -10,13 +10,15 @@ import Foundation
 // should likely change to tableView
 class TypesViewController : UIViewController {
     
-    @IBOutlet weak var voluteerTypeStatus: UISwitch!
-    @IBOutlet weak var PatronTypeStatus: UISwitch!
-    @IBOutlet weak var EmployeeTypeStatus: UISwitch!
+    var org : Organization? = nil
+    
+    @IBOutlet weak var volunteerTypeStatus: UISwitch!
+    @IBOutlet weak var patronTypeStatus: UISwitch!
+    @IBOutlet weak var employeeTypeStatus: UISwitch!
     
     @IBAction func volunteerType(sender: AnyObject) {
         let type = TypeLog().getType("Volunteer")
-        if voluteerTypeStatus.on == true {
+        if volunteerTypeStatus.on == true {
             type.active = 1
         } else {
             type.active = 0
@@ -30,12 +32,51 @@ class TypesViewController : UIViewController {
     override func viewDidLoad() {
         let rightBarButton = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "showSaveAlert")
         self.navigationItem.rightBarButtonItem = rightBarButton
-//        let org = OrganizationLog().currentOrganization().organization
-//        let types = org?.type
-//        volunteerTypeStatus.on =
-
+        updateOnOffSwitchesForTypes()
     }
-    
+    func updateOnOffSwitchesForTypes() {
+        let types = org?.type // an nsSet
+        for type in types! {
+            if type.title == "Volunteer"  {
+                if type.active == 1 {
+                    volunteerTypeStatus.on = true
+                } else {
+                    volunteerTypeStatus.on = false
+                }
+            }
+            if type.title == "Patron"  {
+                if type.active == 1 {
+                    volunteerTypeStatus.on = true
+                } else {
+                    volunteerTypeStatus.on = false
+                }
+            }
+            if type.title == "Employee"  {
+                if type.active == 1 {
+                    volunteerTypeStatus.on = true
+                } else {
+                    volunteerTypeStatus.on = false
+                }
+            }
+            if type.title == "Custom 1"  {
+                if type.active == 1 {
+                    volunteerTypeStatus.on = true
+                } else {
+                    volunteerTypeStatus.on = false
+                }
+            }
+            if type.title == "Custom 2"  {
+                if type.active == 1 {
+                    volunteerTypeStatus.on = true
+                } else {
+                    volunteerTypeStatus.on = false
+                }
+            }
+
+        }
+        
+        
+    }
     func showSaveAlert() {
         TypeLog().saveType()
     }

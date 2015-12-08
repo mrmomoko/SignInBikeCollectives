@@ -99,6 +99,8 @@ class ShopUseLog: NSObject {
         } catch let error as NSError {
             print("Could not fetch \(error)")
         }
+        // this breaks when you try to logout someone who is not logged in, 
+        // which you can do from the admin members or volunteers filter
         return log[0]
     }
     

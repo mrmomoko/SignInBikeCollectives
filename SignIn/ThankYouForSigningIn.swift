@@ -51,7 +51,7 @@ class BFFThankYouForSigningIn: UIViewController {
     
     func showAlertForUserType(types: [String]) {
         
-        let alert = UIAlertController(title: "How are you using the shop today? As a ...", message: nil, preferredStyle: .Alert)
+        let alert = UIAlertController(title: "How are you using the shop today?", message: nil, preferredStyle: .Alert)
         // maybe I can make this into a loop... find the count of the array, i ++ (incremental steps) and then loop until i == count
         let shopUse = UIAlertAction(title: types[0], style: .Default, handler: { alert in self.shopUseLog.createShopUseWithContact(self.contact!, type: types[0])
         })

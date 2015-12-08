@@ -4,10 +4,12 @@
         <attribute name="colour" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="emailAddress" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hasGoneThroughSetUp" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pin" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="recentUse" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="recentUseType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="yesOrNoQuestion" optional="YES" attributeType="Boolean" syncable="YES"/>
         <relationship name="membership" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Membership" inverseName="contact" inverseEntity="Membership" syncable="YES"/>
         <relationship name="mostRecentType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Type" inverseName="contact" inverseEntity="Type" syncable="YES"/>
         <relationship name="shopUse" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ShopUse" inverseName="contact" inverseEntity="ShopUse" syncable="YES"/>
@@ -38,16 +40,17 @@
     </entity>
     <entity name="Type" representedClassName=".Type" syncable="YES">
         <attribute name="active" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="contact" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Contact" inverseName="mostRecentType" inverseEntity="Contact" syncable="YES"/>
         <relationship name="organization" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Organization" inverseName="type" inverseEntity="Organization" syncable="YES"/>
         <relationship name="shopUse" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ShopUse" inverseName="type" inverseEntity="ShopUse" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Contact" positionX="-578" positionY="-270" width="128" height="193"/>
+        <element name="Contact" positionX="-578" positionY="-270" width="128" height="223"/>
         <element name="Membership" positionX="-243" positionY="-297" width="128" height="88"/>
         <element name="Organization" positionX="-828" positionY="-297" width="128" height="208"/>
         <element name="ShopUse" positionX="-297" positionY="50" width="128" height="103"/>
-        <element name="Type" positionX="-621" positionY="80" width="128" height="118"/>
+        <element name="Type" positionX="-621" positionY="80" width="128" height="133"/>
     </elements>
 </model>

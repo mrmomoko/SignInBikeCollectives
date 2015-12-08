@@ -46,7 +46,9 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     override func viewDidLoad() {
         filteredContacts = usersWhoAreLoggedIn()
         let rightBarButton = UIBarButtonItem(image: UIImage(named: "email"), style: .Plain, target: self, action: "showFilterAlert")
-         self.navigationItem.rightBarButtonItem = rightBarButton
+        let leftBarButton = UIBarButtonItem(image: UIImage(named: "myAccount"), style: .Plain, target: self, action: "showMyAccountViewController")
+        self.navigationItem.rightBarButtonItem = rightBarButton
+        self.navigationItem.leftBarButtonItem = leftBarButton
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -65,6 +67,10 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
             showPassWordAlert()
         }
         
+    }
+    
+    func showMyAccountViewController() {
+        performSegueWithIdentifier("My Account Segue", sender: self)
     }
     
     func showPassWordAlert() {

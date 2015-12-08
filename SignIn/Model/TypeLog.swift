@@ -27,26 +27,28 @@ class TypeLog: NSObject {
         super.init()
     }
     
-    func addType(title: String) {
+    func addType(title: String, id: Int) {
         if isDupicateType(title) == false {
-        let entity = NSEntityDescription.entityForName("Type", inManagedObjectContext: managedObjectContext)
-        
-        let type = Type(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
-        type.title = title
-        type.active = NSNumber.init(bool:true)
-        type.organization = OrganizationLog().currentOrganization().organization!
-        //set default behaviour for organization
-        
-        saveType()
+            let entity = NSEntityDescription.entityForName("Type", inManagedObjectContext: managedObjectContext)
+            
+            let type = Type(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
+            type.title = title
+            type.active = NSNumber.init(bool:true)
+            type.id = id
+            type.organization = OrganizationLog().currentOrganization().organization!
+            //set default behaviour for organization
+            
+            saveType()
         }
     }
     
     func getType(title: String) -> Type {
         // not sure if I should do this check, if it doesn't exist in the log,
         // maybe I shouldn't be able to get it
-        if isDupicateType(title) == false {
-            addType(title)
-        }
+        //need to figure out if I want to get a type, and need the id, or should i remove these lines of code.
+//        if isDupicateType(title) == false {
+//            addType(title)
+//        }
         let fetchRequest = NSFetchRequest(entityName: "Type")
         let predicate = NSPredicate(format: "title == %@", title)
         var type = [Type]()
@@ -96,4 +98,16 @@ class TypeLog: NSObject {
         
     }
     
+    func getActiveStatusOfTypesInOrderOfIDForGroup(group: String) -> [Bool] {
+        var switcheStatus = [Bool]()
+        let org = OrganizationLog().currentOrganization().organization
+        let types = org?.type
+        // sort the NSSet into an array by ID number
+        let sortDescriptor = NSSortDescriptor(key: "id", ascending: true)
+        var array = Array(arrayLiteral: types)
+        for type in array {
+            switcheStatus.append(true)
+        }
+        return switcheStatus
+    }
 }
