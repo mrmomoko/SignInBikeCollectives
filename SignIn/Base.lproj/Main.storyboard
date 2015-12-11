@@ -1319,8 +1319,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="VI2-HC-gPk">
-                                <rect key="frame" x="531" y="147" width="51" height="31"/>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="VI2-HC-gPk">
+                                <rect key="frame" x="531" y="148" width="51" height="31"/>
                                 <animations/>
                                 <connections>
                                     <action selector="yearlyAction:" destination="BdQ-3S-Gog" eventType="valueChanged" id="fMB-8K-ZCe"/>

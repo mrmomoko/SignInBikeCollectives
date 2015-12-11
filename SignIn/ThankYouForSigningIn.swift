@@ -18,19 +18,7 @@ class BFFThankYouForSigningIn: UIViewController {
     
     override func viewDidLoad() {
         nameLabel.text = contact.firstName
-        let orgLog = OrganizationLog()
-        let orgTypes = orgLog.currentOrganization().organization!.type
-        var types = orgLog.activeTypes()
-        // this should exist someplace else really, maybe in the typeLog
-        // the VC shoudl just ask the typeLog for the array of active types.
-        for type in orgTypes! {
-            if type.title == "employee" && type.active == true {
-                types.append("Employee")
-            }
-            if type.title == "earn a bike" && type.active == true {
-                types.append("Earn a Bike")
-            }
-        }
+        let types = TypeLog().getAllActiveTypesForGroup("Contact")
         showAlertForUserType(types)
         super.viewDidLoad()
     }
@@ -49,27 +37,31 @@ class BFFThankYouForSigningIn: UIViewController {
         }
     }
     
-    func showAlertForUserType(types: [String]) {
+    func showAlertForUserType(types: [Type]) {
         
         let alert = UIAlertController(title: "How are you using the shop today?", message: nil, preferredStyle: .Alert)
-        // maybe I can make this into a loop... find the count of the array, i ++ (incremental steps) and then loop until i == count
-        let shopUse = UIAlertAction(title: types[0], style: .Default, handler: { alert in self.shopUseLog.createShopUseWithContact(self.contact!, type: types[0])
-        })
-        alert.addAction(shopUse)
-        
-        if types.count > 1 {
-            let volunteer = UIAlertAction(title: types[1], style: .Default, handler: { alert in self.shopUseLog.createShopUseWithContact(self.contact!, type: types[1])
+        var i = 0
+        while i < types.count {
+            let counter = i
+            let shopUse = UIAlertAction(title: types[i].title, style: .Default, handler: { alert in self.shopUseLog.createShopUseWithContact(self.contact!, id: Int(types[counter].id!))
             })
-            alert.addAction(volunteer)
-        }
-        if types.count > 2 {
             alert.addAction(shopUse)
-            let other = UIAlertAction(title: types[2], style: .Default, handler: { alert in self.shopUseLog.createShopUseWithContact(self.contact!, type: types[2])
-            })
-            alert.addAction(other)
+            i = i + 1
         }
+//            if types.count > 1 {
+//                let volunteer = UIAlertAction(title: types[1].title, style: .Default, handler: { alert in self.shopUseLog.createShopUseWithContact(self.contact!, id: Int(types[0].id!))
+//                })
+//                alert.addAction(volunteer)
+//            }
+//            if types.count > 2 {
+//                alert.addAction(shopUse)
+//                let other = UIAlertAction(title: types[2].title, style: .Default, handler: { alert in self.shopUseLog.createShopUseWithContact(self.contact!, id: Int(types[0].id!))
+//                })
+//                alert.addAction(other)
+//            }
         presentViewController(alert, animated: true, completion: nil)
-    }
+        
+   }
     
     func dismissViewControllerAfterTimeOut() {
         let delay = 15.0 * Double(NSEC_PER_SEC) // change to *15 sec

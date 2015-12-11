@@ -34,14 +34,14 @@ class ShopUseLog: NSObject {
         managedObjectContext.deleteObject(shopUse as! NSManagedObject)
     }
     
-    func createShopUseWithContact(contact: Contact, type: String) {
+    func createShopUseWithContact(contact: Contact, id: Int) {
         let entity = NSEntityDescription.entityForName("ShopUse", inManagedObjectContext: managedObjectContext)
         
         let shopUse = ShopUse(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
 
         shopUse.signIn = NSDate()
         shopUse.signOut = NSDate().dateByAddingTimeInterval(2*60*60)
-        shopUse.type = TypeLog().getType(type)
+        shopUse.type = TypeLog().getType(id)
 
         shopUse.contact = contact
         shopUse.contact!.recentUse = shopUse.signOut
@@ -200,7 +200,7 @@ class ShopUseLog: NSObject {
         var contacts = [Contact]()
         var shopUseArray = [ShopUse]()
         let fetchRequest = NSFetchRequest(entityName: "ShopUse")
-        let predicateVolunteerType = NSPredicate(format: "type == %@", TypeLog().getType("Volunteer"))
+        let predicateVolunteerType = NSPredicate(format: "type == %@", TypeLog().getType(1))
         fetchRequest.predicate = predicateVolunteerType
         
         do { if let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as? [ShopUse] {

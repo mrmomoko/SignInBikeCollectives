@@ -44,9 +44,10 @@ class TypeLog: NSObject {
         }
     }
     
-    func getType(title: String) -> Type {
+    func getType(id: Int) -> Type {
         let fetchRequest = NSFetchRequest(entityName: "Type")
-        let predicate = NSPredicate(format: "title == %@", title)
+        let NSID : NSNumber = id
+        let predicate = NSPredicate(format: "id == %@", NSID)
         var type = [Type]()
         fetchRequest.predicate = predicate
         do { if let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Type] {
@@ -110,6 +111,16 @@ class TypeLog: NSObject {
             }
         }
         return types
+    }
+    func getAllActiveTypesForGroup(group: String) -> [Type] {
+        let types = getAllTypesForGroup(group)
+        var activeTypes = [Type]()
+        for type in types {
+            if type.active == 1 {
+                activeTypes.append(type)
+            }
+        }
+        return activeTypes
     }
     
     func getActiveStatusOfTypesInOrderOfIDForGroup(group: String) -> [Bool] {

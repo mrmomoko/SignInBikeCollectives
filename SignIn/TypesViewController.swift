@@ -21,7 +21,7 @@ class TypesViewController : UIViewController {
     @IBOutlet weak var customTwo: UITextField!
     
     @IBAction func volunteerType(sender: AnyObject) {
-        let type = TypeLog().getType("Volunteer")
+        let type = TypeLog().getType(1)
         if volunteerTypeStatus.on == true {
             type.active = 1
         } else {
@@ -29,7 +29,7 @@ class TypesViewController : UIViewController {
         }
     }
     @IBAction func patronType(sender: AnyObject) {
-        let type = TypeLog().getType("Patron")
+        let type = TypeLog().getType(2)
         if patronTypeStatus.on == true {
             type.active = 1
         } else {
@@ -37,7 +37,7 @@ class TypesViewController : UIViewController {
         }
     }
     @IBAction func employeeType(sender: AnyObject) {
-        let type = TypeLog().getType("Employee")
+        let type = TypeLog().getType(3)
         if employeeTypeStatus.on == true {
             type.active = 1
         } else {
@@ -45,7 +45,7 @@ class TypesViewController : UIViewController {
         }
     }
     @IBAction func custom1(sender: AnyObject) {
-        let type = TypeLog().getType("Custom1")
+        let type = TypeLog().getType(4)
         if custom1.on == true {
             type.title = customOne.text
             type.active = 1
@@ -54,7 +54,7 @@ class TypesViewController : UIViewController {
         }
     }
     @IBAction func custom2(sender: AnyObject) {
-        let type = TypeLog().getType("Custom2")
+        let type = TypeLog().getType(5)
         if custom2.on == true {
             type.title = customTwo.text
             type.active = 1

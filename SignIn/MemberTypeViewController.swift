@@ -20,7 +20,7 @@ class MemberTypeViewController : UIViewController {
     @IBOutlet weak var customText: UITextField!
     
     @IBAction func oneMonthAction(sender: AnyObject) {
-        let type = TypeLog().getType("One Month")
+        let type = TypeLog().getType(6)
         if monthSwitch.on == true {
             type.active = 1
         } else {
@@ -29,7 +29,7 @@ class MemberTypeViewController : UIViewController {
 
     }
     @IBAction func sixMonthAction(sender: AnyObject) {
-        let type = TypeLog().getType("Six Month")
+        let type = TypeLog().getType(7)
         if sixMonthSwitch.on == true {
             type.active = 1
         } else {
@@ -38,7 +38,7 @@ class MemberTypeViewController : UIViewController {
 
     }
     @IBAction func yearlyAction(sender: AnyObject) {
-        let type = TypeLog().getType("Yearly")
+        let type = TypeLog().getType(8)
         if yearlySwitch.on == true {
             type.active = 1
         } else {
@@ -47,7 +47,7 @@ class MemberTypeViewController : UIViewController {
 
     }
     @IBAction func lifetimeAction(sender: AnyObject) {
-        let type = TypeLog().getType("Life Time")
+        let type = TypeLog().getType(9)
         if lifetimeSwitch.on == true {
             type.active = 1
         } else {
@@ -56,7 +56,7 @@ class MemberTypeViewController : UIViewController {
 
     }
     @IBAction func customAction(sender: AnyObject) {
-        let type = TypeLog().getType("Custom")
+        let type = TypeLog().getType(10)
         if customSwitch.on == true {
             type.title = customText.text
             type.active = 1
