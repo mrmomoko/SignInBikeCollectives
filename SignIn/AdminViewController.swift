@@ -66,7 +66,6 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
         if self.tabBarController?.selectedIndex == 1 && organizationLog.hasPassword() {
             showPassWordAlert()
         }
-        
     }
     
     func showMyAccountViewController() {
@@ -78,14 +77,13 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
         alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.Default, handler: nil))
         alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
             textField.placeholder = "Enter Password:"
-            textField.secureTextEntry = false
+            textField.secureTextEntry = true
         })
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
     func showFilterAlert() {
         //pop up an alert with the different filters?
-        
     }
     
     // this is a copy of the function used in Sign In, is there a way to move this to ContactLog?

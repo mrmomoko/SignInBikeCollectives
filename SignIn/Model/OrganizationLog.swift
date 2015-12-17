@@ -117,17 +117,38 @@ class  OrganizationLog: NSObject {
         return bool
     }
     
-    func activeTypes() -> [String] {
-        var types = [String]()
+    func getTypes() -> [Type] {
         orgTypes = []
         let typeSet = currentOrganization().organization!.type
         for type in typeSet! {
             orgTypes.append(type as! Type)
         }
+        return orgTypes
+    }
+    
+    func activeUserTypes() -> [String] {
+        var types = [String]()
+        orgTypes = getTypes()
         for type in orgTypes { // if active
             types.append(type.title!)
         }
         return types
     }
+
+    func activeMembershipTypes() -> [String] {
+        var types = [String]()
+        orgTypes = getTypes()
+        for type in orgTypes { // if membershipType... how do i know it's a membership type?
+            // as of right now, you can check the id... maybe id should be something more memerable?
+            // or just make it work and this is what we call techincal debt.
+            if Int(type.id!) > 5 {
+                types.append(type.title!)
+            }
+        }
+        return types
+    
+    }
+    //might need a function to get "userTypes" 
+    //it will work only because i know the ID numbers for all the types
 
 }

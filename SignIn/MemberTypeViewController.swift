@@ -20,49 +20,8 @@ class MemberTypeViewController : UIViewController {
     @IBOutlet weak var customText: UITextField!
     
     @IBAction func oneMonthAction(sender: AnyObject) {
-        let type = TypeLog().getType(6)
-        if monthSwitch.on == true {
-            type.active = 1
-        } else {
-            type.active = 0
-        }
-
-    }
-    @IBAction func sixMonthAction(sender: AnyObject) {
-        let type = TypeLog().getType(7)
-        if sixMonthSwitch.on == true {
-            type.active = 1
-        } else {
-            type.active = 0
-        }
-
-    }
-    @IBAction func yearlyAction(sender: AnyObject) {
-        let type = TypeLog().getType(8)
-        if yearlySwitch.on == true {
-            type.active = 1
-        } else {
-            type.active = 0
-        }
-
-    }
-    @IBAction func lifetimeAction(sender: AnyObject) {
-        let type = TypeLog().getType(9)
-        if lifetimeSwitch.on == true {
-            type.active = 1
-        } else {
-            type.active = 0
-        }
-
     }
     @IBAction func customAction(sender: AnyObject) {
-        let type = TypeLog().getType(10)
-        if customSwitch.on == true {
-            type.title = customText.text
-            type.active = 1
-        } else {
-            type.active = 0
-        }
     }
     
     override func viewDidLoad() {
@@ -82,6 +41,37 @@ class MemberTypeViewController : UIViewController {
     }
     
     func showSaveAlert() {
+        let type1 = TypeLog().getType(6)
+        if monthSwitch.on == true {
+            type1.active = 1
+        } else {
+            type1.active = 0
+        }
+        let type2 = TypeLog().getType(7)
+        if sixMonthSwitch.on == true {
+            type2.active = 1
+        } else {
+            type2.active = 0
+        }
+        let type3 = TypeLog().getType(8)
+        if yearlySwitch.on == true {
+            type3.active = 1
+        } else {
+            type3.active = 0
+        }
+        let type4 = TypeLog().getType(9)
+        if lifetimeSwitch.on == true {
+            type4.active = 1
+        } else {
+            type4.active = 0
+        }
+        let type5 = TypeLog().getType(10)
+        type5.title = customText.text
+        if customSwitch.on == true {
+            type5.active = 1
+        } else {
+            type5.active = 0
+        }
         TypeLog().saveType()
     }
 }

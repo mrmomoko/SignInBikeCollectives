@@ -637,9 +637,6 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="SeT-ad-ARC">
                                 <rect key="frame" x="531" y="97" width="51" height="31"/>
                                 <animations/>
-                                <connections>
-                                    <action selector="volunteerType:" destination="GMj-jn-lt9" eventType="valueChanged" id="i26-uI-SdK"/>
-                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Patrons" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bat-uX-Fnb">
                                 <rect key="frame" x="20" y="138" width="59" height="21"/>
@@ -651,9 +648,6 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="u0I-E7-Kc2">
                                 <rect key="frame" x="531" y="135" width="51" height="31"/>
                                 <animations/>
-                                <connections>
-                                    <action selector="patronType:" destination="GMj-jn-lt9" eventType="valueChanged" id="FOK-ws-DQ6"/>
-                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paid Employees/Staff" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edA-dz-ZdG">
                                 <rect key="frame" x="20" y="177" width="163" height="21"/>
@@ -665,9 +659,6 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="P5n-zX-DQK">
                                 <rect key="frame" x="531" y="173" width="51" height="31"/>
                                 <animations/>
-                                <connections>
-                                    <action selector="employeeType:" destination="GMj-jn-lt9" eventType="valueChanged" id="QY5-eO-0Je"/>
-                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Custom" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oKO-oq-Nir">
                                 <rect key="frame" x="20" y="216" width="60" height="21"/>
@@ -685,9 +676,6 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="At9-Uo-utm">
                                 <rect key="frame" x="531" y="211" width="51" height="31"/>
                                 <animations/>
-                                <connections>
-                                    <action selector="custom1:" destination="GMj-jn-lt9" eventType="valueChanged" id="42w-5m-fNQ"/>
-                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Custom" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RcK-1s-Vi0">
                                 <rect key="frame" x="20" y="255" width="60" height="21"/>
@@ -705,9 +693,6 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="znM-HR-pIV">
                                 <rect key="frame" x="531" y="249" width="51" height="31"/>
                                 <animations/>
-                                <connections>
-                                    <action selector="custom2:" destination="GMj-jn-lt9" eventType="valueChanged" id="DTz-kd-9FK"/>
-                                </connections>
                             </switch>
                         </subviews>
                         <animations/>
@@ -751,10 +736,10 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="custom1" destination="At9-Uo-utm" id="aJj-mk-BIo"/>
-                        <outlet property="custom2" destination="znM-HR-pIV" id="0WZ-Z0-iYx"/>
-                        <outlet property="customOne" destination="dGe-K2-ozb" id="Yxa-Id-FlX"/>
-                        <outlet property="customTwo" destination="8wr-w7-oLg" id="UQb-ZZ-xPg"/>
+                        <outlet property="custom1" destination="At9-Uo-utm" id="Y40-EN-NbB"/>
+                        <outlet property="custom2" destination="znM-HR-pIV" id="RVu-aV-ibv"/>
+                        <outlet property="customOne" destination="dGe-K2-ozb" id="YOi-fy-xS5"/>
+                        <outlet property="customTwo" destination="8wr-w7-oLg" id="Ff1-Cf-jbI"/>
                         <outlet property="employeeTypeStatus" destination="P5n-zX-DQK" id="nVZ-QS-vtw"/>
                         <outlet property="patronTypeStatus" destination="u0I-E7-Kc2" id="eNP-KM-i1a"/>
                         <outlet property="volunteerTypeStatus" destination="SeT-ad-ARC" id="rO6-ku-chN"/>

@@ -15,6 +15,7 @@ class EditUserViewController: UIViewController, UITableViewDelegate {
     let contactLog = ContactLog()
     let membershipLog = MembershipLog()
     
+    
     @IBOutlet weak var firstName: UITextField!
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var email: UITextField!
