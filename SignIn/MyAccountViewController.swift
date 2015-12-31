@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class MyAccountViewController : UITableViewController, SaferSpaceViewControllerDelegate, WaiverViewControllerDelegate {
+class MyAccountViewController : UITableViewController, SaferSpaceViewControllerDelegate, WaiverViewControllerDelegate, TypesViewControllerDelegate {
     
     let org = OrganizationLog().organizationLog.first
     
@@ -70,6 +70,7 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
         }
         if segueIdentifier == "Types Segue" {
             let vc = segue.destinationViewController as! TypesViewController
+            vc.delegate = self
             vc.org = org
         }
     }
@@ -97,6 +98,10 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
     func didAddWaiver(sender: WaiverViewController) {
         self.navigationController?.popViewControllerAnimated(true)
         waiverText.text = org?.waiver
+    }
+    
+    func didSaveType(sender: TypesViewController) {
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     // tableview methods

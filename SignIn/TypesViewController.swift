@@ -7,10 +7,14 @@
 //
 
 import Foundation
-// should likely change to tableView
+protocol TypesViewControllerDelegate {
+    func didSaveType(sender: TypesViewController)
+}
+
 class TypesViewController : UIViewController {
     
     var org : Organization? = nil
+    var delegate : TypesViewControllerDelegate? = nil
     
     @IBOutlet weak var volunteerTypeStatus: UISwitch!
     @IBOutlet weak var patronTypeStatus: UISwitch!
@@ -71,6 +75,7 @@ class TypesViewController : UIViewController {
             type5.active = 0
         }
         TypeLog().saveType()
+        delegate?.didSaveType(self)
     }
 
     
