@@ -9,51 +9,35 @@
 import Foundation
 import UIKit
 
-class PersonDetailViewController: UIViewController {
+class PersonDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EditUserViewControllerDelegate {
    
     var contact : Contact?
     var shopUse : ShopUse?
     let shopUseLog = ShopUseLog()
+    var typesOfUsers = [String]()
     
     @IBOutlet weak var firstNameLastInitial: UILabel!
-    @IBOutlet weak var membership: UILabel!
-    @IBOutlet weak var totalHours: UILabel!
-    @IBOutlet weak var totalHoursVolunteering: UILabel!
-
-    @IBOutlet weak var thisMonthShopUse: UILabel!
-    @IBOutlet weak var thisMonthVolunteering: UILabel!
-    
-    @IBOutlet weak var lastMonthShopUse: UILabel!
-    @IBOutlet weak var lastMonthVolunteering: UILabel!
+    @IBOutlet weak var hoursTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dismissViewControllerAfterTimeOut()
         firstNameLastInitial.text = contact?.firstName
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = .MediumStyle
-        let membershipExpiration = contact?.membership!.membershipExpiration
-        if membershipExpiration?.timeIntervalSinceNow > 0 {
-            membership.text = dateFormatter.stringFromDate(membershipExpiration!)
-        } else {
-            membership.text = "Membership does not exist or is expired."
-        }
-        totalHours.text = shopUseLog.numberOfHoursLoggedByContact(contact!, typeTitle: "Patron")
-        totalHoursVolunteering.text = shopUseLog.numberOfHoursLoggedByContact(contact!, typeTitle: "Volunteer")
-        thisMonthShopUse.text = shopUseLog.hourlyTotalForThisMonth(contact!, typeTitle: "Patron")
-        thisMonthVolunteering.text = shopUseLog.hourlyTotalForThisMonth(contact!, typeTitle: "Volunteer")
-        lastMonthShopUse.text = shopUseLog.hourlyTotalForLastMonth(contact!, typeTitle: "Patron")
-        lastMonthVolunteering.text = shopUseLog.hourlyTotalForLastMonth(contact!, typeTitle: "Volunteer")
         // user interface for employees
         if self.tabBarController?.selectedIndex == 0 {
             self.navigationItem.rightBarButtonItem = nil 
         }
+        typesOfUsers = ContactLog().typesUsedByContact(contact!)
+    }
+    override func viewDidAppear(animated: Bool) {
+         typesOfUsers = ContactLog().typesUsedByContact(contact!)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Edit User Segue" {
             let vc = segue.destinationViewController as! EditUserViewController
             vc.contact = contact
+            vc.delegate = self
         }
     }
     
@@ -66,5 +50,39 @@ class PersonDetailViewController: UIViewController {
             }
         }
     }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell")! as UITableViewCell
+        if indexPath.row == 0 {
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateStyle = .MediumStyle
+            let membershipExpiration = contact?.membership!.membershipExpiration
+            cell.textLabel?.text = contact?.membership!.membershipType
+            if membershipExpiration?.timeIntervalSinceNow > 0 {
+                cell.detailTextLabel?.text = String("Expires " + dateFormatter.stringFromDate(membershipExpiration!))
+            } else {
+                cell.textLabel?.text = "Membership does not exist or is expired"
+                cell.detailTextLabel?.text = ""
+            }
+        } else if indexPath.row > 0 {
+            let typeTitle = typesOfUsers[indexPath.row - 1]
+            cell.textLabel?.text = typeTitle
+            // get hours of use for each type
+            cell.detailTextLabel?.text = ShopUseLog().hourlyTotalForThisMonth(contact!, typeTitle: typeTitle) + " hours of use this month"
+        }
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return typesOfUsers.count + 1
+    }
+    
+//    func table
+    
+    func didMakeChangesToContact() {
+        self.navigationController?.popViewControllerAnimated(true)
+        self.hoursTableView.reloadData()
+    }
+    
 }
 

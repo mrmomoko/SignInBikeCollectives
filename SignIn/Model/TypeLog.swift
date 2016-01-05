@@ -61,6 +61,23 @@ class TypeLog: NSObject {
         return type.first!
     }
     
+    // don't actually need this...
+    func getTypeByTitle(title: String) -> Type {
+        let fetchRequest = NSFetchRequest(entityName: "Type")
+        let predicate = NSPredicate(format: "title == %@", title)
+        var type = [Type]()
+        fetchRequest.predicate = predicate
+        do { if let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Type] {
+            type = fetchedResults }
+        else {
+            assertionFailure("Could not executeFetchRequest")
+            }
+        } catch let error as NSError {
+            print("Could not fetch \(error)")
+        }
+        return type.first!
+    }
+    
     func isDupicateType(title: String) -> Bool {
         let fetchRequest = NSFetchRequest(entityName: "Type")
         let predicate = NSPredicate(format: "title == %@", title)

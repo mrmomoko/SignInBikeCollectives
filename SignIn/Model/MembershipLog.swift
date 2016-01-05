@@ -18,11 +18,9 @@ class MembershipLog: NSObject {
         case
         NonMember = "Non Member",
         Monthly = "Monthly",
-        SixMonth = "Six Months",
+        SixMonth = "Six Month",
         Yearly = "Yearly",
-        LifeTime = "Life Time",
-        DedicatedVolunteer = "Volunteer",
-        CoreVolunteer = "Core Volunteer"
+        LifeTime = "Life Time"
     }
     
     override init() {

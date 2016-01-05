@@ -85,6 +85,23 @@ class ShopUseLog: NSObject {
 //        }
 //        return log.firstObject! as! ShopUse
 //    }
+    func getShopUsesForContact(contact: Contact) -> [ShopUse] {
+        var log = [ShopUse]()
+        let FetchRequest = NSFetchRequest(entityName: "ShopUse")
+        let predicate = NSPredicate(format: "contact == %@", contact)
+        FetchRequest.predicate = predicate
+        do { if let FetchedResults = try managedObjectContext.executeFetchRequest(FetchRequest) as? [ShopUse] {
+            log = FetchedResults }
+        else {
+            assertionFailure("Could not executeFetchRequest")
+            }
+        } catch let error as NSError {
+            print("Could not fetch \(error)")
+        }
+        // this breaks when you try to logout someone who is not logged in,
+        // which you can do from the admin members or volunteers filter
+        return log
+    }
     
     func getMostRecentShopUseForContact(contact: Contact) -> ShopUse {
         var log = [ShopUse]()

@@ -9,11 +9,16 @@
 import Foundation
 import UIKit
 
+protocol EditUserViewControllerDelegate {
+    func didMakeChangesToContact()
+}
+
 class EditUserViewController: UIViewController, UITableViewDelegate {
     
     var contact : Contact?
     let contactLog = ContactLog()
     let membershipLog = MembershipLog()
+    var delegate : EditUserViewControllerDelegate? = nil
     
     
     @IBOutlet weak var firstName: UITextField!
@@ -36,7 +41,7 @@ class EditUserViewController: UIViewController, UITableViewDelegate {
             
             // save contact
             contactLog.saveContact(contact!)
-            navigationController?.popViewControllerAnimated(true)
+            delegate!.didMakeChangesToContact()
         }
     }
     
@@ -146,7 +151,7 @@ extension EditUserViewController {
                 cell!.textLabel?.text = "One Month"
             }
             else if indexPath.row == 2 {
-                cell!.textLabel?.text = "Six Months"
+                cell!.textLabel?.text = "Six Month"
             }
             else if indexPath.row == 3 {
                 cell!.textLabel?.text = "Yearly"
@@ -165,7 +170,7 @@ extension EditUserViewController {
             membershipLog.editMembershipTypeForContact(contact!, type: "Monthly")
         }
         else if indexPath.row == 2 {
-            membershipLog.editMembershipTypeForContact(contact!, type: "Six Months")
+            membershipLog.editMembershipTypeForContact(contact!, type: "Six Month")
         }
         else if indexPath.row == 3 {
             membershipLog.editMembershipTypeForContact(contact!, type: "Yearly")

@@ -173,6 +173,20 @@ class ContactLog: NSObject {
                 contact.membership?.membershipType = "Non Member"
             }
         }
+    }
+    
+    func typesUsedByContact(contact: Contact) -> [String] {
+        var stringTypes = [String]()
+        var typeArray = [Type]()
+        let shopUseArray = ShopUseLog().getShopUsesForContact(contact)
+        for use in shopUseArray {
+            typeArray.append(use.type!)
+        }
+        let uniqueTypes = Array(Set(typeArray))
+        for type in uniqueTypes {
+            stringTypes.append(type.title!)
+        }
+        return stringTypes
         
     }
 }
