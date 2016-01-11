@@ -52,8 +52,8 @@ class PersonDetailViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell")! as UITableViewCell
-        if indexPath.row == 0 {
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("Cell")! as UITableViewCell
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateStyle = .MediumStyle
             let membershipExpiration = contact?.membership!.membershipExpiration
@@ -64,20 +64,59 @@ class PersonDetailViewController: UIViewController, UITableViewDelegate, UITable
                 cell.textLabel?.text = "Membership does not exist or is expired"
                 cell.detailTextLabel?.text = ""
             }
-        } else if indexPath.row > 0 {
-            let typeTitle = typesOfUsers[indexPath.row - 1]
-            cell.textLabel?.text = typeTitle
-            // get hours of use for each type
-            cell.detailTextLabel?.text = ShopUseLog().hourlyTotalForThisMonth(contact!, typeTitle: typeTitle) + " hours of use this month"
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCellWithIdentifier("HourShopUseCell") as! HourShopUseCell
+            let typeTitle = typesOfUsers[indexPath.row]
+            cell.title!.text = typeTitle
+            let shopUseLog = ShopUseLog()
+            let hourThisMonth = shopUseLog.hourlyTotalForThisMonth(contact!, typeTitle: typeTitle)
+            let totalHours = shopUseLog.numberOfHoursLoggedByContact(contact!, typeTitle: typeTitle)
+            let lastMonthTotal = shopUseLog.hourlyTotalForLastMonth(contact!, typeTitle: typeTitle)
+            if hourThisMonth == "1" {
+                cell.detailHours.text = "1 hour this month"
+                cell.totalHours.text = "1 hour"
+                cell.lastMonth.text = "1 hour last month"
+            } else {
+                cell.detailHours.text = hourThisMonth + " hours this month"
+                cell.totalHours.text = totalHours + " hours"
+                cell.lastMonth.text = lastMonthTotal + " hours last month"
+            }
+            return cell
         }
-        return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return typesOfUsers.count + 1
+        if section == 0 {
+            return 1
+        } else {
+            return typesOfUsers.count
+        }
     }
     
-//    func table
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "Membership"
+        } else {
+            return "Hours of Shop Use"
+        }
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return 40
+        } else {
+            return 60
+        }
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
+    }
     
     func didMakeChangesToContact() {
         self.navigationController?.popViewControllerAnimated(true)

@@ -15,6 +15,7 @@ class NewUserViewController: UIViewController, UICollectionViewDelegateFlowLayou
     var contactIndentifier : String?
     let contactLog = ContactLog()
     let shopUseLog = ShopUseLog()
+    let orgLog = OrganizationLog()
     
     @IBOutlet weak var firstName: UITextField!
     @IBOutlet weak var lastName: UITextField!
@@ -154,16 +155,31 @@ extension NewUserViewController {
         presentViewController(alert, animated: true, completion: nil)
     }
     func showWaiverForCompleteForm () {
-        let orgLog = OrganizationLog()
-        if let waiver = orgLog.currentOrganization().organization!.waiver   {
-        let alert = UIAlertController(title: "Waiver", message: waiver, preferredStyle: .Alert)
-        let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        alert.addAction(cancel)
-        let agree = UIAlertAction(title: "I Agree", style: .Default, handler: { alert in self.performSegueWithIdentifier("Thank You", sender: self)})
-        alert.addAction(agree)
-        presentViewController(alert, animated: true, completion: nil)
-        } else {
-            performSegueWithIdentifier("Thank You", sender: self)
+        if let waiver = orgLog.currentOrganization().organization!.waiver {
+            if waiver == "" {
+                self.showSaferSpaceAgreement()
+            } else {
+                let alert = UIAlertController(title: "Waiver", message: waiver, preferredStyle: .Alert)
+                let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+                alert.addAction(cancel)
+                let agree = UIAlertAction(title: "I Agree", style: .Default, handler: { alert in self.self.showSaferSpaceAgreement() })
+                alert.addAction(agree)
+                presentViewController(alert, animated: true, completion: nil)
+            }
+        }
+    }
+    func showSaferSpaceAgreement() {
+        if let saferSpace  = orgLog.currentOrganization().organization!.waiver   {
+            if saferSpace == "" {
+                performSegueWithIdentifier("Thank You", sender: self)
+            } else {
+                let alert = UIAlertController(title: "SaferSpace", message: saferSpace, preferredStyle: .Alert)
+                let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+                alert.addAction(cancel)
+                let agree = UIAlertAction(title: "I Agree", style: .Default, handler: { alert in self.performSegueWithIdentifier("Thank You", sender: self)})
+                alert.addAction(agree)
+                presentViewController(alert, animated: true, completion: nil)
+            }
         }
     }
 }

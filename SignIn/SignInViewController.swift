@@ -57,21 +57,13 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("CustomCell") as! ContactTableViewCell
-        
         if indexPath.row == 0 {
-//            cell.titleLabel.drawTextInRect(UIEdgeInsetsInsetRect(cell.titleLabel.frame, UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)))
-            cell.titleLabel!.text = "I'm New, I don't have a login"
-            cell.titleLabel!.textAlignment = .Center
-            cell.detailLabel!.text = ""
-            cell.titleLabel.textColor = UIColor.darkGrayColor()
-            cell.circleView.tintColor = UIColor.clearColor()
-            let view = UIView(frame: CGRect(x: 30, y: 5, width: 254, height: 35))
-            view.backgroundColor = UIColor(red:0.00, green:0.87, blue:0.9, alpha:0.3)
-            view.layer.cornerRadius = 12.0
-            cell.addSubview(view)
-            cell.sendSubviewToBack(view)
+            let cell = tableView.dequeueReusableCellWithIdentifier("ButtonCell") as! NewUserButtonCell
+            cell.buttonView.backgroundColor = UIColor(red:0.00, green:0.87, blue:0.9, alpha:1)
+            cell.buttonView.layer.cornerRadius = 10.0
+            return cell
         } else {
+            let cell = tableView.dequeueReusableCellWithIdentifier("CustomCell") as! ContactTableViewCell
             let contact = filteredLog[indexPath.row - 1]
             let membership = contact.valueForKey("membership") as? Membership
             var title = contact.valueForKey("firstName") as? String
@@ -84,8 +76,8 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
             let circle = UIImage(named: "circle")
             cell.circleView.image = circle
             cell.circleView.tintColor = contactLog.colourOfContact(contact)
-    }
-        return cell
+            return cell
+        }
     }
     
     func tableView( tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -99,7 +91,6 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
     }
     
     func textField( textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        
         if uniqueIdentifier.text?.characters.count == 1 && string == "" {
             filteredLog = contactLog.recentContactsWhoAreNotLoggedIn()
             mostRecentSignIns.reloadData()
@@ -128,5 +119,4 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
         }
         return loggedInUsers
     }
-
 }

@@ -180,13 +180,15 @@ class ContactLog: NSObject {
         var typeArray = [Type]()
         let shopUseArray = ShopUseLog().getShopUsesForContact(contact)
         for use in shopUseArray {
-            typeArray.append(use.type!)
+            if use.type!.group! == "Contact" {
+                typeArray.append(use.type!)
+            }
         }
         let uniqueTypes = Array(Set(typeArray))
-        for type in uniqueTypes {
+        let sortedTypes = uniqueTypes.sort {Int($0.id!) < Int($1.id!)}
+        for type in sortedTypes {
             stringTypes.append(type.title!)
         }
         return stringTypes
-        
     }
 }
