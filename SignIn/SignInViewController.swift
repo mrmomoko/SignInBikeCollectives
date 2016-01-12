@@ -14,13 +14,13 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
     var currentContact : Contact!
     var newSignUpName = ""
     var filteredLog: [Contact]
+    let orgLog = OrganizationLog()
     
     @IBOutlet weak var uniqueIdentifier: UITextField!
     @IBOutlet weak var mostRecentSignIns: UITableView!
     
     required init?(coder aDecoder: NSCoder) {
         filteredLog = contactLog.allContacts
-        let orgLog = OrganizationLog()
         if !orgLog.currentOrganization().doesTheOrgExist {
             orgLog.createOrganizationWithDefaultValues()
         }
@@ -86,7 +86,11 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
             performSegueWithIdentifier("New User Segue", sender: self)
         } else {
             currentContact = filteredLog[indexPath.row - 1]
-            performSegueWithIdentifier("Thank You", sender: self)
+            if currentContact.hasGoneThroughSetUp == false {
+                showSaferSpaceAgreement()
+            } else {
+                performSegueWithIdentifier("Thank You", sender: self)
+            }
         }
     }
     
@@ -118,5 +122,20 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
             }
         }
         return loggedInUsers
+    }
+    
+    func showSaferSpaceAgreement() {
+        if let saferSpace  = orgLog.currentOrganization().organization!.saferSpaceAgreement  {
+            if saferSpace == ""  {
+                performSegueWithIdentifier("Thank You", sender: self)
+            } else {
+                let alert = UIAlertController(title: "SaferSpace", message: saferSpace, preferredStyle: .Alert)
+                let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+                alert.addAction(cancel)
+                let agree = UIAlertAction(title: "I Agree", style: .Default, handler: { alert in self.performSegueWithIdentifier("Thank You", sender: self)})
+                alert.addAction(agree)
+                presentViewController(alert, animated: true, completion: nil)
+            }
+        }
     }
 }

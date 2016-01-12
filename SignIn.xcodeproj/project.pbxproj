@@ -40,6 +40,7 @@
 		4CCC51DB1BEB016A00EEBEC2 /* Organization+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCC51DA1BEB016A00EEBEC2 /* Organization+CoreDataProperties.swift */; };
 		4CCCB9B01C3F50F1003DA9E8 /* NewUserButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCB9AF1C3F50F1003DA9E8 /* NewUserButtonCell.swift */; };
 		4CCCB9B21C3F7688003DA9E8 /* HourShopUseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCB9B11C3F7688003DA9E8 /* HourShopUseCell.swift */; };
+		4CCCB9B61C44530A003DA9E8 /* CircleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCB9B51C44530A003DA9E8 /* CircleCollectionViewCell.swift */; };
 		4CEE0EF41C0D05AD0010C156 /* TypesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE0EF31C0D05AD0010C156 /* TypesViewController.swift */; };
 		4CEE0EF91C0D0ABE0010C156 /* ShopUse+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE0EF71C0D0ABE0010C156 /* ShopUse+CoreDataProperties.swift */; };
 		4CEE0EFA1C0D0ABE0010C156 /* ShopUse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE0EF81C0D0ABE0010C156 /* ShopUse.swift */; };
@@ -99,6 +100,7 @@
 		4CCC51DA1BEB016A00EEBEC2 /* Organization+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Organization+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4CCCB9AF1C3F50F1003DA9E8 /* NewUserButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUserButtonCell.swift; sourceTree = "<group>"; };
 		4CCCB9B11C3F7688003DA9E8 /* HourShopUseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HourShopUseCell.swift; sourceTree = "<group>"; };
+		4CCCB9B51C44530A003DA9E8 /* CircleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleCollectionViewCell.swift; sourceTree = "<group>"; };
 		4CEE0EF31C0D05AD0010C156 /* TypesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypesViewController.swift; sourceTree = "<group>"; };
 		4CEE0EF71C0D0ABE0010C156 /* ShopUse+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ShopUse+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4CEE0EF81C0D0ABE0010C156 /* ShopUse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopUse.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 			children = (
 				4C7EC5241B8963F80057D1A9 /* ContactTableViewCell.swift */,
 				4CCCB9AF1C3F50F1003DA9E8 /* NewUserButtonCell.swift */,
+				4CCCB9B51C44530A003DA9E8 /* CircleCollectionViewCell.swift */,
 				4CCCB9B11C3F7688003DA9E8 /* HourShopUseCell.swift */,
 			);
 			name = Views;
@@ -363,6 +366,7 @@
 				4C9437B21C125E700047771C /* WaiverViewController.swift in Sources */,
 				4CF193A21B44CB0C001CB464 /* SignInViewController.swift in Sources */,
 				4CC927661B7A9E6B003E3A88 /* Membership.swift in Sources */,
+				4CCCB9B61C44530A003DA9E8 /* CircleCollectionViewCell.swift in Sources */,
 				4CEE0EF91C0D0ABE0010C156 /* ShopUse+CoreDataProperties.swift in Sources */,
 				4CCCB9B01C3F50F1003DA9E8 /* NewUserButtonCell.swift in Sources */,
 				4CCCB9B21C3F7688003DA9E8 /* HourShopUseCell.swift in Sources */,

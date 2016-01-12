@@ -66,6 +66,7 @@ class ContactLog: NSObject {
         contact.pin = ""
         contact.colour = Colour.clear.rawValue //white value
         contact.recentUse = NSDate()
+        contact.hasGoneThroughSetUp = false
         
         membershipLog.createMembershipWithContact(contact)
 

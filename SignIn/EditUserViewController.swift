@@ -26,7 +26,6 @@ class EditUserViewController: UIViewController, UITableViewDelegate {
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var pin: UITextField!
     
-    @IBOutlet weak var colourCollectionView: UICollectionView!
     @IBOutlet weak var membershipTableView: UITableView!
 
     @IBAction func save(sender: AnyObject) {
@@ -54,7 +53,6 @@ class EditUserViewController: UIViewController, UITableViewDelegate {
         } else {
             contact = contactLog.createUserWithIdentity("edit user")
         }
-        colourCollectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -76,24 +74,27 @@ extension EditUserViewController {
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as UICollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! CircleCollectionViewCell
+        let image = UIImage(named: "circle")
+        cell.circleImage.image = image
+        
         if indexPath.row == 0 {
-            cell.backgroundColor = UIColor.purpleColor()
+            cell.circleImage.tintColor = UIColor.purpleColor()
         }
         else if indexPath.row == 1 {
-            cell.backgroundColor = UIColor(red:0.00, green:0.87, blue:0.9, alpha:1)
+            cell.circleImage.tintColor = UIColor.cyanColor()
         }
         else if indexPath.row == 2 {
-            cell.backgroundColor = UIColor.greenColor()
+            cell.circleImage.tintColor = UIColor.greenColor()
         }
         else if indexPath.row == 3 {
-            cell.backgroundColor = UIColor.yellowColor()
+            cell.circleImage.tintColor = UIColor.yellowColor()
         }
         else if indexPath.row == 4 {
-            cell.backgroundColor = UIColor.orangeColor()
+            cell.circleImage.tintColor = UIColor.orangeColor()
         }
         else if indexPath.row == 5 {
-            cell.backgroundColor = UIColor.redColor()
+            cell.circleImage.tintColor = UIColor.redColor()
         }
         return cell
     }
@@ -101,39 +102,33 @@ extension EditUserViewController {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == 0 {
             contactLog.editColourForContact(contact!, colour: .purple)
-            view.backgroundColor = UIColor.purpleColor()
+//            view.backgroundColor = UIColor.purpleColor()
             collectionView.backgroundColor = UIColor.purpleColor()
-            membershipTableView.backgroundColor = UIColor.purpleColor()
         }
         else if indexPath.row == 1 {
             contactLog.editColourForContact(contact!, colour: .blue)
-            view.backgroundColor = UIColor.cyanColor()
-            collectionView.backgroundColor = UIColor.cyanColor()
-            membershipTableView.backgroundColor = UIColor.cyanColor()
+//            view.backgroundColor = UIColor.cyanColor()
+            collectionView.backgroundColor = UIColor(red:0.00, green:0.87, blue:0.9, alpha:1)
         }
         else if indexPath.row == 2 {
             contactLog.editColourForContact(contact!, colour: .green)
-            view.backgroundColor = UIColor.greenColor()
+//            view.backgroundColor = UIColor.greenColor()
             collectionView.backgroundColor = UIColor.greenColor()
-            membershipTableView.backgroundColor = UIColor.greenColor()
         }
         else if indexPath.row == 3 {
             contactLog.editColourForContact(contact!, colour: .yellow)
-            view.backgroundColor = UIColor.yellowColor()
+//            view.backgroundColor = UIColor.yellowColor()
             collectionView.backgroundColor = UIColor.yellowColor()
-            membershipTableView.backgroundColor = UIColor.yellowColor()
         }
         else if indexPath.row == 4 {
             contactLog.editColourForContact(contact!, colour: .orange)
-            view.backgroundColor = UIColor.orangeColor()
+//            view.backgroundColor = UIColor.orangeColor()
             collectionView.backgroundColor = UIColor.orangeColor()
-            membershipTableView.backgroundColor = UIColor.orangeColor()
         }
         else if indexPath.row == 5 {
             contactLog.editColourForContact(contact!, colour: .red)
             view.backgroundColor = UIColor.redColor()
             collectionView.backgroundColor = UIColor.redColor()
-            membershipTableView.backgroundColor = UIColor.redColor()
         }
     }
     

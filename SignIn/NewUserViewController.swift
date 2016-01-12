@@ -21,10 +21,8 @@ class NewUserViewController: UIViewController, UICollectionViewDelegateFlowLayou
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var pin: UITextField!
-    
     @IBOutlet weak var permissionToEmail: UISwitch!
-
-    @IBOutlet weak var colourCollectionView: UICollectionView!
+    @IBOutlet weak var yesNoQuestion: UILabel!
     
     @IBAction func save(sender: AnyObject) {
         if firstName.text == "" && lastName.text == "" && email.text == "" {
@@ -35,6 +33,7 @@ class NewUserViewController: UIViewController, UICollectionViewDelegateFlowLayou
         contact!.lastName = lastName.text!
         contact!.emailAddress = email.text!
         contact!.pin = pin.text!
+        contact!.yesOrNoQuestion = permissionToEmail.on
 
         // save contact
         contactLog.saveContact(contact!)
@@ -49,11 +48,15 @@ class NewUserViewController: UIViewController, UICollectionViewDelegateFlowLayou
 
         contact = contactLog.createUserWithIdentity(contactIndentifier!)
         firstName.text = contact!.firstName
+        let yesNo = orgLog.currentOrganization().organization?.yesOrNoQuestion
+        yesNoQuestion.text = yesNo
+        if yesNo == "" {
+            yesNoQuestion.hidden = true
+            permissionToEmail.hidden = true
+        }
         let tap = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
         tap.cancelsTouchesInView = false
-        
-        colourCollectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -87,24 +90,27 @@ extension NewUserViewController {
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as UICollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! CircleCollectionViewCell
+        let image = UIImage(named: "circle")
+        cell.circleImage.image = image
+        
         if indexPath.row == 0 {
-            cell.backgroundColor = UIColor.purpleColor()
+            cell.circleImage.tintColor = UIColor.purpleColor()
         }
         else if indexPath.row == 1 {
-            cell.backgroundColor = UIColor.cyanColor()
+            cell.circleImage.tintColor = UIColor.cyanColor()
         }
         else if indexPath.row == 2 {
-            cell.backgroundColor = UIColor.greenColor()
+            cell.circleImage.tintColor = UIColor.greenColor()
         }
         else if indexPath.row == 3 {
-            cell.backgroundColor = UIColor.yellowColor()
+            cell.circleImage.tintColor = UIColor.yellowColor()
         }
         else if indexPath.row == 4 {
-            cell.backgroundColor = UIColor.orangeColor()
+            cell.circleImage.tintColor = UIColor.orangeColor()
         }
         else if indexPath.row == 5 {
-            cell.backgroundColor = UIColor.redColor()
+            cell.circleImage.tintColor = UIColor.redColor()
         }
     return cell
     }
@@ -154,29 +160,17 @@ extension NewUserViewController {
         alert.addAction(ok)
         presentViewController(alert, animated: true, completion: nil)
     }
+    
     func showWaiverForCompleteForm () {
         if let waiver = orgLog.currentOrganization().organization!.waiver {
             if waiver == "" {
-                self.showSaferSpaceAgreement()
+                performSegueWithIdentifier("Thank You", sender: self)
             } else {
                 let alert = UIAlertController(title: "Waiver", message: waiver, preferredStyle: .Alert)
                 let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
                 alert.addAction(cancel)
-                let agree = UIAlertAction(title: "I Agree", style: .Default, handler: { alert in self.self.showSaferSpaceAgreement() })
-                alert.addAction(agree)
-                presentViewController(alert, animated: true, completion: nil)
-            }
-        }
-    }
-    func showSaferSpaceAgreement() {
-        if let saferSpace  = orgLog.currentOrganization().organization!.waiver   {
-            if saferSpace == "" {
-                performSegueWithIdentifier("Thank You", sender: self)
-            } else {
-                let alert = UIAlertController(title: "SaferSpace", message: saferSpace, preferredStyle: .Alert)
-                let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-                alert.addAction(cancel)
-                let agree = UIAlertAction(title: "I Agree", style: .Default, handler: { alert in self.performSegueWithIdentifier("Thank You", sender: self)})
+                let agree = UIAlertAction(title: "I Agree", style: .Default, handler: { alert in self.performSegueWithIdentifier("Thank You", sender: self)
+                })
                 alert.addAction(agree)
                 presentViewController(alert, animated: true, completion: nil)
             }
