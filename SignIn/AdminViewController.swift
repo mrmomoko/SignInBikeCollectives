@@ -83,7 +83,23 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     }
     
     func showFilterAlert() {
-        //pop up an alert with the different filters?
+        let alert = UIAlertController(title: "Filter", message: "What reports do you want to send?", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Contacts", style: UIAlertActionStyle.Default, handler: { alert in
+            self.performSegueWithIdentifier("Thank You", sender: self)
+        }))
+        alert.addAction(UIAlertAction(title: "Members", style: UIAlertActionStyle.Default, handler: { alert in
+            self.performSegueWithIdentifier("Thank You", sender: self)
+        }))
+        alert.addAction(UIAlertAction(title: "Volunteers", style: UIAlertActionStyle.Default, handler: { alert in
+            self.performSegueWithIdentifier("Thank You", sender: self)
+        }))
+        alert.addAction(UIAlertAction(title: "Shop Use", style: UIAlertActionStyle.Default, handler: { alert in
+            self.performSegueWithIdentifier("Thank You", sender: self)
+        }))
+        alert.addAction(UIAlertAction(title: "All Data", style: UIAlertActionStyle.Default, handler: { alert in
+            self.performSegueWithIdentifier("Thank You", sender: self)
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     // this is a copy of the function used in Sign In, is there a way to move this to ContactLog?
@@ -108,14 +124,26 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     
     
     func _searchContactsWithSubstring(substring: String) {
-        // why not search all contacts?
-//        let fullContactList = contactLog.recentContactsWhoAreNotLoggedIn()
         let fullContactList = contactLog.allContacts
         let predicate = NSPredicate(format: "firstName BEGINSWITH[cd] %@ OR lastName BEGINSWITH[cd] %@ OR pin BEGINSWITH[cd] %@ OR emailAddress BEGINSWITH[cd] %@", substring, substring, substring, substring)
         filteredContacts = (fullContactList as NSArray).filteredArrayUsingPredicate(predicate) as! [Contact]
         listOfPeopleTableView.reloadData()
     }
-
+    
+    func sendData(sender: AnyObject) {
+        let activityItems = [ContactLog().returnAllContactsAsCommaSeporatedString()]
+        let activityViewController = UIActivityViewController(activityItems: activityItems as [AnyObject], applicationActivities: nil)
+        activityViewController.excludedActivityTypes = [UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypePrint, UIActivityTypePostToFlickr, UIActivityTypePostToTencentWeibo, UIActivityTypeAddToReadingList]
+        presentViewController(activityViewController, animated: true, completion: nil)
+        
+        // Define completion handler
+        
+        activityViewController.completionWithItemsHandler = {activity, success, items, error in
+            if !success {
+                return
+            }
+        }
+    }
 }
 
 // Mark: - TableView Delegate -

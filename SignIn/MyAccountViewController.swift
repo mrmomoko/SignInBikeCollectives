@@ -21,7 +21,7 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
     @IBOutlet weak var yesOrNoQuestion: UITextField!
 
     func sendData(sender: AnyObject) {
-        let activityItems = [ContactLog().returnAllContactsAsCommaSeporatedString()]
+        let activityItems = OrganizationLog().orgData()
         let activityViewController = UIActivityViewController(activityItems: activityItems as [AnyObject], applicationActivities: nil)
         activityViewController.excludedActivityTypes = [UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypePrint, UIActivityTypePostToFlickr, UIActivityTypePostToTencentWeibo, UIActivityTypeAddToReadingList]
         presentViewController(activityViewController, animated: true, completion: nil)

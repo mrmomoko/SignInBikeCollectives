@@ -150,5 +150,10 @@ class  OrganizationLog: NSObject {
     }
     //might need a function to get "userTypes" 
     //it will work only because i know the ID numbers for all the types
+    
+    func orgData() -> [String] {
+        let org = organizationLog.first
+        var orgData = [org?.name, org?.emailAddress, org?.saferSpaceAgreement,
+    }
 
 }
