@@ -133,6 +133,8 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     }
     
     func sendData(sender: AnyObject, dataType: String) {
+        let fileName = getDocumentsDirectory().stringByAppendingPathComponent("ShopUseLog.txt")
+        let fileUrl = NSURL.fileURLWithPath(fileName)
         let activityItems = [dataType]
         let activityViewController = UIActivityViewController(activityItems: activityItems as [AnyObject], applicationActivities: nil)
         activityViewController.excludedActivityTypes = [UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypePrint, UIActivityTypePostToFlickr, UIActivityTypePostToTencentWeibo, UIActivityTypeAddToReadingList]
@@ -159,6 +161,12 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
                 return
             }
         }
+    }
+    
+    func getDocumentsDirectory() -> NSString {
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
     }
 }
 

@@ -238,19 +238,26 @@ class ShopUseLog: NSObject {
     }
     
     func shopUseLogAsCommaSeporatedString() -> String {
-        var stringData = "SignIn, SignOut, Contact First Name, Type"  + "\r\n"
-        var shopUseArray = shopUseLog
+        var stringData = "SignIn, SignOut, Contact First Name, Last Name, Type"  + "\r\n"
         let dateFormator = NSDateFormatter()
         dateFormator.dateStyle = .ShortStyle
         dateFormator.timeStyle = .ShortStyle
-
-        for use in shopUseArray {
-            stringData += String("\(dateFormator.stringFromDate(use.signIn!)), \(dateFormator.stringFromDate(use.signOut!)), \(use.contact?.firstName), \((use.type?.title!))" + "\r\n")
+        for use in shopUseLog {
+            if let firstName = use.contact?.firstName!, let lastName = use.contact?.lastName!, let type = use.type?.title! {
+            stringData += String("\(dateFormator.stringFromDate(use.signIn!)), \(dateFormator.stringFromDate(use.signOut!)), \(firstName), \(lastName), \((type))" + "\r\n")
+            }
         }
-        do { try stringData.writeToFile("", atomically: true, encoding: NSUTF8StringEncoding)
+        let fileName = getDocumentsDirectory().stringByAppendingPathComponent("ShopUseLog.txt")
+        do { try stringData.writeToFile(fileName, atomically: true, encoding: NSUTF8StringEncoding)
         } catch let error as NSError {
             print("Could not create file \(error)")
         }
         return stringData
+    }
+    
+    func getDocumentsDirectory() -> NSString {
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
     }
 }
