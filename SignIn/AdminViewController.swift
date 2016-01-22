@@ -35,7 +35,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     }
     
     @IBAction func currentMembers(sender: AnyObject) {
-        filteredContacts = MembershipLog().contactsOfMemberships()
+        filteredContacts = contactLog.currentMembers()
         listOfPeopleTableView.reloadData()
     }
     
@@ -43,6 +43,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
         super.init(coder: aDecoder)
         self.tabBarController?.delegate = self
     }
+    
     override func viewDidLoad() {
         filteredContacts = usersWhoAreLoggedIn()
         let rightBarButton = UIBarButtonItem(image: UIImage(named: "email"), style: .Plain, target: self, action: "showFilterAlert")
@@ -85,19 +86,21 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     func showFilterAlert() {
         let alert = UIAlertController(title: "Filter", message: "What reports do you want to send?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Contacts", style: UIAlertActionStyle.Default, handler: { alert in
-            self.performSegueWithIdentifier("Thank You", sender: self)
+            self.sendData(self, dataType: self.contactLog.returnAllContactsAsCommaSeporatedString())
         }))
         alert.addAction(UIAlertAction(title: "Members", style: UIAlertActionStyle.Default, handler: { alert in
-            self.performSegueWithIdentifier("Thank You", sender: self)
+            self.sendData(self, dataType: self.contactLog.returnAllMembersAsCommaSeporatedString())
         }))
         alert.addAction(UIAlertAction(title: "Volunteers", style: UIAlertActionStyle.Default, handler: { alert in
-            self.performSegueWithIdentifier("Thank You", sender: self)
+            self.sendData(self, dataType: self.contactLog.returnAllVolunteersAsCommaSeporatedString())
         }))
         alert.addAction(UIAlertAction(title: "Shop Use", style: UIAlertActionStyle.Default, handler: { alert in
-            self.performSegueWithIdentifier("Thank You", sender: self)
+            self.sendData(self, dataType: self.shopUseLog.shopUseLogAsCommaSeporatedString())
         }))
         alert.addAction(UIAlertAction(title: "All Data", style: UIAlertActionStyle.Default, handler: { alert in
-            self.performSegueWithIdentifier("Thank You", sender: self)
+            // this has to happen as a file
+            //@[@"Data shared from my app.", url] applicationActivities:nil];
+            
         }))
         self.presentViewController(alert, animated: true, completion: nil)
     }
@@ -122,7 +125,6 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
         }
     }
     
-    
     func _searchContactsWithSubstring(substring: String) {
         let fullContactList = contactLog.allContacts
         let predicate = NSPredicate(format: "firstName BEGINSWITH[cd] %@ OR lastName BEGINSWITH[cd] %@ OR pin BEGINSWITH[cd] %@ OR emailAddress BEGINSWITH[cd] %@", substring, substring, substring, substring)
@@ -130,8 +132,22 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
         listOfPeopleTableView.reloadData()
     }
     
-    func sendData(sender: AnyObject) {
-        let activityItems = [ContactLog().returnAllContactsAsCommaSeporatedString()]
+    func sendData(sender: AnyObject, dataType: String) {
+        let activityItems = [dataType]
+        let activityViewController = UIActivityViewController(activityItems: activityItems as [AnyObject], applicationActivities: nil)
+        activityViewController.excludedActivityTypes = [UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypePrint, UIActivityTypePostToFlickr, UIActivityTypePostToTencentWeibo, UIActivityTypeAddToReadingList]
+        presentViewController(activityViewController, animated: true, completion: nil)
+        
+        // Define completion handler
+        
+        activityViewController.completionWithItemsHandler = {activity, success, items, error in
+            if !success {
+                return
+            }
+        }
+    }
+    func sendDataFile(sender: AnyObject, dataFile: NSData) {
+        let activityItems = [dataFile]
         let activityViewController = UIActivityViewController(activityItems: activityItems as [AnyObject], applicationActivities: nil)
         activityViewController.excludedActivityTypes = [UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypePrint, UIActivityTypePostToFlickr, UIActivityTypePostToTencentWeibo, UIActivityTypeAddToReadingList]
         presentViewController(activityViewController, animated: true, completion: nil)

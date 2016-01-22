@@ -59,7 +59,7 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("ButtonCell") as! NewUserButtonCell
-            cell.buttonView.backgroundColor = UIColor(red:0.00, green:0.87, blue:0.9, alpha:1)
+            cell.buttonView.backgroundColor = Colors().blue
             cell.buttonView.layer.cornerRadius = 10.0
             return cell
         } else {

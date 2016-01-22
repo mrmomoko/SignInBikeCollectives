@@ -33,6 +33,7 @@
 		4CB1AEAC1C0BC4CC0098BCE6 /* TypeLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1AEAB1C0BC4CC0098BCE6 /* TypeLog.swift */; };
 		4CB8DE601B34830C0020F6D0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB8DE5F1B34830C0020F6D0 /* CoreData.framework */; };
 		4CC133841B4B2A8D00208250 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CC133831B4B2A8D00208250 /* Images.xcassets */; };
+		4CC8EB481C51D83D006BB382 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC8EB471C51D83D006BB382 /* Colors.swift */; };
 		4CC927661B7A9E6B003E3A88 /* Membership.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC927651B7A9E6B003E3A88 /* Membership.swift */; };
 		4CCB75651A7AF5F20039D10B /* PersonDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCB75641A7AF5F20039D10B /* PersonDetailViewController.swift */; };
 		4CCB75681A7C50F70039D10B /* ThankYouForSigningIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCB75671A7C50F70039D10B /* ThankYouForSigningIn.swift */; };
@@ -92,6 +93,7 @@
 		4CB1AEAB1C0BC4CC0098BCE6 /* TypeLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeLog.swift; sourceTree = "<group>"; };
 		4CB8DE5F1B34830C0020F6D0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4CC133831B4B2A8D00208250 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SignIn/Images.xcassets; sourceTree = SOURCE_ROOT; };
+		4CC8EB471C51D83D006BB382 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		4CC927651B7A9E6B003E3A88 /* Membership.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Membership.swift; sourceTree = "<group>"; };
 		4CC9E40A1A785E770004D4BD /* SignIn-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SignIn-Bridging-Header.h"; sourceTree = "<group>"; };
 		4CCB75641A7AF5F20039D10B /* PersonDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonDetailViewController.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 				4CCCB9AF1C3F50F1003DA9E8 /* NewUserButtonCell.swift */,
 				4CCCB9B51C44530A003DA9E8 /* CircleCollectionViewCell.swift */,
 				4CCCB9B11C3F7688003DA9E8 /* HourShopUseCell.swift */,
+				4CC8EB471C51D83D006BB382 /* Colors.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				TargetAttributes = {
 					4C0C136F1A5070BF0019A6B2 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 8SXGH2J6R8;
 					};
 					4C0C138B1A5070C00019A6B2 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -349,6 +353,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C83FF661B4A42BC00E12761 /* ContactLog.swift in Sources */,
+				4CC8EB481C51D83D006BB382 /* Colors.swift in Sources */,
 				4C7EC5251B8963F80057D1A9 /* ContactTableViewCell.swift in Sources */,
 				4C9437D01C1639540047771C /* MemberTypeViewController.swift in Sources */,
 				4CA6A0811BBC7EC100759754 /* MyAccountViewController.swift in Sources */,
@@ -506,10 +511,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SignIn/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "BFF.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SignIn-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -520,10 +528,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SignIn/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "BFF.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SignIn-Bridging-Header.h";
 			};
 			name = Release;

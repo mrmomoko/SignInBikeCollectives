@@ -16,12 +16,14 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var emailAddress: UITextField!
     @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var zipCode: UITextField!
+    @IBOutlet weak var defaultSignOut: UITextField!
     @IBOutlet weak var saferSpaceText: UILabel!
     @IBOutlet weak var waiverText: UILabel!
     @IBOutlet weak var yesOrNoQuestion: UITextField!
 
     func sendData(sender: AnyObject) {
-        let activityItems = OrganizationLog().orgData()
+        let activityItems = [] //OrganizationLog().orgData()
         let activityViewController = UIActivityViewController(activityItems: activityItems as [AnyObject], applicationActivities: nil)
         activityViewController.excludedActivityTypes = [UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypePrint, UIActivityTypePostToFlickr, UIActivityTypePostToTencentWeibo, UIActivityTypeAddToReadingList]
         presentViewController(activityViewController, animated: true, completion: nil)

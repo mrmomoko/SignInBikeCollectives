@@ -119,6 +119,25 @@ class ContactLog: NSObject {
         return loggedInUsers
     }
     
+    func currentMembers() -> [Contact] {
+        var contacts = [Contact]()
+        var members = [Membership]()
+        let FetchRequest = NSFetchRequest(entityName: "Membership")
+        do { if let FetchedResults = try managedObjectContext.executeFetchRequest(FetchRequest) as? [Membership] {
+            members = FetchedResults }
+        else {
+            assertionFailure("Could not executeFetchRequest")
+            }
+        } catch let error as NSError {
+            print("Could not fetch \(error)")
+        }
+        for member in members {
+            if member.membershipExpiration.timeIntervalSinceNow > 0 {
+                contacts.append(member.contact)
+            }
+        }
+        return contacts
+    }
     // turn data into strings
     func returnAllContactsAsCommaSeporatedString() -> String {
         var commaSeporated = "FirstName, LastName, Email Address, Yes/No, Membership" + "\r\n"
@@ -128,6 +147,24 @@ class ContactLog: NSObject {
         return commaSeporated
     }
 
+    func returnAllMembersAsCommaSeporatedString() -> String {
+        var commaSeporated = "FirstName, LastName, Email Address, Yes/No, Membership" + "\r\n"
+        let contacts = currentMembers()
+        for names in contacts {
+            commaSeporated += String("\(names.firstName!), \(names.lastName!), \(names.emailAddress!), yes, \((names.membership?.membershipType)!)" + "\r\n")
+        }
+        return commaSeporated
+    }
+
+    func returnAllVolunteersAsCommaSeporatedString() -> String {
+        var commaSeporated = "FirstName, LastName, Email Address, Yes/No, Membership" + "\r\n"
+        let contacts = ShopUseLog().contactsOfVolunteer()
+        for names in contacts {
+            commaSeporated += String("\(names.firstName!), \(names.lastName!), \(names.emailAddress!), yes, \((names.membership?.membershipType)!)" + "\r\n")
+        }
+        return commaSeporated
+    }
+    
     // Helpers for turning color strings to UIColors
     
     func colourOfContact(contactInQuestion: Contact) -> UIColor {
@@ -135,17 +172,17 @@ class ContactLog: NSObject {
         var uicolor = UIColor.clearColor()
         switch colour {
         case .purple:
-            uicolor = UIColor.purpleColor()
+            uicolor = Colors().purple
         case .blue:
-            uicolor = UIColor(red:0.00, green:0.87, blue:0.9, alpha:1)
+            uicolor = Colors().blue
         case .green:
-            uicolor = UIColor.greenColor()
+            uicolor = Colors().green
         case .yellow:
-            uicolor = UIColor.yellowColor()
+            uicolor = Colors().yellow
         case .orange:
-            uicolor = UIColor.orangeColor()
+            uicolor = Colors().orange
         case .red:
-            uicolor = UIColor.redColor()
+            uicolor = Colors().red
         case .clear:
             uicolor = UIColor.clearColor()
         }

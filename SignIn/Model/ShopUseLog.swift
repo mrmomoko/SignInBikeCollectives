@@ -236,4 +236,21 @@ class ShopUseLog: NSObject {
         
          return unique
     }
+    
+    func shopUseLogAsCommaSeporatedString() -> String {
+        var stringData = "SignIn, SignOut, Contact First Name, Type"  + "\r\n"
+        var shopUseArray = shopUseLog
+        let dateFormator = NSDateFormatter()
+        dateFormator.dateStyle = .ShortStyle
+        dateFormator.timeStyle = .ShortStyle
+
+        for use in shopUseArray {
+            stringData += String("\(dateFormator.stringFromDate(use.signIn!)), \(dateFormator.stringFromDate(use.signOut!)), \(use.contact?.firstName), \((use.type?.title!))" + "\r\n")
+        }
+        do { try stringData.writeToFile("", atomically: true, encoding: NSUTF8StringEncoding)
+        } catch let error as NSError {
+            print("Could not create file \(error)")
+        }
+        return stringData
+    }
 }

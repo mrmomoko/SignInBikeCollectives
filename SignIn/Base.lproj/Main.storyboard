@@ -1339,7 +1339,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="name of org" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mgh-Y8-vKm">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name of Organization" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mgh-Y8-vKm">
                                                     <rect key="frame" x="19" y="8" width="562" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="UWa-iO-NXW"/>
@@ -1362,7 +1362,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BIu-vj-gV2">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BIu-vj-gV2">
                                                     <rect key="frame" x="19" y="10" width="562" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="vbw-E9-g2M"/>
@@ -1385,19 +1385,39 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wdI-49-cgT">
-                                                    <rect key="frame" x="19" y="10" width="562" height="30"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Pin" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wdI-49-cgT">
+                                                    <rect key="frame" x="19" y="10" width="90" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="P1Q-Sq-Gtq"/>
+                                                        <constraint firstAttribute="width" constant="90" id="kGC-1C-owd"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Zip Code" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qk6-Fi-GOc">
+                                                    <rect key="frame" x="117" y="10" width="80" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="80" id="Y7M-sp-VCI"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="SignOut Time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9QW-45-D5C">
+                                                    <rect key="frame" x="205" y="10" width="110" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="110" id="bQ5-6c-jUb"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="9QW-45-D5C" firstAttribute="leading" secondItem="Qk6-Fi-GOc" secondAttribute="trailing" constant="8" id="BPE-VL-5dk"/>
+                                                <constraint firstItem="9QW-45-D5C" firstAttribute="centerY" secondItem="wdI-49-cgT" secondAttribute="centerY" id="L0U-fb-9dn"/>
                                                 <constraint firstItem="wdI-49-cgT" firstAttribute="top" secondItem="3JP-LV-IpM" secondAttribute="topMargin" constant="2" id="Swc-uu-wt0"/>
+                                                <constraint firstItem="Qk6-Fi-GOc" firstAttribute="centerY" secondItem="wdI-49-cgT" secondAttribute="centerY" id="fU7-eQ-OWc"/>
                                                 <constraint firstItem="wdI-49-cgT" firstAttribute="leading" secondItem="3JP-LV-IpM" secondAttribute="leadingMargin" constant="11" id="gjv-fZ-OFj"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="wdI-49-cgT" secondAttribute="trailing" constant="11" id="qFT-ha-oqS"/>
+                                                <constraint firstItem="Qk6-Fi-GOc" firstAttribute="leading" secondItem="wdI-49-cgT" secondAttribute="trailing" constant="8" id="nS0-3X-lto"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1552,12 +1572,14 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="defaultSignOut" destination="9QW-45-D5C" id="Xqa-26-jDa"/>
                         <outlet property="emailAddress" destination="BIu-vj-gV2" id="hDP-lq-WAh"/>
                         <outlet property="name" destination="mgh-Y8-vKm" id="lRF-p9-ajD"/>
                         <outlet property="password" destination="wdI-49-cgT" id="XNT-1k-H32"/>
                         <outlet property="saferSpaceText" destination="Ndj-jo-Q6Y" id="Ujo-Qj-iee"/>
                         <outlet property="waiverText" destination="rrP-xt-fFd" id="iht-ea-llU"/>
                         <outlet property="yesOrNoQuestion" destination="xcn-4c-otY" id="5EI-ZP-EFc"/>
+                        <outlet property="zipCode" destination="Qk6-Fi-GOc" id="f6s-J4-0uc"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lg7-7R-ifV" userLabel="First Responder" sceneMemberID="firstResponder"/>

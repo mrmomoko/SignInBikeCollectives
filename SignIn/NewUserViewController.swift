@@ -95,58 +95,45 @@ extension NewUserViewController {
         cell.circleImage.image = image
         
         if indexPath.row == 0 {
-            cell.circleImage.tintColor = UIColor.purpleColor()
+            cell.circleImage.tintColor = Colors().purple
         }
         else if indexPath.row == 1 {
-            cell.circleImage.tintColor = UIColor.cyanColor()
+            cell.circleImage.tintColor = Colors().blue
         }
         else if indexPath.row == 2 {
-            cell.circleImage.tintColor = UIColor.greenColor()
+            cell.circleImage.tintColor = Colors().green
         }
         else if indexPath.row == 3 {
-            cell.circleImage.tintColor = UIColor.yellowColor()
+            cell.circleImage.tintColor = Colors().yellow
         }
         else if indexPath.row == 4 {
-            cell.circleImage.tintColor = UIColor.orangeColor()
+            cell.circleImage.tintColor = Colors().orange
         }
         else if indexPath.row == 5 {
-            cell.circleImage.tintColor = UIColor.redColor()
+            cell.circleImage.tintColor = Colors().red
         }
     return cell
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        view.alpha = 0.5
         if indexPath.row == 0 {
             contactLog.editColourForContact(contact!, colour: .purple)
-
-            view.backgroundColor = UIColor.purpleColor()
-            
-            collectionView.backgroundColor = UIColor.purpleColor()
         }
         else if indexPath.row == 1 {
             contactLog.editColourForContact(contact!, colour: .blue)
-            view.backgroundColor = UIColor.cyanColor()
-            collectionView.backgroundColor = UIColor(red:0.00, green:0.87, blue:0.9, alpha:1)
         }
         else if indexPath.row == 2 {
             contactLog.editColourForContact(contact!, colour: .green)
-            view.backgroundColor = UIColor.greenColor()
-            collectionView.backgroundColor = UIColor.greenColor()
         }
         else if indexPath.row == 3 {
             contactLog.editColourForContact(contact!, colour: .yellow)
-            view.backgroundColor = UIColor.yellowColor()
-            collectionView.backgroundColor = UIColor.yellowColor()
         }
         else if indexPath.row == 4 {
             contactLog.editColourForContact(contact!, colour: .orange)
-            view.backgroundColor = UIColor.orangeColor()
-            collectionView.backgroundColor = UIColor.orangeColor()
         }
         else if indexPath.row == 5 {
             contactLog.editColourForContact(contact!, colour: .red)
-            view.backgroundColor = UIColor.redColor()
-            collectionView.backgroundColor = UIColor.redColor()
         }
     }
     
