@@ -42,6 +42,7 @@ class  OrganizationLog: NSObject {
         org.zipCode = ""
         org.emailAddress = ""
         org.password = ""
+        org.founded = ""
         
         var error: NSError?
         do {

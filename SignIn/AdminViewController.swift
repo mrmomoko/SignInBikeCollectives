@@ -89,11 +89,28 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
             }
         }))
         alert.addAction(UIAlertAction(title: "Forgot Password", style: .Default, handler: { alert in
-            //send email?
+            //send another alert
         }))
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
+    func showForgotPasswordAlert() {
+        let alert = UIAlertController(title: "Forgot Password", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { alert in
+            self.tabBarController?.selectedIndex = 0
+        }))
+        alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+            textField.placeholder = "What year was your organization founded?"
+            self.password = textField
+        })
+        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.Default, handler: { alert in
+            if self.password.text != self.organizationLog.organizationLog.first?.founded {
+                self.tabBarController?.selectedIndex = 0
+            }
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+        
     func showFilterAlert() {
         let alert = UIAlertController(title: "Filter", message: "What reports do you want to send?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Contacts", style: UIAlertActionStyle.Default, handler: { alert in
