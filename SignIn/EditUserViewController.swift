@@ -19,12 +19,15 @@ class EditUserViewController: UIViewController, UITableViewDelegate {
     let contactLog = ContactLog()
     let membershipLog = MembershipLog()
     var delegate : EditUserViewControllerDelegate? = nil
+    var types = [String]()
     
     
     @IBOutlet weak var firstName: UITextField!
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var pin: UITextField!
+    @IBOutlet weak var yesOrNoQuestion: UILabel!
+    @IBOutlet weak var yesOrNoSwitch: UISwitch!
     
     @IBOutlet weak var membershipTableView: UITableView!
 
@@ -36,6 +39,7 @@ class EditUserViewController: UIViewController, UITableViewDelegate {
             contact!.firstName = firstName.text!
             contact!.lastName = lastName.text!
             contact!.emailAddress = email.text!
+            contact!.yesOrNoQuestion = yesOrNoSwitch.on
             contact!.pin = pin.text!
             
             // save contact
@@ -46,10 +50,18 @@ class EditUserViewController: UIViewController, UITableViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        yesOrNoSwitch.tintColor = Colors().blue
+        yesOrNoSwitch.onTintColor = Colors().blue
         if let contact = contact {
             firstName.text = contact.firstName
             lastName.text = contact.lastName
             email.text = contact.emailAddress
+            yesOrNoQuestion.text = OrganizationLog().organizationLog.first?.yesOrNoQuestion
+            if yesOrNoQuestion.text == ""{
+                yesOrNoSwitch.hidden = true
+            } else {
+                yesOrNoSwitch.on = (contact.yesOrNoQuestion?.boolValue)!
+            }
         } else {
             contact = contactLog.createUserWithIdentity("edit user")
         }
@@ -79,22 +91,22 @@ extension EditUserViewController {
         cell.circleImage.image = image
         
         if indexPath.row == 0 {
-            cell.circleImage.tintColor = UIColor.purpleColor()
+            cell.circleImage.tintColor = Colors().purple
         }
         else if indexPath.row == 1 {
-            cell.circleImage.tintColor = UIColor.cyanColor()
+            cell.circleImage.tintColor = Colors().blue
         }
         else if indexPath.row == 2 {
-            cell.circleImage.tintColor = UIColor.greenColor()
+            cell.circleImage.tintColor = Colors().green
         }
         else if indexPath.row == 3 {
-            cell.circleImage.tintColor = UIColor.yellowColor()
+            cell.circleImage.tintColor = Colors().yellow
         }
         else if indexPath.row == 4 {
-            cell.circleImage.tintColor = UIColor.orangeColor()
+            cell.circleImage.tintColor = Colors().orange
         }
         else if indexPath.row == 5 {
-            cell.circleImage.tintColor = UIColor.redColor()
+            cell.circleImage.tintColor = Colors().red
         }
         return cell
     }
@@ -102,77 +114,45 @@ extension EditUserViewController {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == 0 {
             contactLog.editColourForContact(contact!, colour: .purple)
-//            view.backgroundColor = UIColor.purpleColor()
-            collectionView.backgroundColor = UIColor.purpleColor()
+            collectionView.backgroundColor = Colors().purpleHighlight
         }
         else if indexPath.row == 1 {
             contactLog.editColourForContact(contact!, colour: .blue)
-//            view.backgroundColor = UIColor.cyanColor()
-            collectionView.backgroundColor = UIColor(red:0.00, green:0.87, blue:0.9, alpha:1)
+            collectionView.backgroundColor = Colors().blueHighlight
         }
         else if indexPath.row == 2 {
             contactLog.editColourForContact(contact!, colour: .green)
-//            view.backgroundColor = UIColor.greenColor()
-            collectionView.backgroundColor = UIColor.greenColor()
+            collectionView.backgroundColor = Colors().greenHighlight
         }
         else if indexPath.row == 3 {
             contactLog.editColourForContact(contact!, colour: .yellow)
-//            view.backgroundColor = UIColor.yellowColor()
-            collectionView.backgroundColor = UIColor.yellowColor()
+            collectionView.backgroundColor = Colors().yellowHighlight
         }
         else if indexPath.row == 4 {
             contactLog.editColourForContact(contact!, colour: .orange)
-//            view.backgroundColor = UIColor.orangeColor()
-            collectionView.backgroundColor = UIColor.orangeColor()
+            collectionView.backgroundColor = Colors().orangeHighlight
         }
         else if indexPath.row == 5 {
             contactLog.editColourForContact(contact!, colour: .red)
-            view.backgroundColor = UIColor.redColor()
-            collectionView.backgroundColor = UIColor.redColor()
+            collectionView.backgroundColor = Colors().redHighlight
         }
     }
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        let org = OrganizationLog()
+        types = org.activeMembershipTypes()
+        return types.count
     }
     
     func tableView(tableView: UITableView!,
         cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
             let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as UITableViewCell?
-            if indexPath.row == 0 {
-                cell!.textLabel?.text = "Non Member"
-            }
-            else if indexPath.row == 1 {
-                cell!.textLabel?.text = "One Month"
-            }
-            else if indexPath.row == 2 {
-                cell!.textLabel?.text = "Six Month"
-            }
-            else if indexPath.row == 3 {
-                cell!.textLabel?.text = "Yearly"
-            }
-            else if indexPath.row == 4 {
-                cell!.textLabel?.text = "Life Time"
-            }
+            cell?.textLabel?.text = types[indexPath.row]
             return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row == 0 {
-            membershipLog.editMembershipTypeForContact(contact!, type: "Non Member")
-        }
-        else if indexPath.row == 1 {
-            membershipLog.editMembershipTypeForContact(contact!, type: "Monthly")
-        }
-        else if indexPath.row == 2 {
-            membershipLog.editMembershipTypeForContact(contact!, type: "Six Month")
-        }
-        else if indexPath.row == 3 {
-            membershipLog.editMembershipTypeForContact(contact!, type: "Yearly")
-        }
-        else if indexPath.row == 4 {
-            membershipLog.editMembershipTypeForContact(contact!, type: "Life Time")
-        }
+        membershipLog.editMembershipTypeForContact(contact!, type: types[indexPath.row])
     }
     
     func showAlertForIncompleteForm() {

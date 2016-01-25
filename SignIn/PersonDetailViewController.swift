@@ -9,12 +9,17 @@
 import Foundation
 import UIKit
 
+protocol PersonDetailViewControllerDelegate {
+    func didMakeChangesToContactOnEditVC()
+}
+
 class PersonDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EditUserViewControllerDelegate {
    
     var contact : Contact?
     var shopUse : ShopUse?
     let shopUseLog = ShopUseLog()
     var typesOfUsers = [String]()
+    var delegate : PersonDetailViewControllerDelegate? = nil
     
     @IBOutlet weak var firstNameLastInitial: UILabel!
     @IBOutlet weak var hoursTableView: UITableView!
@@ -121,6 +126,8 @@ class PersonDetailViewController: UIViewController, UITableViewDelegate, UITable
     func didMakeChangesToContact() {
         self.navigationController?.popViewControllerAnimated(true)
         self.hoursTableView.reloadData()
+        firstNameLastInitial.text = contact?.firstName
+        delegate!.didMakeChangesToContactOnEditVC()
     }
     
 }

@@ -45,6 +45,8 @@ class NewUserViewController: UIViewController, UICollectionViewDelegateFlowLayou
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        permissionToEmail.tintColor = Colors().blue
+        permissionToEmail.onTintColor = Colors().blue
 
         contact = contactLog.createUserWithIdentity(contactIndentifier!)
         firstName.text = contact!.firstName
@@ -116,24 +118,29 @@ extension NewUserViewController {
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        view.alpha = 0.5
         if indexPath.row == 0 {
             contactLog.editColourForContact(contact!, colour: .purple)
+            collectionView.backgroundColor = Colors().purpleHighlight
         }
         else if indexPath.row == 1 {
             contactLog.editColourForContact(contact!, colour: .blue)
+            collectionView.backgroundColor = Colors().blueHighlight
         }
         else if indexPath.row == 2 {
             contactLog.editColourForContact(contact!, colour: .green)
+            collectionView.backgroundColor = Colors().greenHighlight
         }
         else if indexPath.row == 3 {
             contactLog.editColourForContact(contact!, colour: .yellow)
+            collectionView.backgroundColor = Colors().yellowHighlight
         }
         else if indexPath.row == 4 {
             contactLog.editColourForContact(contact!, colour: .orange)
+            collectionView.backgroundColor = Colors().orangeHighlight
         }
         else if indexPath.row == 5 {
             contactLog.editColourForContact(contact!, colour: .red)
+            collectionView.backgroundColor = Colors().redHighlight
         }
     }
     

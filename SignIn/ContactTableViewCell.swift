@@ -14,5 +14,5 @@ class ContactTableViewCell: UITableViewCell {
     @IBOutlet weak var circleView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
-    
+    @IBOutlet weak var time: UILabel!
 }

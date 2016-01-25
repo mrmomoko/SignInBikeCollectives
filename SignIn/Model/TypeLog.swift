@@ -129,6 +129,7 @@ class TypeLog: NSObject {
         }
         return types
     }
+    
     func getAllActiveTypesForGroup(group: String) -> [Type] {
         let types = getAllTypesForGroup(group)
         var activeTypes = [Type]()

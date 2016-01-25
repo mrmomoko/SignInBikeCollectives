@@ -20,7 +20,8 @@ class MembershipLog: NSObject {
         Monthly = "Monthly",
         SixMonth = "Six Month",
         Yearly = "Yearly",
-        LifeTime = "Life Time"
+        LifeTime = "Life Time",
+        Custom = "Custom"
     }
     
     override init() {
@@ -59,16 +60,9 @@ class MembershipLog: NSObject {
             print("Could not save \(error), \(error?.userInfo)")
         }
     }
+
     func deleteMembershipForContact(contact: Contact) {
         managedObjectContext.deleteObject(contact.membership!)
-        
-    }
-    func contactsOfMemberships() -> [Contact] {
-        var contacts = [Contact]()
-        for member in membershipLog {
-            contacts.append(member.contact)
-        }
-        return contacts
     }
     
     // helpers for membership
@@ -77,7 +71,6 @@ class MembershipLog: NSObject {
     }
     
     func editMembershipTypeForContact(contact: Contact, type: String) {
-        // if the membership is nil, then we are fucked, but i can't check if it's nil, boo swift.
         contact.membership!.membershipType = type
         let membershipExpiration = NSDate(timeInterval: timeIntervalForMembershipType(type), sinceDate: NSDate())
         contact.membership!.membershipExpiration = membershipExpiration
@@ -95,6 +88,8 @@ class MembershipLog: NSObject {
         case MembershipType.Yearly.rawValue:
             time = 60*60*24
         case MembershipType.LifeTime.rawValue:
+            time = 60*60*24*365*100
+        case MembershipType.Custom.rawValue:
             time = 60*60*24*365*100
         default:
             time = 0.0

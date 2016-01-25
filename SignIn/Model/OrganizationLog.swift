@@ -9,35 +9,23 @@
 import Foundation
 
 class  OrganizationLog: NSObject {
+    
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     var organizationLog : [Organization]
     var orgTypes : [Type]! = nil
-    enum MembershipType: String {
-            case
-            NonMember = "Non Member",
-            Monthly = "Monthly",
-            SixMonth = "Six Month",
-            Yearly = "Yearly",
-            LifeTime = "Life Time"
-        }
-
     
     override init() {
         organizationLog = []
         super.init()
         let fetchRequest = NSFetchRequest(entityName: "Organization")
         do { if let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Organization] {
-            organizationLog = fetchedResults
-            //remove at launch, this is a check to see if there is ever more than one org
-            print("%@", organizationLog.count)
-        }
-        else {
-            assertionFailure("Could not executeFetchRequest")
+                organizationLog = fetchedResults
+            } else {
+                assertionFailure("Could not executeFetchRequest")
             }
         } catch let error as NSError {
             print("Could not fetch \(error)")
         }
-
     }
     
     func createOrganizationWithDefaultValues() {
@@ -89,7 +77,6 @@ class  OrganizationLog: NSObject {
     
     func deleteOrg(org: Organization) {
         managedObjectContext.deleteObject(org)
-        
         var error: NSError?
         do {
             try managedObjectContext.save()
@@ -138,15 +125,13 @@ class  OrganizationLog: NSObject {
     func activeMembershipTypes() -> [String] {
         var types = [String]()
         orgTypes = getTypes()
-        for type in orgTypes { // if membershipType... how do i know it's a membership type?
-            // as of right now, you can check the id... maybe id should be something more memerable?
-            // or just make it work and this is what we call techincal debt.
-            if Int(type.id!) > 5 {
+        let sortedTypes = orgTypes.sort {Int($0.id!) < Int($1.id!)}
+        for type in sortedTypes {
+            if type.group == "Membership" && type.active == true {
                 types.append(type.title!)
             }
         }
         return types
-    
     }
     //might need a function to get "userTypes" 
     //it will work only because i know the ID numbers for all the types
@@ -158,11 +143,5 @@ class  OrganizationLog: NSObject {
         orgData = orgData + (org?.waiver)! + ", " + (org?.zipCode)!
         //orgData = orgData
         return orgData
-    }
-    
-    func bundleDataBaseFile() -> NSData {
-        let data = NSData()
-        let url = NSURL(fileURLWithPath: "")
-        return data
     }
 }

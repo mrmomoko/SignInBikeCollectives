@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class MyAccountViewController : UITableViewController, SaferSpaceViewControllerDelegate, WaiverViewControllerDelegate, TypesViewControllerDelegate {
+class MyAccountViewController : UITableViewController, SaferSpaceViewControllerDelegate, WaiverViewControllerDelegate, TypesViewControllerDelegate, MemberTypeViewControllerDelegate {
     
     let org = OrganizationLog().organizationLog.first
     
@@ -75,6 +75,11 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
             vc.delegate = self
             vc.org = org
         }
+        if segueIdentifier == "Members Segue" {
+            let vc = segue.destinationViewController as! MemberTypeViewController
+            vc.delegate = self
+            vc.org = org
+        }
     }
     
     func dismissKeyboard() {
@@ -94,7 +99,6 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
     func didAddSaferSpaceAggrement(sender:SaferSpaceViewController) {
         self.navigationController?.popViewControllerAnimated(true)
         saferSpaceText.text = org?.saferSpaceAgreement
-        
     }
 
     func didAddWaiver(sender: WaiverViewController) {
@@ -106,17 +110,7 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
         self.navigationController?.popViewControllerAnimated(true)
     }
     
-    // tableview methods
-    
-    //- (NSString *)commaSeporatedStyle;
-    //{
-    //    NSString *contactString = @"";
-    //    NSString *commaSeporatedString = @"First name, Last name, Email,\n";
-    //    for (BCNContact *contact in self.contactLog) {
-    //        contactString = [NSString stringWithFormat:@"%@, %@, %@,\n", contact.firstName, contact.lastName, contact.emailAddress];
-    //        commaSeporatedString = [commaSeporatedString stringByAppendingString:contactString];
-    //    }
-    //
-    //    return commaSeporatedString;
-    //}
+    func didSaveMemberType(sender: MemberTypeViewController) {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
 }

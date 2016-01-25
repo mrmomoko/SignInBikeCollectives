@@ -57,7 +57,7 @@ class ContactLog: NSObject {
         
         let entity = NSEntityDescription.entityForName("Contact", inManagedObjectContext: managedObjectContext)
         
-        let contact = Contact(entity: entity!,  insertIntoManagedObjectContext: managedObjectContext)
+        let contact = Contact(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
         
         //set default behaviour for contact
         contact.firstName = identity
@@ -67,6 +67,7 @@ class ContactLog: NSObject {
         contact.colour = Colour.clear.rawValue //white value
         contact.recentUse = NSDate()
         contact.hasGoneThroughSetUp = false
+        contact.yesOrNoQuestion = false
         
         membershipLog.createMembershipWithContact(contact)
 
@@ -88,6 +89,7 @@ class ContactLog: NSObject {
        
         saveContact(contact)
     }
+    
     func saveContact(contact: Contact) {
         var error: NSError?
         do {
@@ -107,9 +109,6 @@ class ContactLog: NSObject {
     }
     
     func usersWhoAreLoggedIn() -> [Contact] {
-        let count = String(managedObjectContext.registeredObjects.count)
-        print(count)
-
         var loggedInUsers = [Contact]()
         for contact in allContacts {
             if contact.recentUse!.timeIntervalSinceNow > 0 {
@@ -138,12 +137,14 @@ class ContactLog: NSObject {
         }
         return contacts
     }
+    
     // turn data into strings
     func returnAllContactsAsCommaSeporatedString() -> String {
-        var commaSeporated = "FirstName, LastName, Email Address, Yes/No, Membership" + "\r\n"
+        var commaSeporated = "FirstName, LastName, Email Address, Yes/No (1/0), Membership" + "\r\n"
         for names in allContacts {
-            commaSeporated += String("\(names.firstName!), \(names.lastName!), \(names.emailAddress!), yes, \((names.membership?.membershipType)!)" + "\r\n")
+            commaSeporated += String("\(names.firstName!), \(names.lastName!), \(names.emailAddress!), \(names.yesOrNoQuestion), \((names.membership?.membershipType)!)" + "\r\n")
         }
+        createFileWithString(commaSeporated)
         return commaSeporated
     }
 
@@ -151,8 +152,9 @@ class ContactLog: NSObject {
         var commaSeporated = "FirstName, LastName, Email Address, Yes/No, Membership" + "\r\n"
         let contacts = currentMembers()
         for names in contacts {
-            commaSeporated += String("\(names.firstName!), \(names.lastName!), \(names.emailAddress!), yes, \((names.membership?.membershipType)!)" + "\r\n")
+            commaSeporated += String("\(names.firstName!), \(names.lastName!), \(names.emailAddress!), \(names.yesOrNoQuestion), \((names.membership?.membershipType)!)" + "\r\n")
         }
+        createFileWithString(commaSeporated)
         return commaSeporated
     }
 
@@ -160,9 +162,24 @@ class ContactLog: NSObject {
         var commaSeporated = "FirstName, LastName, Email Address, Yes/No, Membership" + "\r\n"
         let contacts = ShopUseLog().contactsOfVolunteer()
         for names in contacts {
-            commaSeporated += String("\(names.firstName!), \(names.lastName!), \(names.emailAddress!), yes, \((names.membership?.membershipType)!)" + "\r\n")
+            commaSeporated += String("\(names.firstName!), \(names.lastName!), \(names.emailAddress!), \(names.yesOrNoQuestion), \((names.membership?.membershipType)!)" + "\r\n")
         }
+        createFileWithString(commaSeporated)
         return commaSeporated
+    }
+    
+    func createFileWithString(string: String) {
+        let fileName = getDocumentsDirectory().stringByAppendingPathComponent("data.csv")
+        do { try string.writeToFile(fileName, atomically: true, encoding: NSUTF8StringEncoding)
+        } catch let error as NSError {
+            print("Could not create file \(error)")
+        }
+    }
+    
+    func getDocumentsDirectory() -> NSString {
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
     }
     
     // Helpers for turning color strings to UIColors

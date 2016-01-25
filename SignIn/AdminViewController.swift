@@ -5,12 +5,14 @@
 import Foundation
 import UIKit
 
-class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDelegate, UITabBarControllerDelegate {
+class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDelegate, UITabBarControllerDelegate, PersonDetailViewControllerDelegate {
+    
     var filteredContacts = [Contact]()
     let contactLog = ContactLog()
     let shopUseLog = ShopUseLog()
     var selectedContact : Contact?
     let organizationLog = OrganizationLog()
+    var password = UITextField()
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var listOfPeopleTableView: UITableView!
@@ -60,6 +62,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
         if segue.identifier == "Person Detail Segue" {
             let vc = segue.destinationViewController as! PersonDetailViewController
             vc.contact = selectedContact
+            vc.delegate = self
         }
     }
     
@@ -75,11 +78,19 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     
     func showPassWordAlert() {
         let alert = UIAlertController(title: "Password", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.Default, handler: nil))
         alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
             textField.placeholder = "Enter Password:"
             textField.secureTextEntry = true
+            self.password = textField
         })
+        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.Default, handler: { alert in
+            if self.password.text != self.organizationLog.organizationLog.first?.password {
+                self.tabBarController?.selectedIndex = 0
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "Forgot Password", style: .Default, handler: { alert in
+            //send email?
+        }))
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
@@ -96,11 +107,6 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
         }))
         alert.addAction(UIAlertAction(title: "Shop Use", style: UIAlertActionStyle.Default, handler: { alert in
             self.sendData(self, dataType: self.shopUseLog.shopUseLogAsCommaSeporatedString())
-        }))
-        alert.addAction(UIAlertAction(title: "All Data", style: UIAlertActionStyle.Default, handler: { alert in
-            // this has to happen as a file
-            //@[@"Data shared from my app.", url] applicationActivities:nil];
-            
         }))
         self.presentViewController(alert, animated: true, completion: nil)
     }
@@ -133,28 +139,31 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     }
     
     func sendData(sender: AnyObject, dataType: String) {
-        let fileName = getDocumentsDirectory().stringByAppendingPathComponent("ShopUseLog.txt")
-        let fileUrl = NSURL.fileURLWithPath(fileName)
-        let activityItems = [dataType]
-        let activityViewController = UIActivityViewController(activityItems: activityItems as [AnyObject], applicationActivities: nil)
-        activityViewController.excludedActivityTypes = [UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypePrint, UIActivityTypePostToFlickr, UIActivityTypePostToTencentWeibo, UIActivityTypeAddToReadingList]
-        presentViewController(activityViewController, animated: true, completion: nil)
+        let fileName = getDocumentsDirectory().stringByAppendingPathComponent("data.csv")
+        let activityItem:NSURL = NSURL(fileURLWithPath:fileName)
+        var string = ""
+        do { try string = String(contentsOfURL: activityItem)
+            print(string)
+        } catch let error as NSError {
+            print("Could not create file \(error)")
+        }
+        let activityItems = [activityItem]
+        let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+        activityVC.excludedActivityTypes = [UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypePrint, UIActivityTypePostToFlickr, UIActivityTypePostToTencentWeibo, UIActivityTypeAddToReadingList]
+        presentViewController(activityVC, animated: true, completion: nil)
         
-        // Define completion handler
-        
-        activityViewController.completionWithItemsHandler = {activity, success, items, error in
+        activityVC.completionWithItemsHandler = {activity, success, items, error in
             if !success {
                 return
             }
         }
     }
+    
     func sendDataFile(sender: AnyObject, dataFile: NSData) {
         let activityItems = [dataFile]
         let activityViewController = UIActivityViewController(activityItems: activityItems as [AnyObject], applicationActivities: nil)
         activityViewController.excludedActivityTypes = [UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypePrint, UIActivityTypePostToFlickr, UIActivityTypePostToTencentWeibo, UIActivityTypeAddToReadingList]
         presentViewController(activityViewController, animated: true, completion: nil)
-        
-        // Define completion handler
         
         activityViewController.completionWithItemsHandler = {activity, success, items, error in
             if !success {
@@ -167,6 +176,10 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
         let documentsDirectory = paths[0]
         return documentsDirectory
+    }
+    
+    func didMakeChangesToContactOnEditVC() {
+        listOfPeopleTableView.reloadData()
     }
 }
 
@@ -188,6 +201,7 @@ extension AdminViewController {
             let membershipType = membership?.membershipType
             cell.titleLabel.text = title
             cell.detailLabel.text = membershipType // soon to be minutes of shopUse
+           // cell.time.text = ShopUseLog().timeOfCurrentShopUseForContact(contact)
             cell.circleView.image = UIImage(named: "circle")
             cell.circleView.tintColor = contactLog.colourOfContact(contact)
             // add gesture recognizer

@@ -8,9 +8,14 @@
 
 import Foundation
 
+protocol MemberTypeViewControllerDelegate {
+    func didSaveMemberType(sender: MemberTypeViewController)
+}
+
 class MemberTypeViewController : UIViewController {
     
-    let org = OrganizationLog().currentOrganization().organization
+    var org : Organization? = nil
+    var delegate : MemberTypeViewControllerDelegate? = nil
     
     @IBOutlet weak var monthSwitch: UISwitch!
     @IBOutlet weak var sixMonthSwitch: UISwitch!
@@ -19,14 +24,9 @@ class MemberTypeViewController : UIViewController {
     @IBOutlet weak var customSwitch: UISwitch!
     @IBOutlet weak var customText: UITextField!
     
-    @IBAction func oneMonthAction(sender: AnyObject) {
-    }
-    @IBAction func customAction(sender: AnyObject) {
-    }
-    
     override func viewDidLoad() {
         // turn on and off the correct switches
-        let rightBarButton = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "showSaveAlert")
+        let rightBarButton = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "save")
         self.navigationItem.rightBarButtonItem = rightBarButton
         updateOnOffSwitchesForTypes()
     }
@@ -38,9 +38,10 @@ class MemberTypeViewController : UIViewController {
         yearlySwitch.on = typesStatus[2]
         lifetimeSwitch.on = typesStatus[3]
         customSwitch.on = typesStatus[4]
+        customText.text = TypeLog().getType(10).title
     }
     
-    func showSaveAlert() {
+    func save() {
         let type1 = TypeLog().getType(6)
         if monthSwitch.on == true {
             type1.active = 1
@@ -73,5 +74,6 @@ class MemberTypeViewController : UIViewController {
             type5.active = 0
         }
         TypeLog().saveType()
+        delegate?.didSaveMemberType(self)
     }
 }

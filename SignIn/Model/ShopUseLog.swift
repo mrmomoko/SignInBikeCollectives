@@ -40,7 +40,8 @@ class ShopUseLog: NSObject {
         let shopUse = ShopUse(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
 
         shopUse.signIn = NSDate()
-        shopUse.signOut = NSDate().dateByAddingTimeInterval(2*60*60)
+        let autoLogOut = NSTimeInterval((OrganizationLog().organizationLog.first?.defaultSignOutTime)!)
+        shopUse.signOut = NSDate().dateByAddingTimeInterval(2*60*autoLogOut)
         shopUse.type = TypeLog().getType(id)
 
         shopUse.contact = contact
@@ -66,25 +67,6 @@ class ShopUseLog: NSObject {
         contact.recentUse = NSDate()
     }
 
-    // this is just an experiement showing a better way t ouse fetch requests.
-    // it's not actually used here.
-//    func findMostRecentShopUseForContact(contact: Contact) -> ShopUse {
-//        var log = []
-//        let recentUseFetchRequest = NSFetchRequest(entityName: "ShopUse")
-//        let predicate = NSPredicate(format: "contact == %@ && signOut > NSDate", contact)
-//        //let sortDescriptor
-//        //set fetch limit, so that the fetch request only returns one.
-//        recentUseFetchRequest.predicate = predicate
-//        do { if let recentUseFetch = try managedObjectContext.executeFetchRequest(recentUseFetchRequest) as? [ShopUse] {
-//            log =  recentUseFetch}
-//        else {
-//            assertionFailure("Could not executeFetchRequest")
-//            }
-//        } catch let error as NSError {
-//            print("Could not fetch \(error)")
-//        }
-//        return log.firstObject! as! ShopUse
-//    }
     func getShopUsesForContact(contact: Contact) -> [ShopUse] {
         var log = [ShopUse]()
         let FetchRequest = NSFetchRequest(entityName: "ShopUse")
@@ -132,41 +114,59 @@ class ShopUseLog: NSObject {
         return newContacts
     }
     
+    func timeOfCurrentShopUseForContact(contact: Contact) -> String {
+        var totalHoursOfShopUse = Double(contact.recentUse!.timeIntervalSinceNow - NSDate().timeIntervalSinceNow)
+        let autoLogOut = NSTimeInterval((OrganizationLog().organizationLog.first?.defaultSignOutTime)!)
+        totalHoursOfShopUse = totalHoursOfShopUse/(60 * 60 * -1) - autoLogOut
+        let string = String(totalHoursOfShopUse)
+        let array = [Character](string.characters)
+        let mySubString = String("\(array[0])\(array[1])\(array[2])")
+        return mySubString
+    }
+    
     func numberOfHoursLoggedByContact(contact: Contact, typeTitle: String) -> String {
-        var totalHoursOfShopUse = 0
+        var totalHoursOfShopUse = 0.0
         for shopUseHour in contact.shopUse! {
             if shopUseHour.type!!.title! == typeTitle {
-                let shopUseInstance = Int(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut!!.timeIntervalSinceNow)
+                let shopUseInstance = Double(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut!!.timeIntervalSinceNow)
                 totalHoursOfShopUse = totalHoursOfShopUse + shopUseInstance
             }
         }
         totalHoursOfShopUse = totalHoursOfShopUse/(60 * 60) * -1
-        return String(totalHoursOfShopUse)
-
+        let string = String(totalHoursOfShopUse)
+        let array = [Character](string.characters)
+        let mySubString = String("\(array[0])\(array[1])\(array[2])")
+        return mySubString
     }
 
     func hourlyTotalForThisMonth(contact: Contact, typeTitle: String) -> String {
-        var hourlyTotalForThisMonth = 0
+        var hourlyTotalForThisMonth = 0.0
         for shopUseHour in contact.shopUse! {
             if isDateInThisMonth(shopUseHour.signIn!!) && shopUseHour.type!!.title == typeTitle {
-                var shopUseInstance = Int(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut!!.timeIntervalSinceNow)
+                var shopUseInstance = Double(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut!!.timeIntervalSinceNow)
                 shopUseInstance = shopUseInstance/(60 * 60) * -1
                 hourlyTotalForThisMonth = hourlyTotalForThisMonth + shopUseInstance
             }
         }
-        return String(hourlyTotalForThisMonth)
+        let string = String(hourlyTotalForThisMonth)
+        let array = [Character](string.characters)
+        let mySubString = String("\(array[0])\(array[1])\(array[2])")
+        return mySubString
     }
     
     func hourlyTotalForLastMonth(contact: Contact, typeTitle: String) -> String {
-        var hourlyTotalForThisMonth = 0
+        var hourlyTotalForThisMonth = 0.0
         for shopUseHour in contact.shopUse! {
             if isDateInLastMonth(shopUseHour.signIn!!) && shopUseHour.type!!.title == typeTitle {
-                var shopUseInstance = Int(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut!!.timeIntervalSinceNow)
+                var shopUseInstance = Double(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut!!.timeIntervalSinceNow)
                 shopUseInstance = shopUseInstance/(60 * 60) * -1
                 hourlyTotalForThisMonth = hourlyTotalForThisMonth + shopUseInstance
             }
         }
-        return String(hourlyTotalForThisMonth)
+        let string = String(hourlyTotalForThisMonth)
+        let array = [Character](string.characters)
+        let mySubString = String("\(array[0])\(array[1])\(array[2])")
+        return mySubString
     }
 
     func isDateInThisMonth(date: NSDate) -> Bool {
@@ -247,7 +247,7 @@ class ShopUseLog: NSObject {
             stringData += String("\(dateFormator.stringFromDate(use.signIn!)), \(dateFormator.stringFromDate(use.signOut!)), \(firstName), \(lastName), \((type))" + "\r\n")
             }
         }
-        let fileName = getDocumentsDirectory().stringByAppendingPathComponent("ShopUseLog.txt")
+        let fileName = getDocumentsDirectory().stringByAppendingPathComponent("data.csv")
         do { try stringData.writeToFile(fileName, atomically: true, encoding: NSUTF8StringEncoding)
         } catch let error as NSError {
             print("Could not create file \(error)")
