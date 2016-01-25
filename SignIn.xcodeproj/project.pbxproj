@@ -13,6 +13,7 @@
 		4C0C13871A5070C00019A6B2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C0C13851A5070C00019A6B2 /* LaunchScreen.xib */; };
 		4C0C13931A5070C00019A6B2 /* SignInTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0C13921A5070C00019A6B2 /* SignInTests.m */; };
 		4C2FCA7A1B7D4C44001571E1 /* EditUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2FCA791B7D4C44001571E1 /* EditUserViewController.swift */; };
+		4C3602101C56D064004CB927 /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C36020F1C56D064004CB927 /* PasswordViewController.swift */; };
 		4C41FD6F1A81819B006456A6 /* AdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C41FD6E1A81819B006456A6 /* AdminViewController.swift */; };
 		4C41FD711A831F27006456A6 /* ShopUseLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C41FD701A831F27006456A6 /* ShopUseLog.swift */; };
 		4C591D801B7C1632001BEA74 /* MembershipLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C591D7F1B7C1632001BEA74 /* MembershipLog.swift */; };
@@ -71,6 +72,7 @@
 		4C0C13911A5070C00019A6B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C0C13921A5070C00019A6B2 /* SignInTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignInTests.m; sourceTree = "<group>"; };
 		4C2FCA791B7D4C44001571E1 /* EditUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditUserViewController.swift; sourceTree = "<group>"; };
+		4C36020F1C56D064004CB927 /* PasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PasswordViewController.swift; path = ../PasswordViewController.swift; sourceTree = "<group>"; };
 		4C41FD6E1A81819B006456A6 /* AdminViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminViewController.swift; sourceTree = "<group>"; };
 		4C41FD701A831F27006456A6 /* ShopUseLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopUseLog.swift; sourceTree = "<group>"; };
 		4C591D7F1B7C1632001BEA74 /* MembershipLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembershipLog.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				4C0C13771A5070BF0019A6B2 /* AppDelegate.h */,
 				4C0C13781A5070BF0019A6B2 /* AppDelegate.m */,
 				4CF657831B55D85A00FBB45E /* NewUserViewController.swift */,
+				4C36020F1C56D064004CB927 /* PasswordViewController.swift */,
 				4C9437B11C125E700047771C /* WaiverViewController.swift */,
 				4CEE0EF31C0D05AD0010C156 /* TypesViewController.swift */,
 				4CA6A0801BBC7EC100759754 /* MyAccountViewController.swift */,
@@ -357,6 +360,7 @@
 				4C7EC5251B8963F80057D1A9 /* ContactTableViewCell.swift in Sources */,
 				4C9437D01C1639540047771C /* MemberTypeViewController.swift in Sources */,
 				4CA6A0811BBC7EC100759754 /* MyAccountViewController.swift in Sources */,
+				4C3602101C56D064004CB927 /* PasswordViewController.swift in Sources */,
 				4CB1AEA91C0BC43C0098BCE6 /* Type+CoreDataProperties.swift in Sources */,
 				4C41FD711A831F27006456A6 /* ShopUseLog.swift in Sources */,
 				4CB1AEAA1C0BC43C0098BCE6 /* Type.swift in Sources */,

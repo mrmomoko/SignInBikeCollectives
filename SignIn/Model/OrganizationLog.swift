@@ -138,11 +138,10 @@ class  OrganizationLog: NSObject {
     //it will work only because i know the ID numbers for all the types
     
     func orgData() -> String {
-        let org = organizationLog.first
-        var orgData = (org?.name)! + ", " + (org?.emailAddress)!
-        orgData = orgData + ", " + (org?.saferSpaceAgreement)! + ", "
-        orgData = orgData + (org?.waiver)! + ", " + (org?.zipCode)!
-        //orgData = orgData
-        return orgData
+        var orgDataString = ""
+        if let org = organizationLog.first {
+            orgDataString = String("\(org.name!), \(org.emailAddress!), \(org.saferSpaceAgreement!), \(org.waiver!), \(org.zipCode!), \(org.founded!)")
+        }
+        return orgDataString
     }
 }

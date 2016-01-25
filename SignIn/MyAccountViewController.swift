@@ -8,8 +8,9 @@
 
 import Foundation
 import UIKit
+import MessageUI
 
-class MyAccountViewController : UITableViewController, SaferSpaceViewControllerDelegate, WaiverViewControllerDelegate, TypesViewControllerDelegate, MemberTypeViewControllerDelegate {
+class MyAccountViewController : UITableViewController, SaferSpaceViewControllerDelegate, WaiverViewControllerDelegate, TypesViewControllerDelegate, MemberTypeViewControllerDelegate, MFMailComposeViewControllerDelegate {
     
     let org = OrganizationLog().organizationLog.first
     
@@ -22,24 +23,24 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
     @IBOutlet weak var waiverText: UILabel!
     @IBOutlet weak var yesOrNoQuestion: UITextField!
 
-    func sendData(sender: AnyObject) {
-        let activityItems = [] //OrganizationLog().orgData()
-        let activityViewController = UIActivityViewController(activityItems: activityItems as [AnyObject], applicationActivities: nil)
-        activityViewController.excludedActivityTypes = [UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypePrint, UIActivityTypePostToFlickr, UIActivityTypePostToTencentWeibo, UIActivityTypeAddToReadingList]
-        presentViewController(activityViewController, animated: true, completion: nil)
-        
-        // Define completion handler
-        
-        activityViewController.completionWithItemsHandler = {activity, success, items, error in
-            if !success {
-                return
-            }
+    func sendData() {
+        let mailComposeViewController = MFMailComposeViewController()
+        mailComposeViewController.mailComposeDelegate = self
+        mailComposeViewController.setToRecipients(["analyst@bikefarm.org"])
+        mailComposeViewController.setSubject("Organization Data")
+        mailComposeViewController.setMessageBody(OrganizationLog().orgData(), isHTML: false)
+        navigationController?.presentViewController(mailComposeViewController, animated: true) {
         }
+    }
+    
+    // mailComposeDelegateMethods
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     override func viewDidLoad() {
         let rightBarButton = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "showSaveAlert")
-        let uploadButton = UIBarButtonItem(image: UIImage(named: "cloud"), style: .Plain, target: self, action: "")
+        let uploadButton = UIBarButtonItem(image: UIImage(named: "cloud"), style: .Plain, target: self, action: "sendData")
         uploadButton.imageInsets = UIEdgeInsetsMake(0, 10, 0, -10)
         self.navigationItem.rightBarButtonItems = [rightBarButton, uploadButton]
      }

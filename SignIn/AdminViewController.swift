@@ -4,8 +4,9 @@
 
 import Foundation
 import UIKit
+import MessageUI
 
-class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDelegate, UITabBarControllerDelegate, PersonDetailViewControllerDelegate {
+class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDelegate, UITabBarControllerDelegate, PersonDetailViewControllerDelegate, MFMailComposeViewControllerDelegate {
     
     var filteredContacts = [Contact]()
     let contactLog = ContactLog()
@@ -157,38 +158,23 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     
     func sendData(sender: AnyObject, dataType: String) {
         let fileName = getDocumentsDirectory().stringByAppendingPathComponent("data.csv")
-        let activityItem:NSURL = NSURL(fileURLWithPath:fileName)
-        var string = ""
-        do { try string = String(contentsOfURL: activityItem)
-            print(string)
-        } catch let error as NSError {
-            print("Could not create file \(error)")
-        }
-        let activityItems = [activityItem]
-        let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
-        activityVC.excludedActivityTypes = [UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypePrint, UIActivityTypePostToFlickr, UIActivityTypePostToTencentWeibo, UIActivityTypeAddToReadingList]
-        presentViewController(activityVC, animated: true, completion: nil)
-        
-        activityVC.completionWithItemsHandler = {activity, success, items, error in
-            if !success {
-                return
-            }
+        let activityItem : NSData = NSData(contentsOfFile: fileName)!
+        let mailComposeViewController = MFMailComposeViewController()
+        mailComposeViewController.mailComposeDelegate = self
+        mailComposeViewController.setToRecipients([(organizationLog.organizationLog.first?.emailAddress)!])
+        mailComposeViewController.setSubject("User Data")
+        mailComposeViewController.setMessageBody(dataType, isHTML: false)
+        mailComposeViewController.addAttachmentData(activityItem, mimeType: "csv", fileName: "UserData.csv")
+        navigationController?.presentViewController(mailComposeViewController, animated: true) {
         }
     }
     
-    func sendDataFile(sender: AnyObject, dataFile: NSData) {
-        let activityItems = [dataFile]
-        let activityViewController = UIActivityViewController(activityItems: activityItems as [AnyObject], applicationActivities: nil)
-        activityViewController.excludedActivityTypes = [UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypePrint, UIActivityTypePostToFlickr, UIActivityTypePostToTencentWeibo, UIActivityTypeAddToReadingList]
-        presentViewController(activityViewController, animated: true, completion: nil)
-        
-        activityViewController.completionWithItemsHandler = {activity, success, items, error in
-            if !success {
-                return
-            }
-        }
+    // mailComposeDelegateMethods
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    // file creator helper (from stackoverflow...)
     func getDocumentsDirectory() -> NSString {
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
         let documentsDirectory = paths[0]
@@ -218,7 +204,7 @@ extension AdminViewController {
             let membershipType = membership?.membershipType
             cell.titleLabel.text = title
             cell.detailLabel.text = membershipType // soon to be minutes of shopUse
-           // cell.time.text = ShopUseLog().timeOfCurrentShopUseForContact(contact)
+            cell.time.text = ShopUseLog().timeOfCurrentShopUseForContact(contact)
             cell.circleView.image = UIImage(named: "circle")
             cell.circleView.tintColor = contactLog.colourOfContact(contact)
             // add gesture recognizer

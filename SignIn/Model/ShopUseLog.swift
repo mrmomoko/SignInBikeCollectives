@@ -120,7 +120,12 @@ class ShopUseLog: NSObject {
         totalHoursOfShopUse = totalHoursOfShopUse/(60 * 60 * -1) - autoLogOut
         let string = String(totalHoursOfShopUse)
         let array = [Character](string.characters)
-        let mySubString = String("\(array[0])\(array[1])\(array[2])")
+        var mySubString = ""
+        if array.count == 3 {
+            mySubString = String("\(array[0])\(array[1])\(array[2])")
+        } else if array.count > 0 {
+            mySubString = String("\(array[0])")
+        }
         return mySubString
     }
     
