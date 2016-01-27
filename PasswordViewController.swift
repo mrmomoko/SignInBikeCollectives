@@ -31,17 +31,30 @@ class PasswordViewController: UIViewController {
             password.text = org!.password
         }
     }
+    
     func savePassword() {
         if password.text == confirmationPassword.text {
-        org!.password = password.text
-        OrganizationLog().saveOrg(org!)
-        delegate?.didAddPassword(self)
+            if founded.text!.characters.count > 0 {
+                org!.password = password.text
+                OrganizationLog().saveOrg(org!)
+                delegate?.didAddPassword(self)
+            } else {
+                sendFoundedAlert()
+            }
         } else {
-            
+            sendPasswordAlert()
         }
     }
     
     func sendPasswordAlert() {
-        
+        let alert = UIAlertController(title: "Your Password and Confirm password do not match", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func sendFoundedAlert() {
+        let alert = UIAlertController(title: "Please enter a year for Founded. This will be the answer to a security question in case you lose your password", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 }

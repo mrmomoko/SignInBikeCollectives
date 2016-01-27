@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import MessageUI
 
-class MyAccountViewController : UITableViewController, SaferSpaceViewControllerDelegate, WaiverViewControllerDelegate, TypesViewControllerDelegate, MemberTypeViewControllerDelegate, MFMailComposeViewControllerDelegate {
+class MyAccountViewController : UITableViewController, SaferSpaceViewControllerDelegate, WaiverViewControllerDelegate, TypesViewControllerDelegate, MemberTypeViewControllerDelegate, PasswordViewControllerDelegate, MFMailComposeViewControllerDelegate {
     
     let org = OrganizationLog().organizationLog.first
     
@@ -52,7 +52,8 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
         
         name.text = org!.name
         emailAddress.text = org!.emailAddress
-        password.text = org!.password
+        zipCode.text = org!.zipCode
+        defaultSignOut.text = String((org!.defaultSignOutTime)!)
         yesOrNoQuestion.text = org!.yesOrNoQuestion
         saferSpaceText.text = org?.saferSpaceAgreement
         waiverText.text = org?.waiver
@@ -81,6 +82,11 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
             vc.delegate = self
             vc.org = org
         }
+        if segueIdentifier == "Password Segue" {
+            let vc = segue.destinationViewController as! PasswordViewController
+            vc.delegate = self
+            vc.org = org
+        }
     }
     
     func dismissKeyboard() {
@@ -90,7 +96,8 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
     func showSaveAlert() {
         org!.name = name.text
         org!.emailAddress = emailAddress.text
-        org!.password = password.text
+        org!.zipCode = zipCode.text
+        org!.defaultSignOutTime = Int(defaultSignOut.text!)
         org!.yesOrNoQuestion = yesOrNoQuestion.text
 
         OrganizationLog().saveOrg(org!)
@@ -112,6 +119,10 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
     }
     
     func didSaveMemberType(sender: MemberTypeViewController) {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    func didAddPassword(sender: PasswordViewController) {
         self.navigationController?.popViewControllerAnimated(true)
     }
 }

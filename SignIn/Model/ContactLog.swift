@@ -100,6 +100,14 @@ class ContactLog: NSObject {
         }
     }
     
+    func refreshContactMembershipData() {
+        for contact in allContacts {
+            if contact.membership?.membershipExpiration.timeIntervalSinceNow < 0 {
+                contact.membership?.membershipType = "Non Member"
+            }
+        }
+    }
+
     // Contact Filters - possibly a category
 
     func recentContactsWhoAreNotLoggedIn() -> [Contact] {
@@ -222,13 +230,7 @@ class ContactLog: NSObject {
         contact.colour = colour.rawValue
     }
     
-    func refreshContactMembershipData() {
-        for contact in allContacts {
-            if contact.membership?.membershipExpiration.timeIntervalSinceNow < 0 {
-                contact.membership?.membershipType = "Non Member"
-            }
-        }
-    }
+    // helpers for Types 
     
     func typesUsedByContact(contact: Contact) -> [String] {
         var stringTypes = [String]()

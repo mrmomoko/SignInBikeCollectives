@@ -40,13 +40,14 @@ class ShopUseLog: NSObject {
         let shopUse = ShopUse(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
 
         shopUse.signIn = NSDate()
-        let autoLogOut = NSTimeInterval((OrganizationLog().organizationLog.first?.defaultSignOutTime)!)
-        shopUse.signOut = NSDate().dateByAddingTimeInterval(2*60*autoLogOut)
+        let org = OrganizationLog().organizationLog.first
+        let autoLogOut = NSTimeInterval((org!.defaultSignOutTime)!)
+        shopUse.signOut = NSDate().dateByAddingTimeInterval(60*60*autoLogOut)
         shopUse.type = TypeLog().getType(id)
 
         shopUse.contact = contact
-        shopUse.contact!.recentUse = shopUse.signOut
-        shopUse.contact!.recentUseType = "shopUse"
+        shopUse.contact!.recentUse = NSDate()
+//        shopUse.contact!.recentUseType = "shopUse"
         ContactLog().saveContact(contact)
 
         var error: NSError?
@@ -59,12 +60,13 @@ class ShopUseLog: NSObject {
     }
     
     func signOutContact(contact: Contact) {
-        // Get the most recent shopUse
-        let use = ShopUseLog().getMostRecentShopUseForContact(contact)
-        // Set the signOut to now
-        use.signOut = NSDate()
-        // reset the recentUse time
-        contact.recentUse = NSDate()
+        // Get the most recent shopUse if there is one
+        if let use = ShopUseLog().getMostRecentShopUseForContact(contact) {
+            // Set the signOut to now
+            use.signOut = NSDate()
+            // reset the recentUse time
+            contact.recentUse = NSDate()
+        }
     }
 
     func getShopUsesForContact(contact: Contact) -> [ShopUse] {
@@ -85,7 +87,7 @@ class ShopUseLog: NSObject {
         return log
     }
     
-    func getMostRecentShopUseForContact(contact: Contact) -> ShopUse {
+    func getMostRecentShopUseForContact(contact: Contact) -> ShopUse? {
         var log = [ShopUse]()
         let FetchRequest = NSFetchRequest(entityName: "ShopUse")
         let predicate = NSPredicate(format: "signOut == %@", contact.recentUse!)
@@ -98,9 +100,11 @@ class ShopUseLog: NSObject {
         } catch let error as NSError {
             print("Could not fetch \(error)")
         }
-        // this breaks when you try to logout someone who is not logged in, 
-        // which you can do from the admin members or volunteers filter
-        return log[0]
+        if log.count > 0 {
+            return log[0]
+        } else {
+            return nil
+        }
     }
     
     func loggedInContacts() -> [Contact] {
@@ -115,15 +119,16 @@ class ShopUseLog: NSObject {
     }
     
     func timeOfCurrentShopUseForContact(contact: Contact) -> String {
-        var totalHoursOfShopUse = Double(contact.recentUse!.timeIntervalSinceNow - NSDate().timeIntervalSinceNow)
-        let autoLogOut = NSTimeInterval((OrganizationLog().organizationLog.first?.defaultSignOutTime)!)
-        totalHoursOfShopUse = totalHoursOfShopUse/(60 * 60 * -1) - autoLogOut
-        let string = String(totalHoursOfShopUse)
+        let recentUse = Double(contact.recentUse!.timeIntervalSinceNow)/(60*60)
+        let org = OrganizationLog().organizationLog.first
+        let autoLogOut = Double(org!.defaultSignOutTime!)
+        let recordedTime = autoLogOut - recentUse
+        let string = String(recordedTime)
         let array = [Character](string.characters)
         var mySubString = ""
-        if array.count == 3 {
+        if array.count > 2 {
             mySubString = String("\(array[0])\(array[1])\(array[2])")
-        } else if array.count > 0 {
+        } else if array.count > 0  {
             mySubString = String("\(array[0])")
         }
         return mySubString

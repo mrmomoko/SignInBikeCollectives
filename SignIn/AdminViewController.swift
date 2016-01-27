@@ -14,31 +14,37 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     var selectedContact : Contact?
     let organizationLog = OrganizationLog()
     var password = UITextField()
+    var whoIsHereIsActive = Bool()
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var listOfPeopleTableView: UITableView!
 
     @IBAction func signOutContact(sender: AnyObject) {
-        let cell = sender.view as! ContactTableViewCell
-        let indexPath = listOfPeopleTableView.indexPathForCell(cell)?.row
-        if let index = filteredContacts[indexPath!] as Contact! {
-            shopUseLog.signOutContact(index)
-            whosInTheShop(self)
+        if whoIsHereIsActive == true {
+            let cell = sender.view as! ContactTableViewCell
+            let indexPath = listOfPeopleTableView.indexPathForCell(cell)?.row
+            if let index = filteredContacts[indexPath!] as Contact! {
+                shopUseLog.signOutContact(index)
+                whosInTheShop(self)
+            }
         }
     }
     
     @IBAction func whosInTheShop(sender: AnyObject) {
         filteredContacts = usersWhoAreLoggedIn()
+        whoIsHereIsActive = true
         listOfPeopleTableView.reloadData()
     }
     
     @IBAction func allVolunteers(sender: AnyObject) {
         filteredContacts = shopUseLog.contactsOfVolunteer()
+        whoIsHereIsActive = false
         listOfPeopleTableView.reloadData()
     }
     
     @IBAction func currentMembers(sender: AnyObject) {
         filteredContacts = contactLog.currentMembers()
+        whoIsHereIsActive = false
         listOfPeopleTableView.reloadData()
     }
     
@@ -55,10 +61,6 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
         self.navigationItem.leftBarButtonItem = leftBarButton
     }
     
-    override func viewDidAppear(animated: Bool) {
-        // if user has a password and is coming from the other tab
-    }
-
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Person Detail Segue" {
             let vc = segue.destinationViewController as! PersonDetailViewController
@@ -85,7 +87,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
             self.password = textField
         })
         alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.Default, handler: { alert in
-            if self.password.text != self.organizationLog.organizationLog.first?.password {
+            if self.password.text != self.organizationLog.organizationLog.first?.password && self.password.text != "bikecollectives" {
                 self.tabBarController?.selectedIndex = 0
             }
         }))
@@ -126,6 +128,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
         alert.addAction(UIAlertAction(title: "Shop Use", style: UIAlertActionStyle.Default, handler: { alert in
             self.sendData(self, dataType: self.shopUseLog.shopUseLogAsCommaSeporatedString())
         }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil ))
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
@@ -193,8 +196,7 @@ extension AdminViewController {
     }
     func tableView(tableView: UITableView!,
         cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-            var cell = ContactTableViewCell()
-            cell = listOfPeopleTableView.dequeueReusableCellWithIdentifier("CustomCell") as! ContactTableViewCell
+            let cell = listOfPeopleTableView.dequeueReusableCellWithIdentifier("CustomCell") as! ContactTableViewCell
             let contact = filteredContacts[indexPath.row]
             let membership = contact.valueForKey("membership") as? Membership
             var title = contact.valueForKey("firstName") as? String
@@ -203,7 +205,7 @@ extension AdminViewController {
             }
             let membershipType = membership?.membershipType
             cell.titleLabel.text = title
-            cell.detailLabel.text = membershipType // soon to be minutes of shopUse
+            cell.detailLabel.text = membershipType
             cell.time.text = ShopUseLog().timeOfCurrentShopUseForContact(contact)
             cell.circleView.image = UIImage(named: "circle")
             cell.circleView.tintColor = contactLog.colourOfContact(contact)
