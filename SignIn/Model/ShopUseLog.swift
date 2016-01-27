@@ -46,8 +46,7 @@ class ShopUseLog: NSObject {
         shopUse.type = TypeLog().getType(id)
 
         shopUse.contact = contact
-        shopUse.contact!.recentUse = NSDate()
-//        shopUse.contact!.recentUseType = "shopUse"
+        shopUse.contact!.recentUse = shopUse.signOut
         ContactLog().saveContact(contact)
 
         var error: NSError?
@@ -65,7 +64,7 @@ class ShopUseLog: NSObject {
             // Set the signOut to now
             use.signOut = NSDate()
             // reset the recentUse time
-            contact.recentUse = NSDate()
+            contact.recentUse = use.signOut
         }
     }
 
@@ -82,27 +81,16 @@ class ShopUseLog: NSObject {
         } catch let error as NSError {
             print("Could not fetch \(error)")
         }
-        // this breaks when you try to logout someone who is not logged in,
-        // which you can do from the admin members or volunteers filter
         return log
     }
     
     func getMostRecentShopUseForContact(contact: Contact) -> ShopUse? {
-        var log = [ShopUse]()
-        let FetchRequest = NSFetchRequest(entityName: "ShopUse")
-        let predicate = NSPredicate(format: "signOut == %@", contact.recentUse!)
-        FetchRequest.predicate = predicate
-        do { if let FetchedResults = try managedObjectContext.executeFetchRequest(FetchRequest) as? [ShopUse] {
-            log = FetchedResults }
-        else {
-            assertionFailure("Could not executeFetchRequest")
-            }
-        } catch let error as NSError {
-            print("Could not fetch \(error)")
-        }
+        var log = getShopUsesForContact(contact)
+        log.sortInPlace({ $0.signIn!.timeIntervalSinceNow > $1.signIn!.timeIntervalSinceNow})
         if log.count > 0 {
             return log[0]
         } else {
+            // this will crash the app,
             return nil
         }
     }
@@ -119,17 +107,17 @@ class ShopUseLog: NSObject {
     }
     
     func timeOfCurrentShopUseForContact(contact: Contact) -> String {
-        let recentUse = Double(contact.recentUse!.timeIntervalSinceNow)/(60*60)
-        let org = OrganizationLog().organizationLog.first
-        let autoLogOut = Double(org!.defaultSignOutTime!)
-        let recordedTime = autoLogOut - recentUse
-        let string = String(recordedTime)
-        let array = [Character](string.characters)
+        let recentUse = getMostRecentShopUseForContact(contact)
+        let signIn = -1 * recentUse!.signIn!.timeIntervalSinceNow/(60*60)
         var mySubString = ""
-        if array.count > 2 {
-            mySubString = String("\(array[0])\(array[1])\(array[2])")
-        } else if array.count > 0  {
-            mySubString = String("\(array[0])")
+        if recentUse?.signOut!.timeIntervalSinceNow > 0 {
+            let string = String(signIn)
+            let array = [Character](string.characters)
+                if array.count > 2 {
+                    mySubString = String("\(array[0])\(array[1])\(array[2])")
+                } else if array.count == 1  {
+                    mySubString = String("\(array[0])")
+                }
         }
         return mySubString
     }
@@ -143,6 +131,7 @@ class ShopUseLog: NSObject {
             }
         }
         totalHoursOfShopUse = totalHoursOfShopUse/(60 * 60) * -1
+        totalHoursOfShopUse = totalHoursOfShopUse - Double(timeOfCurrentShopUseForContact(contact))!
         let string = String(totalHoursOfShopUse)
         let array = [Character](string.characters)
         let mySubString = String("\(array[0])\(array[1])\(array[2])")
@@ -158,6 +147,7 @@ class ShopUseLog: NSObject {
                 hourlyTotalForThisMonth = hourlyTotalForThisMonth + shopUseInstance
             }
         }
+        hourlyTotalForThisMonth = hourlyTotalForThisMonth - Double(timeOfCurrentShopUseForContact(contact))!
         let string = String(hourlyTotalForThisMonth)
         let array = [Character](string.characters)
         let mySubString = String("\(array[0])\(array[1])\(array[2])")
@@ -248,7 +238,7 @@ class ShopUseLog: NSObject {
     }
     
     func shopUseLogAsCommaSeporatedString() -> String {
-        var stringData = "SignIn, SignOut, Contact First Name, Last Name, Type"  + "\r\n"
+        var stringData = "SignIn,, SignOut,, Contact First Name, Last Name, Type"  + "\r\n"
         let dateFormator = NSDateFormatter()
         dateFormator.dateStyle = .ShortStyle
         dateFormator.timeStyle = .ShortStyle

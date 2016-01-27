@@ -21,9 +21,6 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
     
     required init?(coder aDecoder: NSCoder) {
         filteredLog = contactLog.allContacts
-        if !orgLog.currentOrganization().doesTheOrgExist {
-            orgLog.createOrganizationWithDefaultValues()
-        }
         super.init(coder: aDecoder)
         self.tabBarController?.delegate = self
     }
@@ -107,7 +104,7 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
     }
     
     func _searchContactsWithSubstring(substring: String) {
-        let fullContactList = contactLog.recentContactsWhoAreNotLoggedIn()
+        let fullContactList = ContactLog().recentContactsWhoAreNotLoggedIn()
         let predicate = NSPredicate(format: "firstName BEGINSWITH[cd] %@ OR lastName BEGINSWITH[cd] %@ OR pin BEGINSWITH[cd] %@ OR emailAddress BEGINSWITH[cd] %@", substring, substring, substring, substring)
         filteredLog = (fullContactList as NSArray).filteredArrayUsingPredicate(predicate) as! [Contact]
         if filteredLog == [] {filteredLog = fullContactList}
@@ -132,7 +129,9 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
                 let alert = UIAlertController(title: "SaferSpace", message: saferSpace, preferredStyle: .Alert)
                 let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
                 alert.addAction(cancel)
-                let agree = UIAlertAction(title: "I Agree", style: .Default, handler: { alert in self.performSegueWithIdentifier("Thank You", sender: self)})
+                let agree = UIAlertAction(title: "I Agree", style: .Default, handler: { alert in self.performSegueWithIdentifier("Thank You", sender: self)
+                    self.currentContact.hasGoneThroughSetUp = true
+                })
                 alert.addAction(agree)
                 presentViewController(alert, animated: true, completion: nil)
             }

@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 @import UIKit;
+#import "SignIn-Swift.h"
 
 @interface AppDelegate ()
 
@@ -19,7 +20,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [self.window setTintColor:[UIColor colorWithRed:0.1 green: 0.65 blue: 0.75 alpha:1.0]];
-    
     return YES;
 }
 

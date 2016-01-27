@@ -26,6 +26,9 @@ class  OrganizationLog: NSObject {
         } catch let error as NSError {
             print("Could not fetch \(error)")
         }
+        if organizationLog.count == 0 {
+            createOrganizationWithDefaultValues()
+        }
     }
     
     func createOrganizationWithDefaultValues() {
@@ -33,6 +36,7 @@ class  OrganizationLog: NSObject {
         
         let org = Organization(entity: entity!,  insertIntoManagedObjectContext: managedObjectContext)
         
+        organizationLog = [org]
         //set default behaviour for organization
         org.defaultSignOutTime = 4
         org.saferSpaceAgreement = ""

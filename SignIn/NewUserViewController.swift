@@ -29,10 +29,10 @@ class NewUserViewController: UIViewController, UICollectionViewDelegateFlowLayou
             showAlertForIncompleteForm()
         } else {
         // set the contacts properties
-        contact!.firstName = firstName.text!
-        contact!.lastName = lastName.text!
-        contact!.emailAddress = email.text!
-        contact!.pin = pin.text!
+            contact!.firstName = firstName.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        contact!.lastName = lastName.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        contact!.emailAddress = email.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        contact!.pin = pin.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         contact!.yesOrNoQuestion = permissionToEmail.on
 
         // save contact

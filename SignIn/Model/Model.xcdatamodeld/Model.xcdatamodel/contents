@@ -8,7 +8,6 @@
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pin" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="recentUse" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="recentUseType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="yesOrNoQuestion" optional="YES" attributeType="Boolean" syncable="YES"/>
         <relationship name="membership" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Membership" inverseName="contact" inverseEntity="Membership" syncable="YES"/>
         <relationship name="mostRecentType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Type" inverseName="contact" inverseEntity="Type" syncable="YES"/>
@@ -49,7 +48,7 @@
         <relationship name="shopUse" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ShopUse" inverseName="type" inverseEntity="ShopUse" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Contact" positionX="-578" positionY="-270" width="128" height="223"/>
+        <element name="Contact" positionX="-578" positionY="-270" width="128" height="210"/>
         <element name="Membership" positionX="-243" positionY="-297" width="128" height="88"/>
         <element name="Organization" positionX="-828" positionY="-297" width="128" height="225"/>
         <element name="ShopUse" positionX="-297" positionY="50" width="128" height="103"/>

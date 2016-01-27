@@ -43,12 +43,6 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
         let uploadButton = UIBarButtonItem(image: UIImage(named: "cloud"), style: .Plain, target: self, action: "sendData")
         uploadButton.imageInsets = UIEdgeInsetsMake(0, 10, 0, -10)
         self.navigationItem.rightBarButtonItems = [rightBarButton, uploadButton]
-     }
-    
-    override func viewDidAppear(animated: Bool) {
-        let tap = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
-        view.addGestureRecognizer(tap)
-        tap.cancelsTouchesInView = false
         
         name.text = org!.name
         emailAddress.text = org!.emailAddress
@@ -57,6 +51,13 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
         yesOrNoQuestion.text = org!.yesOrNoQuestion
         saferSpaceText.text = org?.saferSpaceAgreement
         waiverText.text = org?.waiver
+
+     }
+    
+    override func viewDidAppear(animated: Bool) {
+        let tap = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        view.addGestureRecognizer(tap)
+        tap.cancelsTouchesInView = false
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -94,11 +95,11 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
     }
     
     func showSaveAlert() {
-        org!.name = name.text
-        org!.emailAddress = emailAddress.text
-        org!.zipCode = zipCode.text
+        org!.name = name.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        org!.emailAddress = emailAddress.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        org!.zipCode = zipCode.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         org!.defaultSignOutTime = Int(defaultSignOut.text!)
-        org!.yesOrNoQuestion = yesOrNoQuestion.text
+        org!.yesOrNoQuestion = yesOrNoQuestion.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 
         OrganizationLog().saveOrg(org!)
     }

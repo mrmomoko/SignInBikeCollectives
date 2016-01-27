@@ -36,11 +36,11 @@ class EditUserViewController: UIViewController, UITableViewDelegate {
             showAlertForIncompleteForm()
         } else {
             // set the contacts properties
-            contact!.firstName = firstName.text!
-            contact!.lastName = lastName.text!
-            contact!.emailAddress = email.text!
+            contact!.firstName = firstName.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            contact!.lastName = lastName.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            contact!.emailAddress = email.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
             contact!.yesOrNoQuestion = yesOrNoSwitch.on
-            contact!.pin = pin.text!
+            contact!.pin = pin.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
             
             // save contact
             contactLog.saveContact(contact!)

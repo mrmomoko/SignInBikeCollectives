@@ -16,6 +16,10 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     var password = UITextField()
     var whoIsHereIsActive = Bool()
     
+    @IBOutlet weak var whosHere: UIButton!
+    @IBOutlet weak var members: UIButton!
+    @IBOutlet weak var volunteers: UIButton!
+    
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var listOfPeopleTableView: UITableView!
 
@@ -33,19 +37,49 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     @IBAction func whosInTheShop(sender: AnyObject) {
         filteredContacts = usersWhoAreLoggedIn()
         whoIsHereIsActive = true
+        let whos = "Who's here"
+        let mem = "Members"
+        let vol = "Volunteers"
+        addAttributeToText(whos, button: whosHere)
+        removeAttributeForButton(mem, button: members)
+        removeAttributeForButton(vol, button: volunteers)
         listOfPeopleTableView.reloadData()
+        
     }
     
     @IBAction func allVolunteers(sender: AnyObject) {
         filteredContacts = shopUseLog.contactsOfVolunteer()
         whoIsHereIsActive = false
+        let whos = "Who's here"
+        let mem = "Members"
+        let vol = "Volunteers"
+        addAttributeToText(vol, button: volunteers)
+        removeAttributeForButton(mem, button: members)
+        removeAttributeForButton(whos, button: whosHere)
         listOfPeopleTableView.reloadData()
     }
     
     @IBAction func currentMembers(sender: AnyObject) {
         filteredContacts = contactLog.currentMembers()
         whoIsHereIsActive = false
+        let whos = "Who's here"
+        let mem = "Members"
+        let vol = "Volunteers"
+        addAttributeToText(mem, button: members)
+        removeAttributeForButton(vol, button: volunteers)
+        removeAttributeForButton(whos, button: whosHere)
         listOfPeopleTableView.reloadData()
+    }
+    
+    func addAttributeToText(text: String, button: UIButton) {
+        let textRange = NSMakeRange(0, text.characters.count)
+        let attributedText = NSMutableAttributedString(string: text)
+        attributedText.addAttribute(NSUnderlineStyleAttributeName , value:NSUnderlineStyle.StyleSingle.rawValue, range: textRange)
+        button.titleLabel?.attributedText = attributedText
+    }
+    
+    func removeAttributeForButton(text: String, button: UIButton) {
+        button.titleLabel?.text = text
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -54,11 +88,16 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     }
     
     override func viewDidLoad() {
-        filteredContacts = usersWhoAreLoggedIn()
+        whosInTheShop(self)
         let rightBarButton = UIBarButtonItem(image: UIImage(named: "email"), style: .Plain, target: self, action: "showFilterAlert")
         let leftBarButton = UIBarButtonItem(image: UIImage(named: "myAccount"), style: .Plain, target: self, action: "showMyAccountViewController")
         self.navigationItem.rightBarButtonItem = rightBarButton
         self.navigationItem.leftBarButtonItem = leftBarButton
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        whosInTheShop(self)
+        super.viewDidAppear(animated)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
