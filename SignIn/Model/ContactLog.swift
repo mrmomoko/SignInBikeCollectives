@@ -248,4 +248,11 @@ class ContactLog: NSObject {
         }
         return stringTypes
     }
+    
+    func mostRecentShopUseTime(contact: Contact) -> Double {
+        let shopUse = ShopUseLog().getMostRecentShopUseForContact(contact)
+        var time = (shopUse!.signOut?.timeIntervalSinceNow)! - (shopUse!.signIn?.timeIntervalSinceNow)!
+        time = -1 * time/(60*60)
+        return time
+    }
 }

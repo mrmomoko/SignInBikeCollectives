@@ -131,7 +131,10 @@ class ShopUseLog: NSObject {
             }
         }
         totalHoursOfShopUse = totalHoursOfShopUse/(60 * 60) * -1
-        totalHoursOfShopUse = totalHoursOfShopUse - Double(timeOfCurrentShopUseForContact(contact))!
+        // if the contact is logged in, the subtract the time of their current shop use
+        if contact.recentUse?.timeIntervalSinceNow > 0 {
+            totalHoursOfShopUse = totalHoursOfShopUse - ContactLog().mostRecentShopUseTime(contact)
+        }
         let string = String(totalHoursOfShopUse)
         let array = [Character](string.characters)
         let mySubString = String("\(array[0])\(array[1])\(array[2])")
@@ -147,7 +150,9 @@ class ShopUseLog: NSObject {
                 hourlyTotalForThisMonth = hourlyTotalForThisMonth + shopUseInstance
             }
         }
-        hourlyTotalForThisMonth = hourlyTotalForThisMonth - Double(timeOfCurrentShopUseForContact(contact))!
+        if let number = Double(timeOfCurrentShopUseForContact(contact)) {
+            hourlyTotalForThisMonth = hourlyTotalForThisMonth - number
+        }
         let string = String(hourlyTotalForThisMonth)
         let array = [Character](string.characters)
         let mySubString = String("\(array[0])\(array[1])\(array[2])")
