@@ -66,22 +66,6 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SignIn/Model/ShopUseLog.swift"
-            timestampString = "475613266.760361"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
-            landmarkName = "getMostRecentShopUseForContact(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SignIn/Model/ShopUseLog.swift"
             timestampString = "475629343.448047"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
@@ -104,6 +88,22 @@
             startingLineNumber = "28"
             endingLineNumber = "28"
             landmarkName = "deleteShopUsesForContact(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SignIn/Model/ShopUseLog.swift"
+            timestampString = "475714602.662677"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "getMostRecentShopUseForContact(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

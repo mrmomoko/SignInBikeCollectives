@@ -58,6 +58,21 @@ class ShopUseLog: NSObject {
         }
     }
     
+    func getShopUseLog() -> [ShopUse] {
+        shopUseLog = []
+        let fetchRequest = NSFetchRequest(entityName: "ShopUse")
+        
+        do { if let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as? [ShopUse] {
+            shopUseLog = fetchedResults}
+        else {
+            assertionFailure("Could not executeFetchRequest")
+            }
+        } catch let error as NSError {
+            print("Could not fetch \(error)")
+        }
+        return shopUseLog
+    }
+    
     func signOutContact(contact: Contact) {
         // Get the most recent shopUse if there is one
         if let use = ShopUseLog().getMostRecentShopUseForContact(contact) {
@@ -86,13 +101,14 @@ class ShopUseLog: NSObject {
     
     func getMostRecentShopUseForContact(contact: Contact) -> ShopUse? {
         var log = getShopUsesForContact(contact)
-        log.sortInPlace({ $0.signIn!.timeIntervalSinceNow > $1.signIn!.timeIntervalSinceNow})
-        if log.count > 0 {
-            return log[0]
-        } else {
-            // this will crash the app,
-            return nil
+        if log.count < 1 {
+            // if somehow, there are no shopUses for the contact, 
+            // then create one, and make note of this!
+            createShopUseWithContact(contact, id: 1)
         }
+        log.sortInPlace({ $0.signIn!.timeIntervalSinceNow > $1.signIn!.timeIntervalSinceNow})
+        return log[0]
+            
     }
     
     func loggedInContacts() -> [Contact] {
@@ -111,52 +127,72 @@ class ShopUseLog: NSObject {
         let signIn = -1 * recentUse!.signIn!.timeIntervalSinceNow/(60*60)
         var mySubString = ""
         if recentUse?.signOut!.timeIntervalSinceNow > 0 {
-            let string = String(signIn)
-            let array = [Character](string.characters)
-                if array.count > 2 {
-                    mySubString = String("\(array[0])\(array[1])\(array[2])")
-                } else if array.count == 1  {
-                    mySubString = String("\(array[0])")
-                }
+            mySubString = String(format: "%.1f", signIn)
         }
         return mySubString
     }
     
     func numberOfHoursLoggedByContact(contact: Contact, typeTitle: String) -> String {
         var totalHoursOfShopUse = 0.0
+        
+        //get all the shopUses of a certian type
+        // the sign in will be a large negative number
+        // the signout will be a slightly smaller negative number, unless the user is not logged out, then it will be a positive number
+        //subtract the signIn from the sign in
+        
+        // maybe i should first determin if they are logged in or out?
+        // if out, then it's simple. 
+        // if in, we have to remove the most recent shop use from the equation, 
+        // in the past, i subtracted the total, then added back the current time,
+        
+        // but what happens when you're logged in, and you log out, and then you log back in as a different type, it shows up negative.
+        
+        // how can I know the request is for the hourly time is for the type that the user is logged in for?
         for shopUseHour in contact.shopUse! {
             if shopUseHour.type!!.title! == typeTitle {
-                let shopUseInstance = Double(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut!!.timeIntervalSinceNow)
+                let shopUseInstance = timeIntervalBetweenTwoDates(shopUseHour.signIn!!,date2:  shopUseHour.signOut!!)
                 totalHoursOfShopUse = totalHoursOfShopUse + shopUseInstance
             }
         }
-        totalHoursOfShopUse = totalHoursOfShopUse/(60 * 60) * -1
-        // if the contact is logged in, the subtract the time of their current shop use
+        
+        totalHoursOfShopUse = totalHoursOfShopUse/(60*60)
+
+        // if user is logged in
         if contact.recentUse?.timeIntervalSinceNow > 0 {
-            totalHoursOfShopUse = totalHoursOfShopUse - ContactLog().mostRecentShopUseTime(contact)
+            let lastShopUse = getMostRecentShopUseForContact(contact)
+            if typeTitle == lastShopUse?.type?.title {
+            let totalTimeOfLastShopUse = timeIntervalBetweenTwoDates((lastShopUse?.signIn)!, date2: (lastShopUse?.signOut)!)/(60*60)
+            totalHoursOfShopUse = totalHoursOfShopUse - totalTimeOfLastShopUse + Double(timeOfCurrentShopUseForContact(contact))!
+            }
         }
-        let string = String(totalHoursOfShopUse)
-        let array = [Character](string.characters)
-        let mySubString = String("\(array[0])\(array[1])\(array[2])")
-        return mySubString
+        return String(format: "%.1f", totalHoursOfShopUse)
+   }
+
+    func timeIntervalBetweenTwoDates(date1: NSDate, date2: NSDate) -> Double {
+        return Double(-1 * date1.timeIntervalSinceNow + date2.timeIntervalSinceNow)
     }
 
     func hourlyTotalForThisMonth(contact: Contact, typeTitle: String) -> String {
-        var hourlyTotalForThisMonth = 0.0
+        var totalHoursOfShopUse = 0.0
         for shopUseHour in contact.shopUse! {
             if isDateInThisMonth(shopUseHour.signIn!!) && shopUseHour.type!!.title == typeTitle {
-                var shopUseInstance = Double(shopUseHour.signIn!!.timeIntervalSinceNow - shopUseHour.signOut!!.timeIntervalSinceNow)
-                shopUseInstance = shopUseInstance/(60 * 60) * -1
-                hourlyTotalForThisMonth = hourlyTotalForThisMonth + shopUseInstance
+                let shopUseInstance = timeIntervalBetweenTwoDates(shopUseHour.signIn!!,date2:  shopUseHour.signOut!!)
+                totalHoursOfShopUse = totalHoursOfShopUse + shopUseInstance
             }
         }
-        if let number = Double(timeOfCurrentShopUseForContact(contact)) {
-            hourlyTotalForThisMonth = hourlyTotalForThisMonth - number
+        
+        totalHoursOfShopUse = totalHoursOfShopUse/(60*60)
+        
+        // if user is logged in
+        if contact.recentUse?.timeIntervalSinceNow > 0 {
+            let lastShopUse = getMostRecentShopUseForContact(contact)
+            if typeTitle == lastShopUse?.type?.title {
+            let totalTimeOfLastShopUse = timeIntervalBetweenTwoDates((lastShopUse?.signIn)!, date2: (lastShopUse?.signOut)!)/(60*60)
+            let time = Double(timeOfCurrentShopUseForContact(contact))!
+            totalHoursOfShopUse = totalHoursOfShopUse - totalTimeOfLastShopUse + time
+            }
         }
-        let string = String(hourlyTotalForThisMonth)
-        let array = [Character](string.characters)
-        let mySubString = String("\(array[0])\(array[1])\(array[2])")
-        return mySubString
+        return String(format: "%.1f", totalHoursOfShopUse)
     }
     
     func hourlyTotalForLastMonth(contact: Contact, typeTitle: String) -> String {
@@ -168,12 +204,15 @@ class ShopUseLog: NSObject {
                 hourlyTotalForThisMonth = hourlyTotalForThisMonth + shopUseInstance
             }
         }
-        let string = String(hourlyTotalForThisMonth)
-        let array = [Character](string.characters)
-        let mySubString = String("\(array[0])\(array[1])\(array[2])")
-        return mySubString
+        return String(format: "%.1f", hourlyTotalForThisMonth)
     }
 
+//    func formateNumberTo3Characters(number: Double) -> String {
+//        let array = [Character](string.characters)
+//        let mySubString = String("\(array[0])\(array[1])\(array[2])")
+//        return mySubString
+//    }
+    
     func isDateInThisMonth(date: NSDate) -> Bool {
         var bool = true
         let calendar = NSCalendar.currentCalendar()
@@ -200,23 +239,23 @@ class ShopUseLog: NSObject {
         return bool
     }
     
-    func contactsOfVolunteers() -> [Contact] {
-        var contacts = [Contact]()
-        // this is ugly, can i make it better?
-        // fetchrequest! nope, that's worse
-        let allContacts = ContactLog().allContacts
-        // creates duplicates...
-        for contact in allContacts {
-            if contact.shopUse!.count > 0 {
-                for use in contact.shopUse! {
-                    if use.type!!.title! == "Volunteer" {
-                        contacts.append(contact)
-                    }
-                }
-            }
-        }
-        return contacts
-    }
+//    func contactsOfVolunteers() -> [Contact] {
+//        var contacts = [Contact]()
+//        // this is ugly, can i make it better?
+//        // fetchrequest! nope, that's worse
+//        let allContacts = ContactLog().allContacts
+//        // creates duplicates...
+//        for contact in allContacts {
+//            if contact.shopUse!.count > 0 {
+//                for use in contact.shopUse! {
+//                    if use.type!!.title! == "Volunteer" {
+//                        contacts.append(contact)
+//                    }
+//                }
+//            }
+//        }
+//        return contacts
+//    }
     
     func contactsOfVolunteer() -> [Contact] {
         var contacts = [Contact]()
@@ -247,7 +286,7 @@ class ShopUseLog: NSObject {
         let dateFormator = NSDateFormatter()
         dateFormator.dateStyle = .ShortStyle
         dateFormator.timeStyle = .ShortStyle
-        for use in shopUseLog {
+        for use in getShopUseLog() {
             if let firstName = use.contact?.firstName!, let lastName = use.contact?.lastName!, let type = use.type?.title! {
             stringData += String("\(dateFormator.stringFromDate(use.signIn!)), \(dateFormator.stringFromDate(use.signOut!)), \(firstName), \(lastName), \((type))" + "\r\n")
             }

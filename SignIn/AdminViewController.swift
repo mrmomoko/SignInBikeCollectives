@@ -15,7 +15,10 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     let organizationLog = OrganizationLog()
     var password = UITextField()
     var whoIsHereIsActive = Bool()
-    
+    let whos = "Who's here"
+    let mem = "Members"
+    let vol = "Volunteers"
+   
     @IBOutlet weak var whosHere: UIButton!
     @IBOutlet weak var members: UIButton!
     @IBOutlet weak var volunteers: UIButton!
@@ -37,9 +40,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     @IBAction func whosInTheShop(sender: AnyObject) {
         filteredContacts = usersWhoAreLoggedIn()
         whoIsHereIsActive = true
-        let whos = "Who's here"
-        let mem = "Members"
-        let vol = "Volunteers"
+        // add the underline to the button
         addAttributeToText(whos, button: whosHere)
         removeAttributeForButton(mem, button: members)
         removeAttributeForButton(vol, button: volunteers)
@@ -50,9 +51,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     @IBAction func allVolunteers(sender: AnyObject) {
         filteredContacts = shopUseLog.contactsOfVolunteer()
         whoIsHereIsActive = false
-        let whos = "Who's here"
-        let mem = "Members"
-        let vol = "Volunteers"
+        // add the underline to the button
         addAttributeToText(vol, button: volunteers)
         removeAttributeForButton(mem, button: members)
         removeAttributeForButton(whos, button: whosHere)
@@ -62,9 +61,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     @IBAction func currentMembers(sender: AnyObject) {
         filteredContacts = contactLog.currentMembers()
         whoIsHereIsActive = false
-        let whos = "Who's here"
-        let mem = "Members"
-        let vol = "Volunteers"
+        // add the underline to the button
         addAttributeToText(mem, button: members)
         removeAttributeForButton(vol, button: volunteers)
         removeAttributeForButton(whos, button: whosHere)
@@ -96,7 +93,6 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     }
     
     override func viewDidAppear(animated: Bool) {
-        whosInTheShop(self)
         super.viewDidAppear(animated)
     }
     
@@ -132,6 +128,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
         }))
         alert.addAction(UIAlertAction(title: "Forgot Password", style: .Default, handler: { alert in
             //send another alert
+            self.showForgotPasswordAlert()
         }))
         self.presentViewController(alert, animated: true, completion: nil)
     }
@@ -142,12 +139,12 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
             self.tabBarController?.selectedIndex = 0
         }))
         alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
-            textField.placeholder = "What year was your organization founded?"
+            textField.placeholder = "Organization founded?"
             self.password = textField
         })
         alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.Default, handler: { alert in
             if self.password.text != self.organizationLog.organizationLog.first?.founded {
-                self.tabBarController?.selectedIndex = 0
+                self.tabBarController?.selectedIndex = 1
             }
         }))
         self.presentViewController(alert, animated: true, completion: nil)
