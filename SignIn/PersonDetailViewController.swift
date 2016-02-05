@@ -27,7 +27,7 @@ class PersonDetailViewController: UIViewController, UITableViewDelegate, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dismissViewControllerAfterTimeOut()
-        firstNameLastInitial.text = contact?.firstName
+        firstNameLastInitial.text = contact?.displayName()
         // user interface for employees
         if self.tabBarController?.selectedIndex == 0 {
             self.navigationItem.rightBarButtonItem = nil 

@@ -63,9 +63,9 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
             let cell = tableView.dequeueReusableCellWithIdentifier("CustomCell") as! ContactTableViewCell
             let contact = filteredLog[indexPath.row - 1]
             let membership = contact.valueForKey("membership") as? Membership
-            var title = contact.valueForKey("firstName") as? String
-            if title == "" {
-                title = contact.valueForKey("lastName") as? String
+            var title = contact.displayName()
+            if contact.firstName == "" {
+                title = (contact.valueForKey("lastName") as? String)!
             }
             let membershipType = membership?.membershipType
             cell.titleLabel.text = title

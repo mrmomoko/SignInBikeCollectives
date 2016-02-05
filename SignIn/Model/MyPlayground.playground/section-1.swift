@@ -18,6 +18,17 @@ var str = "Hello, playground"
 //cba
 
 
+
+
+let lastName = "SA"
+let firstName = "Momoko"
+let char = String(lastName[lastName.startIndex])
+
+var displayName = firstName + " " + char
+
+
+
+
 enum MembershipType: String {
     case oneMonth = "One Month", sixMonth = "Six Month", oneYear = "One Year", lifeTime = "Life Time", noMembership = "No Membership"
 }
