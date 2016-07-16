@@ -136,9 +136,9 @@
 			isa = PBXGroup;
 			children = (
 				4C80C4171BD0DC3400707469 /* UIKit.framework */,
+				4CB8DE5F1B34830C0020F6D0 /* CoreData.framework */,
 				4C0C13721A5070BF0019A6B2 /* SignIn */,
 				4C0C138F1A5070C00019A6B2 /* SignInTests */,
-				4CB8DE5F1B34830C0020F6D0 /* CoreData.framework */,
 				4C0C13711A5070BF0019A6B2 /* Products */,
 				4CC9E40A1A785E770004D4BD /* SignIn-Bridging-Header.h */,
 			);
