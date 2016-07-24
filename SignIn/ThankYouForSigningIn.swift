@@ -9,10 +9,16 @@
 import Foundation
 import UIKit
 
+protocol BFFThankYouForSigningInDelegate {
+    func didCancelSignIn(sender: BFFThankYouForSigningIn)
+}
+
 class BFFThankYouForSigningIn: UIViewController {
     var contact : Contact!
     let shopUseLog = ShopUseLog()
     let contactLog = ContactLog()
+    var delegate : BFFThankYouForSigningInDelegate?
+    var currentShopUse : ShopUse?
     
     @IBOutlet weak var nameLabel: UILabel!
     
@@ -48,17 +54,14 @@ class BFFThankYouForSigningIn: UIViewController {
             alert.addAction(shopUse)
             i = i + 1
         }
-//            if types.count > 1 {
-//                let volunteer = UIAlertAction(title: types[1].title, style: .Default, handler: { alert in self.shopUseLog.createShopUseWithContact(self.contact!, id: Int(types[0].id!))
-//                })
-//                alert.addAction(volunteer)
-//            }
-//            if types.count > 2 {
-//                alert.addAction(shopUse)
-//                let other = UIAlertAction(title: types[2].title, style: .Default, handler: { alert in self.shopUseLog.createShopUseWithContact(self.contact!, id: Int(types[0].id!))
-//                })
-//                alert.addAction(other)
-//            }
+        // this should only show up if the user navigated from the SigninVC
+        if let d = delegate {
+            let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: { alert in
+                d.didCancelSignIn(self)
+            })
+            alert.addAction(cancel)
+        }
+                                   
         presentViewController(alert, animated: true, completion: nil)
         
    }

@@ -28,7 +28,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
 
     @IBAction func signOutContact(sender: AnyObject) {
         if whoIsHereIsActive == true {
-            let cell = sender.view as! ContactTableViewCell
+            let cell : UITableViewCell = sender.view! as! ContactTableViewCell
             let indexPath = listOfPeopleTableView.indexPathForCell(cell)?.row
             if let index = filteredContacts[indexPath!] as Contact! {
                 shopUseLog.signOutContact(index)

@@ -30,8 +30,8 @@ class ShopUseLog: NSObject {
         }
     }
     
-    func deleteSignalShopUse(shopUse: AnyObject) {
-        managedObjectContext.deleteObject(shopUse as! NSManagedObject)
+    func deleteSignalShopUse(shopUse: ShopUse) {
+        managedObjectContext.deleteObject(shopUse as NSManagedObject)
     }
     
     func createShopUseWithContact(contact: Contact, id: Int) {

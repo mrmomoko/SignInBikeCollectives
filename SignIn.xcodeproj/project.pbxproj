@@ -13,16 +13,16 @@
 		4C0C13871A5070C00019A6B2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C0C13851A5070C00019A6B2 /* LaunchScreen.xib */; };
 		4C0C13931A5070C00019A6B2 /* SignInTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0C13921A5070C00019A6B2 /* SignInTests.m */; };
 		4C2FCA7A1B7D4C44001571E1 /* EditUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2FCA791B7D4C44001571E1 /* EditUserViewController.swift */; };
-		4C3602101C56D064004CB927 /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C36020F1C56D064004CB927 /* PasswordViewController.swift */; };
 		4C41FD6F1A81819B006456A6 /* AdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C41FD6E1A81819B006456A6 /* AdminViewController.swift */; };
 		4C41FD711A831F27006456A6 /* ShopUseLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C41FD701A831F27006456A6 /* ShopUseLog.swift */; };
+		4C43BC2B1D3AB41600907279 /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C43BC2A1D3AB41600907279 /* PasswordViewController.swift */; };
+		4C43BC2D1D3AB42400907279 /* WaiverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C43BC2C1D3AB42400907279 /* WaiverViewController.swift */; };
 		4C591D801B7C1632001BEA74 /* MembershipLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C591D7F1B7C1632001BEA74 /* MembershipLog.swift */; };
 		4C5A12B51B71CB4800C3FC40 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4C5A12B31B71CB4800C3FC40 /* Model.xcdatamodeld */; };
 		4C7AB00B1A92A9EE001F2BEF /* ShopUseLogSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AB00A1A92A9EE001F2BEF /* ShopUseLogSwiftTests.swift */; };
 		4C7EC5251B8963F80057D1A9 /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7EC5241B8963F80057D1A9 /* ContactTableViewCell.swift */; };
 		4C80C4181BD0DC3400707469 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C80C4171BD0DC3400707469 /* UIKit.framework */; };
 		4C83FF661B4A42BC00E12761 /* ContactLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C83FF651B4A42BC00E12761 /* ContactLog.swift */; };
-		4C9437B21C125E700047771C /* WaiverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9437B11C125E700047771C /* WaiverViewController.swift */; };
 		4C9437D01C1639540047771C /* MemberTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9437CF1C1639540047771C /* MemberTypeViewController.swift */; };
 		4C9464101BD700C300665BE6 /* OrganizationLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C94640F1BD700C300665BE6 /* OrganizationLog.swift */; };
 		4C9BCD241BF70DC10054B59D /* SaferSpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9BCD231BF70DC10054B59D /* SaferSpaceViewController.swift */; };
@@ -72,9 +72,10 @@
 		4C0C13911A5070C00019A6B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C0C13921A5070C00019A6B2 /* SignInTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignInTests.m; sourceTree = "<group>"; };
 		4C2FCA791B7D4C44001571E1 /* EditUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditUserViewController.swift; sourceTree = "<group>"; };
-		4C36020F1C56D064004CB927 /* PasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PasswordViewController.swift; path = ../PasswordViewController.swift; sourceTree = "<group>"; };
 		4C41FD6E1A81819B006456A6 /* AdminViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminViewController.swift; sourceTree = "<group>"; };
 		4C41FD701A831F27006456A6 /* ShopUseLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopUseLog.swift; sourceTree = "<group>"; };
+		4C43BC2A1D3AB41600907279 /* PasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
+		4C43BC2C1D3AB42400907279 /* WaiverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaiverViewController.swift; sourceTree = "<group>"; };
 		4C591D7F1B7C1632001BEA74 /* MembershipLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembershipLog.swift; sourceTree = "<group>"; };
 		4C5A12B41B71CB4800C3FC40 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		4C7AB0061A8D44EA001F2BEF /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
@@ -83,7 +84,6 @@
 		4C7EC5241B8963F80057D1A9 /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
 		4C80C4171BD0DC3400707469 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4C83FF651B4A42BC00E12761 /* ContactLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactLog.swift; sourceTree = "<group>"; };
-		4C9437B11C125E700047771C /* WaiverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WaiverViewController.swift; path = ../WaiverViewController.swift; sourceTree = "<group>"; };
 		4C9437CF1C1639540047771C /* MemberTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberTypeViewController.swift; sourceTree = "<group>"; };
 		4C94640F1BD700C300665BE6 /* OrganizationLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationLog.swift; sourceTree = "<group>"; };
 		4C9BCD231BF70DC10054B59D /* SaferSpaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaferSpaceViewController.swift; sourceTree = "<group>"; };
@@ -158,18 +158,7 @@
 			children = (
 				4C0C13771A5070BF0019A6B2 /* AppDelegate.h */,
 				4C0C13781A5070BF0019A6B2 /* AppDelegate.m */,
-				4CF657831B55D85A00FBB45E /* NewUserViewController.swift */,
-				4C36020F1C56D064004CB927 /* PasswordViewController.swift */,
-				4C9437B11C125E700047771C /* WaiverViewController.swift */,
-				4CEE0EF31C0D05AD0010C156 /* TypesViewController.swift */,
-				4CA6A0801BBC7EC100759754 /* MyAccountViewController.swift */,
-				4CCB75641A7AF5F20039D10B /* PersonDetailViewController.swift */,
-				4CCB75671A7C50F70039D10B /* ThankYouForSigningIn.swift */,
-				4C41FD6E1A81819B006456A6 /* AdminViewController.swift */,
-				4C9BCD231BF70DC10054B59D /* SaferSpaceViewController.swift */,
-				4C9437CF1C1639540047771C /* MemberTypeViewController.swift */,
-				4CF193A11B44CB0C001CB464 /* SignInViewController.swift */,
-				4C2FCA791B7D4C44001571E1 /* EditUserViewController.swift */,
+				4C43BC2E1D3AB64100907279 /* ViewControllers */,
 				4C7EC5231B8963CE0057D1A9 /* Views */,
 				4C7550D81A6A158A00874972 /* Model */,
 				4C0C13801A5070BF0019A6B2 /* Main.storyboard */,
@@ -206,6 +195,25 @@
 				4C0C13911A5070C00019A6B2 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4C43BC2E1D3AB64100907279 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				4CF657831B55D85A00FBB45E /* NewUserViewController.swift */,
+				4C43BC2A1D3AB41600907279 /* PasswordViewController.swift */,
+				4C43BC2C1D3AB42400907279 /* WaiverViewController.swift */,
+				4CEE0EF31C0D05AD0010C156 /* TypesViewController.swift */,
+				4CA6A0801BBC7EC100759754 /* MyAccountViewController.swift */,
+				4CCB75641A7AF5F20039D10B /* PersonDetailViewController.swift */,
+				4CCB75671A7C50F70039D10B /* ThankYouForSigningIn.swift */,
+				4C41FD6E1A81819B006456A6 /* AdminViewController.swift */,
+				4C9BCD231BF70DC10054B59D /* SaferSpaceViewController.swift */,
+				4C9437CF1C1639540047771C /* MemberTypeViewController.swift */,
+				4CF193A11B44CB0C001CB464 /* SignInViewController.swift */,
+				4C2FCA791B7D4C44001571E1 /* EditUserViewController.swift */,
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 		4C7550D81A6A158A00874972 /* Model */ = {
@@ -355,12 +363,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C43BC2D1D3AB42400907279 /* WaiverViewController.swift in Sources */,
 				4C83FF661B4A42BC00E12761 /* ContactLog.swift in Sources */,
 				4CC8EB481C51D83D006BB382 /* Colors.swift in Sources */,
 				4C7EC5251B8963F80057D1A9 /* ContactTableViewCell.swift in Sources */,
 				4C9437D01C1639540047771C /* MemberTypeViewController.swift in Sources */,
 				4CA6A0811BBC7EC100759754 /* MyAccountViewController.swift in Sources */,
-				4C3602101C56D064004CB927 /* PasswordViewController.swift in Sources */,
 				4CB1AEA91C0BC43C0098BCE6 /* Type+CoreDataProperties.swift in Sources */,
 				4C41FD711A831F27006456A6 /* ShopUseLog.swift in Sources */,
 				4CB1AEAA1C0BC43C0098BCE6 /* Type.swift in Sources */,
@@ -372,7 +380,6 @@
 				4CCC51DB1BEB016A00EEBEC2 /* Organization+CoreDataProperties.swift in Sources */,
 				4CCB75681A7C50F70039D10B /* ThankYouForSigningIn.swift in Sources */,
 				4CEE0EFA1C0D0ABE0010C156 /* ShopUse.swift in Sources */,
-				4C9437B21C125E700047771C /* WaiverViewController.swift in Sources */,
 				4CF193A21B44CB0C001CB464 /* SignInViewController.swift in Sources */,
 				4CC927661B7A9E6B003E3A88 /* Membership.swift in Sources */,
 				4CCCB9B61C44530A003DA9E8 /* CircleCollectionViewCell.swift in Sources */,
@@ -386,6 +393,7 @@
 				4CB1AEAC1C0BC4CC0098BCE6 /* TypeLog.swift in Sources */,
 				4C5A12B51B71CB4800C3FC40 /* Model.xcdatamodeld in Sources */,
 				4C41FD6F1A81819B006456A6 /* AdminViewController.swift in Sources */,
+				4C43BC2B1D3AB41600907279 /* PasswordViewController.swift in Sources */,
 				4CF657841B55D85A00FBB45E /* NewUserViewController.swift in Sources */,
 				4CCC51D51BEAB9EB00EEBEC2 /* Organization.swift in Sources */,
 				4C9464101BD700C300665BE6 /* OrganizationLog.swift in Sources */,
@@ -516,6 +524,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SignIn/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.BFF.SignIn;
@@ -533,6 +542,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SignIn/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.BFF.SignIn;
