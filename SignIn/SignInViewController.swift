@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SignInViewController: UIViewController, UITableViewDataSource, UITabBarControllerDelegate {
+class SignInViewController: UIViewController, UITableViewDataSource, UITabBarControllerDelegate, BFFThankYouForSigningInDelegate {
 
     let contactLog = ContactLog()
     var currentContact : Contact!
@@ -46,6 +46,7 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
         if segue.identifier == "Thank You" {
             let vc = segue.destinationViewController as! BFFThankYouForSigningIn
             vc.contact = currentContact
+            vc.delegate = self
         }
     }
     
@@ -136,5 +137,9 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
                 presentViewController(alert, animated: true, completion: nil)
             }
         }
+    }
+    // BFFThankYouForSigningInDelegate 
+    func didCancelSignIn(sender: BFFThankYouForSigningIn) {
+        self.navigationController?.popViewControllerAnimated(true) 
     }
 }

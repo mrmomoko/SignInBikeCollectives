@@ -17,7 +17,7 @@ class MembershipLog: NSObject {
     enum MembershipType: String {
         case
         NonMember = "Non Member",
-        Monthly = "Monthly",
+        OneMonth = "One Month",
         SixMonth = "Six Month",
         Yearly = "Yearly",
         LifeTime = "Life Time",
@@ -81,15 +81,16 @@ class MembershipLog: NSObject {
         switch type {
         case MembershipType.NonMember.rawValue:
             time = 0.0
-        case MembershipType.Monthly.rawValue:
-            time = 60
+        case MembershipType.OneMonth.rawValue:
+            time = 60*60*24*31
         case MembershipType.SixMonth.rawValue:
-            time = 60*60
+            time = 60*60*24*183
         case MembershipType.Yearly.rawValue:
-            time = 60*60*24
+            time = 60*60*24*365
         case MembershipType.LifeTime.rawValue:
             time = 60*60*24*365*100
         case MembershipType.Custom.rawValue:
+            // TODO: this isn't an appropriate way to determine custom
             time = 60*60*24*365*100
         default:
             time = 0.0
