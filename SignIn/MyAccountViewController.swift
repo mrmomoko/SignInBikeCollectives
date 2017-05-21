@@ -24,7 +24,13 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
     @IBOutlet weak var yesOrNoQuestion: UITextField!
 
     func sendData() {
+        guard MFMailComposeViewController.canSendMail() else {
+            showErrorAlert(title: "Unable to Send", message: "Can't open email client.")
+            return
+        }
+
         let mailComposeViewController = MFMailComposeViewController()
+
         mailComposeViewController.mailComposeDelegate = self
         mailComposeViewController.setToRecipients(["analyst@bikefarm.org"])
         mailComposeViewController.setSubject("Organization Data")
@@ -92,6 +98,15 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
     
     func dismissKeyboard() {
         self.view.endEditing(true)
+    }
+
+    /// Display error alert with given message
+    func showErrorAlert(title title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .Cancel) { action in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        })
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     func showSaveAlert() {

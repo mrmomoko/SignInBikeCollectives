@@ -113,6 +113,15 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     func showMyAccountViewController() {
         performSegueWithIdentifier("My Account Segue", sender: self)
     }
+
+    /// Display error alert with given message
+    func showErrorAlert(title title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .Cancel) { action in
+            self.dismissViewControllerAnimated(true, completion: nil)
+            })
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
     
     func showPassWordAlert() {
         let alert = UIAlertController(title: "Password", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
@@ -196,6 +205,11 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     }
     
     func sendData(sender: AnyObject, dataType: String) {
+        guard MFMailComposeViewController.canSendMail() else {
+            showErrorAlert(title: "Unable to Send", message: "Can't open email client.")
+            return
+        }
+
         let fileName = getDocumentsDirectory().stringByAppendingPathComponent("data.csv")
         let activityItem : NSData = NSData(contentsOfFile: fileName)!
         let mailComposeViewController = MFMailComposeViewController()
