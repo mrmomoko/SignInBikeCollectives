@@ -46,7 +46,7 @@ class TypeLog: NSObject {
     
     func getType(_ id: Int) -> Type {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Type")
-        let NSID : NSNumber = NSNumber(id)
+        let NSID = id as NSNumber
         let predicate = NSPredicate(format: "id == %@", NSID)
         var type = [Type]()
         fetchRequest.predicate = predicate
