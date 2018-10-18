@@ -311,6 +311,7 @@
 					4C0C136F1A5070BF0019A6B2 = {
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = 5PJX36PFW7;
+						LastSwiftMigration = 0830;
 					};
 					4C0C138B1A5070C00019A6B2 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -534,6 +535,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SignIn-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -551,6 +553,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SignIn-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -31,16 +31,16 @@ class EditUserViewController: UIViewController, UITableViewDelegate {
     
     @IBOutlet weak var membershipTableView: UITableView!
 
-    @IBAction func save(sender: AnyObject) {
+    @IBAction func save(_ sender: AnyObject) {
         if firstName.text == "" && lastName.text == "" && email.text == "" {
             showAlertForIncompleteForm()
         } else {
             // set the contacts properties
-            contact!.firstName = firstName.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-            contact!.lastName = lastName.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-            contact!.emailAddress = email.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-            contact!.yesOrNoQuestion = yesOrNoSwitch.on
-            contact!.pin = pin.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            contact!.firstName = firstName.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            contact!.lastName = lastName.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            contact!.emailAddress = email.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            contact!.yesOrNoQuestion = yesOrNoSwitch.isOn as NSNumber
+            contact!.pin = pin.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
             
             // save contact
             contactLog.saveContact(contact!)
@@ -58,16 +58,16 @@ class EditUserViewController: UIViewController, UITableViewDelegate {
             email.text = contact.emailAddress
             yesOrNoQuestion.text = OrganizationLog().organizationLog.first?.yesOrNoQuestion
             if yesOrNoQuestion.text == ""{
-                yesOrNoSwitch.hidden = true
+                yesOrNoSwitch.isHidden = true
             } else {
-                yesOrNoSwitch.on = (contact.yesOrNoQuestion?.boolValue)!
+                yesOrNoSwitch.isOn = (contact.yesOrNoQuestion?.boolValue)!
             }
         } else {
             contact = contactLog.createUserWithIdentity("edit user")
         }
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         if firstName.text == "edit user" && lastName.text == "" && email.text == "" {
             //delete the contact from the data base
             contactLog.deleteContact(contact!)
@@ -77,16 +77,16 @@ class EditUserViewController: UIViewController, UITableViewDelegate {
 
 // Mark: - TableView Delegate -
 extension EditUserViewController {
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSectionsInCollectionView(_ collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 6
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! CircleCollectionViewCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAtIndexPath indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CircleCollectionViewCell
         let image = UIImage(named: "circle")
         cell.circleImage.image = image
         
@@ -111,7 +111,7 @@ extension EditUserViewController {
         return cell
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: IndexPath) {
         if indexPath.row == 0 {
             contactLog.editColourForContact(contact!, colour: .purple)
             collectionView.backgroundColor = Colors().purpleHighlight
@@ -138,27 +138,27 @@ extension EditUserViewController {
         }
     }
     
-    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
         let org = OrganizationLog()
         types = org.activeMembershipTypes()
         return types.count
     }
     
-    func tableView(tableView: UITableView!,
-        cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-            let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as UITableViewCell?
+    func tableView(_ tableView: UITableView!,
+        cellForRowAtIndexPath indexPath: IndexPath!) -> UITableViewCell! {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as UITableViewCell?
             cell?.textLabel?.text = types[indexPath.row]
             return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         membershipLog.editMembershipTypeForContact(contact!, type: types[indexPath.row])
     }
     
     func showAlertForIncompleteForm() {
-        let alert = UIAlertController(title: "Did you mean to save", message: "You need to fill in at least one field to create a user", preferredStyle: .Alert)
-        let ok = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+        let alert = UIAlertController(title: "Did you mean to save", message: "You need to fill in at least one field to create a user", preferredStyle: .alert)
+        let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
         alert.addAction(ok)
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
 }

@@ -35,62 +35,62 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
         mailComposeViewController.setToRecipients(["analyst@bikefarm.org"])
         mailComposeViewController.setSubject("Organization Data")
         mailComposeViewController.setMessageBody(OrganizationLog().orgData(), isHTML: false)
-        navigationController?.presentViewController(mailComposeViewController, animated: true) {
+        navigationController?.present(mailComposeViewController, animated: true) {
         }
     }
     
     // mailComposeDelegateMethods
-    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
-        let rightBarButton = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "showSaveAlert")
-        let uploadButton = UIBarButtonItem(image: UIImage(named: "cloud"), style: .Plain, target: self, action: "sendData")
+        let rightBarButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(MyAccountViewController.showSaveAlert))
+        let uploadButton = UIBarButtonItem(image: UIImage(named: "cloud"), style: .plain, target: self, action: #selector(MyAccountViewController.sendData))
         uploadButton.imageInsets = UIEdgeInsetsMake(0, 10, 0, -10)
         self.navigationItem.rightBarButtonItems = [rightBarButton, uploadButton]
         
         name.text = org!.name
         emailAddress.text = org!.emailAddress
         zipCode.text = org!.zipCode
-        defaultSignOut.text = String((org!.defaultSignOutTime)!)
+        defaultSignOut.text = String(describing: (org!.defaultSignOutTime)!)
         yesOrNoQuestion.text = org!.yesOrNoQuestion
         saferSpaceText.text = org?.saferSpaceAgreement
         waiverText.text = org?.waiver
 
      }
     
-    override func viewDidAppear(animated: Bool) {
-        let tap = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+    override func viewDidAppear(_ animated: Bool) {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(MyAccountViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
         tap.cancelsTouchesInView = false
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let segueIdentifier = segue.identifier
         
         if segueIdentifier == "Safer Space Segue" {
-            let vc = segue.destinationViewController as! SaferSpaceViewController
+            let vc = segue.destination as! SaferSpaceViewController
             vc.delegate = self
             vc.org = org
         }
         if segueIdentifier == "Waiver Segue" {
-            let vc = segue.destinationViewController as! WaiverViewController
+            let vc = segue.destination as! WaiverViewController
             vc.delegate = self
             vc.org = org
         }
         if segueIdentifier == "Types Segue" {
-            let vc = segue.destinationViewController as! TypesViewController
+            let vc = segue.destination as! TypesViewController
             vc.delegate = self
             vc.org = org
         }
         if segueIdentifier == "Members Segue" {
-            let vc = segue.destinationViewController as! MemberTypeViewController
+            let vc = segue.destination as! MemberTypeViewController
             vc.delegate = self
             vc.org = org
         }
         if segueIdentifier == "Password Segue" {
-            let vc = segue.destinationViewController as! PasswordViewController
+            let vc = segue.destination as! PasswordViewController
             vc.delegate = self
             vc.org = org
         }
@@ -101,44 +101,44 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
     }
 
     /// Display error alert with given message
-    func showErrorAlert(title title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Dismiss", style: .Cancel) { action in
-            self.dismissViewControllerAnimated(true, completion: nil)
+    func showErrorAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel) { action in
+            self.dismiss(animated: true, completion: nil)
         })
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
     
     func showSaveAlert() {
-        org!.name = name.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-        org!.emailAddress = emailAddress.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-        org!.zipCode = zipCode.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-        org!.defaultSignOutTime = Int(defaultSignOut.text!)
-        org!.yesOrNoQuestion = yesOrNoQuestion.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        org!.name = name.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        org!.emailAddress = emailAddress.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        org!.zipCode = zipCode.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        org!.defaultSignOutTime = Int(defaultSignOut.text!) as! NSNumber
+        org!.yesOrNoQuestion = yesOrNoQuestion.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
 
         OrganizationLog().saveOrg(org!)
     }
     
     // safer space delegate
-    func didAddSaferSpaceAggrement(sender:SaferSpaceViewController) {
-        self.navigationController?.popViewControllerAnimated(true)
+    func didAddSaferSpaceAggrement(_ sender:SaferSpaceViewController) {
+        self.navigationController?.popViewController(animated: true)
         saferSpaceText.text = org?.saferSpaceAgreement
     }
 
-    func didAddWaiver(sender: WaiverViewController) {
-        self.navigationController?.popViewControllerAnimated(true)
+    func didAddWaiver(_ sender: WaiverViewController) {
+        self.navigationController?.popViewController(animated: true)
         waiverText.text = org?.waiver
     }
     
-    func didSaveType(sender: TypesViewController) {
-        self.navigationController?.popViewControllerAnimated(true)
+    func didSaveType(_ sender: TypesViewController) {
+        self.navigationController?.popViewController(animated: true)
     }
     
-    func didSaveMemberType(sender: MemberTypeViewController) {
-        self.navigationController?.popViewControllerAnimated(true)
+    func didSaveMemberType(_ sender: MemberTypeViewController) {
+        self.navigationController?.popViewController(animated: true)
     }
     
-    func didAddPassword(sender: PasswordViewController) {
-        self.navigationController?.popViewControllerAnimated(true)
+    func didAddPassword(_ sender: PasswordViewController) {
+        self.navigationController?.popViewController(animated: true)
     }
 }

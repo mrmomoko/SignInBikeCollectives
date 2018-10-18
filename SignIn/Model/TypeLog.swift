@@ -11,13 +11,13 @@ import Foundation
 class TypeLog: NSObject {
 
     var typeLog : [Type]
-    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
     let org = OrganizationLog().currentOrganization().organization
     
     override init() {
         typeLog = []
-        let fetchRequest = NSFetchRequest(entityName: "Type")
-        do { if let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Type] {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Type")
+        do { if let fetchedResults = try managedObjectContext?.fetch(fetchRequest) as? [Type] {
             typeLog = fetchedResults }
         else {
             assertionFailure("Could not executeFetchRequest")
@@ -28,14 +28,14 @@ class TypeLog: NSObject {
         super.init()
     }
     
-    func addType(title: String, id: Int, group: String, active: Int) {
+    func addType(_ title: String, id: Int, group: String, active: Int) {
         if isDupicateType(title) == false {
-            let entity = NSEntityDescription.entityForName("Type", inManagedObjectContext: managedObjectContext)
+            let entity = NSEntityDescription.entity(forEntityName: "Type", in: managedObjectContext!)
             
-            let type = Type(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
+            let type = Type(entity: entity!, insertInto: managedObjectContext)
             type.title = title
-            type.active = active
-            type.id = id
+            type.active = active as NSNumber
+            type.id = id as NSNumber
             type.group = group
             type.organization = OrganizationLog().currentOrganization().organization!
             //set default behaviour for organization
@@ -44,13 +44,13 @@ class TypeLog: NSObject {
         }
     }
     
-    func getType(id: Int) -> Type {
-        let fetchRequest = NSFetchRequest(entityName: "Type")
-        let NSID : NSNumber = id
+    func getType(_ id: Int) -> Type {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Type")
+        let NSID : NSNumber = NSNumber(id)
         let predicate = NSPredicate(format: "id == %@", NSID)
         var type = [Type]()
         fetchRequest.predicate = predicate
-        do { if let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Type] {
+        do { if let fetchedResults = try managedObjectContext?.fetch(fetchRequest) as? [Type] {
             type = fetchedResults }
         else {
             assertionFailure("Could not executeFetchRequest")
@@ -62,12 +62,12 @@ class TypeLog: NSObject {
     }
     
     // don't actually need this...
-    func getTypeByTitle(title: String) -> Type {
-        let fetchRequest = NSFetchRequest(entityName: "Type")
+    func getTypeByTitle(_ title: String) -> Type {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Type")
         let predicate = NSPredicate(format: "title == %@", title)
         var type = [Type]()
         fetchRequest.predicate = predicate
-        do { if let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Type] {
+        do { if let fetchedResults = try managedObjectContext?.fetch(fetchRequest) as? [Type] {
             type = fetchedResults }
         else {
             assertionFailure("Could not executeFetchRequest")
@@ -78,12 +78,12 @@ class TypeLog: NSObject {
         return type.first!
     }
     
-    func isDupicateType(title: String) -> Bool {
-        let fetchRequest = NSFetchRequest(entityName: "Type")
+    func isDupicateType(_ title: String) -> Bool {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Type")
         let predicate = NSPredicate(format: "title == %@", title)
         var type = [Type]()
         fetchRequest.predicate = predicate
-        do { if let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Type] {
+        do { if let fetchedResults = try managedObjectContext?.fetch(fetchRequest) as? [Type] {
             type = fetchedResults }
         else {
             assertionFailure("Could not executeFetchRequest")
@@ -101,14 +101,14 @@ class TypeLog: NSObject {
     func saveType() {
         var error: NSError?
         do {
-            try managedObjectContext.save()
+            try managedObjectContext?.save()
         } catch let error1 as NSError {
             error = error1
             print("Could not save \(error), \(error?.userInfo)")
         }
     }
     
-    func deleteType(type: String) {
+    func deleteType(_ type: String) {
         
     }
     
@@ -120,7 +120,7 @@ class TypeLog: NSObject {
         return types
     }
 
-    func getAllTypesForGroup(group: String) -> [Type] {
+    func getAllTypesForGroup(_ group: String) -> [Type] {
         var types = [Type]()
         for type in getAllTypes() {
             if type.group == group {
@@ -130,7 +130,7 @@ class TypeLog: NSObject {
         return types
     }
     
-    func getAllActiveTypesForGroup(group: String) -> [Type] {
+    func getAllActiveTypesForGroup(_ group: String) -> [Type] {
         let types = getAllTypesForGroup(group)
         var activeTypes = [Type]()
         for type in types {
@@ -141,10 +141,10 @@ class TypeLog: NSObject {
         return activeTypes
     }
     
-    func getActiveStatusOfTypesInOrderOfIDForGroup(group: String) -> [Bool] {
+    func getActiveStatusOfTypesInOrderOfIDForGroup(_ group: String) -> [Bool] {
         var switchStatus = [Bool]()
         let types = getAllTypesForGroup(group)
-        let sortedTypes = types.sort {Int($0.id!) < Int($1.id!)}
+        let sortedTypes = types.sorted {Int($0.id!) < Int($1.id!)}
         for type in sortedTypes {
             if type.active == 0 {
                 switchStatus.append(false)

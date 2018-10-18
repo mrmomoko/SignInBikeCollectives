@@ -8,6 +8,30 @@
 
 import Foundation
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 protocol PersonDetailViewControllerDelegate {
     func didMakeChangesToContactOnEditVC()
@@ -34,13 +58,13 @@ class PersonDetailViewController: UIViewController, UITableViewDelegate, UITable
         }
         typesOfUsers = ContactLog().typesUsedByContact(contact!)
     }
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
          typesOfUsers = ContactLog().typesUsedByContact(contact!)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Edit User Segue" {
-            let vc = segue.destinationViewController as! EditUserViewController
+            let vc = segue.destination as! EditUserViewController
             vc.contact = contact
             vc.delegate = self
         }
@@ -48,30 +72,30 @@ class PersonDetailViewController: UIViewController, UITableViewDelegate, UITable
     
     func dismissViewControllerAfterTimeOut() {
         let delay = 15.0 * Double(NSEC_PER_SEC) // change to *15 sec
-        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-        dispatch_after(time, dispatch_get_main_queue()) {
+        let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+        DispatchQueue.main.asyncAfter(deadline: time) {
             if self.navigationController?.topViewController == self {
-                self.navigationController!.popToRootViewControllerAnimated(true)
+                self.navigationController!.popToRootViewController(animated: true)
             }
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("Cell")! as UITableViewCell
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateStyle = .MediumStyle
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")! as UITableViewCell
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
             let membershipExpiration = contact?.membership!.membershipExpiration
             cell.textLabel?.text = contact?.membership!.membershipType
             if membershipExpiration?.timeIntervalSinceNow > 0 {
-                cell.detailTextLabel?.text = String("Expires " + dateFormatter.stringFromDate(membershipExpiration!))
+                cell.detailTextLabel?.text = String("Expires " + dateFormatter.string(from: membershipExpiration! as Date))
             } else {
                 cell.textLabel?.text = "Membership does not exist or is expired"
                 cell.detailTextLabel?.text = ""
             }
             return cell
         } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("HourShopUseCell") as! HourShopUseCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "HourShopUseCell") as! HourShopUseCell
             let typeTitle = typesOfUsers[indexPath.row]
             cell.title!.text = typeTitle
             let shopUseLog = ShopUseLog()
@@ -91,7 +115,7 @@ class PersonDetailViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 1
         } else {
@@ -99,11 +123,11 @@ class PersonDetailViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
             return "Membership"
         } else {
@@ -111,7 +135,7 @@ class PersonDetailViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
             return 40
         } else {
@@ -119,12 +143,12 @@ class PersonDetailViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
     }
     
     func didMakeChangesToContact() {
-        self.navigationController?.popViewControllerAnimated(true)
+        self.navigationController?.popViewController(animated: true)
         self.hoursTableView.reloadData()
         firstNameLastInitial.text = contact?.firstName
         delegate!.didMakeChangesToContactOnEditVC()
