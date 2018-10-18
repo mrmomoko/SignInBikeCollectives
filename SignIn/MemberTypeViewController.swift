@@ -41,7 +41,7 @@ class MemberTypeViewController : UIViewController {
         customText.text = TypeLog().getType(10).title
     }
     
-    func save() {
+    @objc func save() {
         let type1 = TypeLog().getType(6)
         if monthSwitch.isOn == true {
             type1.active = 1

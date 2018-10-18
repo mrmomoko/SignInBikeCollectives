@@ -33,7 +33,7 @@ class SaferSpaceViewController: UIViewController {
             textView.text = org!.saferSpaceAgreement
         }
     }
-    func saveSaferSpace() {
+    @objc func saveSaferSpace() {
         org!.saferSpaceAgreement = textView.text
         OrganizationLog().saveOrg(org!)
         delegate?.didAddSaferSpaceAggrement(self)

@@ -71,7 +71,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     func addAttributeToText(_ text: String, button: UIButton) {
         let textRange = NSMakeRange(0, text.characters.count)
         let attributedText = NSMutableAttributedString(string: text)
-        attributedText.addAttribute(NSUnderlineStyleAttributeName , value:NSUnderlineStyle.styleSingle.rawValue, range: textRange)
+        attributedText.addAttribute(NSAttributedString.Key.underlineStyle , value:NSUnderlineStyle.single.rawValue, range: textRange)
         button.titleLabel?.attributedText = attributedText
     }
     
@@ -110,7 +110,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
         }
     }
     
-    func showMyAccountViewController() {
+    @objc func showMyAccountViewController() {
         performSegue(withIdentifier: "My Account Segue", sender: self)
     }
 
@@ -124,13 +124,13 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     }
     
     func showPassWordAlert() {
-        let alert = UIAlertController(title: "Password", message: nil, preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "Password", message: nil, preferredStyle: UIAlertController.Style.alert)
         alert.addTextField(configurationHandler: {(textField: UITextField!) in
             textField.placeholder = "Enter Password:"
             textField.isSecureTextEntry = true
             self.password = textField
         })
-        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.default, handler: { alert in
+        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertAction.Style.default, handler: { alert in
             if self.password.text != self.organizationLog.organizationLog.first?.password && self.password.text != "bikecollectives" {
                 self.tabBarController?.selectedIndex = 0
             }
@@ -143,15 +143,15 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     }
     
     func showForgotPasswordAlert() {
-        let alert = UIAlertController(title: "Forgot Password", message: nil, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { alert in
+        let alert = UIAlertController(title: "Forgot Password", message: nil, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { alert in
             self.tabBarController?.selectedIndex = 0
         }))
         alert.addTextField(configurationHandler: {(textField: UITextField!) in
             textField.placeholder = "Organization founded?"
             self.password = textField
         })
-        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.default, handler: { alert in
+        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertAction.Style.default, handler: { alert in
             if self.password.text != self.organizationLog.organizationLog.first?.founded {
                 self.tabBarController?.selectedIndex = 1
             }
@@ -159,21 +159,21 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
         self.present(alert, animated: true, completion: nil)
     }
         
-    func showFilterAlert() {
-        let alert = UIAlertController(title: "Filter", message: "What reports do you want to send?", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Contacts", style: UIAlertActionStyle.default, handler: { alert in
+    @objc func showFilterAlert() {
+        let alert = UIAlertController(title: "Filter", message: "What reports do you want to send?", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Contacts", style: UIAlertAction.Style.default, handler: { alert in
             self.sendData(self, dataType: self.contactLog.returnAllContactsAsCommaSeporatedString())
         }))
-        alert.addAction(UIAlertAction(title: "Members", style: UIAlertActionStyle.default, handler: { alert in
+        alert.addAction(UIAlertAction(title: "Members", style: UIAlertAction.Style.default, handler: { alert in
             self.sendData(self, dataType: self.contactLog.returnAllMembersAsCommaSeporatedString())
         }))
-        alert.addAction(UIAlertAction(title: "Volunteers", style: UIAlertActionStyle.default, handler: { alert in
+        alert.addAction(UIAlertAction(title: "Volunteers", style: UIAlertAction.Style.default, handler: { alert in
             self.sendData(self, dataType: self.contactLog.returnAllVolunteersAsCommaSeporatedString())
         }))
-        alert.addAction(UIAlertAction(title: "Shop Use", style: UIAlertActionStyle.default, handler: { alert in
+        alert.addAction(UIAlertAction(title: "Shop Use", style: UIAlertAction.Style.default, handler: { alert in
             self.sendData(self, dataType: self.shopUseLog.shopUseLogAsCommaSeporatedString())
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil ))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil ))
         self.present(alert, animated: true, completion: nil)
     }
     
