@@ -23,7 +23,7 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
     @IBOutlet weak var waiverText: UILabel!
     @IBOutlet weak var yesOrNoQuestion: UITextField!
 
-    func sendData() {
+    @objc func sendData() {
         guard MFMailComposeViewController.canSendMail() else {
             showErrorAlert(title: "Unable to Send", message: "Can't open email client.")
             return
@@ -47,7 +47,7 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
     override func viewDidLoad() {
         let rightBarButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(MyAccountViewController.showSaveAlert))
         let uploadButton = UIBarButtonItem(image: UIImage(named: "cloud"), style: .plain, target: self, action: #selector(MyAccountViewController.sendData))
-        uploadButton.imageInsets = UIEdgeInsetsMake(0, 10, 0, -10)
+        uploadButton.imageInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: -10)
         self.navigationItem.rightBarButtonItems = [rightBarButton, uploadButton]
         
         name.text = org!.name
@@ -96,7 +96,7 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
         }
     }
     
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         self.view.endEditing(true)
     }
 
@@ -109,7 +109,7 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
         self.present(alert, animated: true, completion: nil)
     }
     
-    func showSaveAlert() {
+    @objc func showSaveAlert() {
         org!.name = name.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         org!.emailAddress = emailAddress.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         org!.zipCode = zipCode.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)

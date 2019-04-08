@@ -33,7 +33,7 @@ class WaiverViewController: UIViewController {
             textView.text = org!.waiver
         }
     }
-    func save() {
+    @objc func save() {
         org!.waiver = textView.text
         OrganizationLog().saveOrg(org!)
         delegate?.didAddWaiver(self)

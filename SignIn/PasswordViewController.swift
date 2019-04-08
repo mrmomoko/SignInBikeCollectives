@@ -32,7 +32,7 @@ class PasswordViewController: UIViewController {
         }
     }
     
-    func savePassword() {
+    @objc func savePassword() {
         if password.text == confirmationPassword.text {
             if founded.text!.characters.count > 0 {
                 org!.password = password.text
@@ -47,14 +47,14 @@ class PasswordViewController: UIViewController {
     }
     
     func sendPasswordAlert() {
-        let alert = UIAlertController(title: "Your Password and Confirm password do not match", message: nil, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil))
+        let alert = UIAlertController(title: "Your Password and Confirm password do not match", message: nil, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
     
     func sendFoundedAlert() {
-        let alert = UIAlertController(title: "Please enter a year for Founded. This will be the answer to a security question in case you lose your password", message: nil, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil))
+        let alert = UIAlertController(title: "Please enter a year for Founded. This will be the answer to a security question in case you lose your password", message: nil, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
 }

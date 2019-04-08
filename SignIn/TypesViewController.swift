@@ -41,7 +41,7 @@ class TypesViewController : UIViewController {
         customTwo.text = TypeLog().getType(5).title
     }
     
-    func showSaveAlert() {
+    @objc func showSaveAlert() {
         let type1 = TypeLog().getType(1)
         if volunteerTypeStatus.isOn == true {
             type1.active = 1
