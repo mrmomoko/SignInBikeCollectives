@@ -24,16 +24,16 @@ class NewUserViewController: UIViewController, UICollectionViewDelegateFlowLayou
     @IBOutlet weak var permissionToEmail: UISwitch!
     @IBOutlet weak var yesNoQuestion: UILabel!
     
-    @IBAction func save(sender: AnyObject) {
+    @IBAction func save(_ sender: AnyObject) {
         if firstName.text == "" && lastName.text == "" && email.text == "" {
             showAlertForIncompleteForm()
         } else {
         // set the contacts properties
-            contact!.firstName = firstName.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-        contact!.lastName = lastName.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-        contact!.emailAddress = email.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-        contact!.pin = pin.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-        contact!.yesOrNoQuestion = permissionToEmail.on
+            contact!.firstName = firstName.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        contact!.lastName = lastName.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        contact!.emailAddress = email.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        contact!.pin = pin.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        contact!.yesOrNoQuestion = permissionToEmail.isOn as NSNumber
 
         // save contact
         contactLog.saveContact(contact!)
@@ -53,27 +53,27 @@ class NewUserViewController: UIViewController, UICollectionViewDelegateFlowLayou
         let yesNo = orgLog.currentOrganization().organization?.yesOrNoQuestion
         yesNoQuestion.text = yesNo
         if yesNo == "" {
-            yesNoQuestion.hidden = true
-            permissionToEmail.hidden = true
+            yesNoQuestion.isHidden = true
+            permissionToEmail.isHidden = true
         }
-        let tap = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(NewUserViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
         tap.cancelsTouchesInView = false
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         firstName.becomeFirstResponder()
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         if firstName.text == "" && lastName.text == "" && email.text == "" {
             //delete the contact from the data base
             contactLog.deleteContact(contact!)
         }
     }
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Thank You" {
-            let vc = segue.destinationViewController as! BFFThankYouForSigningIn
+            let vc = segue.destination as! BFFThankYouForSigningIn
             vc.contact = contact!
         }
     }
@@ -83,16 +83,16 @@ class NewUserViewController: UIViewController, UICollectionViewDelegateFlowLayou
 
 extension NewUserViewController {
 
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 6
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! CircleCollectionViewCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CircleCollectionViewCell
         let image = UIImage(named: "circle")
         cell.circleImage.image = image
         
@@ -117,7 +117,7 @@ extension NewUserViewController {
     return cell
     }
 
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             contactLog.editColourForContact(contact!, colour: .purple)
             collectionView.backgroundColor = Colors().purpleHighlight
@@ -149,24 +149,24 @@ extension NewUserViewController {
     }
     
     func showAlertForIncompleteForm() {
-        let alert = UIAlertController(title: "Did you mean to save", message: "You need to fill in at least one field to create a user", preferredStyle: .Alert)
-        let ok = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+        let alert = UIAlertController(title: "Did you mean to save", message: "You need to fill in at least one field to create a user", preferredStyle: .alert)
+        let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
         alert.addAction(ok)
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     
     func showWaiverForCompleteForm () {
         if let waiver = orgLog.currentOrganization().organization!.waiver {
             if waiver == "" {
-                performSegueWithIdentifier("Thank You", sender: self)
+                performSegue(withIdentifier: "Thank You", sender: self)
             } else {
-                let alert = UIAlertController(title: "Waiver", message: waiver, preferredStyle: .Alert)
-                let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+                let alert = UIAlertController(title: "Waiver", message: waiver, preferredStyle: .alert)
+                let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                 alert.addAction(cancel)
-                let agree = UIAlertAction(title: "I Agree", style: .Default, handler: { alert in self.performSegueWithIdentifier("Thank You", sender: self)
+                let agree = UIAlertAction(title: "I Agree", style: .default, handler: { alert in self.performSegue(withIdentifier: "Thank You", sender: self)
                 })
                 alert.addAction(agree)
-                presentViewController(alert, animated: true, completion: nil)
+                present(alert, animated: true, completion: nil)
             }
         }
     }

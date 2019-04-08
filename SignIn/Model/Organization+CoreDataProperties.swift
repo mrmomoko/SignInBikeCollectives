@@ -16,7 +16,7 @@ extension Organization {
 
     @NSManaged var defaultSignOutTime: NSNumber?
     @NSManaged var emailAddress: String?
-    @NSManaged var image: NSData?
+    @NSManaged var image: Data?
     @NSManaged var isMasterDevice: NSNumber?
     @NSManaged var name: String?
     @NSManaged var password: String?

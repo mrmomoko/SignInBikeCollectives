@@ -11,7 +11,7 @@ import CoreData
 
 class MembershipLog: NSObject {
     
-    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
     var membershipLog : [Membership]
 
     enum MembershipType: String {
@@ -26,8 +26,8 @@ class MembershipLog: NSObject {
     
     override init() {
         membershipLog = []
-        let fetchRequest = NSFetchRequest(entityName: "Membership")
-        do { if let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Membership] {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Membership")
+        do { if let fetchedResults = try managedObjectContext?.fetch(fetchRequest) as? [Membership] {
             membershipLog = fetchedResults }
         else {
             assertionFailure("Could not executeFetchRequest")
@@ -39,45 +39,45 @@ class MembershipLog: NSObject {
         super.init()
     }
     
-    func createMembershipWithContact(contact: Contact) {
+    func createMembershipWithContact(_ contact: Contact) {
         
-        let entity = NSEntityDescription.entityForName("Membership", inManagedObjectContext: managedObjectContext)
+        let entity = NSEntityDescription.entity(forEntityName: "Membership", in: managedObjectContext!)
         
-        let membership = Membership(entity: entity!,  insertIntoManagedObjectContext: managedObjectContext)
+        let membership = Membership(entity: entity!,  insertInto: managedObjectContext)
         membership.membershipType = "NonMember"
-        membership.membershipExpiration = NSDate()
+        membership.membershipExpiration = Date()
         contact.membership = membership
         
         self.saveMembership(membership)
     }
     
-    func saveMembership(membership: Membership) {
+    func saveMembership(_ membership: Membership) {
         var error: NSError?
         do {
-            try managedObjectContext.save()
+            try managedObjectContext?.save()
         } catch let error1 as NSError {
             error = error1
             print("Could not save \(error), \(error?.userInfo)")
         }
     }
 
-    func deleteMembershipForContact(contact: Contact) {
-        managedObjectContext.deleteObject(contact.membership!)
+    func deleteMembershipForContact(_ contact: Contact) {
+        managedObjectContext?.delete(contact.membership!)
     }
     
     // helpers for membership
-    func membershipDescriptionOfContact(contact: Contact) -> String {
+    func membershipDescriptionOfContact(_ contact: Contact) -> String {
         return contact.membership!.membershipType
     }
     
-    func editMembershipTypeForContact(contact: Contact, type: String) {
+    func editMembershipTypeForContact(_ contact: Contact, type: String) {
         contact.membership!.membershipType = type
-        let membershipExpiration = NSDate(timeInterval: timeIntervalForMembershipType(type), sinceDate: NSDate())
+        let membershipExpiration = Date(timeInterval: timeIntervalForMembershipType(type), since: Date())
         contact.membership!.membershipExpiration = membershipExpiration
     }
     
-    func timeIntervalForMembershipType(type: String) -> NSTimeInterval {
-        var time = NSTimeInterval()
+    func timeIntervalForMembershipType(_ type: String) -> TimeInterval {
+        var time = TimeInterval()
         switch type {
         case MembershipType.NonMember.rawValue:
             time = 0.0
@@ -98,10 +98,10 @@ class MembershipLog: NSObject {
         return time
     }
     
-    func membershipExperationDate(contact: Contact) -> String {
-        let dateFormatter = NSDateFormatter()
+    func membershipExperationDate(_ contact: Contact) -> String {
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd" // superset of OP's format
-        let membershipExperationDate = dateFormatter.stringFromDate(contact.membership!.membershipExpiration)
+        let membershipExperationDate = dateFormatter.string(from: contact.membership!.membershipExpiration as Date)
         return membershipExperationDate
     }
 }
