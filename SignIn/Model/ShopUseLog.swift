@@ -65,7 +65,7 @@ class ShopUseLog: NSObject {
 
         shopUse.signIn = Date()
         let org = OrganizationLog().organizationLog.first
-        let autoLogOut = TimeInterval((org!.defaultSignOutTime)!)
+        let autoLogOut = TimeInterval(truncating: (org!.defaultSignOutTime)!)
         shopUse.signOut = Date().addingTimeInterval(60*60*autoLogOut)
         shopUse.type = TypeLog().getType(id)
 

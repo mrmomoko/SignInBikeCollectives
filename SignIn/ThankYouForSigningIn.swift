@@ -49,7 +49,7 @@ class BFFThankYouForSigningIn: UIViewController {
         var i = 0
         while i < types.count {
             let counter = i
-            let shopUse = UIAlertAction(title: types[i].title, style: .default, handler: { alert in self.shopUseLog.createShopUseWithContact(self.contact!, id: Int(types[counter].id!))
+            let shopUse = UIAlertAction(title: types[i].title, style: .default, handler: { alert in self.shopUseLog.createShopUseWithContact(self.contact!, id: Int(truncating: types[counter].id!))
             })
             alert.addAction(shopUse)
             i = i + 1

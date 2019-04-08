@@ -130,7 +130,7 @@ class  OrganizationLog: NSObject {
     func activeMembershipTypes() -> [String] {
         var types = [String]()
         orgTypes = getTypes()
-        let sortedTypes = orgTypes.sorted {Int($0.id!) < Int($1.id!)}
+        let sortedTypes = orgTypes.sorted {Int(truncating: $0.id!) < Int(truncating: $1.id!)}
         for type in sortedTypes {
             if type.group == "Membership" && type.active == true {
                 types.append(type.title!)

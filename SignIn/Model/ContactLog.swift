@@ -255,7 +255,7 @@ class ContactLog: NSObject {
             }
         }
         let uniqueTypes = Array(Set(typeArray))
-        let sortedTypes = uniqueTypes.sorted {Int($0.id!) < Int($1.id!)}
+        let sortedTypes = uniqueTypes.sorted {Int(truncating: $0.id!) < Int($1.id!)}
         for type in sortedTypes {
             stringTypes.append(type.title!)
         }
