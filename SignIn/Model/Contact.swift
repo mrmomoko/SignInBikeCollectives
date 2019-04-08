@@ -38,7 +38,7 @@ class Contact: NSManagedObject {
 // Insert code here to add functionality to your managed object subclass
 
     func displayName() -> String {
-        if lastName?.characters.count > 0 {
+        if lastName?.count > 0 {
             let char = String(lastName![lastName!.startIndex])
             return firstName! + " " + char
         } else {

@@ -30,7 +30,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
         if whoIsHereIsActive == true {
             let cell : UITableViewCell = sender.view! as! ContactTableViewCell
             let indexPath = listOfPeopleTableView.indexPath(for: cell)?.row
-            if let index = filteredContacts[indexPath!] as Contact! {
+            if let index = filteredContacts[indexPath!] as Contact? {
                 shopUseLog.signOutContact(index)
                 whosInTheShop(self)
             }
@@ -69,7 +69,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     }
     
     func addAttributeToText(_ text: String, button: UIButton) {
-        let textRange = NSMakeRange(0, text.characters.count)
+        let textRange = NSMakeRange(0, text.count)
         let attributedText = NSMutableAttributedString(string: text)
         attributedText.addAttribute(NSAttributedString.Key.underlineStyle , value:NSUnderlineStyle.single.rawValue, range: textRange)
         button.titleLabel?.attributedText = attributedText
@@ -189,7 +189,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchBar.text?.characters.count == 1 && searchText == "" {
+        if searchBar.text?.count == 1 && searchText == "" {
             listOfPeopleTableView.reloadData()
         }
         else {
