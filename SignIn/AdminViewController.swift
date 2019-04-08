@@ -30,7 +30,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
         if whoIsHereIsActive == true {
             let cell : UITableViewCell = sender.view! as! ContactTableViewCell
             let indexPath = listOfPeopleTableView.indexPath(for: cell)?.row
-            if let index = filteredContacts[indexPath!] as Contact! {
+            if let index = filteredContacts[indexPath!] as Contact? {
                 shopUseLog.signOutContact(index)
                 whosInTheShop(self)
             }
