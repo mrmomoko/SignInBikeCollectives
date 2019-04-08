@@ -93,7 +93,7 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
     }
     
     func textField( _ textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        if uniqueIdentifier.text?.characters.count == 1 && string == "" {
+        if uniqueIdentifier.text?.count == 1 && string == "" {
             filteredLog = contactLog.recentContactsWhoAreNotLoggedIn()
             mostRecentSignIns.reloadData()
         }

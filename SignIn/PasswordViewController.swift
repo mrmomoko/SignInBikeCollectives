@@ -34,7 +34,7 @@ class PasswordViewController: UIViewController {
     
     @objc func savePassword() {
         if password.text == confirmationPassword.text {
-            if founded.text!.characters.count > 0 {
+            if founded.text!.count > 0 {
                 org!.password = password.text
                 OrganizationLog().saveOrg(org!)
                 delegate?.didAddPassword(self)
