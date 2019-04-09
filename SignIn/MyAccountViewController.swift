@@ -113,7 +113,7 @@ class MyAccountViewController : UITableViewController, SaferSpaceViewControllerD
         org!.name = name.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         org!.emailAddress = emailAddress.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         org!.zipCode = zipCode.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        org!.defaultSignOutTime = Int(defaultSignOut.text!) as! NSNumber
+        org!.defaultSignOutTime = Int(defaultSignOut.text!)! as NSNumber
         org!.yesOrNoQuestion = yesOrNoQuestion.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
 
         OrganizationLog().saveOrg(org!)
