@@ -39,7 +39,7 @@
                                 <rect key="frame" x="0.0" y="173" width="414" height="632"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" misplaced="YES" restorationIdentifier="ButtonCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="ButtonCell" id="PB8-x3-maj" userLabel="ButtonCell" customClass="NewUserButtonCell" customModule="SignIn" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="ButtonCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="ButtonCell" id="PB8-x3-maj" userLabel="ButtonCell" customClass="NewUserButtonCell" customModule="SignIn" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="22" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PB8-x3-maj" id="CJg-gI-CTZ">
@@ -72,7 +72,7 @@
                                             <outlet property="buttonView" destination="Eex-7G-3RS" id="bCN-z7-lu5"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" misplaced="YES" restorationIdentifier="CustomCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomCell" id="FOh-GB-ZWJ" customClass="ContactTableViewCell" customModule="SignIn" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="CustomCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomCell" id="FOh-GB-ZWJ" customClass="ContactTableViewCell" customModule="SignIn" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="66" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FOh-GB-ZWJ" id="9x6-9s-qvW">
@@ -288,7 +288,7 @@
         <scene sceneID="rnQ-kL-VEt">
             <objects>
                 <navigationController id="S9Z-ER-rkd" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Admin" image="settings" id="L4I-Tw-cqn">
+                    <tabBarItem key="tabBarItem" title="Admin" image="Settings" id="L4I-Tw-cqn">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rqg-QJ-CYs">
@@ -319,7 +319,7 @@
                                 <rect key="frame" x="12" y="176" width="390" height="637"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" misplaced="YES" restorationIdentifier="CustomCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomCell" id="6p2-FY-ut7" customClass="ContactTableViewCell" customModule="SignIn" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="CustomCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomCell" id="6p2-FY-ut7" customClass="ContactTableViewCell" customModule="SignIn" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1" width="390" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6p2-FY-ut7" id="A2Z-3w-IQh">
@@ -450,7 +450,7 @@
                             <constraint firstItem="WQI-Bp-7Q5" firstAttribute="top" secondItem="L7p-HK-0SC" secondAttribute="bottom" id="sVB-E8-U2I"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Admin" image="settings" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Admin" image="Settings" id="cPa-gy-q4n"/>
                     <navigationItem key="navigationItem" id="o8N-rK-asS"/>
                     <connections>
                         <outlet property="listOfPeopleTableView" destination="ZSd-vt-D2v" id="qfc-Jk-o9i"/>
@@ -572,7 +572,7 @@
                                     <constraint firstAttribute="width" constant="300" id="qC1-jM-R7V"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" misplaced="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="ieQ-PI-FAs">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="ieQ-PI-FAs">
                                         <rect key="frame" x="0.0" y="22" width="300" height="33"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ieQ-PI-FAs" id="bi5-pd-Gpf">
@@ -993,7 +993,7 @@
                                 <rect key="frame" x="0.0" y="136" width="600" height="420"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" restorationIdentifier="Cell" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="XqS-qh-Pqk" style="IBUITableViewCellStyleDefault" id="94Z-4O-I5D">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="Cell" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="XqS-qh-Pqk" style="IBUITableViewCellStyleDefault" id="94Z-4O-I5D">
                                         <rect key="frame" x="0.0" y="55.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="94Z-4O-I5D" id="L5o-zf-txM">
@@ -1010,7 +1010,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" restorationIdentifier="HourShopUseCell" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HourShopUseCell" rowHeight="60" id="kGO-ct-6wW" customClass="HourShopUseCell" customModule="SignIn" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="HourShopUseCell" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HourShopUseCell" rowHeight="60" id="kGO-ct-6wW" customClass="HourShopUseCell" customModule="SignIn" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="99.5" width="600" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kGO-ct-6wW" id="LfR-30-Jsi">
@@ -1024,7 +1024,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bwh-uk-ohA">
-                                                    <rect key="frame" x="306" y="14" width="88" height="32"/>
+                                                    <rect key="frame" x="492" y="14" width="88" height="32"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1664,12 +1664,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Settings" width="16" height="16"/>
         <image name="Sign In" width="16" height="16"/>
         <image name="circle" width="30" height="30"/>
-        <image name="settings" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hpO-SX-Wzc"/>
+        <segue reference="bBf-9G-G1y"/>
         <segue reference="N0R-XP-Okd"/>
     </inferredMetricsTieBreakers>
 </document>
