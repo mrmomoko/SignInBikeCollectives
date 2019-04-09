@@ -53,7 +53,7 @@ class  OrganizationLog: NSObject {
             try managedObjectContext?.save()
         } catch let error1 as NSError {
             error = error1
-            print("Could not save \(error), \(error?.userInfo)")
+            print("Could not save \(String(describing: error)), \(String(describing: error?.userInfo))")
         }
         
         //create default Contact types
@@ -87,7 +87,7 @@ class  OrganizationLog: NSObject {
             try managedObjectContext?.save()
         } catch let error1 as NSError {
             error = error1
-            print("Could not save \(error), \(error?.userInfo)")
+            print("Could not save \(String(describing: error)), \(String(describing: error?.userInfo))")
         }
     }
     
@@ -97,7 +97,7 @@ class  OrganizationLog: NSObject {
             try managedObjectContext?.save()
         } catch let error1 as NSError {
             error = error1
-            print("Could not save \(error), \(error?.userInfo)")
+            print("Could not save \(String(describing: error)), \(String(describing: error?.userInfo))")
         }
     }
     
@@ -130,7 +130,7 @@ class  OrganizationLog: NSObject {
     func activeMembershipTypes() -> [String] {
         var types = [String]()
         orgTypes = getTypes()
-        let sortedTypes = orgTypes.sorted {Int($0.id!) < Int($1.id!)}
+        let sortedTypes = orgTypes.sorted {Int(truncating: $0.id!) < Int(truncating: $1.id!)}
         for type in sortedTypes {
             if type.group == "Membership" && type.active == true {
                 types.append(type.title!)

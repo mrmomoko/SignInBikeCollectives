@@ -109,7 +109,7 @@ class ContactLog: NSObject {
             try managedObjectContext?.save()
         } catch let error1 as NSError {
             error = error1
-            print("Could not save \(error), \(error?.userInfo)")
+            print("Could not save \(String(describing: error)), \(String(describing: error?.userInfo))")
         }
     }
     
@@ -163,7 +163,7 @@ class ContactLog: NSObject {
     func returnAllContactsAsCommaSeporatedString() -> String {
         var commaSeporated = "FirstName, LastName, Email Address, Yes/No (1/0), Membership" + "\r\n"
         for names in allContacts {
-            commaSeporated += String("\(names.firstName!), \(names.lastName!), \(names.emailAddress!), \(names.yesOrNoQuestion), \((names.membership?.membershipType)!)" + "\r\n")
+            commaSeporated += String("\(names.firstName!), \(names.lastName!), \(names.emailAddress!), \(String(describing: names.yesOrNoQuestion)), \((names.membership?.membershipType)!)" + "\r\n")
         }
         createFileWithString(commaSeporated)
         return commaSeporated
@@ -173,7 +173,7 @@ class ContactLog: NSObject {
         var commaSeporated = "FirstName, LastName, Email Address, Yes/No, Membership" + "\r\n"
         let contacts = currentMembers()
         for names in contacts {
-            commaSeporated += String("\(names.firstName!), \(names.lastName!), \(names.emailAddress!), \(names.yesOrNoQuestion), \((names.membership?.membershipType)!)" + "\r\n")
+            commaSeporated += String("\(names.firstName!), \(names.lastName!), \(names.emailAddress!), \(String(describing: names.yesOrNoQuestion)), \((names.membership?.membershipType)!)" + "\r\n")
         }
         createFileWithString(commaSeporated)
         return commaSeporated
@@ -183,7 +183,7 @@ class ContactLog: NSObject {
         var commaSeporated = "FirstName, LastName, Email Address, Yes/No, Membership" + "\r\n"
         let contacts = ShopUseLog().contactsOfVolunteer()
         for names in contacts {
-            commaSeporated += String("\(names.firstName!), \(names.lastName!), \(names.emailAddress!), \(names.yesOrNoQuestion), \((names.membership?.membershipType)!)" + "\r\n")
+            commaSeporated += String("\(names.firstName!), \(names.lastName!), \(names.emailAddress!), \(String(describing: names.yesOrNoQuestion)), \((names.membership?.membershipType)!)" + "\r\n")
         }
         createFileWithString(commaSeporated)
         return commaSeporated
@@ -255,7 +255,7 @@ class ContactLog: NSObject {
             }
         }
         let uniqueTypes = Array(Set(typeArray))
-        let sortedTypes = uniqueTypes.sorted {Int($0.id!) < Int($1.id!)}
+        let sortedTypes = uniqueTypes.sorted {Int(truncating: $0.id!) < Int(truncating: $1.id!)}
         for type in sortedTypes {
             stringTypes.append(type.title!)
         }

@@ -65,7 +65,7 @@ class ShopUseLog: NSObject {
 
         shopUse.signIn = Date()
         let org = OrganizationLog().organizationLog.first
-        let autoLogOut = TimeInterval((org!.defaultSignOutTime)!)
+        let autoLogOut = TimeInterval(truncating: (org!.defaultSignOutTime)!)
         shopUse.signOut = Date().addingTimeInterval(60*60*autoLogOut)
         shopUse.type = TypeLog().getType(id)
 
@@ -78,7 +78,7 @@ class ShopUseLog: NSObject {
             try managedObjectContext?.save()
         } catch let error1 as NSError {
             error = error1
-            print("Could not save \(error), \(error?.userInfo)")
+            print("Could not save \(String(describing: error)), \(String(describing: error?.userInfo))")
         }
     }
     

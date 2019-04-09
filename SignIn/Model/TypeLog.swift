@@ -104,7 +104,7 @@ class TypeLog: NSObject {
             try managedObjectContext?.save()
         } catch let error1 as NSError {
             error = error1
-            print("Could not save \(error), \(error?.userInfo)")
+            print("Could not save \(String(describing: error)), \(String(describing: error?.userInfo))")
         }
     }
     
@@ -144,7 +144,7 @@ class TypeLog: NSObject {
     func getActiveStatusOfTypesInOrderOfIDForGroup(_ group: String) -> [Bool] {
         var switchStatus = [Bool]()
         let types = getAllTypesForGroup(group)
-        let sortedTypes = types.sorted {Int($0.id!) < Int($1.id!)}
+        let sortedTypes = types.sorted {Int(truncating: $0.id!) < Int(truncating: $1.id!)}
         for type in sortedTypes {
             if type.active == 0 {
                 switchStatus.append(false)
