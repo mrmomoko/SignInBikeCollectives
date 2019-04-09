@@ -53,7 +53,7 @@ class  OrganizationLog: NSObject {
             try managedObjectContext?.save()
         } catch let error1 as NSError {
             error = error1
-            print("Could not save \(error), \(error?.userInfo)")
+            print("Could not save \(String(describing: error)), \(String(describing: error?.userInfo))")
         }
         
         //create default Contact types
@@ -87,7 +87,7 @@ class  OrganizationLog: NSObject {
             try managedObjectContext?.save()
         } catch let error1 as NSError {
             error = error1
-            print("Could not save \(error), \(error?.userInfo)")
+            print("Could not save \(String(describing: error)), \(String(describing: error?.userInfo))")
         }
     }
     
@@ -97,7 +97,7 @@ class  OrganizationLog: NSObject {
             try managedObjectContext?.save()
         } catch let error1 as NSError {
             error = error1
-            print("Could not save \(error), \(error?.userInfo)")
+            print("Could not save \(String(describing: error)), \(String(describing: error?.userInfo))")
         }
     }
     
