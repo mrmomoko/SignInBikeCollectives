@@ -6,7 +6,7 @@ import Foundation
 import UIKit
 import MessageUI
 
-class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDelegate, UITabBarControllerDelegate, PersonDetailViewControllerDelegate, MFMailComposeViewControllerDelegate {
+class AdminViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UITabBarControllerDelegate, PersonDetailViewControllerDelegate, MFMailComposeViewControllerDelegate {
     
     var filteredContacts = [Contact]()
     let contactLog = ContactLog()
@@ -241,11 +241,11 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
 
 // Mark: - TableView Delegate -
 extension AdminViewController {
-    func tableView(_ tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredContacts.count;
     }
-    func tableView(_ tableView: UITableView!,
-        cellForRowAtIndexPath indexPath: IndexPath!) -> UITableViewCell! {
+    func tableView(_ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath) -> UITableViewCell! {
             let cell = listOfPeopleTableView.dequeueReusableCell(withIdentifier: "CustomCell") as! ContactTableViewCell
             let contact = filteredContacts[indexPath.row]
             let membership = contact.value(forKey: "membership") as? Membership
