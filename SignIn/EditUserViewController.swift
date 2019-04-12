@@ -13,8 +13,8 @@ protocol EditUserViewControllerDelegate {
     func didMakeChangesToContact()
 }
 
-class EditUserViewController: UIViewController, UITableViewDelegate {
-    
+class EditUserViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+
     var contact : Contact?
     let contactLog = ContactLog()
     let membershipLog = MembershipLog()
@@ -85,7 +85,7 @@ extension EditUserViewController {
         return 6
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAtIndexPath indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CircleCollectionViewCell
         let image = UIImage(named: "circle")
         cell.circleImage.image = image
@@ -138,16 +138,16 @@ extension EditUserViewController {
         }
     }
     
-    func tableView(_ tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let org = OrganizationLog()
         types = org.activeMembershipTypes()
         return types.count
     }
     
-    func tableView(_ tableView: UITableView!,
-        cellForRowAtIndexPath indexPath: IndexPath!) -> UITableViewCell! {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as UITableViewCell?
-            cell?.textLabel?.text = types[indexPath.row]
+    func tableView(_ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! UITableViewCell
+            cell.textLabel?.text = types[indexPath.row]
             return cell
     }
     

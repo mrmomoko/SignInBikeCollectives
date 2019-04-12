@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SignInViewController: UIViewController, UITableViewDataSource, UITabBarControllerDelegate, BFFThankYouForSigningInDelegate {
+class SignInViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITabBarControllerDelegate, BFFThankYouForSigningInDelegate {
 
     let contactLog = ContactLog()
     var currentContact : Contact!
@@ -78,7 +78,7 @@ class SignInViewController: UIViewController, UITableViewDataSource, UITabBarCon
         }
     }
     
-    func tableView( _ tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
+    func tableView( _ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             newSignUpName = uniqueIdentifier.text!
             performSegue(withIdentifier: "New User Segue", sender: self)
