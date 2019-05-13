@@ -11,7 +11,7 @@ import CoreData
 
 class Membership: NSManagedObject {
 
-    @NSManaged var membershipExpiration: NSDate
+    @NSManaged var membershipExpiration: Date
     @NSManaged var membershipType: String
     @NSManaged var contact: Contact
 

@@ -9,7 +9,7 @@
 import Foundation
 
 protocol WaiverViewControllerDelegate {
-    func didAddWaiver(sender:WaiverViewController)
+    func didAddWaiver(_ sender:WaiverViewController)
 }
 
 class WaiverViewController: UIViewController {
@@ -23,17 +23,17 @@ class WaiverViewController: UIViewController {
         textView.layer.borderWidth = 3
         //        textView.layer.cornerRadius = 0.2
         //        textView.clipsToBounds = true
-        textView.layer.borderColor = CGColorCreate(CGColorSpaceCreateDeviceRGB(), [0.0, 0.0, 0.0, 0.5])
-        let rightBarButton = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "save")
+        textView.layer.borderColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [0.0, 0.0, 0.0, 0.5])
+        let rightBarButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(WaiverViewController.save))
         self.navigationItem.rightBarButtonItem = rightBarButton
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         if org!.waiver != "" {
             textView.text = org!.waiver
         }
     }
-    func save() {
+    @objc func save() {
         org!.waiver = textView.text
         OrganizationLog().saveOrg(org!)
         delegate?.didAddWaiver(self)

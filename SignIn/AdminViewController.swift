@@ -6,7 +6,7 @@ import Foundation
 import UIKit
 import MessageUI
 
-class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDelegate, UITabBarControllerDelegate, PersonDetailViewControllerDelegate, MFMailComposeViewControllerDelegate {
+class AdminViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UITabBarControllerDelegate, PersonDetailViewControllerDelegate, MFMailComposeViewControllerDelegate {
     
     var filteredContacts = [Contact]()
     let contactLog = ContactLog()
@@ -26,18 +26,18 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var listOfPeopleTableView: UITableView!
 
-    @IBAction func signOutContact(sender: AnyObject) {
+    @IBAction func signOutContact(_ sender: AnyObject) {
         if whoIsHereIsActive == true {
             let cell : UITableViewCell = sender.view! as! ContactTableViewCell
-            let indexPath = listOfPeopleTableView.indexPathForCell(cell)?.row
-            if let index = filteredContacts[indexPath!] as Contact! {
+            let indexPath = listOfPeopleTableView.indexPath(for: cell)?.row
+            if let index = filteredContacts[indexPath!] as Contact? {
                 shopUseLog.signOutContact(index)
                 whosInTheShop(self)
             }
         }
     }
     
-    @IBAction func whosInTheShop(sender: AnyObject) {
+    @IBAction func whosInTheShop(_ sender: AnyObject) {
         filteredContacts = usersWhoAreLoggedIn()
         whoIsHereIsActive = true
         // add the underline to the button
@@ -48,7 +48,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
         
     }
     
-    @IBAction func allVolunteers(sender: AnyObject) {
+    @IBAction func allVolunteers(_ sender: AnyObject) {
         filteredContacts = shopUseLog.contactsOfVolunteer()
         whoIsHereIsActive = false
         // add the underline to the button
@@ -58,7 +58,7 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
         listOfPeopleTableView.reloadData()
     }
     
-    @IBAction func currentMembers(sender: AnyObject) {
+    @IBAction func currentMembers(_ sender: AnyObject) {
         filteredContacts = contactLog.currentMembers()
         whoIsHereIsActive = false
         // add the underline to the button
@@ -68,14 +68,14 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
         listOfPeopleTableView.reloadData()
     }
     
-    func addAttributeToText(text: String, button: UIButton) {
-        let textRange = NSMakeRange(0, text.characters.count)
+    func addAttributeToText(_ text: String, button: UIButton) {
+        let textRange = NSMakeRange(0, text.count)
         let attributedText = NSMutableAttributedString(string: text)
-        attributedText.addAttribute(NSUnderlineStyleAttributeName , value:NSUnderlineStyle.StyleSingle.rawValue, range: textRange)
+        attributedText.addAttribute(NSAttributedString.Key.underlineStyle , value:NSUnderlineStyle.single.rawValue, range: textRange)
         button.titleLabel?.attributedText = attributedText
     }
     
-    func removeAttributeForButton(text: String, button: UIButton) {
+    func removeAttributeForButton(_ text: String, button: UIButton) {
         button.titleLabel?.text = text
     }
     
@@ -86,95 +86,95 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
     
     override func viewDidLoad() {
         whosInTheShop(self)
-        let rightBarButton = UIBarButtonItem(image: UIImage(named: "email"), style: .Plain, target: self, action: "showFilterAlert")
-        let leftBarButton = UIBarButtonItem(image: UIImage(named: "myAccount"), style: .Plain, target: self, action: "showMyAccountViewController")
+        let rightBarButton = UIBarButtonItem(image: UIImage(named: "email"), style: .plain, target: self, action: #selector(AdminViewController.showFilterAlert))
+        let leftBarButton = UIBarButtonItem(image: UIImage(named: "myAccount"), style: .plain, target: self, action: #selector(AdminViewController.showMyAccountViewController))
         self.navigationItem.rightBarButtonItem = rightBarButton
         self.navigationItem.leftBarButtonItem = leftBarButton
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Person Detail Segue" {
-            let vc = segue.destinationViewController as! PersonDetailViewController
+            let vc = segue.destination as! PersonDetailViewController
             vc.contact = selectedContact
             vc.delegate = self
         }
     }
     
-    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         if self.tabBarController?.selectedIndex == 1 && organizationLog.hasPassword() {
             showPassWordAlert()
         }
     }
     
-    func showMyAccountViewController() {
-        performSegueWithIdentifier("My Account Segue", sender: self)
+    @objc func showMyAccountViewController() {
+        performSegue(withIdentifier: "My Account Segue", sender: self)
     }
 
     /// Display error alert with given message
-    func showErrorAlert(title title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Dismiss", style: .Cancel) { action in
-            self.dismissViewControllerAnimated(true, completion: nil)
+    func showErrorAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel) { action in
+            self.dismiss(animated: true, completion: nil)
             })
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
     
     func showPassWordAlert() {
-        let alert = UIAlertController(title: "Password", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+        let alert = UIAlertController(title: "Password", message: nil, preferredStyle: UIAlertController.Style.alert)
+        alert.addTextField(configurationHandler: {(textField: UITextField!) in
             textField.placeholder = "Enter Password:"
-            textField.secureTextEntry = true
+            textField.isSecureTextEntry = true
             self.password = textField
         })
-        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.Default, handler: { alert in
+        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertAction.Style.default, handler: { alert in
             if self.password.text != self.organizationLog.organizationLog.first?.password && self.password.text != "bikecollectives" {
                 self.tabBarController?.selectedIndex = 0
             }
         }))
-        alert.addAction(UIAlertAction(title: "Forgot Password", style: .Default, handler: { alert in
+        alert.addAction(UIAlertAction(title: "Forgot Password", style: .default, handler: { alert in
             //send another alert
             self.showForgotPasswordAlert()
         }))
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
     
     func showForgotPasswordAlert() {
-        let alert = UIAlertController(title: "Forgot Password", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { alert in
+        let alert = UIAlertController(title: "Forgot Password", message: nil, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { alert in
             self.tabBarController?.selectedIndex = 0
         }))
-        alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+        alert.addTextField(configurationHandler: {(textField: UITextField!) in
             textField.placeholder = "Organization founded?"
             self.password = textField
         })
-        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertActionStyle.Default, handler: { alert in
+        alert.addAction(UIAlertAction(title: "Submit", style: UIAlertAction.Style.default, handler: { alert in
             if self.password.text != self.organizationLog.organizationLog.first?.founded {
                 self.tabBarController?.selectedIndex = 1
             }
         }))
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
         
-    func showFilterAlert() {
-        let alert = UIAlertController(title: "Filter", message: "What reports do you want to send?", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Contacts", style: UIAlertActionStyle.Default, handler: { alert in
+    @objc func showFilterAlert() {
+        let alert = UIAlertController(title: "Filter", message: "What reports do you want to send?", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Contacts", style: UIAlertAction.Style.default, handler: { alert in
             self.sendData(self, dataType: self.contactLog.returnAllContactsAsCommaSeporatedString())
         }))
-        alert.addAction(UIAlertAction(title: "Members", style: UIAlertActionStyle.Default, handler: { alert in
+        alert.addAction(UIAlertAction(title: "Members", style: UIAlertAction.Style.default, handler: { alert in
             self.sendData(self, dataType: self.contactLog.returnAllMembersAsCommaSeporatedString())
         }))
-        alert.addAction(UIAlertAction(title: "Volunteers", style: UIAlertActionStyle.Default, handler: { alert in
+        alert.addAction(UIAlertAction(title: "Volunteers", style: UIAlertAction.Style.default, handler: { alert in
             self.sendData(self, dataType: self.contactLog.returnAllVolunteersAsCommaSeporatedString())
         }))
-        alert.addAction(UIAlertAction(title: "Shop Use", style: UIAlertActionStyle.Default, handler: { alert in
+        alert.addAction(UIAlertAction(title: "Shop Use", style: UIAlertAction.Style.default, handler: { alert in
             self.sendData(self, dataType: self.shopUseLog.shopUseLogAsCommaSeporatedString())
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil ))
-        self.presentViewController(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil ))
+        self.present(alert, animated: true, completion: nil)
     }
     
     // this is a copy of the function used in Sign In, is there a way to move this to ContactLog?
@@ -188,8 +188,8 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
         return loggedInUsers
     }
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchBar.text?.characters.count == 1 && searchText == "" {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 1 && searchText == "" {
             listOfPeopleTableView.reloadData()
         }
         else {
@@ -197,41 +197,41 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
         }
     }
     
-    func _searchContactsWithSubstring(substring: String) {
+    func _searchContactsWithSubstring(_ substring: String) {
         let fullContactList = contactLog.allContacts
         let predicate = NSPredicate(format: "firstName BEGINSWITH[cd] %@ OR lastName BEGINSWITH[cd] %@ OR pin BEGINSWITH[cd] %@ OR emailAddress BEGINSWITH[cd] %@", substring, substring, substring, substring)
-        filteredContacts = (fullContactList as NSArray).filteredArrayUsingPredicate(predicate) as! [Contact]
+        filteredContacts = (fullContactList as NSArray).filtered(using: predicate) as! [Contact]
         listOfPeopleTableView.reloadData()
     }
     
-    func sendData(sender: AnyObject, dataType: String) {
+    func sendData(_ sender: AnyObject, dataType: String) {
         guard MFMailComposeViewController.canSendMail() else {
             showErrorAlert(title: "Unable to Send", message: "Can't open email client.")
             return
         }
 
-        let fileName = getDocumentsDirectory().stringByAppendingPathComponent("data.csv")
-        let activityItem : NSData = NSData(contentsOfFile: fileName)!
+        let fileName = getDocumentsDirectory().appendingPathComponent("data.csv")
+        let activityItem : Data = try! Data(contentsOf: URL(fileURLWithPath: fileName))
         let mailComposeViewController = MFMailComposeViewController()
         mailComposeViewController.mailComposeDelegate = self
         mailComposeViewController.setToRecipients([(organizationLog.organizationLog.first?.emailAddress)!])
         mailComposeViewController.setSubject("User Data")
         mailComposeViewController.setMessageBody(dataType, isHTML: false)
         mailComposeViewController.addAttachmentData(activityItem, mimeType: "csv", fileName: "UserData.csv")
-        navigationController?.presentViewController(mailComposeViewController, animated: true) {
+        navigationController?.present(mailComposeViewController, animated: true) {
         }
     }
     
     // mailComposeDelegateMethods
-    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     // file creator helper (from stackoverflow...)
     func getDocumentsDirectory() -> NSString {
-        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let documentsDirectory = paths[0]
-        return documentsDirectory
+        return documentsDirectory as NSString
     }
     
     func didMakeChangesToContactOnEditVC() {
@@ -241,17 +241,17 @@ class AdminViewController: UIViewController, UITableViewDelegate, UISearchBarDel
 
 // Mark: - TableView Delegate -
 extension AdminViewController {
-    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredContacts.count;
     }
-    func tableView(tableView: UITableView!,
-        cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-            let cell = listOfPeopleTableView.dequeueReusableCellWithIdentifier("CustomCell") as! ContactTableViewCell
+    func tableView(_ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath) -> UITableViewCell! {
+            let cell = listOfPeopleTableView.dequeueReusableCell(withIdentifier: "CustomCell") as! ContactTableViewCell
             let contact = filteredContacts[indexPath.row]
-            let membership = contact.valueForKey("membership") as? Membership
+            let membership = contact.value(forKey: "membership") as? Membership
             var title = contact.displayName()
             if contact.firstName == "" {
-                title = (contact.valueForKey("lastName") as? String)!
+                title = (contact.value(forKey: "lastName") as? String)!
             }
             let membershipType = membership?.membershipType
             cell.titleLabel.text = title
@@ -260,13 +260,13 @@ extension AdminViewController {
             cell.circleView.image = UIImage(named: "circle")
             cell.circleView.tintColor = contactLog.colourOfContact(contact)
             // add gesture recognizer
-            let gestureRecognizer = UISwipeGestureRecognizer(target: self, action: "signOutContact:")
-            gestureRecognizer.direction = .Left
+            let gestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(AdminViewController.signOutContact(_:)))
+            gestureRecognizer.direction = .left
             cell.addGestureRecognizer(gestureRecognizer)
             return cell
     }
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedContact = filteredContacts[indexPath.row]
-        performSegueWithIdentifier("Person Detail Segue", sender: self)
+        performSegue(withIdentifier: "Person Detail Segue", sender: self)
     }
 }

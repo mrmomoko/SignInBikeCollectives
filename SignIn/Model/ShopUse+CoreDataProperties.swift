@@ -14,8 +14,8 @@ import CoreData
 
 extension ShopUse {
 
-    @NSManaged var signIn: NSDate?
-    @NSManaged var signOut: NSDate?
+    @NSManaged var signIn: Date?
+    @NSManaged var signOut: Date?
     @NSManaged var contact: Contact?
     @NSManaged var type: Type?
 

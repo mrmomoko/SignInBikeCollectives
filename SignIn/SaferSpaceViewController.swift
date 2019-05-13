@@ -9,7 +9,7 @@
 import Foundation
 
 protocol SaferSpaceViewControllerDelegate {
-    func didAddSaferSpaceAggrement(sender:SaferSpaceViewController)
+    func didAddSaferSpaceAggrement(_ sender:SaferSpaceViewController)
 }
 
 class SaferSpaceViewController: UIViewController {
@@ -23,17 +23,17 @@ class SaferSpaceViewController: UIViewController {
         textView.layer.borderWidth = 3
 //        textView.layer.cornerRadius = 0.2
 //        textView.clipsToBounds = true
-        textView.layer.borderColor = CGColorCreate(CGColorSpaceCreateDeviceRGB(), [0.0, 0.0, 0.0, 0.5])
-        let rightBarButton = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "saveSaferSpace")
+        textView.layer.borderColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [0.0, 0.0, 0.0, 0.5])
+        let rightBarButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(SaferSpaceViewController.saveSaferSpace))
         self.navigationItem.rightBarButtonItem = rightBarButton        
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         if org!.saferSpaceAgreement != "" {
             textView.text = org!.saferSpaceAgreement
         }
     }
-    func saveSaferSpace() {
+    @objc func saveSaferSpace() {
         org!.saferSpaceAgreement = textView.text
         OrganizationLog().saveOrg(org!)
         delegate?.didAddSaferSpaceAggrement(self)

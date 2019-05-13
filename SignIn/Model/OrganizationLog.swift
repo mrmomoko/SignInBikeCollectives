@@ -10,15 +10,15 @@ import Foundation
 
 class  OrganizationLog: NSObject {
     
-    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
     var organizationLog : [Organization]
     var orgTypes : [Type]! = nil
     
     override init() {
         organizationLog = []
         super.init()
-        let fetchRequest = NSFetchRequest(entityName: "Organization")
-        do { if let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Organization] {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Organization")
+        do { if let fetchedResults = try managedObjectContext?.fetch(fetchRequest) as? [Organization] {
                 organizationLog = fetchedResults
             } else {
                 assertionFailure("Could not executeFetchRequest")
@@ -32,9 +32,9 @@ class  OrganizationLog: NSObject {
     }
     
     func createOrganizationWithDefaultValues() {
-        let entity = NSEntityDescription.entityForName("Organization", inManagedObjectContext: managedObjectContext)
+        let entity = NSEntityDescription.entity(forEntityName: "Organization", in: managedObjectContext!)
         
-        let org = Organization(entity: entity!,  insertIntoManagedObjectContext: managedObjectContext)
+        let org = Organization(entity: entity!,  insertInto: managedObjectContext)
         
         organizationLog = [org]
         //set default behaviour for organization
@@ -50,10 +50,10 @@ class  OrganizationLog: NSObject {
         
         var error: NSError?
         do {
-            try managedObjectContext.save()
+            try managedObjectContext?.save()
         } catch let error1 as NSError {
             error = error1
-            print("Could not save \(error), \(error?.userInfo)")
+            print("Could not save \(String(describing: error)), \(String(describing: error?.userInfo))")
         }
         
         //create default Contact types
@@ -80,24 +80,24 @@ class  OrganizationLog: NSObject {
         }
     }
     
-    func deleteOrg(org: Organization) {
-        managedObjectContext.deleteObject(org)
+    func deleteOrg(_ org: Organization) {
+        managedObjectContext?.delete(org)
         var error: NSError?
         do {
-            try managedObjectContext.save()
+            try managedObjectContext?.save()
         } catch let error1 as NSError {
             error = error1
-            print("Could not save \(error), \(error?.userInfo)")
+            print("Could not save \(String(describing: error)), \(String(describing: error?.userInfo))")
         }
     }
     
-    func saveOrg(org: Organization) {
+    func saveOrg(_ org: Organization) {
         var error: NSError?
         do {
-            try managedObjectContext.save()
+            try managedObjectContext?.save()
         } catch let error1 as NSError {
             error = error1
-            print("Could not save \(error), \(error?.userInfo)")
+            print("Could not save \(String(describing: error)), \(String(describing: error?.userInfo))")
         }
     }
     
@@ -130,7 +130,7 @@ class  OrganizationLog: NSObject {
     func activeMembershipTypes() -> [String] {
         var types = [String]()
         orgTypes = getTypes()
-        let sortedTypes = orgTypes.sort {Int($0.id!) < Int($1.id!)}
+        let sortedTypes = orgTypes.sorted {Int(truncating: $0.id!) < Int(truncating: $1.id!)}
         for type in sortedTypes {
             if type.group == "Membership" && type.active == true {
                 types.append(type.title!)

@@ -8,10 +8,23 @@
 
 import Foundation
 import CoreData
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
 
 class ContactLog: NSObject {
     
-    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
     var allContacts : [Contact]
     var allShopUses = ShopUseLog().shopUseLog
     var membershipLog = MembershipLog()
@@ -29,8 +42,8 @@ class ContactLog: NSObject {
 
     override init() {
         allContacts = []
-        let fetchRequest = NSFetchRequest(entityName: "Contact")
-        do { if let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Contact] {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Contact")
+        do { if let fetchedResults = try managedObjectContext?.fetch(fetchRequest) as? [Contact] {
             self.allContacts = fetchedResults }
         else {
             assertionFailure("Could not executeFetchRequest")
@@ -42,8 +55,8 @@ class ContactLog: NSObject {
     }
     
     func fetchContacts() {
-        let fetchRequest = NSFetchRequest(entityName: "Contact")
-        do { if let fetchedResults = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Contact] {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Contact")
+        do { if let fetchedResults = try managedObjectContext?.fetch(fetchRequest) as? [Contact] {
             allContacts = fetchedResults }
         else {
             assertionFailure("Could not executeFetchRequest")
@@ -53,11 +66,11 @@ class ContactLog: NSObject {
         }
     }
     
-    func createUserWithIdentity(identity:String) -> Contact {
+    func createUserWithIdentity(_ identity:String) -> Contact {
         
-        let entity = NSEntityDescription.entityForName("Contact", inManagedObjectContext: managedObjectContext)
+        let entity = NSEntityDescription.entity(forEntityName: "Contact", in: managedObjectContext!)
         
-        let contact = Contact(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
+        let contact = Contact(entity: entity!, insertInto: managedObjectContext)
         
         //set default behaviour for contact
         contact.firstName = identity
@@ -65,7 +78,7 @@ class ContactLog: NSObject {
         contact.emailAddress = ""
         contact.pin = ""
         contact.colour = Colour.clear.rawValue //white value
-        contact.recentUse = NSDate()
+        contact.recentUse = Date()
         contact.hasGoneThroughSetUp = false
         contact.yesOrNoQuestion = false
         
@@ -78,25 +91,25 @@ class ContactLog: NSObject {
         return contact
     }
     
-    func deleteContact(contact: Contact) {
+    func deleteContact(_ contact: Contact) {
         // delete the shopUses too
         ShopUseLog().deleteShopUsesForContact(contact)
         // delete membership (this should be easier)
         membershipLog.deleteMembershipForContact(contact)
-        managedObjectContext.deleteObject(contact)
+        managedObjectContext?.delete(contact)
 
         fetchContacts()
        
         saveContact(contact)
     }
     
-    func saveContact(contact: Contact) {
+    func saveContact(_ contact: Contact) {
         var error: NSError?
         do {
-            try managedObjectContext.save()
+            try managedObjectContext?.save()
         } catch let error1 as NSError {
             error = error1
-            print("Could not save \(error), \(error?.userInfo)")
+            print("Could not save \(String(describing: error)), \(String(describing: error?.userInfo))")
         }
     }
     
@@ -111,8 +124,8 @@ class ContactLog: NSObject {
     // Contact Filters - possibly a category
 
     func recentContactsWhoAreNotLoggedIn() -> [Contact] {
-        var recentUsers = allContacts.sort({ $0.recentUse!.timeIntervalSinceNow > $1.recentUse!.timeIntervalSinceNow})
-        recentUsers.removeRange(Range(start: 0, end: usersWhoAreLoggedIn().count))
+        var recentUsers = allContacts.sorted(by: { $0.recentUse!.timeIntervalSinceNow > $1.recentUse!.timeIntervalSinceNow})
+        recentUsers.removeSubrange((0 ..< usersWhoAreLoggedIn().count))
         return recentUsers
     }
     
@@ -129,8 +142,8 @@ class ContactLog: NSObject {
     func currentMembers() -> [Contact] {
         var contacts = [Contact]()
         var members = [Membership]()
-        let FetchRequest = NSFetchRequest(entityName: "Membership")
-        do { if let FetchedResults = try managedObjectContext.executeFetchRequest(FetchRequest) as? [Membership] {
+        let FetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Membership")
+        do { if let FetchedResults = try managedObjectContext?.fetch(FetchRequest) as? [Membership] {
             members = FetchedResults }
         else {
             assertionFailure("Could not executeFetchRequest")
@@ -150,7 +163,7 @@ class ContactLog: NSObject {
     func returnAllContactsAsCommaSeporatedString() -> String {
         var commaSeporated = "FirstName, LastName, Email Address, Yes/No (1/0), Membership" + "\r\n"
         for names in allContacts {
-            commaSeporated += String("\(names.firstName!), \(names.lastName!), \(names.emailAddress!), \(names.yesOrNoQuestion), \((names.membership?.membershipType)!)" + "\r\n")
+            commaSeporated += String("\(names.firstName!), \(names.lastName!), \(names.emailAddress!), \(String(describing: names.yesOrNoQuestion)), \((names.membership?.membershipType)!)" + "\r\n")
         }
         createFileWithString(commaSeporated)
         return commaSeporated
@@ -160,7 +173,7 @@ class ContactLog: NSObject {
         var commaSeporated = "FirstName, LastName, Email Address, Yes/No, Membership" + "\r\n"
         let contacts = currentMembers()
         for names in contacts {
-            commaSeporated += String("\(names.firstName!), \(names.lastName!), \(names.emailAddress!), \(names.yesOrNoQuestion), \((names.membership?.membershipType)!)" + "\r\n")
+            commaSeporated += String("\(names.firstName!), \(names.lastName!), \(names.emailAddress!), \(String(describing: names.yesOrNoQuestion)), \((names.membership?.membershipType)!)" + "\r\n")
         }
         createFileWithString(commaSeporated)
         return commaSeporated
@@ -170,31 +183,31 @@ class ContactLog: NSObject {
         var commaSeporated = "FirstName, LastName, Email Address, Yes/No, Membership" + "\r\n"
         let contacts = ShopUseLog().contactsOfVolunteer()
         for names in contacts {
-            commaSeporated += String("\(names.firstName!), \(names.lastName!), \(names.emailAddress!), \(names.yesOrNoQuestion), \((names.membership?.membershipType)!)" + "\r\n")
+            commaSeporated += String("\(names.firstName!), \(names.lastName!), \(names.emailAddress!), \(String(describing: names.yesOrNoQuestion)), \((names.membership?.membershipType)!)" + "\r\n")
         }
         createFileWithString(commaSeporated)
         return commaSeporated
     }
     
-    func createFileWithString(string: String) {
-        let fileName = getDocumentsDirectory().stringByAppendingPathComponent("data.csv")
-        do { try string.writeToFile(fileName, atomically: true, encoding: NSUTF8StringEncoding)
+    func createFileWithString(_ string: String) {
+        let fileName = getDocumentsDirectory().appendingPathComponent("data.csv")
+        do { try string.write(toFile: fileName, atomically: true, encoding: String.Encoding.utf8)
         } catch let error as NSError {
             print("Could not create file \(error)")
         }
     }
     
     func getDocumentsDirectory() -> NSString {
-        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let documentsDirectory = paths[0]
-        return documentsDirectory
+        return documentsDirectory as NSString
     }
     
     // Helpers for turning color strings to UIColors
     
-    func colourOfContact(contactInQuestion: Contact) -> UIColor {
+    func colourOfContact(_ contactInQuestion: Contact) -> UIColor {
         let colour = enumColourValueWithStringColour(contactInQuestion.colour!)
-        var uicolor = UIColor.clearColor()
+        var uicolor = UIColor.clear
         switch colour {
         case .purple:
             uicolor = Colors().purple
@@ -209,12 +222,12 @@ class ContactLog: NSObject {
         case .red:
             uicolor = Colors().red
         case .clear:
-            uicolor = UIColor.clearColor()
+            uicolor = UIColor.clear
         }
         return uicolor
     }
     
-    func enumColourValueWithStringColour(colourName: String) -> Colour {
+    func enumColourValueWithStringColour(_ colourName: String) -> Colour {
         var colourType = Colour.clear
         if colourName == "purple" { colourType = .purple }
         else if colourName == "blue" { colourType = .blue }
@@ -226,13 +239,13 @@ class ContactLog: NSObject {
         return colourType
     }
     
-    func editColourForContact(contact: Contact, colour: Colour) {
+    func editColourForContact(_ contact: Contact, colour: Colour) {
         contact.colour = colour.rawValue
     }
     
     // helpers for Types 
     
-    func typesUsedByContact(contact: Contact) -> [String] {
+    func typesUsedByContact(_ contact: Contact) -> [String] {
         var stringTypes = [String]()
         var typeArray = [Type]()
         let shopUseArray = ShopUseLog().getShopUsesForContact(contact)
@@ -242,16 +255,16 @@ class ContactLog: NSObject {
             }
         }
         let uniqueTypes = Array(Set(typeArray))
-        let sortedTypes = uniqueTypes.sort {Int($0.id!) < Int($1.id!)}
+        let sortedTypes = uniqueTypes.sorted {Int(truncating: $0.id!) < Int(truncating: $1.id!)}
         for type in sortedTypes {
             stringTypes.append(type.title!)
         }
         return stringTypes
     }
     
-    func mostRecentShopUseTime(contact: Contact) -> Double {
+    func mostRecentShopUseTime(_ contact: Contact) -> Double {
         let shopUse = ShopUseLog().getMostRecentShopUseForContact(contact)
-        let time = shopUse!.signIn?.timeIntervalSinceDate(shopUse!.signOut!)
+        let time = shopUse!.signIn?.timeIntervalSince(shopUse!.signOut!)
         return time!/(60*60)
     }
 }

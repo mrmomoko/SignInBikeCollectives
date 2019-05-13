@@ -9,7 +9,7 @@
 import Foundation
 
 protocol PasswordViewControllerDelegate {
-    func didAddPassword(sender:PasswordViewController)
+    func didAddPassword(_ sender:PasswordViewController)
 }
 
 class PasswordViewController: UIViewController {
@@ -22,19 +22,19 @@ class PasswordViewController: UIViewController {
     @IBOutlet weak var founded: UITextField!
     
     override func viewDidLoad() {
-        let rightBarButton = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "savePassword")
+        let rightBarButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(PasswordViewController.savePassword))
         self.navigationItem.rightBarButtonItem = rightBarButton
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         if org!.password != "" {
             password.text = org!.password
         }
     }
     
-    func savePassword() {
+    @objc func savePassword() {
         if password.text == confirmationPassword.text {
-            if founded.text!.characters.count > 0 {
+            if founded.text!.count > 0 {
                 org!.password = password.text
                 OrganizationLog().saveOrg(org!)
                 delegate?.didAddPassword(self)
@@ -47,14 +47,14 @@ class PasswordViewController: UIViewController {
     }
     
     func sendPasswordAlert() {
-        let alert = UIAlertController(title: "Your Password and Confirm password do not match", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+        let alert = UIAlertController(title: "Your Password and Confirm password do not match", message: nil, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     func sendFoundedAlert() {
-        let alert = UIAlertController(title: "Please enter a year for Founded. This will be the answer to a security question in case you lose your password", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+        let alert = UIAlertController(title: "Please enter a year for Founded. This will be the answer to a security question in case you lose your password", message: nil, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }

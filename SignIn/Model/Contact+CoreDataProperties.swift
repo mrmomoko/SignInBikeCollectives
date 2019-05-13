@@ -19,7 +19,7 @@ extension Contact {
     @NSManaged var firstName: String?
     @NSManaged var lastName: String?
     @NSManaged var pin: String?
-    @NSManaged var recentUse: NSDate?
+    @NSManaged var recentUse: Date?
     @NSManaged var yesOrNoQuestion: NSNumber?
     @NSManaged var hasGoneThroughSetUp: NSNumber?
     @NSManaged var membership: Membership?
