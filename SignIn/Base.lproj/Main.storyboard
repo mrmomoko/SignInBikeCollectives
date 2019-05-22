@@ -315,8 +315,59 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WQI-Bp-7Q5">
+                                <rect key="frame" x="0.0" y="88" width="414" height="80"/>
+                                <subviews>
+                                    <searchBar contentMode="redraw" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ggp-sV-sW7">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="8rJ-Kc-sve" id="W3M-s7-8DD"/>
+                                        </connections>
+                                    </searchBar>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qbb-6O-dxu">
+                                        <rect key="frame" x="341" y="50" width="65" height="30"/>
+                                        <state key="normal" title="Members">
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="currentMembers:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="lN7-GR-Hwe"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="POU-sX-8XQ">
+                                        <rect key="frame" x="170" y="50" width="74" height="30"/>
+                                        <state key="normal" title="Volunteers">
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="allVolunteers:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="MZp-Fe-LCm"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YFa-hb-A2F">
+                                        <rect key="frame" x="8" y="50" width="76" height="30"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                        <state key="normal" title="Who's here"/>
+                                        <connections>
+                                            <action selector="whosInTheShop:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="5gR-AD-9rS"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Ggp-sV-sW7" firstAttribute="leading" secondItem="WQI-Bp-7Q5" secondAttribute="leading" id="BKs-gn-VEa"/>
+                                    <constraint firstAttribute="trailing" secondItem="Qbb-6O-dxu" secondAttribute="trailing" constant="8" id="P69-Yo-1LC"/>
+                                    <constraint firstAttribute="height" constant="80" id="Yay-mQ-wGt"/>
+                                    <constraint firstItem="YFa-hb-A2F" firstAttribute="leading" secondItem="WQI-Bp-7Q5" secondAttribute="leading" constant="8" id="cce-S2-9v2"/>
+                                    <constraint firstItem="Ggp-sV-sW7" firstAttribute="centerX" secondItem="POU-sX-8XQ" secondAttribute="centerX" id="eyH-AW-JsM"/>
+                                    <constraint firstItem="Qbb-6O-dxu" firstAttribute="top" secondItem="Ggp-sV-sW7" secondAttribute="bottom" constant="6" id="hYa-9M-xLg"/>
+                                    <constraint firstItem="YFa-hb-A2F" firstAttribute="top" secondItem="Ggp-sV-sW7" secondAttribute="bottom" constant="6" id="lHO-mQ-JEU"/>
+                                    <constraint firstItem="Qbb-6O-dxu" firstAttribute="centerY" secondItem="YFa-hb-A2F" secondAttribute="centerY" id="lIA-9T-YfJ"/>
+                                    <constraint firstItem="POU-sX-8XQ" firstAttribute="centerX" secondItem="WQI-Bp-7Q5" secondAttribute="centerX" id="rWx-Ga-9A3"/>
+                                    <constraint firstItem="POU-sX-8XQ" firstAttribute="centerY" secondItem="YFa-hb-A2F" secondAttribute="centerY" id="sCH-FI-mqp"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="ZSd-vt-D2v">
-                                <rect key="frame" x="12" y="176" width="390" height="637"/>
+                                <rect key="frame" x="12" y="180" width="390" height="633"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" restorationIdentifier="CustomCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomCell" id="6p2-FY-ut7" customClass="ContactTableViewCell" customModule="SignIn" customModuleProvider="target">
@@ -381,68 +432,12 @@
                                     <outlet property="delegate" destination="8rJ-Kc-sve" id="1id-g4-2ac"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WQI-Bp-7Q5">
-                                <rect key="frame" x="0.0" y="88" width="414" height="80"/>
-                                <subviews>
-                                    <searchBar contentMode="redraw" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ggp-sV-sW7">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="8rJ-Kc-sve" id="W3M-s7-8DD"/>
-                                        </connections>
-                                    </searchBar>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qbb-6O-dxu">
-                                        <rect key="frame" x="341" y="50" width="65" height="30"/>
-                                        <state key="normal" title="Members">
-                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="currentMembers:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="lN7-GR-Hwe"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="POU-sX-8XQ">
-                                        <rect key="frame" x="170" y="50" width="74" height="30"/>
-                                        <state key="normal" title="Volunteers">
-                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="allVolunteers:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="MZp-Fe-LCm"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YFa-hb-A2F">
-                                        <rect key="frame" x="8" y="50" width="76" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="76" id="UBb-TG-H4k"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                        <state key="normal" title="Who's here"/>
-                                        <connections>
-                                            <action selector="whosInTheShop:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="5gR-AD-9rS"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstItem="Ggp-sV-sW7" firstAttribute="leading" secondItem="WQI-Bp-7Q5" secondAttribute="leading" id="BKs-gn-VEa"/>
-                                    <constraint firstAttribute="trailing" secondItem="Qbb-6O-dxu" secondAttribute="trailing" constant="8" id="P69-Yo-1LC"/>
-                                    <constraint firstAttribute="height" constant="80" id="Yay-mQ-wGt"/>
-                                    <constraint firstItem="YFa-hb-A2F" firstAttribute="leading" secondItem="WQI-Bp-7Q5" secondAttribute="leading" constant="8" id="cce-S2-9v2"/>
-                                    <constraint firstItem="Ggp-sV-sW7" firstAttribute="centerX" secondItem="POU-sX-8XQ" secondAttribute="centerX" id="eyH-AW-JsM"/>
-                                    <constraint firstItem="Qbb-6O-dxu" firstAttribute="top" secondItem="Ggp-sV-sW7" secondAttribute="bottom" constant="6" id="hYa-9M-xLg"/>
-                                    <constraint firstItem="YFa-hb-A2F" firstAttribute="top" secondItem="Ggp-sV-sW7" secondAttribute="bottom" constant="6" id="lHO-mQ-JEU"/>
-                                    <constraint firstItem="Qbb-6O-dxu" firstAttribute="centerY" secondItem="YFa-hb-A2F" secondAttribute="centerY" id="lIA-9T-YfJ"/>
-                                    <constraint firstAttribute="bottom" secondItem="Qbb-6O-dxu" secondAttribute="bottom" id="mSI-s6-Y3a"/>
-                                    <constraint firstItem="POU-sX-8XQ" firstAttribute="centerX" secondItem="WQI-Bp-7Q5" secondAttribute="centerX" id="rWx-Ga-9A3"/>
-                                    <constraint firstItem="POU-sX-8XQ" firstAttribute="centerY" secondItem="YFa-hb-A2F" secondAttribute="centerY" id="sCH-FI-mqp"/>
-                                    <constraint firstAttribute="bottom" secondItem="YFa-hb-A2F" secondAttribute="bottom" id="zqJ-9e-2OK"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Djb-ko-YwX" firstAttribute="top" secondItem="ZSd-vt-D2v" secondAttribute="bottom" id="3yz-Pl-kqo"/>
                             <constraint firstItem="ZSd-vt-D2v" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" constant="12" id="J4r-5U-vgJ"/>
-                            <constraint firstItem="ZSd-vt-D2v" firstAttribute="top" secondItem="WQI-Bp-7Q5" secondAttribute="bottom" constant="8" symbolic="YES" id="JuN-j5-c22"/>
+                            <constraint firstItem="ZSd-vt-D2v" firstAttribute="top" secondItem="WQI-Bp-7Q5" secondAttribute="bottom" constant="12" id="JuN-j5-c22"/>
                             <constraint firstItem="WQI-Bp-7Q5" firstAttribute="centerX" secondItem="ZSd-vt-D2v" secondAttribute="centerX" id="a6S-Ok-5Mh"/>
                             <constraint firstAttribute="trailing" secondItem="WQI-Bp-7Q5" secondAttribute="trailing" id="lS8-Bw-lXI"/>
                             <constraint firstItem="ZSd-vt-D2v" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="pbL-GS-HPT"/>
@@ -473,7 +468,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="742" y="-96"/>
+            <point key="canvasLocation" x="740.57971014492762" y="-96.428571428571431"/>
         </scene>
         <!--Edit User Info-->
         <scene sceneID="19f-cj-2RX">
